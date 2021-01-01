@@ -12,9 +12,6 @@
       ./i3.nix
     ];
 
-  # nvidia drivers are unfree
-  nixpkgs.config.allowUnfree = true;
-
   # Use experimental nix flakes
   nix = {
     package = pkgs.nixFlakes;
@@ -79,8 +76,9 @@
     vim
   ];
 
-  # Use home manager stuff
-  home-manager.users.max = ./home/max.nix;
+  home-manager = {
+    users.max = ./home/max.nix;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
