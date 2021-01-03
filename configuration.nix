@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./vim.nix
-      ./i3.nix
+      # ./i3.nix
     ];
 
   # Use experimental nix flakes
@@ -52,9 +52,19 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    xkbOptions = "eurosign:e";
+    videoDrivers = [ "nvidia" ];
+    autoRepeatDelay = 250;
+    autoRepeatInterval = 50;
+    desktopManager.xterm.enable = true;
+    displayManager.lightdm.greeters.mini = {
+      enable = true;
+      user = "max";
+    };
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -72,7 +82,6 @@
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
     git
-    chromium
     vim
   ];
 
