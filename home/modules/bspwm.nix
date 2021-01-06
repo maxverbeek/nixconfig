@@ -26,6 +26,11 @@
       # right, 1920x1080
       monitors."DP-2" = [ "music" "preview" "whatever" "bgstuff" "ihavetoomuchspace"];
 
+      # extraConfig = ''
+      #   bspc monitor DP-4 -n 1 term web code misc gfx
+      #   bspc monitor DP-2 -n 2 music preview whatever bgstuff ihavetoomuchspace
+      # '';
+
       rules = {
         "Gimp" = {
           desktop = "^5";

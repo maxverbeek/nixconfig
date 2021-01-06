@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   imports = [
+    ./modules/autorandr.nix
     ./modules/bspwm.nix
+    ./modules/polybar.nix
     ./modules/rofi.nix
   ];
 

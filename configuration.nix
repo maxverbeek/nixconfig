@@ -7,6 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      ./overlays
       ./hardware-configuration.nix
       ./vim.nix
       # ./i3.nix
@@ -18,6 +19,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    trustedUsers = [ "@wheel" ];
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -78,6 +80,20 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+
+  # Fonts
+  fonts.fonts = with pkgs; [
+    corefonts
+    fa-custom
+    hack-font
+    jetbrains-mono
+    noto-fonts
+    roboto
+    roboto-mono
+    source-code-pro
+    terminus_font
+    ubuntu_font_family
+  ];
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
