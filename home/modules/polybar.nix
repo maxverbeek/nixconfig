@@ -12,34 +12,41 @@ let
     focuslinecolor = foreground;
   };
 
+  bar = {
+    width = "100%";
+    height = "38";
+    pin-workspaces = "false";
+    background = colors.background;
+    foreground = colors.foreground;
+    underline-color = colors.linecolor;
+    underline-size = "3";
+
+    font-0 = "Noto Sans:size=12;2";
+    font-1 = "Font Awesome 5 Pro:size=12;3";
+    font-2 = "Font Awesome 5 Brands:size=12;1";
+    font-3 = "Font Awesome 5 Pro Solid:size=12:weight=bold;-2";
+
+    modules-left = "bspwm";
+    modules-center = "xwindow";
+    modules-right = "pulseaudio date";
+
+    wm-restack = "bspwm";
+
+    tray-positioned = "right";
+    tray-detached = "false";
+  };
+
 in
 {
   services.polybar = {
     enable = true;
 
     config = {
-      "bar/main" = {
-        width = "100%";
-        height = "38";
-        pin-workspaces = "false";
-        background = colors.background;
-        foreground = colors.foreground;
-        underline-color = colors.linecolor;
-        underline-size = "3";
+      "bar/primary" = bar // { monitor = "DP-4"; };
+      "bar/secondary" = bar // { monitor = "DP-2"; };
 
-        font-0 = "Noto Sans:size=12;2";
-        font-1 = "Font Awesome 5 Pro:size=12;3";
-        font-2 = "Font Awesome 5 Brands:size=12;1";
-        font-3 = "Font Awesome 5 Pro Solid:size=12:weight=bold;-2";
-
-        modules-left = "bspwm";
-        modules-center = "xwindow";
-        modules-right = "pulseaudio date";
-
-        wm-restack = "bspwm";
-
-        tray-positioned = "right";
-        tray-detached = "false";
+      "settings" = {
+        screenchange-reload = "true";
       };
 
       "module/bspwm" = {
@@ -105,7 +112,8 @@ in
     };
 
     script = ''
-      polybar main &
+      polybar primary &
+      polybar secondary &
     '';
   };
 
