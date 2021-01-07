@@ -41,6 +41,8 @@ in
   services.polybar = {
     enable = true;
 
+    package = pkgs.polybar.override { pulseSupport = true; };
+
     config = {
       "bar/primary" = bar // { monitor = "DP-4"; };
       "bar/secondary" = bar // { monitor = "DP-2"; };

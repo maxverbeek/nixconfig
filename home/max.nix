@@ -28,6 +28,7 @@
     home.packages = with pkgs; [
       alacritty
       chromium
+      htop
       spotify
     ];
   };
