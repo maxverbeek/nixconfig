@@ -3,6 +3,7 @@
   imports = [
     ./modules/autorandr.nix
     ./modules/bspwm.nix
+    ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
   ];
