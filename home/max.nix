@@ -11,8 +11,8 @@
   config = {
     xsession.enable = true;
     xsession.pointerCursor = {
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
+      package = pkgs.mcmojave-cursors;
+      name = "McMojave-cursors";
       defaultCursor = "left_ptr";
     };
 

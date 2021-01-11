@@ -2,6 +2,8 @@
 
 let customOverlays = final: prev: {
   fa-custom = final.callPackage (import ./fontawesome-custom) {};
+  volantes-cursors = final.callPackage (import ./volantes-cursors) {};
+  mcmojave-cursors = final.callPackage (import ./mcmojave-cursors) {};
 
   # use newer version of picom
   picom = prev.picom.overrideAttrs (oldAttrs: {
