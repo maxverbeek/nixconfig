@@ -8,8 +8,6 @@ let
 
 in
 {
-  xsession.windowManager.bspwm.startupPrograms = [ "${pkgs.autorandr}/bin/autorandr -c" ];
-
   programs.autorandr = {
     enable = true;
 
@@ -32,6 +30,21 @@ in
         mode = "2560x1440";
         rate = "143.91";
       };
+    };
+  };
+
+  systemd.user.services.autorandr = {
+    Unit = {
+      Description = "Autorandr to fix my displays";
+      Before = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session-pre.target" ];
+    };
+
+    Install.WantedBy = [ "graphical-session-pre.target" ];
+
+    Service = {
+      ExecStart = "${pkgs.autorandr}/bin/autorandr -c";
+      Type = "oneshot";
     };
   };
 }

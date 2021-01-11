@@ -2,6 +2,10 @@
 
 {
   config = {
+
+    # Ensure feh installed for a background
+    home.packages = [ pkgs.feh ];
+
     xsession.windowManager.bspwm = {
       enable = true;
 
@@ -19,6 +23,10 @@
         urgent_border_color = "#FFFFFF";
         presel_feedback_color = "#FFFFFF";
       };
+
+      extraConfig = ''
+        [ -f $HOME/.fehbg ] && $HOME/.fehbg
+      '';
 
       # left, 2560x1440
       monitors."DP-4" = [ "term" "web" "code" "misc" "gfx" ];
