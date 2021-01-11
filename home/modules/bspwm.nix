@@ -24,7 +24,7 @@
       monitors."DP-4" = [ "term" "web" "code" "misc" "gfx" ];
 
       # right, 1920x1080
-      monitors."DP-2" = [ "music" "preview" "whatever" "bgstuff" "ihavetoomuchspace"];
+      monitors."DP-2" = [ "music" "preview" "slack" "bgstuff" "whatever"];
 
       # extraConfig = ''
       #   bspc monitor DP-4 -n 1 term web code misc gfx
@@ -33,13 +33,17 @@
 
       rules = {
         "Gimp" = {
-          desktop = "^5";
+          desktop = "gfx";
           state = "floating";
           follow = true;
         };
 
-        "Chromium".desktop = "^2";
-        "firefox".desktop = "^2";
+        "Chromium-browser".desktop = "web";
+        "firefox".desktop = "web";
+
+        "spotify".desktop = "music";
+        "slack".desktop = "slack";
+        "Slack".desktop = "slack";
 
         "mplayer2".state = "floating";
         "Kupfer.py".focus = true;
@@ -139,7 +143,7 @@
         "super + {o,i}" = "bspc wm -h off; bspc node {older,newer} -f; bspc wm -h on";
 
         # focus or send to the given desktop
-        "super + {_,shift + }{1-9,0}" = "bspc {desktop -f,node -d} 'focused:^{1-9,10}'";
+        "super + {_,shift + }{1-9,0}" = "bspc {desktop -f,node -d} '^{1-9,10}'";
 
         #
         # preselect

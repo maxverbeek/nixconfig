@@ -23,7 +23,7 @@ let
 
     font-0 = "Noto Sans:size=12;2";
     font-1 = "Font Awesome 5 Pro:size=12;3";
-    font-2 = "Font Awesome 5 Brands:size=12;1";
+    font-2 = "Font Awesome 5 Brands:size=12;3";
     font-3 = "Font Awesome 5 Pro Solid:size=12:weight=bold;-2";
 
     modules-left = "bspwm";
@@ -58,6 +58,9 @@ in
         ws-icon-1 = "web;";
         ws-icon-2 = "code;";
         ws-icon-3 = "gfx;";
+        ws-icon-4 = "music;";
+        ws-icon-5 = "slack;";
+        ws-icon-6 = "bgstuff;";
         ws-icon-default = "";
         format = "<label-state> <label-mode>";
 

@@ -10,6 +10,11 @@
 
   config = {
     xsession.enable = true;
+    xsession.pointerCursor = {
+      package = pkgs.vanilla-dmz;
+      name = "Vanilla-DMZ";
+      defaultCursor = "left_ptr";
+    };
 
     programs.git = {
       enable = true;
@@ -29,7 +34,10 @@
     home.packages = with pkgs; [
       alacritty
       chromium
+      docker-compose
       htop
+      kubectl
+      slack
       spotify
     ];
   };
