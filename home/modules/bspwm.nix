@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   config = {
@@ -8,6 +8,14 @@
 
     xsession.windowManager.bspwm = {
       enable = true;
+
+      # Restart polybar after bspwm started. Ideally it should start after bspwm
+      # starts, but the xsession systemd target must be started before the
+      # windowmanager, and starting polybar before bspwm causes weird shit to
+      # happen.
+      startupPrograms = [
+        "[ -f $HOME/.fehbg ] && $HOME/.fehbg"
+      ] ++ lib.optional (config.services.polybar.enable) "systemctl --user restart polybar.service";
 
       settings = {
         border_width = 4;
@@ -23,10 +31,6 @@
         urgent_border_color = "#FFFFFF";
         presel_feedback_color = "#FFFFFF";
       };
-
-      extraConfig = ''
-        [ -f $HOME/.fehbg ] && $HOME/.fehbg
-      '';
 
       # left, 2560x1440
       monitors."DP-4" = [ "term" "web" "code" "misc" "gfx" ];
@@ -47,7 +51,7 @@
         };
 
         "Chromium-browser".desktop = "web";
-        "firefox".desktop = "web";
+        "Firefox".desktop = "web";
 
         "spotify".desktop = "music";
         "slack".desktop = "slack";

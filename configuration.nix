@@ -52,6 +52,8 @@
   };
 
   hardware.cpu.intel.updateMicrocode = true;
+  
+  services.teamviewer.enable = false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -98,6 +100,7 @@
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
     git
+    killall
     vim
   ];
 

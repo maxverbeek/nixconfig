@@ -30,12 +30,16 @@
       };
     };
 
+    programs.vscode.enable = true;
+
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
+      _1password
       alacritty
       chromium
       docker-compose
       htop
+      firefox
       kubectl
       slack
       spotify
