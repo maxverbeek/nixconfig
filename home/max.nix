@@ -38,11 +38,14 @@
       alacritty
       chromium
       docker-compose
+      discord
       htop
       firefox
       kubectl
+      pdftk
       slack
       spotify
+      zathura
     ];
   };
 }
