@@ -6,6 +6,7 @@
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
+    ./modules/zsh.nix
   ];
 
   config = {

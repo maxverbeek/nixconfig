@@ -81,7 +81,11 @@
   users.users.max = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ];
+    shell = pkgs.zsh;
   };
+
+  # Fix required to set zsh as shell
+  programs.zsh.enable = true;
 
   # Fonts
   fonts.fonts = with pkgs; [
