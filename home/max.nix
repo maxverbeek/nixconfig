@@ -38,8 +38,11 @@
       _1password
       alacritty
       chromium
+      darktable # opening RAW imgs in gimp
       docker-compose
       discord
+      gimp
+      gnumake
       htop
       firefox
       kubectl

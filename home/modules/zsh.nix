@@ -13,7 +13,7 @@
 
     shellAliases = {
       zathura = "zathura --fork";
-      shutdown = "sudo shutdown now";
+      shutdown = "shutdown now";
       open = "xdg-open";
       ll = "ls -al";
       la = "ls -a";
