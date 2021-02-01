@@ -27,6 +27,11 @@
       home-manager.useUserPackages = true;
     };
 
+    pin-flake-reg = {
+      nix.registry.nixpkgs.flake = nixpkgs;
+      nix.registry.unstable.flake = unstable;
+    };
+
   in
   {
     nixosConfigurations.desknix = nixpkgs.lib.nixosSystem {
@@ -36,6 +41,7 @@
         overlays
         hmsettings
         home-manager.nixosModules.home-manager
+        pin-flake-reg
         ./configuration.nix
       ];
     };
