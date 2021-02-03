@@ -106,6 +106,9 @@
     git
     killall
     vim
+
+    nodejs
+    yarn
   ];
 
   home-manager = {

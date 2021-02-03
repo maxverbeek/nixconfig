@@ -49,7 +49,11 @@
       pdftk
       slack
       spotify
+      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon ]; }).run)
       zathura
+
+      nodejs
+      yarn
     ];
   };
 }
