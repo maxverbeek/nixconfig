@@ -8,7 +8,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, unstable, home-manager, ... }:
+
   let
     overlayUnstable = final: prev: {
       unstable = import unstable {
@@ -30,6 +31,7 @@
     pin-flake-reg = {
       nix.registry.nixpkgs.flake = nixpkgs;
       nix.registry.unstable.flake = unstable;
+      nix.registry.self.flake = self;
     };
 
   in
@@ -45,5 +47,7 @@
         ./configuration.nix
       ];
     };
+
+    legacyPackages.x86_64-linux = self.nixosConfigurations.desknix.pkgs;
   };
 }
