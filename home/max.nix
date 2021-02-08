@@ -23,6 +23,10 @@
       userEmail = "m4xv3rb33k@gmail.com";
       userName = "Max Verbeek";
 
+      extraConfig = {
+        pull.rebase = "false";
+      };
+
       aliases = {
         s = "status";
         cm = "commit";
@@ -47,10 +51,12 @@
       firefox
       kubectl
       pdftk
+      responsively-app
       slack
       spotify
       ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon ]; }).run)
       zathura
+      zoom-us
 
       nodejs
       yarn
