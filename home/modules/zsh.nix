@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     thefuck
-    starship
   ];
 
   programs.zsh = {
@@ -29,7 +28,10 @@
       ];
     };
 
-    initExtra = ''eval "$(starship init zsh)"'';
+  };
+
+  programs.starship = {
+    enable = true;
   };
 
   programs.fzf.enableZshIntegration = true;
