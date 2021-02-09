@@ -7,7 +7,6 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./overlays
       ./hardware-configuration.nix
       ./vim.nix
       # ./i3.nix

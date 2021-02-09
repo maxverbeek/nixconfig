@@ -17,10 +17,12 @@
         config.allowUnfree = true;
       };
     };
+
+    overlayCustom = import ./overlays;
  
     overlays.nixpkgs = {
       config.allowUnfree = true;
-      overlays = [ overlayUnstable ];
+      overlays = [ overlayUnstable overlayCustom ];
     };
 
     hmsettings = {
