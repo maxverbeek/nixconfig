@@ -37,26 +37,40 @@
 
     programs.vscode.enable = true;
 
+    home.sessionVariables = {
+      JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+    };
+
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
+      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon ]; }).run)
       _1password
       alacritty
       chromium
       darktable # opening RAW imgs in gimp
-      docker-compose
       discord
+      dnsutils
+      docker-compose
+      firefox
       gimp
       gnumake
       htop
-      firefox
       kubectl
+      neofetch
+      patchelf
       pdftk
       responsively-app
       slack
       spotify
-      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon ]; }).run)
+      unp
       zathura
       zoom-us
+
+      jetbrains.idea-ultimate
+      openjdk11
+      maven
+      sbt
 
       nodejs
       yarn
