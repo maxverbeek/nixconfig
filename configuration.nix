@@ -31,7 +31,11 @@
   networking.hostName = "desknix"; # Define your hostname.
 
   # Set your time zone.
-  time.timeZone = "Europe/Amsterdam";
+  # Also set hardware clock to local, since that's what windows uses
+  time = {
+    timeZone = "Europe/Amsterdam";
+    hardwareClockInLocalTime = true;
+  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
