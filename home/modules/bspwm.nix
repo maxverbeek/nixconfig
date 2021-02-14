@@ -4,7 +4,7 @@
   config = {
 
     # Ensure feh installed for a background
-    home.packages = [ pkgs.feh ];
+    home.packages = with pkgs; [ feh rofi ];
 
     xsession.windowManager.bspwm = {
       enable = true;
@@ -74,10 +74,10 @@
         #
 
         # terminal emulator in current workingdir
-        "super + Return" = "${pkgs.alacritty}/bin/alacritty";
+        "super + Return" = "${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
 
         # terminal in current home
-        "super + shift + Return" = "alacritty";
+        "super + shift + Return" = "${pkgs.alacritty}/bin/alacritty";
 
         # program launcher
         "super + space" = "rofi -show drun";
