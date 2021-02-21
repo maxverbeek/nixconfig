@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 let
 
   colors = rec {
@@ -26,7 +26,10 @@ let
     font-2 = "Font Awesome 5 Brands:size=12;3";
     font-3 = "Font Awesome 5 Pro Solid:size=12:weight=bold;-2";
 
-    modules-left = "bspwm";
+    modules-left = with lib;
+      (optional (config.xsession.windowManager.bspwm.enable) "bspwm") ++
+      (optional (config.xsession.windowManager.i3.enable) "i3");
+
     modules-center = "xwindow";
     modules-right = "pulseaudio date";
 
@@ -34,6 +37,33 @@ let
 
     tray-positioned = "right";
     tray-detached = "false";
+  };
+
+  wm-module = {
+    ws-icon-0 = "term;";
+    ws-icon-1 = "web;";
+    ws-icon-2 = "code;";
+    ws-icon-3 = "gfx;";
+    ws-icon-4 = "music;";
+    ws-icon-5 = "slack;";
+    ws-icon-6 = "bgstuff;";
+    ws-icon-default = "";
+    format = "<label-state> <label-mode>";
+
+    label-focused = "%icon%";
+    label-focused-background = "${colors.focusbackground}";
+    label-focused-underline  = "${colors.linecolor}";
+    label-focused-padding = "4";
+
+    label-occupied = "%icon%";
+    label-occupied-padding = "4";
+
+    label-urgent = "%icon%";
+    label-urgent-padding = "4";
+
+    label-empty = "%icon%";
+    label-empty-foreground = "#66ffffff";
+    label-empty-padding = "4";
   };
 
 in
@@ -51,33 +81,12 @@ in
         screenchange-reload = "true";
       };
 
-      "module/bspwm" = {
+      "module/bspwm" = wm-module // {
         type = "internal/bspwm";
+      };
 
-        ws-icon-0 = "term;";
-        ws-icon-1 = "web;";
-        ws-icon-2 = "code;";
-        ws-icon-3 = "gfx;";
-        ws-icon-4 = "music;";
-        ws-icon-5 = "slack;";
-        ws-icon-6 = "bgstuff;";
-        ws-icon-default = "";
-        format = "<label-state> <label-mode>";
-
-        label-focused = "%icon%";
-        label-focused-background = "${colors.focusbackground}";
-        label-focused-underline  = "${colors.linecolor}";
-        label-focused-padding = "4";
-
-        label-occupied = "%icon%";
-        label-occupied-padding = "4";
-
-        label-urgent = "%icon%";
-        label-urgent-padding = "4";
-
-        label-empty = "%icon%";
-        label-empty-foreground = "#66ffffff";
-        label-empty-padding = "4";
+      "module/i3" = wm-module // {
+        type = "internal/i3";
       };
 
       "module/xwindow" = {

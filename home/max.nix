@@ -32,10 +32,25 @@
         cm = "commit";
         co = "checkout";
         a = "add";
+        # The !/*/ is a regex that excludes the literal '*' (current branch),
+        # and /: gone/ includes branches that are gone on the remote.
+        brd = "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
       };
     };
 
-    programs.vscode.enable = true;
+    programs.vscode = {
+      enable = true;
+      extensions = with pkgs.unstable.vscode-extensions; [
+        bbenoist.Nix
+        # dbaeumer.vscode-eslint # not in unstable yet?
+        eamodio.gitlens
+        # editorconfig.editorconfig # not in master yet
+        # firefox-devtools.vscode-firefox-debug # not in master yet
+        ms-azuretools.vscode-docker
+        ms-vsliveshare.vsliveshare
+        vscodevim.vim
+      ];
+    };
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
