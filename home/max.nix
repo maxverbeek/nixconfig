@@ -70,6 +70,7 @@
       dnsutils
       docker-compose
       firefox
+      gcc
       gimp
       gnumake
       htop
