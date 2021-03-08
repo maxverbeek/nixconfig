@@ -1,11 +1,16 @@
 { pkgs, config, lib, ... }:
+let
+  mod = "Mod4";
+in
 {
+  home.packages = with pkgs; [ feh rofi ];
+
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
     config =  rec {
       menu = "rofi -show drun";
-      modifier = "Mod4";
+      modifier = mod;
 
       startup = [
         { command = "[ -f $HOME/.fehbg ] && $HOME/.fehbg"; always = true; notification = false; }
@@ -20,15 +25,14 @@
         horizontal = size;
         vertical = size;
 
-        smartBorders = true;
+        smartBorders = "on";
         smartGaps = true;
       };
 
-      mod = modifer;
       keybindings = {
         "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
         "${mod}+Shift+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-        "${mod}+Space" = "exec ${menu}";
+        "${mod}+space" = "exec ${menu}";
         "${mod}+Escape" = "reload";
         "${mod}+Mod1+Escape" = "exit";
         "${mod}+w" = "kill";

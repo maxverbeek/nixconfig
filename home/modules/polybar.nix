@@ -33,8 +33,7 @@ let
     modules-center = "xwindow";
     modules-right = "pulseaudio date";
 
-    wm-restack = "bspwm";
-
+    wm-restack = with config.xsession.windowManager; if i3.enable then "i3" else "bpswm";
     tray-positioned = "right";
     tray-detached = "false";
   };
@@ -71,7 +70,7 @@ in
   services.polybar = {
     enable = true;
 
-    package = pkgs.polybar.override { pulseSupport = true; };
+    package = pkgs.polybar.override { pulseSupport = true; i3GapsSupport = config.xsession.windowManager.i3.enable; };
 
     config = {
       "bar/primary" = bar // { monitor = "DP-4"; };

@@ -2,7 +2,8 @@
 {
   imports = [
     ./modules/autorandr.nix
-    ./modules/bspwm.nix
+    # ./modules/bspwm.nix
+    ./modules/i3.nix
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
@@ -59,7 +60,7 @@
 
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
-      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon ]; }).run)
+      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 ]; }).run)
       _1password
       alacritty
       chromium
