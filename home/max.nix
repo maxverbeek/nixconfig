@@ -63,6 +63,7 @@
       ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 ]; }).run)
       _1password
       alacritty
+      cargo
       chromium
       darktable # opening RAW imgs in gimp
       discord
@@ -77,6 +78,7 @@
       patchelf
       pdftk
       responsively-app
+      rustc
       slack
       spotify
       unp
