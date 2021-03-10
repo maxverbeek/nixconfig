@@ -32,7 +32,7 @@ in
       assigns = {
         "2:web" = [{ class = "^Firefox$"; }];
         "3:code" = [{ class = "^Code$"; }]; # vscode
-        "5:gfx" = [{ class = "^gimp"; }];
+        "5:gfx" = [{ class = "^Gimp"; }];
         "6:music" = [{ instance = "spotify"; }]; # broken, use for_window (see extraConfig)
         "7:slack" = [
           { class = "Slack"; }
