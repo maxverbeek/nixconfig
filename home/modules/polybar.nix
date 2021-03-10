@@ -15,7 +15,6 @@ let
   bar = {
     width = "100%";
     height = "38";
-    pin-workspaces = "false";
     background = colors.background;
     foreground = colors.foreground;
     underline-color = colors.linecolor;
@@ -34,8 +33,6 @@ let
     modules-right = "pulseaudio date";
 
     wm-restack = with config.xsession.windowManager; if i3.enable then "i3" else "bpswm";
-    tray-positioned = "right";
-    tray-detached = "false";
   };
 
   wm-module = {
@@ -73,7 +70,12 @@ in
     package = pkgs.polybar.override { pulseSupport = true; i3GapsSupport = config.xsession.windowManager.i3.enable; };
 
     config = {
-      "bar/primary" = bar // { monitor = "DP-4"; };
+      "bar/primary" = bar // {
+        monitor = "DP-4";
+        tray-position = "right";
+        tray-detached = "false";
+      };
+
       "bar/secondary" = bar // { monitor = "DP-2"; };
 
       "settings" = {
@@ -86,6 +88,16 @@ in
 
       "module/i3" = wm-module // {
         type = "internal/i3";
+        pin-workspaces = "true";
+        strip-wsnumbers = "true";
+        fuzzy-match = "true";
+        index-sort = "true";
+
+        label-unfocused = "%icon%";
+        label-unfocused-padding = "4";
+
+        label-visible = "%icon%";
+        label-visible-padding = "4";
       };
 
       "module/xwindow" = {
