@@ -18,12 +18,7 @@ in
         { command = "systemctl --user restart polybar.service"; always = true; notification = false; };
 
       gaps = let size = 14; in {
-        top = size;
-        bottom = size;
-        left = size;
-        right = size;
-        horizontal = size;
-        vertical = size;
+        inner = size;
 
         smartBorders = "on";
         smartGaps = true;

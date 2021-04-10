@@ -40,6 +40,7 @@
     };
 
     programs.vscode = {
+      package = pkgs.unstable.vscode;
       enable = true;
       extensions = with pkgs.unstable.vscode-extensions; [
         bbenoist.Nix
@@ -52,6 +53,8 @@
         vscodevim.vim
       ];
     };
+
+    services.gnome-keyring.enable = true;
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
@@ -75,6 +78,7 @@
       htop
       kubectl
       neofetch
+      okular
       patchelf
       pdftk
       responsively-app
