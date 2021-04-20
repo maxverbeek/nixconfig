@@ -39,8 +39,11 @@
       };
     };
 
-    programs.vscode = {
-      package = pkgs.unstable.vscode;
+    programs.vscode = let
+      # Move this extension into the nix store, making it immutable
+      myvscode = pkgs.unstable.vscode;
+    in {
+      package = myvscode;
       enable = true;
       extensions = with pkgs.unstable.vscode-extensions; [
         bbenoist.Nix
@@ -96,6 +99,8 @@
 
       nodejs
       yarn
+
+      pngcrop
     ];
   };
 }

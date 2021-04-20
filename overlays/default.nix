@@ -1,5 +1,6 @@
 final: prev:
 {
+  pngcrop = final.callPackage ./pngcrop {};
   fa-custom = final.callPackage ./fontawesome-custom {};
   volantes-cursors = final.callPackage ./volantes-cursors {};
   mcmojave-cursors = final.callPackage ./mcmojave-cursors {};
