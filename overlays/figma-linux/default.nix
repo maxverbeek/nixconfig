@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   desktopEntry = makeDesktopItem {
-    name = "Figma Linux";
+    name = "figma-linux";
     desktopName = "Figma";
     exec = "figma-linux";
     comment = "Unofficial desktop client for Figma";
@@ -50,6 +50,10 @@ stdenv.mkDerivation rec {
     cp -RT ${appimgContents} $out/opt/
     ln -s $out/opt/figma-linux $out/bin/figma-linux
 
+    runHook postInstall
+  '';
+
+  postInstall = ''
     for size in 24 36 48 64 72 96 128 192 256 384 512; do
       mkdir -p "$out/share/icons/hicolor/''${size}x''${size}/apps"
       cp -rf \
@@ -60,7 +64,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons/hicolor/scalable/apps
     cp -rf "${appimgContents}/icons/scalable.svg" "$out/share/icons/hicolor/scalable/apps/figma-linux.svg"
 
-    runHook postInstall
+    mkdir -p $out/share/applications
+    cp ${desktopEntry}/share/applications/figma-linux.desktop $out/share/applications/figma-linux.desktop
   '';
 
 }
