@@ -104,6 +104,7 @@
       yarn
 
       pngcrop
+      figma-linux
     ];
   };
 }

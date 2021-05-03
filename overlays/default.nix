@@ -5,6 +5,7 @@ final: prev:
   volantes-cursors = final.callPackage ./volantes-cursors {};
   mcmojave-cursors = final.callPackage ./mcmojave-cursors {};
   responsively-app = final.callPackage ./responsively-app {};
+  figma-linux = final.callPackage ./figma-linux {};
 
   # use newer version of picom
   picom = prev.picom.overrideAttrs (oldAttrs: {
