@@ -69,12 +69,14 @@
       ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 ]; }).run)
       _1password
       alacritty
+      binutils
       chromium
       darktable # opening RAW imgs in gimp
       discord
       dnsutils
       docker-compose
       firefox
+      file
       gcc
       gimp
       gnumake
