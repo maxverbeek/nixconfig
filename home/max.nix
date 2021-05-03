@@ -91,6 +91,7 @@
       slack
       spotify
       unp
+      wget
       zathura
       zoom-us
 
