@@ -1,8 +1,9 @@
 { stdenv
+, lib
 , appimageTools
 , fetchurl
-, autoPatchelfHook
-, makeDesktopItem
+, makeWrapper
+, electron_12
 
 , alsaLib
 , dbus-glib
@@ -11,7 +12,9 @@
 , gtk3-x11
 , libdbusmenu-gtk2
 , sqlite
-, xorg }:
+, xorg
+}:
+
 
 stdenv.mkDerivation rec {
   pname = "figma-linux";
@@ -33,7 +36,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    makeWrapper
   ];
 
   buildInputs = [
@@ -47,37 +50,38 @@ stdenv.mkDerivation rec {
     xorg.libxshmfence
   ];
 
-  desktopEntry = makeDesktopItem {
-    name = "figma-linux";
-    desktopName = "Figma";
-    exec = "figma-linux";
-    comment = "Unofficial desktop client for Figma";
-    categories = "Graphics";
-  };
-
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt
-    cp -RT ${appimgContents} $out/opt/
-    ln -s $out/opt/figma-linux $out/bin/figma-linux
+    mkdir -p $out/share/${pname} $out/share/icons/hicolor/scalable/apps $out/share/applications
+    cp -a ${appimgContents}/{locales,resources} $out/share/${pname}
+    cp -a ${appimgContents}/usr/share/icons $out/share
+    cp -a ${appimgContents}/icons/scalable.svg $out/share/icons/hicolor/scalable/apps/figma-linux.svg
+
+    cp -a ${appimgContents}/figma-linux.desktop $out/share/applications/${pname}.desktop
+
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
 
     runHook postInstall
   '';
 
-  postInstall = ''
-    for size in 24 36 48 64 72 96 128 192 256 384 512; do
-      mkdir -p "$out/share/icons/hicolor/''${size}x''${size}/apps"
-      cp -rf \
-        "${appimgContents}/icons/''${size}x''${size}.png" \
-        "$out/share/icons/hicolor/''${size}x''${size}/apps/figma-linux.png"
-    done
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    alsaLib
+    dbus-glib
+    glib
+    gtk3
+    gtk3-x11
+    libdbusmenu-gtk2
+    sqlite
+    xorg.libxshmfence
+  ];
 
-    mkdir -p $out/share/icons/hicolor/scalable/apps
-    cp -rf "${appimgContents}/icons/scalable.svg" "$out/share/icons/hicolor/scalable/apps/figma-linux.svg"
-
-    mkdir -p $out/share/applications
-    cp ${desktopEntry}/share/applications/figma-linux.desktop $out/share/applications/figma-linux.desktop
+  postFixup = ''
+    makeWrapper ${electron_12}/bin/electron $out/bin/${pname} \
+      --add-flags $out/share/${pname}/resources/app.asar \
+      --prefix LD_LIBRARY_PATH : "${libPath}"
   '';
 
 }
