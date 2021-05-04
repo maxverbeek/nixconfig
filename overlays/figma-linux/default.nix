@@ -1,6 +1,18 @@
-{ stdenv, appimageTools, fetchurl, glib, dbus-glib, gtk3, gtk3-x11, dbus_tools,
-libdbusmenu-gtk2, sqlite, alsaLib, xorg,
- autoPatchelfHook, makeDesktopItem }:
+{ stdenv
+, appimageTools
+, fetchurl
+, autoPatchelfHook
+, makeDesktopItem
+
+, alsaLib
+, dbus-glib
+, glib
+, gtk3
+, gtk3-x11
+, libdbusmenu-gtk2
+, sqlite
+, xorg }:
+
 stdenv.mkDerivation rec {
   pname = "figma-linux";
   version = "0.7.2";
@@ -25,13 +37,13 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    alsaLib
+    dbus-glib
     glib
     gtk3
     gtk3-x11
-    dbus-glib
     libdbusmenu-gtk2
     sqlite
-    alsaLib
     xorg.libxshmfence
   ];
 
