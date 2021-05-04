@@ -39,17 +39,6 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    alsaLib
-    dbus-glib
-    glib
-    gtk3
-    gtk3-x11
-    libdbusmenu-gtk2
-    sqlite
-    xorg.libxshmfence
-  ];
-
   installPhase = ''
     runHook preInstall
 
