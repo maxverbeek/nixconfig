@@ -30,7 +30,7 @@
 
       aliases = {
         s = "status";
-        cm = "commit";
+        cm = "commit -m";
         co = "checkout";
         a = "add";
         # The !/*/ is a regex that excludes the literal '*' (current branch),
@@ -66,7 +66,7 @@
 
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
-      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 ]; }).run)
+      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ]; }).run)
       _1password
       alacritty
       binutils
@@ -83,6 +83,7 @@
       htop
       kubectl
       neofetch
+      nix-index
       okular
       patchelf
       pdftk

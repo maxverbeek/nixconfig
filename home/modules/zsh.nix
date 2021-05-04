@@ -18,6 +18,7 @@
       la = "ls -a";
       ld = "ls";
       ks = "ls";
+      dc = "docker-compose";
     };
 
     zplug = {
