@@ -91,6 +91,7 @@
       rustup
       slack
       spotify
+      ulauncher
       unp
       wget
       zathura
