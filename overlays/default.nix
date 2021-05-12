@@ -2,6 +2,7 @@ final: prev:
 {
   pngcrop = final.callPackage ./pngcrop {};
   fa-custom = final.callPackage ./fontawesome-custom {};
+  teg-font = final.callPackage ./teg-font {};
   volantes-cursors = final.callPackage ./volantes-cursors {};
   mcmojave-cursors = final.callPackage ./mcmojave-cursors {};
   responsively-app = final.callPackage ./responsively-app {};
