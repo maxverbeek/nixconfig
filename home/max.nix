@@ -85,17 +85,22 @@
       neofetch
       nix-index
       okular
+      openvpn
       patchelf
       pdftk
       responsively-app
+      rtorrent
       rustup
       slack
       spotify
       ulauncher
       unp
+      vlc
       wget
       zathura
       zoom-us
+
+      unstable._1password-gui
 
       jetbrains.idea-ultimate
       openjdk11
