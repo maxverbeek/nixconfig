@@ -9,10 +9,10 @@
     font = "DejaVu Sans Mono 13";
     scrollbar = false;
 
-    extraConfig = ''
-      modi: "drun,run,window";
-      separator-style: "solid";
-      show-match: false;
-    '';
+    extraConfig = {
+      modi = "drun,run,window";
+      separator-style = "solid";
+      show-match = false;
+    };
   };
 }
