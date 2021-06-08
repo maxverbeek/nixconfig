@@ -39,13 +39,10 @@
       };
     };
 
-    programs.vscode = let
-      # Move this extension into the nix store, making it immutable
-      myvscode = pkgs.unstable.vscode;
-    in {
-      package = myvscode;
+    programs.vscode = {
+      package = pkgs.vscode-fhs;
       enable = true;
-      extensions = with pkgs.unstable.vscode-extensions; [
+      extensions = with pkgs.vscode-extensions; [
         bbenoist.Nix
         # dbaeumer.vscode-eslint # not in unstable yet?
         eamodio.gitlens
@@ -56,8 +53,6 @@
         vscodevim.vim
       ];
     };
-
-    services.gnome-keyring.enable = true;
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
