@@ -13,7 +13,7 @@
   config = {
     xsession.enable = true;
     xsession.pointerCursor = {
-      package = pkgs.mcmojave-cursors;
+      package = pkgs.custom.mcmojave-cursors;
       name = "McMojave-cursors";
       defaultCursor = "left_ptr";
     };
@@ -77,13 +77,14 @@
       gnumake
       htop
       kubectl
+      minikube
       neofetch
       nix-index
       okular
       openvpn
       patchelf
       pdftk
-      responsively-app
+      custom.responsively-app
       rtorrent
       rustup
       slack
@@ -100,13 +101,13 @@
       jetbrains.idea-ultimate
       openjdk11
       maven
-      sbt
+      (sbt.override { jre = jre8; })
 
       nodejs
       yarn
 
-      pngcrop
-      figma-linux
+      custom.pngcrop
+      custom.figma-linux
     ];
   };
 }

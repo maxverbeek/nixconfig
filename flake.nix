@@ -4,27 +4,36 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, ... }:
 
   let
-    overlayUnstable = final: prev: {
-      unstable = import unstable {
-        system = final.system;
-        config.allowUnfree = true;
+
+    # config to extend nixpkgs. this needs to be applied as a module
+    nixpkgsConfig = rec {
+      config = {
+        allowUnfree = true;
       };
+
+      overlays = [
+        # adding custom packages/flakes to nixpkgs
+        (final: prev: {
+          custom   = builtins.mapAttrs (n: d: final.callPackage d {}) (import ./packages);
+          unstable = import unstable { inherit (prev) system; inherit config; };
+        })
+
+        # for any package version overrides
+        (import ./overlays)
+      ];
     };
 
-    overlayCustom = import ./overlays;
- 
-    overlays.nixpkgs = {
-      config.allowUnfree = true;
-      overlays = [ overlayUnstable overlayCustom ];
-    };
-
+    # modules to configure nixos
     hmsettings = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -36,20 +45,31 @@
       nix.registry.self.flake = self;
     };
 
+    # modules defined above
+    commonModules = [
+      ({ nixpkgs = nixpkgsConfig; })
+      hmsettings
+      pin-flake-reg
+
+      # add home-manager as a module
+      home-manager.nixosModules.home-manager
+    ];
+
+    eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
+      packages = (import nixpkgs { inherit system; inherit (nixpkgsConfig) config overlays; }).custom;
+    });
+
   in
   {
-    nixosConfigurations.desknix = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    nixosConfigurations = {
 
-      modules = [
-        overlays
-        hmsettings
-        home-manager.nixosModules.home-manager
-        pin-flake-reg
-        ./configuration.nix
-      ];
+      # PC at home
+      desknix = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = commonModules ++ [
+          ./configuration.nix
+        ];
+      };
     };
-
-    legacyPackages.x86_64-linux = self.nixosConfigurations.desknix.pkgs;
-  };
+  } // eachSystemExport;
 }

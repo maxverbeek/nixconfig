@@ -96,8 +96,8 @@
   # Fonts
   fonts.fonts = with pkgs; [
     corefonts
-    fa-custom
-    teg-font
+    custom.fa-custom
+    custom.teg-font
     hack-font
     jetbrains-mono
     noto-fonts
