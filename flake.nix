@@ -9,9 +9,12 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    olis-stuff.url = "github:Kranex/nixos-config";
+    olis-stuff.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, ... }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, olis-stuff, ... }:
 
   let
 
@@ -26,6 +29,7 @@
         (final: prev: {
           custom   = builtins.mapAttrs (n: d: final.callPackage d {}) (import ./packages);
           unstable = import unstable { inherit (prev) system; inherit config; };
+          oli      = import nixpkgs { inherit (prev) system; inherit config; overlays = olis-stuff.overlays; };
         })
 
         # for any package version overrides

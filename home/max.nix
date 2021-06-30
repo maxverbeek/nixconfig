@@ -82,13 +82,14 @@
       nix-index
       okular
       openvpn
+      custom.responsively-app
       patchelf
       pdftk
-      custom.responsively-app
       rtorrent
       rustup
       slack
       spotify
+      tldr
       ulauncher
       unp
       vlc
@@ -108,6 +109,8 @@
 
       custom.pngcrop
       custom.figma-linux
+
+      oli.screencapture-scripts
     ];
   };
 }
