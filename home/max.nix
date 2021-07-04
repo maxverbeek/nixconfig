@@ -8,7 +8,7 @@
     ./modules/polybar.nix
     ./modules/rofi.nix
     ./modules/zsh.nix
-    ./modules/nvim/nvim.nix
+    ./modules/nvim.nix
   ];
 
   config = {
