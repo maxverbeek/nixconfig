@@ -18,7 +18,7 @@ let
   };
 
   easyAlign = {
-    plugin = pkgs.vimPlugins.fzf-vim;
+    plugin = pkgs.vimPlugins.vim-easy-align;
     config = ''
       " Start interactive EasyAlign in visual mode (e.g. vipga)
       xmap ga <Plug>(EasyAlign)
@@ -39,13 +39,31 @@ let
 
 in {
   programs.neovim = {
+    # use unstable because it has nvim 0.5; make sure to use the *-unwrapped version.
     package = pkgs.unstable.neovim-unwrapped;
 
     enable = true;
+
     viAlias = true;
     vimAlias = true;
-
     vimdiffAlias = true;
+
+    plugins = with pkgs.vimPlugins; [
+      # plugins with config (see above)
+      colorscheme
+      fzf
+      easyAlign
+
+      # other plugins
+      vim-nix
+      vim-repeat
+      vim-surround
+      nerdcommenter
+      vim-table-mode
+      vim-gitgutter
+      lightline-vim
+      ultisnips
+    ];
 
     extraConfig = ''
       " general stuff
@@ -67,22 +85,5 @@ in {
       set softtabstop=4
       set shiftwidth=4
     '';
-
-    plugins = with pkgs.vimPlugins; [
-      # plugins with config (see above)
-      colorscheme
-      fzf
-      easyAlign
-
-      # other plugins
-      vim-nix
-      vim-repeat
-      vim-surround
-      nerdcommenter
-      vim-table-mode
-      vim-gitgutter
-      lightline-vim
-      ultisnips
-    ];
   };
 }
