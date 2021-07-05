@@ -65,7 +65,8 @@ let
           enable = true,
         },
 
-        textobjects = { -- requires nvim-treesitter-textobjects
+        -- requires nvim-treesitter-textobjects
+        textobjects = {
           select = {
             enable = true,
 
@@ -120,13 +121,14 @@ let
 in {
   # add treesitter grammars
   home.file =
-    builtins.listToAttrs
-      (builtins.map
-      ({ parser, grammar, ... }: {
-        name = "${config.xdg.configHome}/nvim/parser/${parser}";
-        value = { source = "${grammar}/parser"; };
-      })
-      treesitter-parsers);
+    builtins.listToAttrs (
+      builtins.map
+        ({ parser, grammar, ... }: {
+          name = "${config.xdg.configHome}/nvim/parser/${parser}";
+          value = { source = "${grammar}/parser"; };
+        })
+        treesitter-parsers
+    );
 
   programs.neovim = {
     # use unstable because it has nvim 0.5; make sure to use the *-unwrapped version.

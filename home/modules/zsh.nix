@@ -19,6 +19,8 @@
       ld = "ls";
       ks = "ls";
       dc = "docker-compose";
+      ":q" = "exit";
+      ":wq" = "exit";
     };
 
     zplug = {
