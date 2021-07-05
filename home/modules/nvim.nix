@@ -53,6 +53,7 @@ in {
       colorscheme
       fzf
       easyAlign
+      ultisnips
 
       # other plugins
       vim-nix
@@ -62,7 +63,6 @@ in {
       vim-table-mode
       vim-gitgutter
       lightline-vim
-      ultisnips
     ];
 
     extraConfig = ''
