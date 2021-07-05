@@ -88,6 +88,7 @@
       pdftk
       rtorrent
       rustup
+      silver-searcher
       slack
       spotify
       tldr

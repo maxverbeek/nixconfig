@@ -27,7 +27,7 @@ let
   fzf = {
     plugin = pkgs.vimPlugins.fzf-vim;
     config = ''
-      let $FZF_DEFAULT_COMMAND = "find -L -not -path '*/\.git/*'"
+      let $FZF_DEFAULT_COMMAND = '${config.programs.fzf.defaultCommand}'
       nnoremap <silent> <C-p> :FZF<CR>
     '';
   };

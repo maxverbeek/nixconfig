@@ -38,5 +38,6 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    defaultCommand = ''ag -g ""'';
   };
 }
