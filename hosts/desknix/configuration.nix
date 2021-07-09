@@ -120,10 +120,6 @@
     yarn
   ];
 
-  home-manager = {
-    users.max = ./home/max.nix;
-  };
-
   virtualisation.docker.enable = true;
 
   # This value determines the NixOS release from which the default

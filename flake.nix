@@ -41,6 +41,10 @@
     hmsettings = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+
+      # set up everything in home-manager
+      # TODO: maybe pass some arguments to have per-system home configs
+      home-manager.users.max = ./home/max.nix;
     };
 
     pin-flake-reg = {
@@ -71,7 +75,15 @@
       desknix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = commonModules ++ [
-          ./configuration.nix
+          ./hosts/desknix/configuration.nix
+        ];
+      };
+
+      # Laptop for work
+      lenovo-laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = commonModules ++ [
+          ./hosts/lenovo-laptop/configuration.nix
         ];
       };
     };
