@@ -60,6 +60,16 @@
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
     desktopManager.xterm.enable = true;
+    desktopManager.session = [
+      {
+        name = "home-manager";
+        start = ''
+          ${pkgs.runtimeShell} $HOME/.xsession &
+          waitPID=$!
+        '';
+      }
+    ];
+    displayManager.defaultSession = "home-manager";
     displayManager.lightdm.greeters.mini = {
       enable = true;
       user = "max";
