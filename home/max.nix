@@ -76,8 +76,10 @@
       gcc
       gimp
       gnumake
+      go
       htop
       kubectl
+      kubernetes-helm
       minikube
       neofetch
       nix-index
@@ -86,6 +88,7 @@
       custom.responsively-app
       patchelf
       pdftk
+      python3
       rtorrent
       rustup
       silver-searcher

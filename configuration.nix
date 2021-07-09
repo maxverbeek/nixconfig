@@ -99,13 +99,15 @@
     custom.fa-custom
     custom.teg-font
     hack-font
-    jetbrains-mono
     noto-fonts
+    powerline-fonts
     roboto
     roboto-mono
     source-code-pro
     terminus_font
     ubuntu_font_family
+
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # List packages installed in system profile. To search, run:
