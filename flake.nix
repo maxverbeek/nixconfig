@@ -86,7 +86,7 @@
         system = "x86_64-linux";
         modules = commonModules ++ [
           ./hosts/lenovo-laptop/configuration.nix
-          (hmsettings {})
+          (hmsettings { withModules = [ ./hosts/lenovo-laptop/device.nix ]; })
         ];
       };
     };
