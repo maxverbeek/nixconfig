@@ -5,7 +5,6 @@
       { name = "DP-2"; }
     ];
 
-    hasWifi = false;
     hasBattery = false;
   };
 }

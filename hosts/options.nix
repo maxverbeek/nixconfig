@@ -1,8 +1,10 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
+
+  cfg = config.device;
 
   screenType = types.submodule {
     options = {
@@ -27,7 +29,6 @@ in
     device = {
       screens = mkOption {
         type = types.listOf screenType;
-        # check = with builtins; (scrns: length scrns > 0 && length (filter (s: s.isPrimary) scrns) == 1);
         description = "All the monitors plugged in. Dunno yet what to do about external monitors";
         example = literalExample ''
           screens = [
@@ -39,11 +40,17 @@ in
         default = [];
       };
 
-      hasWifi = mkOption {
-        type = types.bool;
-        description = "Whether the device has wifi or not";
-        default = false;
-        example = true;
+      wifi = {
+        enabled = mkEnableOption "wifi" // {
+          description = "Whether wifi is enabled";
+        };
+
+        interface = mkOption {
+          type = types.str;
+          description = "The name of the wifi interface";
+          example = "wlp2s0";
+          default = "";
+        };
       };
 
       hasBattery = mkOption {
@@ -54,4 +61,21 @@ in
       };
     };
   };
+
+  config.assertions = [
+    {
+      assertion = with builtins; length cfg.screens > 0;
+      message = "at least 1 screen has to be enabled";
+    }
+
+    {
+      assertion = with builtins; length (filter (s: s.isPrimary) cfg.screens) == 1;
+      message = "the number of primary screens must be 1";
+    }
+
+    {
+      assertion = !cfg.wifi.enabled || cfg.wifi.interface != "";
+      message = "if wifi is supported, a wifi interface needs to be provided";
+    }
+  ];
 }

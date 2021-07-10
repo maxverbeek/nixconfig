@@ -30,10 +30,47 @@ let
       (optional (config.xsession.windowManager.i3.enable) "i3");
 
     modules-center = "xwindow";
-    modules-right = "pulseaudio date";
+    # modules-right is defined in the "all-bars" config per screen
 
     wm-restack = with config.xsession.windowManager; if i3.enable then "i3" else "bpswm";
   };
+
+  # utility to filter a string on its alphanumeric characters
+  alnumChars = lib.stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ1234567890";
+  alnum = lib.stringAsChars (c: if builtins.elem c alnumChars then c else "");
+
+  all-bars = builtins.listToAttrs (
+    map
+    # for each screen, generate a bar config
+    (screen: {
+      name = "bar/${alnum screen.name}";
+      value = {
+        monitor = screen.name;
+      } // lib.optionalAttrs (screen.isPrimary) {
+
+        tray-position = "right";
+        tray-detached = "false";
+
+        modules-right = with lib; concatStringsSep " " (
+          (optional (config.device.wifi.enabled) "wireless")
+          ++ [ "pulseaudio" ]
+          ++ (optional config.device.hasBattery "battery")
+          ++ [ "date" ]
+        );
+
+      } // lib.optionalAttrs (!screen.isPrimary) {
+
+        # modules-right for non-primary screens (doesnt have wifi)
+        modules-right = with lib; concatStringsSep " " (
+          [ "pulseaudio" ]
+          ++ (optional config.device.hasBattery "battery")
+          ++ [ "date" ]
+        );
+
+      } // bar;
+    })
+    config.device.screens
+  );
 
   wm-module = {
     ws-icon-0 = "term;";
@@ -62,27 +99,14 @@ let
     label-empty-padding = "4";
   };
 
-  # utility to filter a string on its alphanumeric characters
-  alnumChars = lib.stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ1234567890";
-  alnum = lib.stringAsChars (c: if builtins.elem c alnumChars then c else "");
-
-  all-bars = builtins.listToAttrs (
-    map
-    # for each screen, generate a bar config
-    (screen: {
-      name = "bar/${alnum screen.name}";
-      value = {
-        monitor = screen.name;
-      } // lib.optionalAttrs (screen.isPrimary) {
-        tray-position = "right";
-        tray-detached = "false";
-      } // bar;
-    })
-    config.device.screens
-  );
-
 in
 {
+  assertions= with config.xsession.windowManager; [
+    { assertion = bspwm.enable != i3.enable;
+      message = "one of config.xsession.windowManager.{bspwm,i3} must be enabled";
+    }
+  ];
+
   services.polybar = {
     enable = true;
 
@@ -152,6 +176,62 @@ in
         ramp-volume-1 = "";
         ramp-volume-2 = "";
         ramp-volume-3 = "";
+      };
+    } // lib.optionalAttrs (config.device.hasBattery) {
+
+      "module/battery" = {
+        type = "internal/battery";
+
+        label-charging = "%percentage%";
+        format-charging = "<animation-charging> <label-charging>%";
+        format-charging-padding = "3";
+
+        label-discharging = "%percentage%";
+        format-discharging = "<ramp-capacity> <label-discharging>%";
+        format-discharging-padding = "3";
+
+        label-full = "%percentage%";
+        format-full = "<ramp-capacity> <label-full>%";
+        format-full-padding = "3";
+
+        poll-interval = "10";
+        full-at = "99";
+
+        ramp-capacity-0 = "";
+        ramp-capacity-1 = "";
+        ramp-capacity-2 = "";
+        ramp-capacity-3 = "";
+        ramp-capacity-4 = "";
+
+        animation-charging-0 = "";
+        animation-charging-1 = "";
+        animation-charging-2 = "";
+        animation-charging-3 = "";
+        animation-charging-4 = "";
+        animation-charging-framerate = "750";
+      };
+    } // lib.optionalAttrs (config.device.wifi.enabled) {
+
+      "module/wireless" = {
+        type = "internal/network";
+        interface = config.device.wifi.interface;
+        interval = "3.0";
+
+        # TODO: add scripts here, probably nm-applet or something
+        format-connected = "%{A1:networkmanager_dmenu &:}%{A3:nm-connection-manager &:}<ramp-signal> <label-connected>%{A}%{A}";
+        format-disconnected = "%{A1:networkmanager_dmenu &:}%{A3:nm-connection-manager &:}<label-disconnected>%{A}%{A}";
+        format-connected-padding = "3";
+        format-disconnected-padding = "3";
+        format-connected-background = "${colors.focusbackground}";
+        format-disconnected-background = "${colors.focusbackground}";
+
+        label-connected = "%essid%";
+        label-disconnected = "";
+
+        ramp-signal-0 = "%{T4}%{T-}";
+        ramp-signal-1 = "%{T4}%{T-}";
+        ramp-signal-2 = "%{T4}%{T-}";
+        ramp-signal-3 = "%{T4}%{T-}";
       };
     };
 
