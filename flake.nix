@@ -38,13 +38,15 @@
     };
 
     # modules to configure nixos
-    hmsettings = {
+    hmsettings = { withModules ? [] }: {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
 
       # set up everything in home-manager
-      # TODO: maybe pass some arguments to have per-system home configs
-      home-manager.users.max = ./home/max.nix;
+      home-manager.users.max.imports = [
+        ./home/max.nix
+        ./hosts/options.nix
+      ] ++ withModules;
     };
 
     pin-flake-reg = {
@@ -56,7 +58,6 @@
     # modules defined above
     commonModules = [
       ({ nixpkgs = nixpkgsConfig; })
-      hmsettings
       pin-flake-reg
 
       # add home-manager as a module
@@ -76,6 +77,7 @@
         system = "x86_64-linux";
         modules = commonModules ++ [
           ./hosts/desknix/configuration.nix
+          (hmsettings { withModules = [ ./hosts/desknix/device.nix ]; })
         ];
       };
 
@@ -84,6 +86,7 @@
         system = "x86_64-linux";
         modules = commonModules ++ [
           ./hosts/lenovo-laptop/configuration.nix
+          (hmsettings {})
         ];
       };
     };

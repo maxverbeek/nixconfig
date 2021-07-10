@@ -62,6 +62,25 @@ let
     label-empty-padding = "4";
   };
 
+  # utility to filter a string on its alphanumeric characters
+  alnumChars = lib.stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ1234567890";
+  alnum = lib.stringAsChars (c: if builtins.elem c alnumChars then c else "");
+
+  all-bars = builtins.listToAttrs (
+    map
+    # for each screen, generate a bar config
+    (screen: {
+      name = "bar/${alnum screen.name}";
+      value = {
+        monitor = screen.name;
+      } // lib.optionalAttrs (screen.isPrimary) {
+        tray-position = "right";
+        tray-detached = "false";
+      } // bar;
+    })
+    config.device.screens
+  );
+
 in
 {
   services.polybar = {
@@ -69,14 +88,14 @@ in
 
     package = pkgs.polybar.override { pulseSupport = true; i3GapsSupport = config.xsession.windowManager.i3.enable; };
 
-    config = {
-      "bar/primary" = bar // {
-        monitor = "DP-4";
-        tray-position = "right";
-        tray-detached = "false";
-      };
+    config = all-bars // {
+      # "bar/primary" = bar // {
+      #   monitor = "DP-4";
+      #   tray-position = "right";
+      #   tray-detached = "false";
+      # };
 
-      "bar/secondary" = bar // { monitor = "DP-2"; };
+      # "bar/secondary" = bar // { monitor = "DP-2"; };
 
       "settings" = {
         screenchange-reload = "true";
@@ -136,10 +155,7 @@ in
       };
     };
 
-    script = ''
-      polybar primary &
-      polybar secondary &
-    '';
+    script = builtins.concatStringsSep "\n" (map (s: "polybar ${alnum s.name} &") config.device.screens);
   };
 
 }
