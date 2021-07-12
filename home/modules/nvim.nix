@@ -203,7 +203,7 @@ let
     plugin = pkgs.vimPlugins.telescope-nvim;
     config = ''
       nnoremap <silent> <C-f>      <cmd>Telescope live_grep<cr>
-      nnoremap <silent> <tab><tab> <cmd>Telescope file_browser<cr>
+      nnoremap <silent> g<tab>     <cmd>Telescope file_browser<cr>
     '';
   };
 
@@ -515,6 +515,7 @@ in {
       fzf
       easyAlign
       ultisnips
+      colorizer
 
       treesitter
       nvim-treesitter-textobjects # config is inside of treesitter
@@ -529,8 +530,6 @@ in {
 
       galaxyline
       nvim-web-devicons # required by galaxyline
-
-      colorizer
 
       # other plugins
       vim-nix
