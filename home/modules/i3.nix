@@ -1,9 +1,36 @@
 { pkgs, config, lib, ... }:
 let
+  screens = config.device.screens;
   mod = "Mod4";
+  reloadcmd = with lib; "reload"
+    + optionalString (length screens > 1) "; exec ${switcherScript}/bin/fixscreens"
+    + optionalString (config.services.polybar.enable) "; exec systemctl --user restart polybar.service;"
+  ;
+
+  screen = with builtins; x: (elemAt screens x).name;
+  primscreen = with builtins; x: (elemAt screens x).isPrimary;
+
+  # take care that this script isnt evaluated when there is only 1 screen configured
+  # assume that only 1 screen is connected, otherwise this becomes much more complicated
+  switcherScript = pkgs.writeScriptBin "fixscreens" ''
+    ${pkgs.stdenv.shell}
+    xrandr | grep -q "${screen 1} connected"
+    ST=$?
+
+    if [ $ST -eq 0 ]; then
+      xrandr \
+        --output ${screen 0} \
+        --auto ${lib.optionalString (primscreen 0) "--primary"} \
+        --output ${screen 1} \
+        --auto \
+        --right-of ${screen 0}
+    else
+      xrandr --auto
+    fi
+  '';
 in
 {
-  home.packages = with pkgs; [ feh rofi ];
+  home.packages = with pkgs; with lib; [ feh rofi ] ++ optional (length screens > 1) switcherScript;
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -38,11 +65,12 @@ in
         ];
       };
 
+
       keybindings = {
         "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
         "${mod}+Shift+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
         "${mod}+space" = "exec ${menu}";
-        "${mod}+Escape" = "reload";
+        "${mod}+Escape" = reloadcmd;
         "${mod}+Mod1+Escape" = "exit";
         "${mod}+w" = "kill";
         "${mod}+Control+l" = "exec ${config.services.screen-locker.lockCmd}";
@@ -92,21 +120,24 @@ in
       bars = [];
     };
 
-    extraConfig = let
-      primary = "DP-4";
-      secondary = "DP-2";
+    extraConfig = with builtins; let
+      # assume at most 2 screens for now
+      # specifying multiple outputs means the first one will
+      # be picked when available.
+      primary = screen 0;
+      secondary = if length screens > 1 then screen 1 else "";
     in
     ''
-      workspace "1:term" output ${primary}
-      workspace "2:web" output ${primary}
-      workspace "3:code" output ${primary}
-      workspace "4:misc" output ${primary}
-      workspace "5:gfx" output ${primary}
-      workspace "6:music" output ${secondary}
-      workspace "7:slack" output ${secondary}
-      workspace "8:misc" output ${secondary}
-      workspace "9:bgstuff" output ${secondary}
-      workspace "0:misc" output ${secondary}
+      workspace "1:term" output ${primary} ${secondary}
+      workspace "2:web" output ${primary} ${secondary}
+      workspace "3:code" output ${primary} ${secondary}
+      workspace "4:misc" output ${primary} ${secondary}
+      workspace "5:gfx" output ${primary} ${secondary}
+      workspace "6:music" output ${secondary} ${primary}
+      workspace "7:slack" output ${secondary} ${primary}
+      workspace "8:misc" output ${secondary} ${primary}
+      workspace "9:bgstuff" output ${secondary} ${primary}
+      workspace "0:misc" output ${secondary} ${primary}
 
       for_window [class="Spotify"] move to workspace "6:music"
     '';
