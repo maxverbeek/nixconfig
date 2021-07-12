@@ -45,6 +45,7 @@ in
         "${mod}+Escape" = "reload";
         "${mod}+Mod1+Escape" = "exit";
         "${mod}+w" = "kill";
+        "${mod}+Control+l" = "exec ${config.services.screen-locker.lockCmd}";
 
         "${mod}+t" = "floating toggle";
         "${mod}+f" = "fullscreen toggle";

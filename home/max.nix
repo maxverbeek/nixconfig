@@ -4,11 +4,12 @@
     ./modules/autorandr.nix
     # ./modules/bspwm.nix
     ./modules/i3.nix
+    ./modules/nvim.nix
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
+    ./modules/screenlocker.nix
     ./modules/zsh.nix
-    ./modules/nvim.nix
   ];
 
   config = {

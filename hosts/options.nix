@@ -59,6 +59,8 @@ in
         default = false;
         example = true;
       };
+
+      withScreenLocker = mkEnableOption "screenlocker";
     };
   };
 

@@ -10,5 +10,7 @@
       enabled = true;
       interface = "wlp4s0";
     };
+
+    withScreenLocker = true;
   };
 }
