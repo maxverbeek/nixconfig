@@ -13,5 +13,6 @@
     };
 
     withScreenLocker = true;
+    termFontSize = 9;
   };
 }

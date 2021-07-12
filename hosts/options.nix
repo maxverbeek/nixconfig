@@ -61,6 +61,13 @@ in
       };
 
       withScreenLocker = mkEnableOption "screenlocker";
+
+      termFontSize = mkOption {
+        type = types.int;
+        description = "The size of the font (pt) in terminals (alacritty)";
+        default = 11;
+        example = 8;
+      };
     };
   };
 

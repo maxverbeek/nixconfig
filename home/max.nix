@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./modules/autorandr.nix
@@ -41,6 +41,13 @@
       };
     };
 
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        font.size = config.device.termFontSize;
+      };
+    };
+
     programs.vscode = {
       package = pkgs.vscode-fhs;
       enable = true;
@@ -65,7 +72,6 @@
     home.packages = with pkgs; [
       ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ]; }).run)
       _1password
-      alacritty
       binutils
       chromium
       darktable # opening RAW imgs in gimp
