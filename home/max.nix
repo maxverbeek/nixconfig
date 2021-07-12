@@ -38,6 +38,8 @@
         # The !/*/ is a regex that excludes the literal '*' (current branch),
         # and /: gone/ includes branches that are gone on the remote.
         brd = "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
+
+        difflast = "diff HEAD^";
       };
     };
 
