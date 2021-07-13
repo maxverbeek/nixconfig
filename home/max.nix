@@ -98,6 +98,7 @@
       patchelf
       pdftk
       python3
+      ripgrep
       rtorrent
       rustup
       silver-searcher

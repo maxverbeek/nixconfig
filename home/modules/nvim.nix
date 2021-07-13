@@ -149,6 +149,7 @@ let
       nvim_lsp.rnix.setup { on_attach = on_attach }
       nvim_lsp.tsserver.setup { on_attach = on_attach }
       nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
+      nvim_lsp.gopls.setup { on_attach = on_attach }
 
       -- Enable diagnostics
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -506,6 +507,7 @@ in {
       rnix-lsp
       nodePackages.typescript-language-server
       rust-analyzer
+      gopls
       ripgrep
     ];
 

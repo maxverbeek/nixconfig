@@ -20,9 +20,11 @@ let
     if [ $ST -eq 0 ]; then
       xrandr \
         --output ${screen 0} \
-        --auto ${lib.optionalString (primscreen 0) "--primary"} \
+        --auto \
+        ${lib.optionalString (primscreen 0) "--primary"} \
         --output ${screen 1} \
         --auto \
+        ${lib.optionalString (primscreen 1) "--primary"} \
         --right-of ${screen 0}
     else
       xrandr --auto
