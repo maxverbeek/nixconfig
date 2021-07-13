@@ -124,13 +124,6 @@ let
     config = ''
       filetype plugin indent on
 
-      " Set completeopt to have a better completion experience
-      " :help completeopt
-      " menuone: popup even when there's only one match
-      " noinsert: Do not insert text until a selection is made
-      " noselect: Do not select, force user to select one from the menu
-      set completeopt=menuone,noinsert,noselect
-
       " Avoid showing extra messages when using completion
       set shortmess+=c
 
@@ -141,15 +134,11 @@ let
 
       local nvim_lsp = require'lspconfig'
 
-      local on_attach = function(client)
-        require'completion'.on_attach(client)
-      end
-
       -- Register all the language servers
-      nvim_lsp.rnix.setup { on_attach = on_attach }
-      nvim_lsp.tsserver.setup { on_attach = on_attach }
-      nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
-      nvim_lsp.gopls.setup { on_attach = on_attach }
+      nvim_lsp.rnix.setup {}
+      nvim_lsp.tsserver.setup {}
+      nvim_lsp.rust_analyzer.setup {}
+      nvim_lsp.gopls.setup {}
 
       -- Enable diagnostics
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -174,6 +163,7 @@ let
       nnoremap <silent> <c-]>      <cmd>lua vim.lsp.buf.declaration()<CR>
       nnoremap <silent> <Leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
       nnoremap <silent> ga         <cmd>lua vim.lsp.buf.code_action()<CR>
+      nnoremap <silent> <Leader>fm <cmd>lua vim.lsp.buf.formatting()<CR>
 
       " Use <Tab> and <S-Tab> to navigate through popup menu if it's open
       inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -196,6 +186,35 @@ let
 
       autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
       \ lua require'lsp_extensions'.inlay_hints{ prefix = "", highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+    '';
+  };
+
+  compe = {
+    plugin = pkgs.vimPlugins.nvim-compe;
+    config = ''
+      " Set completeopt to have a better completion experience
+      " :help completeopt
+      " menuone: popup even when there's only one match
+      " noinsert: Do not insert text until a selection is made
+      " noselect: Do not select, force user to select one from the menu
+      set completeopt=menuone,noinsert,noselect
+
+      lua <<EOF
+
+      require'compe'.setup {
+        enabled = true;
+        autocomplete = true;
+        debug = false;
+
+        source = {
+          path = true;
+          buffer = true;
+          nvim_lsp = true;
+          ultisnips = true;
+        };
+      }
+
+      EOF
     '';
   };
 
@@ -524,7 +543,8 @@ in {
 
       nvim-lspconfig
       lsp_extensions-nvim # config inside of nvim-lspconfig
-      completion-nvim     # config inside of nvim-lspconfig
+
+      compe
 
       telescope
       popup-nvim   # config inside of telescope
