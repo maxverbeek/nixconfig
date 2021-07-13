@@ -535,6 +535,7 @@ in {
 
       # other plugins
       vim-nix
+      vim-helm
       vim-repeat
       vim-surround
       nerdcommenter
