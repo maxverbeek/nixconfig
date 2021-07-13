@@ -10,6 +10,8 @@
     enableCompletion = true;
     enableAutosuggestions = true;
 
+    autocd = true;
+
     shellAliases = {
       zathura = "zathura --fork";
       shutdown = "shutdown now";
@@ -40,6 +42,6 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    defaultCommand = ''ag -g ""'';
+    defaultCommand = ''ag --ignore .git --hidden -g ""'';
   };
 }
