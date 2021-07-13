@@ -23,6 +23,7 @@
       dc = "docker-compose";
       ":q" = "exit";
       ":wq" = "exit";
+      git = "noglob git"; # use gits own globbing because it's smarter
     };
 
     zplug = {
