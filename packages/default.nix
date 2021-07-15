@@ -6,4 +6,5 @@
   mcmojave-cursors = ./mcmojave-cursors;
   responsively-app = ./responsively-app;
   figma-linux = ./figma-linux;
+  neovim-ayu = ./neovim-ayu;
 }
