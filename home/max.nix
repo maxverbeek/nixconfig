@@ -4,7 +4,7 @@
     ./modules/autorandr.nix
     # ./modules/bspwm.nix
     ./modules/i3.nix
-    ./modules/nvim.nix
+    ./modules/nvim
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
