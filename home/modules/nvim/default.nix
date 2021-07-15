@@ -176,7 +176,8 @@ let
     '';
   };
 
-in {
+in
+{
   # add treesitter grammars
   home.file =
     builtins.listToAttrs (
@@ -213,16 +214,14 @@ in {
       easyAlign
       ultisnips
       colorizer
+      compe
+      nvim-tree
 
       treesitter
       nvim-treesitter-textobjects # config is inside of treesitter
 
       nvim-lspconfig
       lsp_extensions-nvim # config inside of nvim-lspconfig
-
-      compe
-
-      nvim-tree
 
       telescope
       popup-nvim   # config inside of telescope
