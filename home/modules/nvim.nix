@@ -573,6 +573,7 @@ in {
       set nohlsearch
       set mouse=a
       set number relativenumber
+      set hidden
 
       " Toggle search highlight
       nnoremap <C-H> :set hlsearch!<CR>
