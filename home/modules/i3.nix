@@ -54,14 +54,14 @@ in
       };
 
       assigns = {
-        "2:web" = [{ class = "^Firefox$"; }];
-        "3:code" = [
+        "1:web" = [{ class = "^Firefox$"; }];
+        "2:code" = [
           { class = "^Code$"; } # vscode
           { class = "^jetbrains-"; }
         ];
-        "5:gfx" = [{ class = "^Gimp"; }];
-        "6:music" = [{ instance = "spotify"; }]; # broken, use for_window (see extraConfig)
-        "7:slack" = [
+        "4:gfx" = [{ class = "^Gimp"; }];
+        "5:music" = [{ instance = "spotify"; }]; # broken, use for_window (see extraConfig)
+        "6:slack" = [
           { class = "Slack"; }
           { class = "discord"; }
         ];
