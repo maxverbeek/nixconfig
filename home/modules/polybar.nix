@@ -74,7 +74,7 @@ let
 
   wm-module = {
     ws-icon-0 = "term;";
-    ws-icon-1 = "web;";
+    ws-icon-1 = "web;";
     ws-icon-2 = "code;";
     ws-icon-3 = "gfx;";
     ws-icon-4 = "music;";
