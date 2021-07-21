@@ -96,27 +96,27 @@ in
         "${mod}+Mod1+k" = "resize grow height 10px or 10 ppt";
         "${mod}+Mod1+l" = "resize grow width 10px or 10 ppt";
 
-        "${mod}+1" = ''workspace "1:term"'';
-        "${mod}+2" = ''workspace "2:web"'';
-        "${mod}+3" = ''workspace "3:code"'';
-        "${mod}+4" = ''workspace "4:misc"'';
-        "${mod}+5" = ''workspace "5:gfx"'';
-        "${mod}+6" = ''workspace "6:music"'';
-        "${mod}+7" = ''workspace "7:slack"'';
-        "${mod}+8" = ''workspace "8:misc"'';
-        "${mod}+9" = ''workspace "9:bgstuff"'';
-        "${mod}+0" = ''workspace "0:misc"'';
+        "${mod}+1" = ''workspace "0:term"'';
+        "${mod}+2" = ''workspace "1:web"'';
+        "${mod}+3" = ''workspace "2:code"'';
+        "${mod}+4" = ''workspace "3:misc"'';
+        "${mod}+5" = ''workspace "4:gfx"'';
+        "${mod}+6" = ''workspace "5:music"'';
+        "${mod}+7" = ''workspace "6:slack"'';
+        "${mod}+8" = ''workspace "7:misc"'';
+        "${mod}+9" = ''workspace "8:bgstuff"'';
+        "${mod}+0" = ''workspace "9:misc"'';
 
-        "${mod}+Shift+1" = ''move container to workspace "1:term"'';
-        "${mod}+Shift+2" = ''move container to workspace "2:web"'';
-        "${mod}+Shift+3" = ''move container to workspace "3:code"'';
-        "${mod}+Shift+4" = ''move container to workspace "4:misc"'';
-        "${mod}+Shift+5" = ''move container to workspace "5:gfx"'';
-        "${mod}+Shift+6" = ''move container to workspace "6:music"'';
-        "${mod}+Shift+7" = ''move container to workspace "7:slack"'';
-        "${mod}+Shift+8" = ''move container to workspace "8:misc"'';
-        "${mod}+Shift+9" = ''move container to workspace "9:bgstuff"'';
-        "${mod}+Shift+0" = ''move container to workspace "0:misc"'';
+        "${mod}+Shift+1" = ''move container to workspace "0:term"'';
+        "${mod}+Shift+2" = ''move container to workspace "1:web"'';
+        "${mod}+Shift+3" = ''move container to workspace "2:code"'';
+        "${mod}+Shift+4" = ''move container to workspace "3:misc"'';
+        "${mod}+Shift+5" = ''move container to workspace "4:gfx"'';
+        "${mod}+Shift+6" = ''move container to workspace "5:music"'';
+        "${mod}+Shift+7" = ''move container to workspace "6:slack"'';
+        "${mod}+Shift+8" = ''move container to workspace "7:misc"'';
+        "${mod}+Shift+9" = ''move container to workspace "8:bgstuff"'';
+        "${mod}+Shift+0" = ''move container to workspace "9:misc"'';
       };
 
       bars = [];
@@ -130,18 +130,18 @@ in
       secondary = if length screens > 1 then screen 1 else "";
     in
     ''
-      workspace "1:term" output ${primary} ${secondary}
-      workspace "2:web" output ${primary} ${secondary}
-      workspace "3:code" output ${primary} ${secondary}
-      workspace "4:misc" output ${primary} ${secondary}
-      workspace "5:gfx" output ${primary} ${secondary}
-      workspace "6:music" output ${secondary} ${primary}
-      workspace "7:slack" output ${secondary} ${primary}
-      workspace "8:misc" output ${secondary} ${primary}
-      workspace "9:bgstuff" output ${secondary} ${primary}
-      workspace "0:misc" output ${secondary} ${primary}
+      workspace "0:term" output ${primary} ${secondary}
+      workspace "1:web" output ${primary} ${secondary}
+      workspace "2:code" output ${primary} ${secondary}
+      workspace "3:misc" output ${primary} ${secondary}
+      workspace "4:gfx" output ${primary} ${secondary}
+      workspace "5:music" output ${secondary} ${primary}
+      workspace "6:slack" output ${secondary} ${primary}
+      workspace "7:misc" output ${secondary} ${primary}
+      workspace "8:bgstuff" output ${secondary} ${primary}
+      workspace "9:misc" output ${secondary} ${primary}
 
-      for_window [class="Spotify"] move to workspace "6:music"
+      for_window [class="Spotify"] move to workspace "5:music"
     '';
 
   };
