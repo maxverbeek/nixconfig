@@ -82,6 +82,7 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.daemon.config.default-sample-format = "s24le";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
