@@ -31,6 +31,10 @@
   networking.hostName = "desknix"; # Define your hostname.
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
+  networking.extraHosts = ''
+    127.0.0.1 keycloak
+  '';
+
   # Set your time zone.
   # Also set hardware clock to local, since that's what windows uses
   time = {

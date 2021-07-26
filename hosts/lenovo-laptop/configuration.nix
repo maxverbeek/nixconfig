@@ -31,6 +31,10 @@
     interfaces = [ "wlp4s0" ];
   };
 
+  networking.extraHosts = ''
+    127.0.0.1 keycloak
+  '';
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
