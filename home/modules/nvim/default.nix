@@ -260,6 +260,10 @@ in
       set tabstop=4
       set softtabstop=4
       set shiftwidth=4
+
+      " Use C-j and C-k for scrolling up and down
+      imap <C-j> <C-n>
+      imap <C-k> <C-p>
     '';
   };
 }
