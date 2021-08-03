@@ -87,6 +87,7 @@
       gnumake
       go
       htop
+      httpie
       kubectl
       kubernetes-helm
       minikube
