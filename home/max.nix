@@ -65,6 +65,16 @@
       ];
     };
 
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true;
+      };
+    };
+
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
