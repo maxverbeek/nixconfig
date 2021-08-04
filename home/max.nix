@@ -78,6 +78,7 @@
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
+      EDITOR = "nvim";
     };
 
     home.stateVersion = "20.09";
