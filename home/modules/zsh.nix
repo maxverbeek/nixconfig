@@ -26,13 +26,22 @@
       git = "noglob git"; # use gits own globbing because it's smarter
     };
 
-    zplug = {
-      enable = true;
-      plugins = [
-        { name = "agkozak/zsh-z"; }
-        { name = "plugins/thefuck"; tags = [ "from:oh-my-zsh" ]; }
-      ];
-    };
+    # Disable zplug for now as it is stupid slow
+    # maybe use zinit/zplugin at some point?
+    # zplug = {
+    #   enable = true;
+    #   plugins = [
+    #     { name = "agkozak/zsh-z"; }
+    #     { name = "plugins/thefuck"; tags = [ "from:oh-my-zsh" ]; }
+    #   ];
+    # };
+
+    plugins = with pkgs; [
+      {
+        name = "zsh-z";
+        src = "${zsh-z}/share/zsh-z";
+      }
+    ];
 
   };
 
