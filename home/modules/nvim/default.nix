@@ -238,6 +238,7 @@ in
       nerdcommenter
       vim-table-mode
       vim-gitgutter
+      editorconfig-vim
     ];
 
     extraConfig = ''
