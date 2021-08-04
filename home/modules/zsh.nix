@@ -12,6 +12,12 @@
 
     autocd = true;
 
+    # do this before the other shell aliasses so that
+    # this definition of ls is used recursively
+    initExtraFirst = ''
+      alias ls="ls --color=auto"
+    '';
+
     shellAliases = {
       zathura = "zathura --fork";
       shutdown = "shutdown now";
@@ -40,6 +46,11 @@
       {
         name = "zsh-z";
         src = "${zsh-z}/share/zsh-z";
+      }
+      {
+        name = "zsh-bd";
+        src = "${zsh-bd}/share/zsh-bd";
+        file = "bd.zsh";
       }
     ];
 
