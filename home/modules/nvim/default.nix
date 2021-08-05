@@ -52,7 +52,7 @@ let
     { parser = "json.so";       grammar = tree-sitter-json; }
     { parser = "lua.so";        grammar = tree-sitter-lua; }
     { parser = "markdown.so";   grammar = tree-sitter-markdown; }
-    # { parser = "nix.so";        grammar = tree-sitter-nix; }
+    { parser = "nix.so";        grammar = tree-sitter-nix; }
     { parser = "ruby.so";       grammar = tree-sitter-ruby; }
     { parser = "rust.so";       grammar = tree-sitter-rust; }
     { parser = "scala.so";      grammar = tree-sitter-scala; }
@@ -124,6 +124,7 @@ let
 
         source = {
           path = true;
+          calc = true;
           buffer = true;
           nvim_lsp = true;
           ultisnips = true;
@@ -132,7 +133,26 @@ let
 
       EOF
 
-      " TODO: set hotkeys to navigate completion
+      inoremap <silent><expr> <C-Space> compe#complete()
+      inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+    '';
+  };
+
+  nvim-autopairs = {
+    # this is crap
+    plugin = pkgs.unstable.vimPlugins.nvim-autopairs;
+    config = ''
+      lua <<EOF
+
+      local npairs = require('nvim-autopairs')
+
+      npairs.setup {
+        check_ts = true,
+      }
+
+      require("nvim-autopairs.completion.compe").setup({map_cr = true, map_complete = true})
+
+      EOF
     '';
   };
 
@@ -218,7 +238,9 @@ in
       nvim-tree
 
       treesitter
+      playground # no config, but this is treesitter-playground
       nvim-treesitter-textobjects # config is inside of treesitter
+      pkgs.custom.nvim-ts-autotag # doesn't exist yet in nixpkgs
 
       nvim-lspconfig
       lsp_extensions-nvim # config inside of nvim-lspconfig
@@ -239,6 +261,8 @@ in
       vim-table-mode
       vim-gitgutter
       editorconfig-vim
+      vim-endwise
+      auto-pairs
     ];
 
     extraConfig = ''
@@ -253,6 +277,8 @@ in
       set number relativenumber
       set hidden
 
+      let mapleader=" "
+
       " Toggle search highlight
       nnoremap <C-H> :set hlsearch!<CR>
       
@@ -261,6 +287,7 @@ in
       set tabstop=4
       set softtabstop=4
       set shiftwidth=4
+      set smarttab
 
       " Use C-j and C-k for scrolling up and down
       imap <C-j> <C-n>

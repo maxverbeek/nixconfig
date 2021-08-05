@@ -7,6 +7,16 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 
+  -- requires nvim-autopairs
+  autopairs = {
+    enable = true,
+  },
+
+  -- requires nvim-ts-autotag
+  autotag = {
+    enable = true,
+  },
+
   -- requires nvim-treesitter-textobjects
   textobjects = {
     select = {
