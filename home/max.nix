@@ -28,6 +28,7 @@
 
       extraConfig = {
         pull.rebase = "false";
+        push.default = "current";
       };
 
       aliases = {
