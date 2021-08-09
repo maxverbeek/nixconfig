@@ -66,18 +66,15 @@
     desktopManager.xterm.enable = true;
     desktopManager.session = [
       {
+        manage = "desktop";
         name = "home-manager";
-        start = ''
-          ${pkgs.runtimeShell} $HOME/.xsession &
-          waitPID=$!
-        '';
+        start = "exec $HOME/.xsession &";
       }
     ];
     displayManager.defaultSession = "home-manager";
-    displayManager.lightdm.greeters.mini = {
-      enable = true;
-      user = "max";
-    };
+    displayManager.job.logToJournal = true;
+    # displayManager.lightdm.greeters.mini = { enable = true; user = "max"; };
+    displayManager.lightdm.enable = true;
 
     libinput = {
       enable = true;
@@ -99,7 +96,7 @@
     shell = pkgs.zsh;
   };
 
-  programs.zsh.enable = true;
+  # programs.zsh.enable = true;
 
   # Fonts
   fonts.fonts = with pkgs; [
