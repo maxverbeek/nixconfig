@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -73,8 +74,11 @@
     ];
     displayManager.defaultSession = "home-manager";
     displayManager.job.logToJournal = true;
-    # displayManager.lightdm.greeters.mini = { enable = true; user = "max"; };
-    displayManager.lightdm.enable = true;
+
+    displayManager.lightdm.greeters.mini = {
+      enable = true;
+      user = "max";
+    };
 
     libinput = {
       enable = true;
@@ -95,8 +99,6 @@
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
-
-  # programs.zsh.enable = true;
 
   # Fonts
   fonts.fonts = with pkgs; [
@@ -163,4 +165,3 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-
