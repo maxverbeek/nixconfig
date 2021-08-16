@@ -8,7 +8,7 @@
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
-    ./modules/screenlocker.nix
+    ./modules/screenlocker
     ./modules/zsh.nix
   ];
 

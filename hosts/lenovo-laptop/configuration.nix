@@ -27,14 +27,16 @@
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
-  networking.wireless = {
-    enable = true;
-    interfaces = [ "wlp4s0" ];
-  };
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
   '';
+
+  networking.networkmanager = {
+    enable = true;
+  };
+
+  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
