@@ -292,6 +292,11 @@ in
       " Use C-j and C-k for scrolling up and down
       imap <C-j> <C-n>
       imap <C-k> <C-p>
+
+      " Quickfix list
+      nnoremap <Leader>cq :cclose<CR>
+      nnoremap <Leader>cj :cnext<CR>
+      nnoremap <Leader>ck :cprev<CR>
     '';
   };
 }

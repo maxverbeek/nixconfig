@@ -106,10 +106,11 @@
       neofetch
       nix-index
       okular
-      openvpn
       custom.responsively-app
+      openvpn
       patchelf
       pdftk
+      pulsemixer
       python3
       ripgrep
       rtorrent
