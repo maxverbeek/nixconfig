@@ -76,6 +76,14 @@
       };
     };
 
+    programs.gpg = {
+      enable = true;
+    };
+
+    services.gpg-agent = {
+      enable = true;
+    };
+
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
@@ -114,6 +122,7 @@
       python3
       ripgrep
       rtorrent
+      ruby
       rustup
       silver-searcher
       slack
