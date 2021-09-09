@@ -8,28 +8,33 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/765d4224-59e7-44eb-8dc1-0736bb18a1bb";
-      fsType = "ext4";
+    { device = "rpool/safe/root";
+      fsType = "zfs";
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/0313-A929";
-      fsType = "vfat";
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/594b12b3-69d6-4bcf-9e5a-d6b98a4cad61";
-      fsType = "ext4";
+    { device = "rpool/safe/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/8BF5-0914";
+      fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/ff30fd56-85e5-432e-ac61-793d0b19a471"; }
+    [ { device = "/dev/disk/by-uuid/653f892e-a464-46ee-991b-28fe2de2745d"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

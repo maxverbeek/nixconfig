@@ -29,6 +29,7 @@
   };
 
   networking.hostName = "desknix"; # Define your hostname.
+  networking.hostId = "aa111111"; # required for zfs
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
   networking.extraHosts = ''
@@ -76,6 +77,17 @@
       enable = true;
       user = "max";
     };
+    desktopManager.session = [
+      {
+        manage = "desktop";
+        name = "default"; # was previously "home-manager"
+        start = ''
+          exec $HOME/.xsession &
+        '';
+      }
+    ];
+    # apparently not used, this is the default value.
+    displayManager.defaultSession = "default";
   };
 
   # Enable CUPS to print documents.
@@ -127,7 +139,10 @@
     yarn
   ];
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    # storageDriver = "zfs"; # according to internet, overlayfs + zfs = bad
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -135,7 +150,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.05"; # Did you read the comment?
 
 }
 
