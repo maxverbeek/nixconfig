@@ -109,8 +109,7 @@
       go
       htop
       httpie
-      jq
-      jqi
+      jq ijq # note 2 packages here
       kubectl
       kubernetes-helm
       minikube
