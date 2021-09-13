@@ -5,6 +5,7 @@
     # ./modules/bspwm.nix
     ./modules/i3.nix
     ./modules/nvim
+    ./modules/kubectl.nix
     ./modules/picom
     ./modules/polybar.nix
     ./modules/rofi.nix
@@ -80,6 +81,10 @@
       enable = true;
     };
 
+    programs.kubectl = {
+      enable = true;
+    };
+
     services.gpg-agent = {
       enable = true;
     };
@@ -110,7 +115,6 @@
       htop
       httpie
       jq ijq # note 2 packages here
-      kubectl
       kubernetes-helm
       minikube
       neofetch
