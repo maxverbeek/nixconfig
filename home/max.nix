@@ -96,25 +96,27 @@
       _1password
       binutils
       chromium
+      custom.responsively-app
       darktable # opening RAW imgs in gimp
       discord
       dnsutils
       docker-compose
-      firefox
       file
+      firefox
       gcc
       gimp
       gnumake
       go
       htop
       httpie
+      jq
+      jqi
       kubectl
       kubernetes-helm
       minikube
       neofetch
       nix-index
       okular
-      custom.responsively-app
       openvpn
       patchelf
       pdftk
@@ -130,6 +132,7 @@
       tldr
       ulauncher
       unp
+      unzip
       vlc
       wget
       zathura
