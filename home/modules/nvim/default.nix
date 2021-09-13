@@ -43,6 +43,14 @@ let
     config = "luafile ${./treesitter.lua}";
   };
 
+  vim-go = {
+    plugin = pkgs.vimPlugins.vim-go;
+    config = ''
+      let g:go_fmt_command = "goimports"
+      let g:go_fmt_autosave = 1
+    '';
+  };
+
   treesitter-parsers = with pkgs.tree-sitter.builtGrammars; [
     { parser = "bash.so";       grammar = tree-sitter-bash; }
     { parser = "c.so";          grammar = tree-sitter-c; }
@@ -236,6 +244,7 @@ in
       colorizer
       compe
       nvim-tree
+      vim-go
 
       treesitter
       playground # no config, but this is treesitter-playground
