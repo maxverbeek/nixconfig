@@ -85,6 +85,12 @@
       enable = true;
     };
 
+    programs.go = {
+      enable = true;
+      goPath = "go";
+      goBin = "go/bin";
+    };
+
     services.gpg-agent = {
       enable = true;
     };
@@ -111,7 +117,6 @@
       gcc
       gimp
       gnumake
-      go
       htop
       httpie
       jq ijq # note 2 packages here
