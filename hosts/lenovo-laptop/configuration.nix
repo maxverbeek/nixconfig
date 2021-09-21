@@ -30,6 +30,7 @@
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
+    127.0.0.1 s3
   '';
 
   networking.networkmanager = {
