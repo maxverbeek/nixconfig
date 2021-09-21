@@ -69,7 +69,6 @@ let
     { parser = "yaml.so";       grammar = tree-sitter-yaml; }
   ];
 
-
   nvim-lspconfig = {
     plugin = pkgs.vimPlugins.nvim-lspconfig;
     config = ''
@@ -143,6 +142,65 @@ let
 
       inoremap <silent><expr> <C-Space> compe#complete()
       inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+    '';
+  };
+
+  cmp = {
+    plugin = pkgs.unstable.vimPlugins.nvim-cmp;
+    config = ''
+      set completeopt=menu,menuone,noselect
+
+      lua <<EOF
+        -- Setup nvim-cmp.
+        local cmp = require'cmp'
+
+        cmp.setup({
+          snippet = {
+            expand = function(args)
+              -- For `vsnip` user.
+              -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+
+              -- For `luasnip` user.
+              -- require('luasnip').lsp_expand(args.body)
+
+              -- For `ultisnips` user.
+              vim.fn["UltiSnips#Anon"](args.body)
+            end,
+          },
+          mapping = {
+            ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.close(),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          },
+          sources = {
+            { name = 'nvim_lsp' },
+            -- { name = 'ultisnips' },
+            { name = 'buffer' },
+            { name = 'path' },
+          }
+        })
+
+        local on_attach = function(_, bufnr)
+          vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        end
+
+        -- Setup lspconfig.
+        local nvim_lsp = require'lspconfig'
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+        -- Register all the language servers
+        local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'gopls' }
+
+        for _, lsp in ipairs(servers) do
+          nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+          }
+        end
+      EOF
     '';
   };
 
@@ -259,11 +317,15 @@ in
       easyAlign
       ultisnips
       colorizer
-      compe
       nvim-tree
       vim-go
       vimtex
       pandoc-preview
+      
+      cmp
+      pkgs.unstable.vimPlugins.cmp-nvim-lsp
+      pkgs.unstable.vimPlugins.cmp-path
+      pkgs.unstable.vimPlugins.cmp-buffer
 
       treesitter
       playground # no config, but this is treesitter-playground
