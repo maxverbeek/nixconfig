@@ -96,7 +96,7 @@
     };
 
     home.sessionVariables = {
-      JAVA_HOME = "${pkgs.openjdk11}/lib/openjdk";
+      JAVA_HOME = "${pkgs.openjdk16}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       EDITOR = "nvim";
     };
