@@ -149,6 +149,11 @@
       zathura
       zoom-us
 
+      # latex
+      (texlive.combined {
+        inherit (texlive) scheme-medium latexmk;
+      })
+
       unstable._1password-gui
 
       jetbrains.idea-ultimate
