@@ -153,6 +153,7 @@
       (texlive.combine {
         inherit (texlive) scheme-medium latexmk;
       })
+      pandoc
 
       unstable._1password-gui
 
