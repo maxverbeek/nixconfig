@@ -214,6 +214,13 @@ let
     '';
   };
 
+  pandoc-preview = {
+    plugin = pkgs.custom.vim-pandoc-markdown-preview;
+    config = ''
+      let g:md_pdf_viewer='zathura'
+    '';
+  };
+
 in
 {
   # add treesitter grammars
@@ -256,6 +263,7 @@ in
       nvim-tree
       vim-go
       vimtex
+      pandoc-preview
 
       treesitter
       playground # no config, but this is treesitter-playground

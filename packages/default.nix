@@ -8,4 +8,5 @@
   figma-linux = ./figma-linux;
   neovim-ayu = ./neovim-ayu;
   nvim-ts-autotag = ./nvim-ts-autotag;
+  vim-pandoc-markdown-preview = ./vim-pandoc-markdown-preview;
 }
