@@ -150,7 +150,7 @@
       zoom-us
 
       # latex
-      (texlive.combined {
+      (texlive.combine {
         inherit (texlive) scheme-medium latexmk;
       })
 
