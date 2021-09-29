@@ -146,7 +146,7 @@ let
   };
 
   cmp = {
-    plugin = pkgs.unstable.vimPlugins.nvim-cmp;
+    plugin = pkgs.custom.nvim-cmp;
     config = ''
       set completeopt=menu,menuone,noselect
 
@@ -323,9 +323,9 @@ in
       pandoc-preview
       
       cmp
-      pkgs.unstable.vimPlugins.cmp-nvim-lsp
-      pkgs.unstable.vimPlugins.cmp-path
-      pkgs.unstable.vimPlugins.cmp-buffer
+      pkgs.custom.cmp-nvim-lsp
+      pkgs.custom.cmp-path
+      pkgs.custom.cmp-buffer
 
       treesitter
       playground # no config, but this is treesitter-playground
