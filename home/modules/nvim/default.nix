@@ -291,6 +291,7 @@ in
       editorconfig-vim
       vim-endwise
       auto-pairs
+      vim-markdown
     ];
 
     extraConfig = ''

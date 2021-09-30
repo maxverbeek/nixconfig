@@ -18,6 +18,8 @@
     efiSysMountPoint = "/boot/efi";
   };
 
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
   boot.initrd.luks.devices.root = {
     device = "/dev/disk/by-uuid/6a5c2154-c367-44d3-a9f0-a06d112b2c5d";
     preLVM = true;
@@ -35,7 +37,12 @@
 
   networking.networkmanager = {
     enable = true;
+    # ignore docker interfaces
+    unmanaged = [ "interface-name:veth*" "interface-name:docker0" ];
   };
+
+  networking.wireless.enable = false;
+  networking.wireless.interfaces = [ "wlp4s0" ];
 
   programs.nm-applet.enable = true;
 
@@ -100,7 +107,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
