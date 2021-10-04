@@ -30,6 +30,7 @@
       extraConfig = {
         pull.rebase = "false";
         push.default = "current";
+        init.defaultBranch = "master";
       };
 
       aliases = {
