@@ -2,11 +2,16 @@
 
 let
   colorscheme = {
-    plugin = pkgs.custom.neovim-ayu;
+    # plugin = pkgs.custom.neovim-ayu;
+    plugin = pkgs.vimPlugins.gruvbox-community;
+    # config = ''
+    #   lua vim.g.ayu_mirage = true
+    #   set termguicolors
+    #   colorscheme ayu
+    # '';
     config = ''
-      lua vim.g.ayu_mirage = true
       set termguicolors
-      colorscheme ayu
+      colorscheme gruvbox
     '';
   };
 
@@ -238,6 +243,14 @@ let
     '';
   };
 
+  lualine = {
+    plugin = pkgs.vimPlugins.lualine-nvim;
+    config = ''
+      set laststatus=2
+      luafile ${./lualine.lua}
+    '';
+  };
+
   colorizer = {
     plugin = pkgs.vimPlugins.nvim-colorizer-lua;
     config = ''
@@ -339,7 +352,7 @@ in
       popup-nvim   # config inside of telescope
       plenary-nvim # config inside of telescope
 
-      galaxyline
+      lualine
       nvim-web-devicons # required by galaxyline and nvim-tree
 
       # other plugins
