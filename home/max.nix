@@ -111,6 +111,7 @@
       _1password
       binutils
       chromium
+      cht-sh
       custom.responsively-app
       darktable # opening RAW imgs in gimp
       discord
@@ -135,6 +136,7 @@
       pulsemixer
       python3
       ripgrep
+      rsync
       rtorrent
       ruby
       rustup
