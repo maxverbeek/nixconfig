@@ -44,7 +44,11 @@ let
   };
 
   treesitter = {
-    plugin = pkgs.vimPlugins.nvim-treesitter;
+    plugin = with pkgs.vimPlugins; [
+      nvim-treesitter
+      playground # no config, but this is treesitter-playground
+      nvim-treesitter-textobjects # config is inside of treesitter
+    ];
     config = "luafile ${./treesitter.lua}";
   };
 
@@ -75,7 +79,11 @@ let
   ];
 
   nvim-lspconfig = {
-    plugin = pkgs.vimPlugins.nvim-lspconfig;
+    plugin = with pkgs.vimPlugins; [
+      pkgs.vimPlugins.nvim-lspconfig
+      lsp_extensions-nvim # config inside of nvim-lspconfig
+    ];
+
     config = ''
       filetype plugin indent on
 
@@ -117,41 +125,14 @@ let
     '';
   };
 
-  compe = {
-    plugin = pkgs.vimPlugins.nvim-compe;
-    config = ''
-      " Set completeopt to have a better completion experience
-      " :help completeopt
-      " menuone: popup even when there's only one match
-      " noinsert: Do not insert text until a selection is made
-      " noselect: Do not select, force user to select one from the menu
-      set completeopt=menuone,noinsert,noselect
-
-      lua <<EOF
-
-      require'compe'.setup {
-        enabled = true;
-        autocomplete = true;
-        debug = false;
-
-        source = {
-          path = true;
-          calc = true;
-          buffer = true;
-          nvim_lsp = true;
-          ultisnips = true;
-        };
-      }
-
-      EOF
-
-      inoremap <silent><expr> <C-Space> compe#complete()
-      inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-    '';
-  };
-
   cmp = {
-    plugin = pkgs.custom.nvim-cmp;
+    plugin = [
+      pkgs.custom.nvim-cmp
+      pkgs.custom.cmp-nvim-lsp
+      pkgs.custom.cmp-path
+      pkgs.custom.cmp-buffer
+    ];
+
     config = ''
       set completeopt=menu,menuone,noselect
 
@@ -209,26 +190,13 @@ let
     '';
   };
 
-  nvim-autopairs = {
-    # this is crap
-    plugin = pkgs.unstable.vimPlugins.nvim-autopairs;
-    config = ''
-      lua <<EOF
-
-      local npairs = require('nvim-autopairs')
-
-      npairs.setup {
-        check_ts = true,
-      }
-
-      require("nvim-autopairs.completion.compe").setup({map_cr = true, map_complete = true})
-
-      EOF
-    '';
-  };
-
   telescope = {
-    plugin = pkgs.vimPlugins.telescope-nvim;
+    plugin = with pkgs.vimPlugins; [
+      telescope-nvim
+      popup-nvim   # config inside of telescope
+      plenary-nvim # config inside of telescope
+    ];
+
     config = ''
       nnoremap <silent> <C-f>      <cmd>Telescope live_grep<cr>
       nnoremap <silent> g<tab>     <cmd>Telescope file_browser<cr>
@@ -244,7 +212,11 @@ let
   };
 
   lualine = {
-    plugin = pkgs.vimPlugins.lualine-nvim;
+    plugin = with pkgs.vimPlugins; [
+      lualine-nvim
+      nvim-web-devicons # required by galaxyline and nvim-tree
+    ];
+
     config = ''
       set laststatus=2
       luafile ${./lualine.lua}
@@ -259,7 +231,11 @@ let
   };
 
   nvim-tree = {
-    plugin = pkgs.vimPlugins.nvim-tree-lua;
+    plugin = with pkgs.vimPlugins; [
+      nvim-tree-lua
+      nvim-web-devicons # required by galaxyline and nvim-tree
+    ];
+
     config = ''
       source ${./nvim-tree.vim}
 
@@ -292,6 +268,104 @@ let
     '';
   };
 
+
+  ############
+
+  mkNormalisedPlugins = (plugins: map (plug: plug // { plugin = lib.toList plug.plugin; }) plugins);
+
+  mkPluginConfig = (name: plugin: 
+    if plugin ? config then ''
+      " ${name} {{{
+      ${plugin.config}
+      " }}}
+    '' else ""
+  );
+
+  mkNormalisedConfig = plugs: (builtins.concatStringsSep "\n" (builtins.catAttrs "config" plugs));
+
+  nvim = pkgs.unstable.neovim.override {
+    configure = {
+      plug.plugins = lib.unique (
+        unconfiguredPlugins ++
+        builtins.concatLists (builtins.catAttrs "plugin" (mkNormalisedPlugins configuredPlugs))
+      );
+      customRC = ''
+        ${extraConfig}
+        " Start plugins
+        ${(mkNormalisedConfig configuredPlugs)}
+      '';
+    };
+  };
+
+  configuredPlugs = [
+    colorscheme
+    fzf
+    easyAlign
+    ultisnips
+    colorizer
+    nvim-tree
+    vim-go
+    vimtex
+    pandoc-preview
+    cmp
+    treesitter
+    nvim-lspconfig
+    telescope
+    lualine
+  ];
+
+  unconfiguredPlugins = with pkgs.vimPlugins; [
+    pkgs.custom.nvim-ts-autotag # doesn't exist yet in nixpkgs
+
+    # other plugins
+    vim-nix
+    vim-helm
+    vim-repeat
+    vim-surround
+    nerdcommenter
+    vim-table-mode
+    vim-gitgutter
+    editorconfig-vim
+    vim-endwise
+    auto-pairs
+    vim-markdown
+    vim-fugitive
+  ];
+
+  extraConfig = ''
+    " general stuff
+    syntax on
+    set laststatus=1
+    set scrolloff=5
+    set clipboard=unnamedplus
+    set incsearch
+    set nohlsearch
+    set mouse=a
+    set number relativenumber
+    set hidden
+
+    let mapleader=" "
+
+    " Toggle search highlight
+    nnoremap <C-H> :set hlsearch!<CR>
+    
+    " Indentation
+    set expandtab
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set smarttab
+
+    " Use C-j and C-k for scrolling up and down
+    imap <C-j> <C-n>
+    imap <C-k> <C-p>
+
+    " Quickfix list
+    nnoremap <Leader>cq :cclose<CR>
+    nnoremap <Leader>cj :cnext<CR>
+    nnoremap <Leader>ck :cprev<CR>
+  '';
+
 in
 {
   # add treesitter grammars
@@ -307,7 +381,7 @@ in
 
   programs.neovim = {
     # use unstable because it has nvim 0.5; make sure to use the *-unwrapped version.
-    package = pkgs.unstable.neovim-unwrapped;
+    package = nvim;
 
     enable = true;
 
@@ -323,85 +397,5 @@ in
       ripgrep
     ];
 
-    plugins = with pkgs.vimPlugins; [
-      # plugins with config (see above)
-      colorscheme
-      fzf
-      easyAlign
-      ultisnips
-      colorizer
-      nvim-tree
-      vim-go
-      vimtex
-      pandoc-preview
-      
-      cmp
-      pkgs.custom.cmp-nvim-lsp
-      pkgs.custom.cmp-path
-      pkgs.custom.cmp-buffer
-
-      treesitter
-      playground # no config, but this is treesitter-playground
-      nvim-treesitter-textobjects # config is inside of treesitter
-      pkgs.custom.nvim-ts-autotag # doesn't exist yet in nixpkgs
-
-      nvim-lspconfig
-      lsp_extensions-nvim # config inside of nvim-lspconfig
-
-      telescope
-      popup-nvim   # config inside of telescope
-      plenary-nvim # config inside of telescope
-
-      lualine
-      nvim-web-devicons # required by galaxyline and nvim-tree
-
-      # other plugins
-      vim-nix
-      vim-helm
-      vim-repeat
-      vim-surround
-      nerdcommenter
-      vim-table-mode
-      vim-gitgutter
-      editorconfig-vim
-      vim-endwise
-      auto-pairs
-      vim-markdown
-      vim-fugitive
-    ];
-
-    extraConfig = ''
-      " general stuff
-      syntax on
-      set laststatus=1
-      set scrolloff=5
-      set clipboard=unnamedplus
-      set incsearch
-      set nohlsearch
-      set mouse=a
-      set number relativenumber
-      set hidden
-
-      let mapleader=" "
-
-      " Toggle search highlight
-      nnoremap <C-H> :set hlsearch!<CR>
-      
-      " Indentation
-      set expandtab
-      set tabstop=4
-      set softtabstop=4
-      set shiftwidth=4
-      set smarttab
-
-      " Use C-j and C-k for scrolling up and down
-      imap <C-j> <C-n>
-      imap <C-k> <C-p>
-
-      " Quickfix list
-      nnoremap <Leader>cq :cclose<CR>
-      nnoremap <Leader>cj :cnext<CR>
-      nnoremap <Leader>ck :cprev<CR>
-    '';
   };
 }
