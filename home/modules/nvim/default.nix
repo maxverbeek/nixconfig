@@ -367,6 +367,7 @@ in
       vim-endwise
       auto-pairs
       vim-markdown
+      vim-fugitive
     ];
 
     extraConfig = ''
