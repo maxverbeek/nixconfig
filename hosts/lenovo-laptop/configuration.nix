@@ -42,7 +42,14 @@
   networking.networkmanager = {
     enable = true;
     # ignore docker interfaces
-    unmanaged = [ "interface-name:veth*" "interface-name:docker0" ];
+    # unmanaged = [ "interface-name:veth*" "interface-name:docker0" ];
+  };
+
+  services.resolved = {
+    enable = true;
+    fallbackDns = [
+      "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" 
+    ];
   };
 
   networking.wireless.enable = false;
