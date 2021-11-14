@@ -17,8 +17,8 @@ final: prev:
     src = prev.fetchFromGitLab {
       owner = "maxverbeek";
       repo = "xidlehook";
-      rev = "5091c0c9f2b542e787ba641254a47efa14c1775d"; # master as of 2021-08-16
-      sha256 = "sha256-9JQSaoJZijKs2txXwCd0jPFg+eFhoZyifb7j91fwYyw=";
+      rev = "adf2758f51cbf1883387db852345498160f88a92"; # master as of 2021-11-14
+      sha256 = "sha256-Sk4xMzMVLmgrelkaghuv5HAMx5YdgaDU+VqXwWG+9i8=";
     };
 
     cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
