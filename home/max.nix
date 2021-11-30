@@ -144,6 +144,7 @@
       slack
       spotify
       tldr
+      teams
       ulauncher
       unp
       unzip
