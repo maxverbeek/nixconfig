@@ -57,8 +57,8 @@
       package = pkgs.vscode-fhs;
       enable = true;
       extensions = with pkgs.vscode-extensions; [
-        bbenoist.Nix
-        # dbaeumer.vscode-eslint # not in unstable yet?
+        # bbenoist.Nix # gone?
+        dbaeumer.vscode-eslint # not in unstable yet?
         eamodio.gitlens
         # editorconfig.editorconfig # not in master yet
         # firefox-devtools.vscode-firefox-debug # not in master yet
@@ -97,13 +97,13 @@
     };
 
     home.sessionVariables = {
-      JAVA_HOME = "${pkgs.openjdk16}/lib/openjdk";
+      JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       EDITOR = "nvim";
     };
 
     home.file.".jdk/openjdk11".source = pkgs.openjdk11;
-    home.file.".jdk/openjdk16".source = pkgs.openjdk16;
+    home.file.".jdk/openjdk17".source = pkgs.openjdk17;
 
     home.stateVersion = "20.09";
     home.packages = with pkgs; [

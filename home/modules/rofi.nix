@@ -1,13 +1,20 @@
-{ pkgs, ... }:
-
+{ pkgs, config, ... }:
+let
+  inherit (config.lib.formats.rasi) mkLiteral;
+in
 {
   programs.rofi = {
     enable = true;
 
-    width = 750;
-    lines = 13;
+    theme = {
+      "*" = {
+        scrollbar = false;
+        width = 750;
+        lines = 13;
+      };
+    };
+
     font = "DejaVu Sans Mono 13";
-    scrollbar = false;
 
     extraConfig = {
       modi = "drun,run,window";
