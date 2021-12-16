@@ -263,7 +263,7 @@ let
     config = ''
       source ${./nvim-tree.vim}
 
-      nnoremap <C-n> :NvimTreeToggle<CR>
+      nnoremap <C-n> :NvimTreeFindFileToggle<CR>
       nnoremap <leader>r :NvimTreeRefresh<CR>
       nnoremap <leader>n :NvimTreeFindFile<CR>
       " NvimTreeOpen and NvimTreeClose are also available if you need them
@@ -368,6 +368,7 @@ in
       auto-pairs
       vim-markdown
       vim-fugitive
+      vim-solidity
     ];
 
     extraConfig = ''

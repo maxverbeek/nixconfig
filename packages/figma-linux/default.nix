@@ -18,11 +18,11 @@
 
 stdenv.mkDerivation rec {
   pname = "figma-linux";
-  version = "0.7.2";
+  version = "0.9.3";
 
   src = fetchurl {
     url = "https://github.com/Figma-Linux/figma-linux/releases/download/v${version}/figma-linux_${version}_linux_x86_64.AppImage";
-    sha256 = "07wv3crijqayprg0frhr8lgpj7jrh83gbi9g2xzcdsq3jp81m3hr";
+    sha256 = "sha256-2sMYqQL2sHI1moUkTsKKJGrs+uqO340ENOFVacpzn7s=";
     name = "${pname}-${version}.AppImage";
   };
 
