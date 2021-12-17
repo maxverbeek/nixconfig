@@ -54,7 +54,10 @@ in
       };
 
       assigns = {
-        "1:web" = [{ class = "^Firefox$"; }];
+        "1:web" = [
+          { class = "^Firefox$"; }
+          { class = "^Chromium-browser$"; }
+        ];
         "2:code" = [
           { class = "^Code$"; } # vscode
           { class = "^jetbrains-"; }
