@@ -24,6 +24,8 @@
     programs.git = {
       enable = true;
 
+      lfs.enable = true;
+
       userEmail = "m4xv3rb33k@gmail.com";
       userName = "Max Verbeek";
 
