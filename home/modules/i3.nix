@@ -80,6 +80,10 @@ in
         "${mod}+w" = "kill";
         "${mod}+Control+l" = "exec ${config.services.my-screen-locker.lockCmd}";
 
+        "Print"        = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -a";
+        "Print+Shift"  = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -w";
+        "${mod}+Print" = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot --interactive";
+
         "${mod}+t" = "floating toggle";
         "${mod}+f" = "fullscreen toggle";
         "${mod}+v" = "split toggle";
