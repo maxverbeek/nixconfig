@@ -16,7 +16,7 @@ let
     pkgs = lib.unique (plugs ++ deps);
   in pkgs;
 
-  sourcestr = with builtins; concatStringsSep "\n" (map (x: "source ${x}") (catAttrs "config" plugins));
+  sourcestr = with builtins; concatStringsSep "\n" (map (x: "require('maxconf.${x}')") (catAttrs "config" plugins));
 
   externals = builtins.concatLists (builtins.catAttrs "extern" plugins);
 
@@ -27,6 +27,10 @@ let
       customRC = ''
         set runtimepath^=${./config}
         source ${./config/lua/init.lua}
+
+        lua <<EOF
+        ${sourcestr}
+        EOF
       '';
     };
   }).overrideAttrs (_: {

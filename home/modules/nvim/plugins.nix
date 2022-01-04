@@ -8,12 +8,12 @@ in
 {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
-    config = ./config/lua/colorscheme.lua;
+    config = "colorscheme";
   };
 
   lualine = {
     plugin = lualine-nvim;
-    config = ./config/lua/lualine.lua;
+    config = "lualine";
   };
 
   telescope = {
@@ -21,7 +21,7 @@ in
       nvim-web-devicons
       telescope-fzf-native-nvim
     ];
-    config = ./config/lua/telescope.lua;
+    config = "telescope";
     extern = with pkgs; [ ripgrep ];
   };
 
@@ -31,11 +31,12 @@ in
       nvim-treesitter-textobjects
       pkgs.custom.nvim-ts-autotag
     ];
-    config = ./config/lua/treesitter.lua;
+    config = "treesitter";
   };
 
   nvim-tree = {
     plugin = nvim-tree-lua;
+    config = "nvim-tree";
   };
 
   nvim-lspconfig = {
@@ -43,6 +44,7 @@ in
       lsp_extensions-nvim
       lsp_signature-nvim
     ];
+    config = "lsp";
   };
 
   nvim-cmp = {
@@ -58,31 +60,38 @@ in
       rust-analyzer
       gopls
     ];
+
+    # config is in lsp
   };
 
   vim-easy-align = {
     plugin = vim-easy-align;
-    config = ./config/lua/easy-align.lua;
+    config = "easy-align";
   };
 
   gitsigns-nvim = {
     plugin = gitsigns-nvim;
-    config = ./config/lua/gitsigns-nvim.lua;
+    config = "gitsigns";
   };
 
   nvim-autopairs = {
     plugin = nvim-autopairs;
-    config = ./config/lua/nvim-autopairs.lua;
+    config = "nvim-autopairs";
   };
 
   nvim-colorizer = {
     plugin = nvim-colorizer-lua;
-    config = ./config/lua/nvim-colorizer.lua;
+    config = "nvim-colorizer";
   };
 
   comment-nvim = {
     plugin = comment-nvim;
-    config = ./config/lua/comment-nvim.lua;
+    config = "comment-nvim";
+  };
+
+  harpoon = {
+    plugin = harpoon;
+    config = "harpoon";
   };
 
   editorconfig-vim.plugin = editorconfig-vim;

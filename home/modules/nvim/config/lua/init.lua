@@ -21,15 +21,15 @@ local opt = { noremap = true, silent = true }
 map('n', '<Leader>cq', '<CMD>cclose<cr>', opt)
 map('n', '<Leader>cj', '<CMD>cnext<cr>', opt)
 map('n', '<Leader>ck', '<CMD>cprev<cr>', opt)
+map('n', 'n', 'nzzzv', opt)
+map('n', 'N', 'Nzzzv', opt)
 
-require('maxconf.colorscheme')
-require('maxconf.lualine')
-require('maxconf.telescope')
-require('maxconf.treesitter')
-require('maxconf.nvim-tree')
-require('maxconf.lsp')
-require('maxconf.easy-align')
-require('maxconf.gitsigns')
-require('maxconf.nvim-autopairs')
-require('maxconf.nvim-colorizer')
-require('maxconf.comment-nvim')
+-- move code around
+map('v', 'J', ":m '>+1<CR>gv=gv", opt)
+map('v', 'K', ":m '<-2<CR>gv=gv", opt)
+
+-- yank to eol like D
+map('n', 'Y', 'yg$', opt)
+
+map('n', '<leader>d', '"_d', opt)
+map('v', '<leader>d', '"_d', opt)
