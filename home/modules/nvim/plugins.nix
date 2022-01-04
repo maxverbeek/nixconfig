@@ -26,13 +26,11 @@ in
   };
 
   treesitter = {
-    plugin = let
-      treesitter = addDeps vimPlugins.nvim-treesitter [
-        nvim-autopairs
-        nvim-treesitter-textobjects
-        pkgs.custom.nvim-ts-autotag
-      ];
-      in treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars);
+    plugin = addDeps (nvim-treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars)) [
+      nvim-autopairs
+      nvim-treesitter-textobjects
+      pkgs.custom.nvim-ts-autotag
+    ];
     config = ./config/lua/treesitter.lua;
   };
 
@@ -70,6 +68,21 @@ in
   gitsigns-nvim = {
     plugin = gitsigns-nvim;
     config = ./config/lua/gitsigns-nvim.lua;
+  };
+
+  nvim-autopairs = {
+    plugin = nvim-autopairs;
+    config = ./config/lua/nvim-autopairs.lua;
+  };
+
+  nvim-colorizer = {
+    plugin = nvim-colorizer-lua;
+    config = ./config/lua/nvim-colorizer.lua;
+  };
+
+  comment-nvim = {
+    plugin = comment-nvim;
+    config = ./config/lua/comment-nvim.lua;
   };
 
   editorconfig-vim.plugin = editorconfig-vim;
