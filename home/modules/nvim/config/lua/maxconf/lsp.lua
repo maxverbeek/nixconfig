@@ -44,6 +44,14 @@ vim.cmd [[
 
 vim.opt.completeopt:append({ 'menu', 'menuone', 'noselect' })
 
+-- View references in telescope instead of quickfixlist
+local has_telescope, telescope_builtin = pcall(require, "telescope.builtin")
+
+if has_telescope then
+  vim.lsp.handlers["textDocument/references"] = telescope_builtin.lsp_references
+  vim.lsp.handlers["textDocument/implementation"] = telescope_builtin.lsp_implementations
+end
+
 local cmp = require'cmp'
 
 cmp.setup({
