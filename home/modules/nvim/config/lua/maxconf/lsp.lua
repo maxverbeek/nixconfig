@@ -34,7 +34,7 @@ map('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 vim.cmd([[
   augroup holddiagnostics
     autocmd!
-    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+    autocmd CursorHold * lua vim.diagnostic.open_float({ scope = "cursor" })
   augroup END
 ]])
 
