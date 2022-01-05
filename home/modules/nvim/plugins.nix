@@ -30,6 +30,7 @@ in
       nvim-autopairs
       nvim-treesitter-textobjects
       pkgs.custom.nvim-ts-autotag
+      playground
     ];
     config = "treesitter";
   };
