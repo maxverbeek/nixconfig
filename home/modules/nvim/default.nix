@@ -18,7 +18,9 @@ let
 
   sourcestr = with builtins; concatStringsSep "\n" (map (x: "require('maxconf.${x}')") (catAttrs "config" plugins));
 
-  externals = builtins.concatLists (builtins.catAttrs "extern" plugins);
+  externals = with pkgs; [
+    xclip # for clipboard support
+  ] ++ builtins.concatLists (builtins.catAttrs "extern" plugins);
 
   nvim = (pkgs.unstable.neovim.override {
     configure = {
