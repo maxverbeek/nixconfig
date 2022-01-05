@@ -52,6 +52,7 @@
       enable = true;
       settings = {
         font.size = config.device.termFontSize;
+        colors = pkgs.custom.kanagawa-nvim.colors.alacritty;
       };
     };
 
