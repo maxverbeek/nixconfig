@@ -12,6 +12,8 @@ pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     sha256 = "sha256-0WYfd5bl+rwT6ibHb7xPgi5UOaCvcjn0PNbG6UI5W6c=";
   };
   
+  # see file in repo: $out/extras/alacritty_kanagawa.yml
+  # dont know how to convert yml to nix, so i did it manually
   passthru.colors.alacritty = {
     primary = {
       background = "0x1f1f28";
