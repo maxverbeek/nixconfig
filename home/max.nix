@@ -105,7 +105,6 @@
       EDITOR = "nvim";
     };
 
-    home.file.".jdk/openjdk11".source = pkgs.openjdk11;
     home.file.".jdk/openjdk17".source = pkgs.openjdk17;
 
     home.stateVersion = "20.09";
