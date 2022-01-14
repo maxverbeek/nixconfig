@@ -58,6 +58,7 @@ in
     extern = with pkgs; [
       rnix-lsp
       nodePackages.typescript-language-server
+      custom.nodePackages."@tailwindcss/language-server"
       rust-analyzer
       gopls
     ];

@@ -11,4 +11,5 @@
   vim-pandoc-markdown-preview = ./vim-pandoc-markdown-preview;
   inherit (import ./nvim-cmp) nvim-cmp cmp-nvim-lsp cmp-path cmp-buffer;
   kanagawa-nvim = import ./vimPlugins/kanagawa-nvim.nix;
+  nodePackages = import ./nodePackages;
 }
