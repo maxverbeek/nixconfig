@@ -1,22 +1,6 @@
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.signcolumn = 'yes'
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-map('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-map('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-map('n', '0gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map('n', 'g-1', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
-map('n', '<c-]>', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', '<Leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-map('n', 'ga',         "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-map('n', 'K',          "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-map('n', '<Leader>rn', "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-
 
 -- Set update time for cursorhold autocommand
 vim.o.updatetime = 300
@@ -26,10 +10,6 @@ vim.diagnostic.config({
     signs = true,
     float = { border = "single" },
 })
-
--- Goto previous/next diagnostic warning/error
-map('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-map('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
 vim.cmd([[
   augroup holddiagnostics
@@ -88,14 +68,41 @@ require 'lsp_signature'.setup {
 }
 
 local on_attach = function(_, bufnr)
+
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  local opts = { noremap = true, silent = true }
+
+  local function map(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+
+  map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  map('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  map('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  map('n', '0gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  map('n', 'g-1', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  map('n', '<c-]>', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  map('n', '<Leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  map('n', 'ga',         "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+  map('n', 'K',          "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  map('n', '<Leader>rn', "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+
+  -- Goto previous/next diagnostic warning/error
+  map('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 end
+
 -- Setup lspconfig.
 local nvim_lsp = require'lspconfig'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 -- Register all the language servers
 local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'gopls', 'tailwindcss' }
+
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
