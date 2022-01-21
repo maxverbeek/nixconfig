@@ -3,7 +3,7 @@
 , appimageTools
 , fetchurl
 , makeWrapper
-, electron_12
+, electron_13
 
 , alsaLib
 , dbus-glib
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    makeWrapper ${electron_12}/bin/electron $out/bin/${pname} \
+    makeWrapper ${electron_13}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/resources/app.asar \
       --prefix LD_LIBRARY_PATH : "${libPath}"
   '';

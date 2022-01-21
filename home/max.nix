@@ -114,7 +114,6 @@
       binutils
       chromium
       cht-sh
-      custom.responsively-app
       darktable # opening RAW imgs in gimp
       discord
       dnsutils
@@ -172,7 +171,8 @@
       yarn
 
       custom.pngcrop
-      custom.figma-linux
+      # custom.responsively-app
+      # custom.figma-linux
 
       oli.screencapture-scripts
     ];
