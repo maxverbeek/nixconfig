@@ -26,7 +26,7 @@ in
   };
 
   treesitter = {
-    plugin = addDeps (nvim-treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars)) [
+    plugin = addDeps (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars)) [
       nvim-autopairs
       nvim-treesitter-textobjects
       pkgs.custom.nvim-ts-autotag
