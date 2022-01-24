@@ -61,6 +61,7 @@ in
       custom.nodePackages."@tailwindcss/language-server"
       rust-analyzer
       gopls
+      pyright
     ];
 
     # config is in lsp
