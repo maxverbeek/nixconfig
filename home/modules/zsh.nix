@@ -1,6 +1,20 @@
 { pkgs, ... }:
 
-{
+let
+  checkdocker = pkgs.writeScript "checkdocker" ''
+    #!/usr/bin/env bash
+
+    if [ "$(${pkgs.docker}/bin/docker ps -q | wc -l)" -gt 0 ]; then
+      read -p "There are containers running, shutdown anyway? y/n: " -n 1 -r
+      echo
+      if [[ ! $REPLY =~ [Yy]$ ]]; then
+        exit 1
+      fi
+    fi
+
+    exit 0
+  '';
+in {
   home.packages = with pkgs; [
     thefuck
   ];
@@ -20,7 +34,7 @@
 
     shellAliases = {
       zathura = "zathura --fork";
-      shutdown = "shutdown now";
+      shutdown = "${checkdocker} && shutdown now";
       open = "xdg-open";
       ll = "ls -al";
       la = "ls -a";
