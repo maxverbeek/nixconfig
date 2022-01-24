@@ -2,7 +2,7 @@
 
 let
   checkdocker = pkgs.writeScript "checkdocker" ''
-    #!/usr/bin/env bash
+    #!${pkgs.bash}/bin/bash
 
     if [ "$(${pkgs.docker}/bin/docker ps -q | wc -l)" -gt 0 ]; then
       read -p "There are containers running, shutdown anyway? y/n: " -n 1 -r
