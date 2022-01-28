@@ -35,6 +35,8 @@
         init.defaultBranch = "master";
       };
 
+      delta.enable = true;
+
       aliases = {
         s = "status";
         cm = "commit -m";
