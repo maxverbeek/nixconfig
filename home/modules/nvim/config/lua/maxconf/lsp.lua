@@ -14,7 +14,7 @@ vim.diagnostic.config({
 vim.cmd([[
   augroup holddiagnostics
     autocmd!
-    autocmd CursorHold * lua vim.diagnostic.open_float({ scope = "cursor" })
+    autocmd CursorHold * lua vim.diagnostic.open_float({ scope = "cursor", focusable = false })
   augroup END
 ]])
 
