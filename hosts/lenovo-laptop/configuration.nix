@@ -19,6 +19,8 @@
   };
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.initrd.availableKernelModules = [ "btusb" ];
 
   boot.initrd.luks.devices.root = {
     device = "/dev/disk/by-uuid/6a5c2154-c367-44d3-a9f0-a06d112b2c5d";
@@ -46,7 +48,7 @@
   };
 
   services.resolved = {
-    enable = true;
+    enable = false;
     fallbackDns = [
       "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" 
     ];
@@ -131,7 +133,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "bluetooth" "plugdev" "dialout" "input" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
