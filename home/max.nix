@@ -33,6 +33,9 @@
         pull.rebase = "false";
         push.default = "current";
         init.defaultBranch = "master";
+
+        url."git@github.com:rug-ds-lab".insteadOf = "https://github.com/rug-ds-lab";
+        url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
       };
 
       delta.enable = true;
