@@ -104,6 +104,8 @@
       enable = true;
     };
 
+    services.flameshot.enable = true;
+
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
       _JAVA_AWT_WM_NONREPARENTING = "1";
