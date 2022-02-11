@@ -29,7 +29,7 @@ in
     plugin = addDeps (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars)) [
       nvim-autopairs
       nvim-treesitter-textobjects
-      pkgs.custom.nvim-ts-autotag
+      nvim-ts-autotag
       playground
     ];
     config = "treesitter";
