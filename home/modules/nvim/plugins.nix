@@ -97,6 +97,11 @@ in
     config = "harpoon";
   };
 
+  indent-blankline-nvim = {
+    plugin = indent-blankline-nvim;
+    config = "indent-blankline";
+  };
+
   editorconfig-vim.plugin = editorconfig-vim;
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;
