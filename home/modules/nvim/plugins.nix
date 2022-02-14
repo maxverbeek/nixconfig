@@ -88,7 +88,7 @@ in
   };
 
   comment-nvim = {
-    plugin = comment-nvim;
+    plugin = addDeps comment-nvim [ nvim-ts-context-commentstring ];
     config = "comment-nvim";
   };
 
