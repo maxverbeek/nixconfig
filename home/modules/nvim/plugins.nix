@@ -20,9 +20,10 @@ in
     plugin = addDeps telescope-nvim [
       nvim-web-devicons
       telescope-fzf-native-nvim
+      telescope-file-browser-nvim
     ];
     config = "telescope";
-    extern = with pkgs; [ ripgrep ];
+    extern = with pkgs; [ ripgrep fd ];
   };
 
   treesitter = {

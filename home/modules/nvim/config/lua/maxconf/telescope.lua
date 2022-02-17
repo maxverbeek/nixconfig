@@ -18,10 +18,16 @@ require 'telescope'.setup {
       override_file_sorter = true,
       case_mode = "smart_case", -- ignore_case, respect_case, smart_case
     },
+    
+    file_browser = {
+        theme = "ivy",
+    },
   },
 }
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('file_browser')
 
 map('n', '<C-p>', '<cmd>Telescope find_files<CR>', opts)
 map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', opts)
+map('n', '<Leader><Tab>', '<cmd>Telescope file_browser<CR>', opts)
