@@ -98,7 +98,13 @@ in {
 
   neoformat = {
     plugin = neoformat;
-    extern = with pkgs; [ nixfmt ];
+    config = "neoformat";
+    extern = with pkgs; [
+      nixfmt
+      rubocop
+      custom.nodePackages.standard
+      custom.nodePackages.vscode-langservers-extracted
+    ];
   };
 
   editorconfig-vim.plugin = editorconfig-vim;
