@@ -1,11 +1,10 @@
 { pkgs, vimPlugins ? pkgs.vimPlugins, ... }:
 with vimPlugins;
 let
-  addDeps = plugin: deps: plugin.overrideAttrs (old: {
-    dependencies = (old.dependencies or []) ++ deps;
-  });
-in
-{
+  addDeps = plugin: deps:
+    plugin.overrideAttrs
+    (old: { dependencies = (old.dependencies or [ ]) ++ deps; });
+in {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
     config = "colorscheme";
@@ -27,12 +26,13 @@ in
   };
 
   treesitter = {
-    plugin = addDeps (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: pkgs.unstable.tree-sitter.allGrammars)) [
-      nvim-autopairs
-      nvim-treesitter-textobjects
-      nvim-ts-autotag
-      playground
-    ];
+    plugin = addDeps (pkgs.vimPlugins.nvim-treesitter.withPlugins
+      (_: pkgs.unstable.tree-sitter.allGrammars)) [
+        nvim-autopairs
+        nvim-treesitter-textobjects
+        nvim-ts-autotag
+        playground
+      ];
     config = "treesitter";
   };
 
@@ -42,19 +42,12 @@ in
   };
 
   nvim-lspconfig = {
-    plugin = addDeps nvim-lspconfig [
-      lsp_extensions-nvim
-      lsp_signature-nvim
-    ];
+    plugin = addDeps nvim-lspconfig [ lsp_extensions-nvim lsp_signature-nvim ];
     config = "lsp";
   };
 
   nvim-cmp = {
-    plugin = addDeps nvim-cmp [
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-    ];
+    plugin = addDeps nvim-cmp [ cmp-nvim-lsp cmp-buffer cmp-path ];
 
     extern = with pkgs; [
       rnix-lsp
@@ -101,6 +94,11 @@ in
   indent-blankline-nvim = {
     plugin = indent-blankline-nvim;
     config = "indent-blankline";
+  };
+
+  neoformat = {
+    plugin = neoformat;
+    extern = with pkgs; [ nixfmt ];
   };
 
   editorconfig-vim.plugin = editorconfig-vim;
