@@ -58,6 +58,7 @@
   networking.wireless.interfaces = [ "wlp4s0" ];
 
   programs.nm-applet.enable = true;
+  programs.light.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -133,7 +134,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "bluetooth" "plugdev" "dialout" "input" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "networkmanager" "bluetooth" "plugdev" "dialout" "input" "video" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 

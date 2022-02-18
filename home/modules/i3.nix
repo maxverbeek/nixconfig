@@ -84,6 +84,9 @@ in
         "Print+Shift"  = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -w";
         "${mod}+Print" = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot --interactive";
 
+        "XF86MonBrightnessUp" = "exec light -A 10";
+        "XF86MonBrightnessDown" = "exec light -U 10";
+
         "${mod}+t" = "floating toggle";
         "${mod}+f" = "fullscreen toggle";
         "${mod}+v" = "split toggle";
