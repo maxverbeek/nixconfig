@@ -29,6 +29,7 @@
   };
 
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.opengl.enable = true;
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
