@@ -56,6 +56,7 @@ in {
       rust-analyzer
       gopls
       pyright
+      clang-tools
     ];
 
     # config is in lsp
