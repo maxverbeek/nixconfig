@@ -5,11 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -35,7 +34,8 @@
   services.blueman.enable = true;
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+  networking.nameservers =
+    [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
@@ -50,9 +50,8 @@
 
   services.resolved = {
     enable = false;
-    fallbackDns = [
-      "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" 
-    ];
+    fallbackDns =
+      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
 
   networking.wireless.enable = false;
@@ -87,16 +86,15 @@
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
+    videoDrivers = [ "radeon" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
     desktopManager.xterm.enable = true;
-    desktopManager.session = [
-      {
-        manage = "desktop";
-        name = "home-manager";
-        start = "exec $HOME/.xsession &";
-      }
-    ];
+    desktopManager.session = [{
+      manage = "desktop";
+      name = "home-manager";
+      start = "exec $HOME/.xsession &";
+    }];
     displayManager.defaultSession = "home-manager";
     displayManager.job.logToJournal = true;
 
@@ -127,7 +125,6 @@
 
   powerManagement.powertop.enable = true;
 
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -135,7 +132,16 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" "bluetooth" "plugdev" "dialout" "input" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+      "bluetooth"
+      "plugdev"
+      "dialout"
+      "input"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
