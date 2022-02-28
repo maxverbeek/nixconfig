@@ -1,5 +1,5 @@
 [
-    "@tailwindcss/language-server",
-    "standard",
-    "vscode-langservers-extracted"
+  "@tailwindcss/language-server",
+  "standard",
+  "vscode-langservers-extracted"
 ]

@@ -1948,13 +1948,13 @@ let
         sha512 = "FA0foqMzMmEoO0WJP+MjoD4dRERhKS+Ag+yBrtmWQDmw2OuZ1R/5FkvI/XdTkCpHmTD9VMczugpHRejQyTXCNQ==";
       };
     };
-    "vscode-html-languageservice-4.2.1" = {
+    "vscode-html-languageservice-4.2.2" = {
       name = "vscode-html-languageservice";
       packageName = "vscode-html-languageservice";
-      version = "4.2.1";
+      version = "4.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-html-languageservice/-/vscode-html-languageservice-4.2.1.tgz";
-        sha512 = "PgaToZVXJ44nFWEBuSINdDgVV6EnpC3MnXBsysR3O5TKcAfywbYeRGRy+Y4dVR7YeUgDvtb+JkJoSkaYC0mxXQ==";
+        url = "https://registry.npmjs.org/vscode-html-languageservice/-/vscode-html-languageservice-4.2.2.tgz";
+        sha512 = "4ICwlpplGbiNQq6D/LZr4qLbPZuMmnSQeX/57UAYP7jD1LOvKeru4lVI+f6d6Eyd7uS46nLJ5DUY4AAlq35C0g==";
       };
     };
     "vscode-json-languageservice-4.2.0" = {
@@ -2413,10 +2413,10 @@ in
   vscode-langservers-extracted = nodeEnv.buildNodePackage {
     name = "vscode-langservers-extracted";
     packageName = "vscode-langservers-extracted";
-    version = "4.0.0";
+    version = "4.1.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/vscode-langservers-extracted/-/vscode-langservers-extracted-4.0.0.tgz";
-      sha512 = "DTFhpzUhP3M5WA62WT/SVSxtq47R5rbIEznA7svxWD19/+D1iGBrrzAa8LrDCkLUMxyG3gbya99LczV4F9m6Yg==";
+      url = "https://registry.npmjs.org/vscode-langservers-extracted/-/vscode-langservers-extracted-4.1.0.tgz";
+      sha512 = "HZfrlqpVu8N0UkSyjldPsGFpVFByYaDRDMmBvmKwKai2rAsd2vtde2CFnX9rOpmg3pN2vET8j3qtqZvZLzmkjQ==";
     };
     dependencies = [
       sources."core-js-3.21.1"
@@ -2425,7 +2425,7 @@ in
       sources."request-light-0.5.7"
       sources."typescript-4.5.5"
       sources."vscode-css-languageservice-5.1.13"
-      sources."vscode-html-languageservice-4.2.1"
+      sources."vscode-html-languageservice-4.2.2"
       sources."vscode-json-languageservice-4.2.0"
       sources."vscode-jsonrpc-8.0.0-next.6"
       sources."vscode-languageserver-8.0.0-next.8"
