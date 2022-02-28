@@ -134,6 +134,7 @@
       ijq # note 2 packages here
 
       kubernetes-helm
+      librsvg
       minikube
       neofetch
       nix-index
