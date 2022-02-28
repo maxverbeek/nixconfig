@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   imports = [
     ./modules/autorandr.nix
     # ./modules/bspwm.nix
@@ -34,7 +33,8 @@
         push.default = "current";
         init.defaultBranch = "master";
 
-        url."git@github.com:rug-ds-lab".insteadOf = "https://github.com/rug-ds-lab";
+        url."git@github.com:rug-ds-lab".insteadOf =
+          "https://github.com/rug-ds-lab";
         url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
       };
 
@@ -47,7 +47,8 @@
         a = "add";
         # The !/*/ is a regex that excludes the literal '*' (current branch),
         # and /: gone/ includes branches that are gone on the remote.
-        brd = "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
+        brd =
+          "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
 
         difflast = "diff HEAD^";
       };
@@ -86,13 +87,9 @@
       };
     };
 
-    programs.gpg = {
-      enable = true;
-    };
+    programs.gpg = { enable = true; };
 
-    programs.kubectl = {
-      enable = true;
-    };
+    programs.kubectl = { enable = true; };
 
     programs.go = {
       enable = true;
@@ -100,9 +97,7 @@
       goBin = "go/bin";
     };
 
-    services.gpg-agent = {
-      enable = true;
-    };
+    services.gpg-agent = { enable = true; };
 
     services.flameshot.enable = true;
 
@@ -116,12 +111,14 @@
 
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
-      ((steam.override { extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ]; }).run)
+      ((steam.override {
+        extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ];
+      }).run)
+
       _1password
       binutils
       chromium
       cht-sh
-      darktable # opening RAW imgs in gimp
       discord
       dnsutils
       docker-compose
@@ -132,7 +129,10 @@
       gnumake
       htop
       httpie
-      jq ijq # note 2 packages here
+
+      jq
+      ijq # note 2 packages here
+
       kubernetes-helm
       minikube
       neofetch
@@ -153,7 +153,6 @@
       spotify
       tldr
       teams
-      ulauncher
       unp
       unzip
       vlc
@@ -162,17 +161,12 @@
       zoom-us
 
       # latex
-      (texlive.combine {
-        inherit (texlive) scheme-medium latexmk;
-      })
+      (texlive.combine { inherit (texlive) scheme-medium latexmk; })
       pandoc
-
-      unstable._1password-gui
 
       jetbrains.idea-ultimate
       openjdk11
       maven
-      (sbt.override { jre = jre8; })
 
       nodejs
       yarn
