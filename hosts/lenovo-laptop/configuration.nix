@@ -86,7 +86,7 @@
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
-    videoDrivers = [ "radeon" ];
+    # videoDrivers = [ "radeon" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
     desktopManager.xterm.enable = true;
