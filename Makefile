@@ -12,7 +12,7 @@ lockfile:
 	git pull --rebase
 	nix flake update
 
-CHANGES := $(shell git diff-index --quiet HEAD flake.lock)
+CHANGES := $(shell git diff-index HEAD flake.lock)
 
 ifneq ($(strip $(CHANGES)),)
 commit:
