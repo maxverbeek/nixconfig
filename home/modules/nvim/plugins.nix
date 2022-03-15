@@ -110,6 +110,11 @@ in {
 
   luasnip.plugin = luasnip;
 
+  dressing-nvim = {
+    plugin = pkgs.custom.dressing-nvim;
+    config = "dressing";
+  };
+
   editorconfig-vim.plugin = editorconfig-vim;
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;

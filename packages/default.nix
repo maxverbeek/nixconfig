@@ -8,7 +8,6 @@
   figma-linux = ./figma-linux;
   neovim-ayu = ./neovim-ayu;
   vim-pandoc-markdown-preview = ./vim-pandoc-markdown-preview;
-  inherit (import ./nvim-cmp) nvim-cmp cmp-nvim-lsp cmp-path cmp-buffer;
-  kanagawa-nvim = import ./vimPlugins/kanagawa-nvim.nix;
+  inherit (import ./vimPlugins) kanagawa-nvim dressing-nvim;
   nodePackages = import ./nodePackages;
 }
