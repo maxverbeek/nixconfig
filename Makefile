@@ -6,7 +6,8 @@ switch:
 test:
 	sudo nixos-rebuild test --flake .
 
-update: | lockfile commit
+update:
+	sh -c "make lockfile && make commit && make"
 
 lockfile:
 	git pull --rebase
@@ -20,5 +21,5 @@ commit:
 	git commit -m "chore(flake.lock): update"
 else
 commit:
-
+	exit 1
 endif
