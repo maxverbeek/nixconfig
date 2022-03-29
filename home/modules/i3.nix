@@ -2,10 +2,11 @@
 let
   screens = config.device.screens;
   mod = "Mod4";
-  reloadcmd = with lib; "reload"
-    + optionalString (length screens > 1) "; exec ${switcherScript}/bin/fixscreens"
-    + optionalString (config.services.polybar.enable) "; exec systemctl --user restart polybar.service;"
-  ;
+  reloadcmd = with lib;
+    "reload" + optionalString (length screens > 1)
+    "; exec ${switcherScript}/bin/fixscreens"
+    + optionalString (config.services.polybar.enable)
+    "; exec systemctl --user restart polybar.service;";
 
   screen = with builtins; x: (elemAt screens x).name;
   primscreen = with builtins; x: (elemAt screens x).isPrimary;
@@ -29,24 +30,33 @@ let
     else
       xrandr --auto
     fi
+
+    $HOME/.fehbg
   '';
-in
-{
-  home.packages = with pkgs; with lib; [ feh rofi ] ++ optional (length screens > 1) switcherScript;
+in {
+  home.packages = with pkgs;
+    with lib;
+    [ feh rofi ] ++ optional (length screens > 1) switcherScript;
 
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
-    config =  rec {
+    config = rec {
       menu = "rofi -show drun";
       modifier = mod;
 
-      startup = [
-        { command = "[ -f $HOME/.fehbg ] && $HOME/.fehbg"; always = true; notification = false; }
-      ] ++ lib.optional (config.services.polybar.enable)
-        { command = "systemctl --user restart polybar.service"; always = true; notification = false; };
+      startup = [{
+        command = "[ -f $HOME/.fehbg ] && $HOME/.fehbg";
+        always = true;
+        notification = false;
+      }] ++ lib.optional (config.services.polybar.enable) {
+        command = "systemctl --user restart polybar.service";
+        always = true;
+        notification = false;
+      };
 
-      gaps = let size = 14; in {
+      gaps = let size = 14;
+      in {
         inner = size;
 
         smartBorders = "on";
@@ -54,25 +64,22 @@ in
       };
 
       assigns = {
-        "1:web" = [
-          { class = "^Firefox$"; }
-          { class = "^Chromium-browser$"; }
-        ];
+        "1:web" =
+          [ { class = "^Firefox$"; } { class = "^Chromium-browser$"; } ];
         "2:code" = [
           { class = "^Code$"; } # vscode
           { class = "^jetbrains-"; }
         ];
         "4:gfx" = [{ class = "^Gimp"; }];
-        "5:music" = [{ instance = "spotify"; }]; # broken, use for_window (see extraConfig)
-        "6:slack" = [
-          { class = "Slack"; }
-          { class = "discord"; }
-        ];
+        "5:music" = [{
+          instance = "spotify";
+        }]; # broken, use for_window (see extraConfig)
+        "6:slack" = [ { class = "Slack"; } { class = "discord"; } ];
       };
 
-
       keybindings = {
-        "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
+        "${mod}+Return" =
+          "exec ${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
         "${mod}+Shift+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
         "${mod}+space" = "exec ${menu}";
         "${mod}+Escape" = reloadcmd;
@@ -80,9 +87,12 @@ in
         "${mod}+w" = "kill";
         "${mod}+Control+l" = "exec ${config.services.my-screen-locker.lockCmd}";
 
-        "Print"        = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -a";
-        "Print+Shift"  = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -w";
-        "${mod}+Print" = "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot --interactive";
+        "Print" =
+          "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -a";
+        "Print+Shift" =
+          "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot -c -w";
+        "${mod}+Print" =
+          "exec ${pkgs.gnome.gnome-screenshot}/bin/gnome-screenshot --interactive";
 
         "XF86MonBrightnessUp" = "exec light -A 10";
         "XF86MonBrightnessDown" = "exec light -U 10";
@@ -129,30 +139,30 @@ in
         "${mod}+Shift+0" = ''move container to workspace "9:misc"'';
       };
 
-      bars = [];
+      bars = [ ];
     };
 
-    extraConfig = with builtins; let
-      # assume at most 2 screens for now
-      # specifying multiple outputs means the first one will
-      # be picked when available.
-      primary = screen 0;
-      secondary = if length screens > 1 then screen 1 else "";
-    in
-    ''
-      workspace "0:term" output ${primary} ${secondary}
-      workspace "1:web" output ${primary} ${secondary}
-      workspace "2:code" output ${primary} ${secondary}
-      workspace "3:misc" output ${primary} ${secondary}
-      workspace "4:gfx" output ${primary} ${secondary}
-      workspace "5:music" output ${secondary} ${primary}
-      workspace "6:slack" output ${secondary} ${primary}
-      workspace "7:misc" output ${secondary} ${primary}
-      workspace "8:bgstuff" output ${secondary} ${primary}
-      workspace "9:misc" output ${secondary} ${primary}
+    extraConfig = with builtins;
+      let
+        # assume at most 2 screens for now
+        # specifying multiple outputs means the first one will
+        # be picked when available.
+        primary = screen 0;
+        secondary = if length screens > 1 then screen 1 else "";
+      in ''
+        workspace "0:term" output ${primary} ${secondary}
+        workspace "1:web" output ${primary} ${secondary}
+        workspace "2:code" output ${primary} ${secondary}
+        workspace "3:misc" output ${primary} ${secondary}
+        workspace "4:gfx" output ${primary} ${secondary}
+        workspace "5:music" output ${secondary} ${primary}
+        workspace "6:slack" output ${secondary} ${primary}
+        workspace "7:misc" output ${secondary} ${primary}
+        workspace "8:bgstuff" output ${secondary} ${primary}
+        workspace "9:misc" output ${secondary} ${primary}
 
-      for_window [class="Spotify"] move to workspace "5:music"
-    '';
+        for_window [class="Spotify"] move to workspace "5:music"
+      '';
 
   };
 }
