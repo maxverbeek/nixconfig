@@ -97,7 +97,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Register all the language servers
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'gopls', 'tailwindcss', 'pyright', 'clangd' }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd' }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {

@@ -53,6 +53,7 @@ in {
       rnix-lsp
       nodePackages.typescript-language-server
       custom.nodePackages."@tailwindcss/language-server"
+      custom.nodePackages."svelte-language-server"
       rust-analyzer
       gopls
       pyright
