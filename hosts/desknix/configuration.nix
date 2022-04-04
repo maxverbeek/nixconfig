@@ -5,12 +5,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # ./vim.nix
-      # ./i3.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/kvm2.nix
+    # ./vim.nix
+    # ./i3.nix
+  ];
 
   # Use experimental nix flakes
   nix = {
@@ -30,7 +30,8 @@
 
   networking.hostName = "desknix"; # Define your hostname.
   networking.hostId = "aa111111"; # required for zfs
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+  networking.nameservers =
+    [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
@@ -61,7 +62,7 @@
   };
 
   hardware.cpu.intel.updateMicrocode = true;
-  
+
   services.teamviewer.enable = false;
 
   # Configure keymap in X11
@@ -77,15 +78,13 @@
       enable = true;
       user = "max";
     };
-    desktopManager.session = [
-      {
-        manage = "desktop";
-        name = "default"; # was previously "home-manager"
-        start = ''
-          exec $HOME/.xsession &
-        '';
-      }
-    ];
+    desktopManager.session = [{
+      manage = "desktop";
+      name = "default"; # was previously "home-manager"
+      start = ''
+        exec $HOME/.xsession &
+      '';
+    }];
     # apparently not used, this is the default value.
     displayManager.defaultSession = "default";
   };
@@ -144,6 +143,9 @@
     # storageDriver = "zfs"; # according to internet, overlayfs + zfs = bad
   };
 
+  modules.kvm2.enable = true;
+  modules.kvm2.home.minikube.enable = true;
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -153,4 +155,3 @@
   system.stateVersion = "21.05"; # Did you read the comment?
 
 }
-
