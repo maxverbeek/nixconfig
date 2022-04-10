@@ -6,5 +6,6 @@ with lib; {
 
   config = mkIf config.modules.playerctld.enable {
     services.playerctld.enable = true;
+    home.packages = [ pkgs.playerctl ];
   };
 }
