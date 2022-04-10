@@ -2,7 +2,7 @@
   imports = [
     ./modules/autorandr.nix
     # ./modules/bspwm.nix
-    ./modules/i3.nix
+    ./modules/i3
     ./modules/nvim
     ./modules/kubectl.nix
     ./modules/picom
@@ -19,6 +19,9 @@
       name = "McMojave-cursors";
       defaultCursor = "left_ptr";
     };
+
+    # custom module
+    modules.i3.enable = true;
 
     programs.git = {
       enable = true;
