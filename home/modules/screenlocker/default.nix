@@ -1,8 +1,11 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, lib, ... }: {
   imports = [ ./module.nix ];
 
-  config = {
+  options = {
+    modules.screenlocker.enable = lib.mkEnableOption "Enable screenlocker";
+  };
+
+  config = lib.mkIf config.modules.screenlocker.enable {
     services.my-screen-locker = {
       enable = config.device.withScreenLocker;
       lockCmd = ''

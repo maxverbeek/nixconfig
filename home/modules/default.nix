@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./alacritty.nix
+    ./autorandr.nix
+    ./bspwm.nix
+    ./direnv.nix
+    ./git.nix
+    ./i3
+    ./kubectl.nix
+    ./nvim
+    ./picom.nix
+    ./polybar.nix
+    ./rofi.nix
+    ./screenlocker
+    ./sxhkd.nix
+    ./vscode.nix
+    ./zsh.nix
+  ];
+}

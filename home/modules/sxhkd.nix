@@ -1,135 +1,152 @@
-{ pkgs, config, ... }:
-{
-  services.sxhkd = {
-    enable = config.xsession.windowManager.bspwm.enable;
+{ pkgs, config, lib, ... }: {
 
-    keybindings = {
-      #
-      # wm independent hotkeys
-      #
+  options = { modules.sxhkd.enable = lib.mkEnableOption "Enable sxhkd"; };
 
-      # terminal emulator in current workingdir
-      "super + Return" = "${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
+  config = lib.mkIf config.modules.sxhkd.enable {
 
-      # terminal in current home
-      "super + shift + Return" = "${pkgs.alacritty}/bin/alacritty";
+    services.sxhkd = {
+      enable = config.xsession.windowManager.bspwm.enable;
 
-      # program launcher
-      "super + space" = "rofi -show drun";
+      keybindings = {
+        #
+        # wm independent hotkeys
+        #
 
-      # make sxhkd reload its configuration files:
-      "super + Escape" = "pkill -USR1 -x sxhkd";
+        # terminal emulator in current workingdir
+        "super + Return" =
+          "${pkgs.alacritty}/bin/alacritty --working-directory $(${pkgs.xcwd}/bin/xcwd)";
 
-      # audio control
-      "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        # terminal in current home
+        "super + shift + Return" = "${pkgs.alacritty}/bin/alacritty";
 
-      "XF86AudioRaiseVolume" = "pactl set-sink-mute @DEFAULT_SINK@ 0; pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        # program launcher
+        "super + space" = "rofi -show drun";
 
-      "XF86AudioLowerVolume" = "pactl set-sink-mute @DEFAULT_SINK@ 0; pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        # make sxhkd reload its configuration files:
+        "super + Escape" = "pkill -USR1 -x sxhkd";
 
-      # screenshots
-      # "Print" = "maim -s -d 0.2 -u /tmp/screenshot.png && xclip -selection c -t image/png < /tmp/screenshot.png";
+        # audio control
+        "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
-      # "shift + Print" = "maim /tmp/screenshot.png && xclip -selection c -t image/png < /tmp/screenshot.png";
+        "XF86AudioRaiseVolume" =
+          "pactl set-sink-mute @DEFAULT_SINK@ 0; pactl set-sink-volume @DEFAULT_SINK@ +5%";
 
-      # Lock screen
-      # "XF86ScreenSaver" = "lock";
+        "XF86AudioLowerVolume" =
+          "pactl set-sink-mute @DEFAULT_SINK@ 0; pactl set-sink-volume @DEFAULT_SINK@ -5%";
 
-      # bspwm hotkeys
-      #
-      "super + {_,shift} + r" = "bspc node @/ -C {forward,backward}";
+        # screenshots
+        # "Print" = "maim -s -d 0.2 -u /tmp/screenshot.png && xclip -selection c -t image/png < /tmp/screenshot.png";
 
-      "super + {_,alt} + b" = "bspc node @{parent,/} -B";
+        # "shift + Print" = "maim /tmp/screenshot.png && xclip -selection c -t image/png < /tmp/screenshot.png";
 
-      # quit bspwm normally
-      "super + alt + Escape" = "bspc quit";
+        # Lock screen
+        # "XF86ScreenSaver" = "lock";
 
-      # close and kill
-      "super + {_,shift + }w" = "bspc node -{c,k}";
+        # bspwm hotkeys
+        #
+        "super + {_,shift} + r" = "bspc node @/ -C {forward,backward}";
 
-      # alternate between the tiled and monocle layout
-      "super + m" = "bspc desktop -l next";
+        "super + {_,alt} + b" = "bspc node @{parent,/} -B";
 
-      # send the newest marked node to the newest preselected node
-      "super + y" = "bspc node newest.marked.local -n newest.!automatic.local";
+        # quit bspwm normally
+        "super + alt + Escape" = "bspc quit";
 
-      # swap the current node and the biggest node
-      "super + g" = "bspc node -s biggest.local";
+        # close and kill
+        "super + {_,shift + }w" = "bspc node -{c,k}";
 
-      #
-      # state/flags
-      #
+        # alternate between the tiled and monocle layout
+        "super + m" = "bspc desktop -l next";
 
-      # set the window state
-      "super + {t,shift + t,s,f}" = "bspc node -t {tiled,pseudo_tiled,floating,fullscreen}";
+        # send the newest marked node to the newest preselected node
+        "super + y" =
+          "bspc node newest.marked.local -n newest.!automatic.local";
 
-      # set the node flags
-      "super + ctrl + {m,x,y,z}" = "bspc node -g {marked,locked,sticky,private}";
+        # swap the current node and the biggest node
+        "super + g" = "bspc node -s biggest.local";
 
-      #
-      # focus/swap
-      #
+        #
+        # state/flags
+        #
 
-      # focus the node in the given direction
-      "super + {_,shift + }{h,j,k,l}" = "bspc node -{f,s} {west,south,north,east}";
+        # set the window state
+        "super + {t,shift + t,s,f}" =
+          "bspc node -t {tiled,pseudo_tiled,floating,fullscreen}";
 
-      # focus the node for the given path jump
-      "super + {p,b,comma,period}" = "bspc node -f @{parent,brother,first,second}";
+        # set the node flags
+        "super + ctrl + {m,x,y,z}" =
+          "bspc node -g {marked,locked,sticky,private}";
 
-      # focus the next/previous node in the current desktop
-      "super + {_,shift + }c" = "bspc node -f {next,prev}.local";
+        #
+        # focus/swap
+        #
 
-      # focus the next/previous desktop in the current monitor
-      "super + {Left,Right}" = "bspc desktop -f {prev,next}.local";
-      "super + bracket{left,right}" = "bspc desktop -f {prev,next}.local";
+        # focus the node in the given direction
+        "super + {_,shift + }{h,j,k,l}" =
+          "bspc node -{f,s} {west,south,north,east}";
 
-      # focus the last node/desktop
-      "super + {grave,Tab}" = "bspc {node,desktop} -f last";
+        # focus the node for the given path jump
+        "super + {p,b,comma,period}" =
+          "bspc node -f @{parent,brother,first,second}";
 
-      # focus the older or newer node in the focus history
-      "super + {o,i}" = "bspc wm -h off; bspc node {older,newer} -f; bspc wm -h on";
+        # focus the next/previous node in the current desktop
+        "super + {_,shift + }c" = "bspc node -f {next,prev}.local";
 
-      # focus or send to the given desktop
-      "super + {_,shift + }{1-9,0}" = "bspc {desktop -f,node -d} '^{1-9,10}'";
+        # focus the next/previous desktop in the current monitor
+        "super + {Left,Right}" = "bspc desktop -f {prev,next}.local";
+        "super + bracket{left,right}" = "bspc desktop -f {prev,next}.local";
 
-      #
-      # preselect
-      #
+        # focus the last node/desktop
+        "super + {grave,Tab}" = "bspc {node,desktop} -f last";
 
-      # preselect the direction
-      "super + ctrl + {h,j,k,l}" = "bspc node -p {west,south,north,east}";
+        # focus the older or newer node in the focus history
+        "super + {o,i}" =
+          "bspc wm -h off; bspc node {older,newer} -f; bspc wm -h on";
 
-      # preselect the ratio
-      "super + ctrl + {1-9}" = "bspc node -o 0.{1-9}";
+        # focus or send to the given desktop
+        "super + {_,shift + }{1-9,0}" = "bspc {desktop -f,node -d} '^{1-9,10}'";
 
-      # cancel the preselection for the focused node
-      "super + ctrl + space" = "bspc node -p cancel";
+        #
+        # preselect
+        #
 
-      # cancel the preselection for the focused desktop
-      "super + ctrl + shift + space" = "bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel";
+        # preselect the direction
+        "super + ctrl + {h,j,k,l}" = "bspc node -p {west,south,north,east}";
 
-      #
-      # move/resize
-      #
+        # preselect the ratio
+        "super + ctrl + {1-9}" = "bspc node -o 0.{1-9}";
 
-      # expand a window to the left outwards (or right inwards)
-      "super + alt + h" = "bspc node -z left -30 0 || bspc node -z right -30 0";
+        # cancel the preselection for the focused node
+        "super + ctrl + space" = "bspc node -p cancel";
 
-      # expand a window bottom outwards (or top inwards)
-      "super + alt + j" = "bspc node -z bottom 0 30 || bspc node -z top 0 30";
+        # cancel the preselection for the focused desktop
+        "super + ctrl + shift + space" =
+          "bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel";
 
-      # expand a window top outwards (or bottom inwards)
-      "super + alt + k" = "bspc node -z top 0 -30 || bspc node -z bottom 0 -30 ";
+        #
+        # move/resize
+        #
 
-      # expand a window right outwards (or left inwards)
-      "super + alt + l" = "bspc node -z right 30 0 || bspc node -z left 30 0";
+        # expand a window to the left outwards (or right inwards)
+        "super + alt + h" =
+          "bspc node -z left -30 0 || bspc node -z right -30 0";
 
+        # expand a window bottom outwards (or top inwards)
+        "super + alt + j" = "bspc node -z bottom 0 30 || bspc node -z top 0 30";
 
-      # contract a window by moving one of its side inward
-      "super + alt + shift + {h,j,k,l}" = "bspc node -z {right -30 0,top 0 30,bottom 0 -30,left 30 0}";
+        # expand a window top outwards (or bottom inwards)
+        "super + alt + k" =
+          "bspc node -z top 0 -30 || bspc node -z bottom 0 -30 ";
 
-      # move a floating window
-      "super + {Left,Down,Up,Right}" = "bspc node -v {-20 0,0 20,0 -20,20 0}";
+        # expand a window right outwards (or left inwards)
+        "super + alt + l" = "bspc node -z right 30 0 || bspc node -z left 30 0";
+
+        # contract a window by moving one of its side inward
+        "super + alt + shift + {h,j,k,l}" =
+          "bspc node -z {right -30 0,top 0 30,bottom 0 -30,left 30 0}";
+
+        # move a floating window
+        "super + {Left,Down,Up,Right}" = "bspc node -v {-20 0,0 20,0 -20,20 0}";
+      };
     };
   };
 }

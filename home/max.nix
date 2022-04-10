@@ -1,16 +1,5 @@
 { pkgs, config, ... }: {
-  imports = [
-    ./modules/autorandr.nix
-    # ./modules/bspwm.nix
-    ./modules/i3
-    ./modules/nvim
-    ./modules/kubectl.nix
-    ./modules/picom
-    ./modules/polybar.nix
-    ./modules/rofi.nix
-    ./modules/screenlocker
-    ./modules/zsh.nix
-  ];
+  imports = [ ./modules ];
 
   config = {
     xsession.enable = true;
@@ -20,88 +9,34 @@
       defaultCursor = "left_ptr";
     };
 
-    # custom module
-    modules.i3.enable = true;
+    # custom modules
+    modules = {
+      i3.enable = true;
+      git.enable = true;
+      vscode.enable = true;
+      kubectl.enable = true;
+      autorandr.enable = true;
+      polybar.enable = true;
+      rofi.enable = true;
+      screenlocker.enable = true;
+      zsh.enable = true;
+      alacritty.enable = true;
+      direnv.enable = true;
 
-    programs.git = {
-      enable = true;
-
-      lfs.enable = true;
-
-      userEmail = "m4xv3rb33k@gmail.com";
-      userName = "Max Verbeek";
-
-      extraConfig = {
-        pull.rebase = "false";
-        push.default = "current";
-        init.defaultBranch = "master";
-
-        url."git@github.com:rug-ds-lab".insteadOf =
-          "https://github.com/rug-ds-lab";
-        url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
-      };
-
-      delta.enable = true;
-
-      aliases = {
-        s = "status";
-        cm = "commit -m";
-        co = "checkout";
-        a = "add";
-        # The !/*/ is a regex that excludes the literal '*' (current branch),
-        # and /: gone/ includes branches that are gone on the remote.
-        brd =
-          "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
-
-        difflast = "diff HEAD^";
-      };
-    };
-
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        font.size = config.device.termFontSize;
-        colors = pkgs.custom.kanagawa-nvim.colors.alacritty;
-      };
-    };
-
-    programs.vscode = {
-      package = pkgs.vscode-fhs;
-      enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        # bbenoist.Nix # gone?
-        dbaeumer.vscode-eslint # not in unstable yet?
-        eamodio.gitlens
-        # editorconfig.editorconfig # not in master yet
-        # firefox-devtools.vscode-firefox-debug # not in master yet
-        ms-azuretools.vscode-docker
-        ms-vsliveshare.vsliveshare
-        vscodevim.vim
-      ];
-    };
-
-    programs.direnv = {
-      enable = true;
-      enableZshIntegration = true;
-
-      nix-direnv = {
+      picom = {
         enable = true;
-        enableFlakes = true;
+        experimentalBackends = true;
       };
     };
 
-    programs.gpg = { enable = true; };
-
-    programs.kubectl = { enable = true; };
-
+    programs.gpg.enable = true;
     programs.go = {
       enable = true;
       goPath = "go";
       goBin = "go/bin";
     };
 
-    services.gpg-agent = { enable = true; };
-
+    services.gpg-agent.enable = true;
     services.flameshot.enable = true;
 
     home.sessionVariables = {

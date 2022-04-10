@@ -1,12 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }: {
 
-{
+  imports = [ ./sxhkd.nix ];
 
-  imports = [
-    ./sxhkd.nix
-  ];
+  options = { modules.bspwm.enable = lib.mkEnableOption "Enable bspwm"; };
 
-  config = {
+  config = lib.mkIf config.modules.bspwm.enable {
+
+    modules.sxhkd.enable = true;
 
     # Ensure feh installed for a background
     home.packages = with pkgs; [ feh rofi ];
@@ -18,9 +18,9 @@
       # starts, but the xsession systemd target must be started before the
       # windowmanager, and starting polybar before bspwm causes weird shit to
       # happen.
-      startupPrograms = [
-        "[ -f $HOME/.fehbg ] && $HOME/.fehbg"
-      ] ++ lib.optional (config.services.polybar.enable) "systemctl --user restart polybar.service";
+      startupPrograms = [ "[ -f $HOME/.fehbg ] && $HOME/.fehbg" ]
+        ++ lib.optional (config.services.polybar.enable)
+        "systemctl --user restart polybar.service";
 
       settings = {
         border_width = 4;
@@ -41,7 +41,7 @@
       monitors."DP-4" = [ "term" "web" "code" "misc" "gfx" ];
 
       # right, 1920x1080
-      monitors."DP-2" = [ "music" "preview" "slack" "bgstuff" "whatever"];
+      monitors."DP-2" = [ "music" "preview" "slack" "bgstuff" "whatever" ];
 
       # extraConfig = ''
       #   bspc monitor DP-4 -n 1 term web code misc gfx
@@ -69,6 +69,6 @@
         "Zathura".state = "tiled";
       };
     };
-    
+
   };
 }

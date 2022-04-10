@@ -1,51 +1,55 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
+with lib;
 let
   fingerprints.dell1440p =
-  "00ffffffffffff0010acd9414c513241251e0104b53c22783b8cb5af4f43ab260e5054a54b00d100d1c0b300a94081808100714fe1c0565e00a0a0a029503020350055502100001a000000ff00374d37513032330a2020202020000000fc0044454c4c205332373231444746000000fd0030a5fafa41010a2020202020200180020337f1513f101f200514041312110302010607151623090707830100006d1a0000020b30a5000f62256230e305c000e606050162623ef4fb0050a0a028500820680055502100001a40e7006aa0a067500820980455502100001a6fc200a0a0a055503020350055502100001a000000000000000000000000000000000000ca";
+    "00ffffffffffff0010acd9414c513241251e0104b53c22783b8cb5af4f43ab260e5054a54b00d100d1c0b300a94081808100714fe1c0565e00a0a0a029503020350055502100001a000000ff00374d37513032330a2020202020000000fc0044454c4c205332373231444746000000fd0030a5fafa41010a2020202020200180020337f1513f101f200514041312110302010607151623090707830100006d1a0000020b30a5000f62256230e305c000e606050162623ef4fb0050a0a028500820680055502100001a40e7006aa0a067500820980455502100001a6fc200a0a0a055503020350055502100001a000000000000000000000000000000000000ca";
 
   fingerprints.aoc1080p =
-  "00ffffffffffff0005e3010014030000281a0104a5351e783bf6e5a7534d9924145054bfef00d1c0b30095008180814081c001010101023a801871382d40582c4500132b2100001e804180507038274008209804132b2100001e000000fd00234c535311010a202020202020000000fc003234363047350a20202020202001e102031ef14b901f051404130312021101230907078301000065030c0010008c0ad08a20e02d10103e9600132b21000018011d007251d01e206e285500132b2100001e8c0ad08a20e02d10103e9600132b210000188c0ad090204031200c405500132b210000180000000000000000000000000000000000000000000000000031";
+    "00ffffffffffff0005e3010014030000281a0104a5351e783bf6e5a7534d9924145054bfef00d1c0b30095008180814081c001010101023a801871382d40582c4500132b2100001e804180507038274008209804132b2100001e000000fd00234c535311010a202020202020000000fc003234363047350a20202020202001e102031ef14b901f051404130312021101230907078301000065030c0010008c0ad08a20e02d10103e9600132b21000018011d007251d01e206e285500132b2100001e8c0ad08a20e02d10103e9600132b210000188c0ad090204031200c405500132b210000180000000000000000000000000000000000000000000000000031";
 
-in
-{
-  programs.autorandr = {
-    enable = true;
+in {
+  options = { modules.autorandr.enable = mkEnableOption "Enable autorandr"; };
 
-    profiles."home" = {
-      fingerprint."DP-2" = fingerprints.aoc1080p;
-      fingerprint."DP-4" = fingerprints.dell1440p;
+  config = mkIf config.modules.autorandr.enable {
+    programs.autorandr = {
+      enable = true;
 
-      config."DP-2" = {
-        enable = true;
-        primary = false;
-        position = "2560x360";
-        mode = "1920x1080";
-        rate = "74.92";
-      };
+      profiles."home" = {
+        fingerprint."DP-2" = fingerprints.aoc1080p;
+        fingerprint."DP-4" = fingerprints.dell1440p;
 
-      config."DP-4" = {
-        enable = true;
-        primary = true;
-        position = "0x0";
-        mode = "2560x1440";
-        rate = "143.91";
-        dpi = 109;
+        config."DP-2" = {
+          enable = true;
+          primary = false;
+          position = "2560x360";
+          mode = "1920x1080";
+          rate = "74.92";
+        };
+
+        config."DP-4" = {
+          enable = true;
+          primary = true;
+          position = "0x0";
+          mode = "2560x1440";
+          rate = "143.91";
+          dpi = 109;
+        };
       };
     };
-  };
 
-  systemd.user.services.autorandr = {
-    Unit = {
-      Description = "Autorandr to fix my displays";
-      Before = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session-pre.target" ];
-    };
+    systemd.user.services.autorandr = {
+      Unit = {
+        Description = "Autorandr to fix my displays";
+        Before = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session-pre.target" ];
+      };
 
-    Install.WantedBy = [ "graphical-session-pre.target" ];
+      Install.WantedBy = [ "graphical-session-pre.target" ];
 
-    Service = {
-      ExecStart = "${pkgs.autorandr}/bin/autorandr -c";
-      Type = "oneshot";
+      Service = {
+        ExecStart = "${pkgs.autorandr}/bin/autorandr -c";
+        Type = "oneshot";
+      };
     };
   };
 }

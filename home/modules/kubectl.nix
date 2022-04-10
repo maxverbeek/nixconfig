@@ -1,19 +1,17 @@
 { pkgs, config, lib, ... }:
 
-let
-  cfg = config.programs.kubectl;
-in
-{
-  options.programs.kubectl = {
+let cfg = config.modules.kubectl;
+in {
+  options.modules.kubectl = {
     enable = lib.mkEnableOption "kubectl";
 
-    enableZshIntegration = lib.mkOption{
+    enableZshIntegration = lib.mkOption {
       type = lib.types.bool;
       description = "Enable ZSH shell completions for kubectl";
       default = true;
     };
 
-    enableBashIntegration = lib.mkOption{
+    enableBashIntegration = lib.mkOption {
       type = lib.types.bool;
       description = "Enable bash shell completions for kubectl";
       default = true;
