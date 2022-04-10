@@ -1,13 +1,4 @@
 vim.cmd([[
-let g:nvim_tree_window_picker_exclude = {
-\   'filetype': [
-\     'packer',
-\     'qf'
-\   ],
-\   'buftype': [
-\     'terminal'
-\   ]
-\ }
 " Dictionary of buffer option names mapped to a list of option values that
 " indicates to the window picker that the buffer's window should not be
 " selectable.
@@ -66,13 +57,27 @@ require 'nvim-tree'.setup {
   hijack_netrw        = false,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
-  auto_close          = true,
   open_on_tab         = false,
   hijack_cursor       = true,
   update_cwd          = false,
   update_to_buf_dir   = {
     enable = true,
     auto_open = true,
+  },
+  actions = {
+    open_file = {
+      window_picker = {
+        exclude = {
+          filetype = {
+            'packer',
+            'qf',
+          },
+          buftype = {
+            'terminal',
+          },
+        },
+      },
+    },
   },
   diagnostics = {
     enable = true,
