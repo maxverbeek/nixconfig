@@ -233,6 +233,8 @@ in {
           ramp-signal-2 = "%{T4}%{T-}";
           ramp-signal-3 = "%{T4}%{T-}";
         };
+      } // lib.optionalAttrs (config.modules.playerctld.enable) {
+        "module/media" = { type = "custom/script"; };
       };
 
       script = builtins.concatStringsSep "\n"

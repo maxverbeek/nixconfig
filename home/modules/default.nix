@@ -9,6 +9,7 @@
     ./kubectl.nix
     ./nvim
     ./picom.nix
+    ./playerctld.nix
     ./polybar.nix
     ./rofi.nix
     ./screenlocker

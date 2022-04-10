@@ -22,6 +22,7 @@
       zsh.enable = true;
       alacritty.enable = true;
       direnv.enable = true;
+      playerctld.enable = true;
 
       picom = {
         enable = true;
