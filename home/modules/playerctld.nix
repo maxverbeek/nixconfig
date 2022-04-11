@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib; {
   options = {
     modules.playerctld.enable = mkEnableOption "Enable playerctl integration";
