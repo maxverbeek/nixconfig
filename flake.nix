@@ -70,6 +70,8 @@
 
   in
   {
+    templates = import ./templates;
+
     nixosConfigurations = {
 
       # PC at home
