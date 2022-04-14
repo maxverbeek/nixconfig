@@ -53,7 +53,7 @@ let g:nvim_tree_group_empty = 1
 ]])
 
 require 'nvim-tree'.setup {
-  disable_netrw       = true,
+  disable_netrw       = false,
   hijack_netrw        = false,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
