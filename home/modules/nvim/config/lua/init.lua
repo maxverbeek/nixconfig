@@ -21,8 +21,8 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 map('n', '<Leader>cq', '<CMD>cclose<cr>', opt)
-map('n', '<Leader>cj', '<CMD>cnext<cr>', opt)
-map('n', '<Leader>ck', '<CMD>cprev<cr>', opt)
+map('n', '<C-j>', '<CMD>cnext<cr>', opt)
+map('n', '<C-k>', '<CMD>cprev<cr>', opt)
 map('n', 'n', 'nzzzv', opt)
 map('n', 'N', 'Nzzzv', opt)
 

@@ -75,7 +75,7 @@ local on_attach = function(client, bufnr)
 
   map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   map('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  map('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  map('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   map('n', '0gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   map('n', 'g-1', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
