@@ -30,6 +30,20 @@
       };
     };
 
+    programs.ssh = {
+      enable = true;
+
+      matchBlocks = {
+        "pg-gpu.hpc.rug.nl" = { user = "f119970"; };
+
+        "themis" = {
+          hostname = "themis.housing.rug.nl";
+          user = "themis";
+          identityFile = "/home/max/.ssh/laptop_rsa";
+        };
+      };
+    };
+
     programs.gpg.enable = true;
     programs.go = {
       enable = true;
