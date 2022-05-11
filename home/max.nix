@@ -104,6 +104,7 @@
       rustup
       silver-searcher
       slack
+      sshfs
       spotify
       tldr
       teams
