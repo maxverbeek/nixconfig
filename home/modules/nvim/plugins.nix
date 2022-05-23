@@ -15,7 +15,8 @@ in {
     config = "lualine";
   };
 
-  telescope = {
+  # keep telescope on nixpkgs stable, as unstable is broken currently
+  telescope = with pkgs.vimPlugins; {
     plugin = addDeps telescope-nvim [
       nvim-web-devicons
       telescope-fzf-native-nvim
