@@ -51,33 +51,13 @@
         "type": "github"
       }
     },
-    "mkdocs-klippa": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "utils": "utils"
-      },
-      "locked": {
-        "lastModified": 1653030931,
-        "narHash": "sha256-bnX2zmjyrdg9TZny8eFhhaZ776kIe3nAXFJ7O7EznZI=",
-        "ref": "development",
-        "rev": "f98c0cb9c9f816866d00d4638ed40c9dabbb5765",
-        "revCount": 18,
-        "type": "git",
-        "url": "ssh://git@git.hub.klippa.com/klippa/MkDocs.git"
-      },
-      "original": {
-        "ref": "development",
-        "type": "git",
-        "url": "ssh://git@git.hub.klippa.com/klippa/MkDocs.git"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1653087707,
-        "narHash": "sha256-zfno3snrzZTWQ2B7K53QHrGZwrjnJLTRPalymrSsziU=",
+        "lastModified": 1653229824,
+        "narHash": "sha256-klSCYMpR4TqWYoTD/xZ2qM9UIPRFC6pK+S/kJuVLbFw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cbd40c72b2603ab54e7208f99f9b35fc158bc009",
+        "rev": "06db2e2197401b74fcf82d4e84be15b0b5851c7b",
         "type": "github"
       },
       "original": {
@@ -89,27 +69,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1652885393,
-        "narHash": "sha256-YIgvvlk4iQ1Hi7KD9o5gsojc+ApB+jiH1d5stK8uXiw=",
+        "lastModified": 1653060744,
+        "narHash": "sha256-kfRusllRumpt33J1hPV+CeCCylCXEU7e0gn2/cIM7cY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "48037fd90426e44e4bf03e6479e88a11453b9b66",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1649225869,
-        "narHash": "sha256-u1zLtPmQzhT9mNXyM8Ey9pk7orDrIKdwooeGDEXm5xM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "b6966d911da89e5a7301aaef8b4f0a44c77e103c",
+        "rev": "dfd82985c273aac6eced03625f454b334daae2e8",
         "type": "github"
       },
       "original": {
@@ -122,18 +86,17 @@
     "olis-stuff": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "mkdocs-klippa": "mkdocs-klippa",
         "nixpkgs": [
           "nixpkgs"
         ],
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1653032227,
-        "narHash": "sha256-QjL4D9FepT5pA+aj+meaWl8tlsiKXyRXXzNIk8LVzWU=",
+        "lastModified": 1653556051,
+        "narHash": "sha256-TY4/bCV9EwEGxRDhZ2o3oxWb6ppI2ryAKUEO7v19N0U=",
         "owner": "Kranex",
         "repo": "nixos-config",
-        "rev": "a65053ef90faab31103ad93df0de34cda79f9d0b",
+        "rev": "d58662b980f4712d7fb0fe432d98b077a6bfe31b",
         "type": "github"
       },
       "original": {
@@ -153,32 +116,17 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1653060744,
-        "narHash": "sha256-kfRusllRumpt33J1hPV+CeCCylCXEU7e0gn2/cIM7cY=",
+        "lastModified": 1653407748,
+        "narHash": "sha256-g9puJaILRTb9ttlLQ7IehpV7Wcy0n+vs8LOFu6ylQcM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "dfd82985c273aac6eced03625f454b334daae2e8",
+        "rev": "5ce6597eca7d7b518c03ecda57d45f9404b5e060",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "utils": {
-      "locked": {
-        "lastModified": 1648297722,
-        "narHash": "sha256-W+qlPsiZd8F3XkzXOzAoR+mpFqzm3ekQkJNa+PIh1BQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "0f8662f1319ad6abf89b3380dd2722369fc51ade",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
         "type": "github"
       }
     }

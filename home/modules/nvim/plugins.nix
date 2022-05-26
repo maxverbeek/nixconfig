@@ -16,10 +16,10 @@ in {
   };
 
   # keep telescope on nixpkgs stable, as unstable is broken currently
-  telescope = with pkgs.vimPlugins; {
+  telescope = {
     plugin = addDeps telescope-nvim [
       nvim-web-devicons
-      telescope-fzf-native-nvim
+      # telescope-fzf-native-nvim
       telescope-file-browser-nvim
     ];
     config = "telescope";
