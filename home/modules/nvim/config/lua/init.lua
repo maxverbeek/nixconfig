@@ -10,7 +10,7 @@ vim.opt.smarttab = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.laststatus = 1
+vim.opt.laststatus = 2
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.incsearch = true
