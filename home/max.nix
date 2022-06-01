@@ -69,6 +69,7 @@
       }).run)
 
       _1password
+      air
       binutils
       chromium
       cht-sh
