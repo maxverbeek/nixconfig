@@ -4,6 +4,7 @@ require'nvim-treesitter.configs'.setup {
 
     disable = {
         "cuda",
+        "cpp",
     },
   },
 
