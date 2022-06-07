@@ -113,7 +113,7 @@ in {
   luasnip.plugin = luasnip;
 
   dressing-nvim = {
-    plugin = pkgs.custom.dressing-nvim;
+    plugin = dressing-nvim;
     config = "dressing";
   };
 
