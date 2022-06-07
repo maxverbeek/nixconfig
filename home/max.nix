@@ -3,11 +3,6 @@
 
   config = {
     xsession.enable = true;
-    xsession.pointerCursor = {
-      package = pkgs.custom.mcmojave-cursors;
-      name = "McMojave-cursors";
-      defaultCursor = "left_ptr";
-    };
 
     # custom modules
     modules = {
@@ -53,6 +48,13 @@
 
     services.gpg-agent.enable = true;
     services.flameshot.enable = true;
+
+    home.pointerCursor = {
+      x11.enable = true;
+      x11.defaultCursor = "left_ptr";
+      package = pkgs.custom.mcmojave-cursors;
+      name = "McMojave-cursors";
+    };
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
