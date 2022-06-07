@@ -53,8 +53,8 @@ in {
     extern = with pkgs; [
       rnix-lsp
       nodePackages.typescript-language-server
-      custom.nodePackages."@tailwindcss/language-server"
-      custom.nodePackages."svelte-language-server"
+      # custom.nodePackages."@tailwindcss/language-server" # BROKEN
+      # custom.nodePackages."svelte-language-server" # BROKEN
       rust-analyzer
       gopls
       pyright
@@ -105,8 +105,8 @@ in {
     extern = with pkgs; [
       nixfmt
       rubocop
-      custom.nodePackages.standard
-      custom.nodePackages.vscode-langservers-extracted
+      # custom.nodePackages.standard # BROKEN
+      # custom.nodePackages.vscode-langservers-extracted # BROKEN
     ];
   };
 

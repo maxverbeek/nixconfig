@@ -121,13 +121,13 @@ let
         sha512 = "dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==";
       };
     };
-    "@types/node-17.0.40" = {
+    "@types/node-17.0.41" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "17.0.40";
+      version = "17.0.41";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-17.0.40.tgz";
-        sha512 = "UXdBxNGqTMtm7hCwh9HtncFVLrXoqA3oJW30j6XWp5BH/wu3mVeaxo7cq5benFdBw34HB3XDT2TRPI7rXZ+mDg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-17.0.41.tgz";
+        sha512 = "xA6drNNeqb5YyV5fO3OAEsnXLfO7uF0whiOfPTz5AeDo8KeZFmODKnvwPymMNO8qE/an8pVY/O50tig2SQCrGw==";
       };
     };
     "@types/pug-2.0.6" = {
@@ -1891,7 +1891,7 @@ let
       version = "0.5.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/sander/-/sander-0.5.1.tgz";
-        sha1 = "741e245e231f07cafb6fdf0f133adfa216a502ad";
+        sha512 = "3lVqBir7WuKDHGrKRDn/1Ye3kwpXaDOMsiRP1wd6wpZW56gJhsbp5RqQpA6JG/P+pkXizygnr1dKR8vzWaVsfA==";
       };
     };
     "semver-6.3.0" = {
@@ -2433,7 +2433,7 @@ in
       license = "MIT";
     };
     production = true;
-    bypassCache = true;
+    bypassCache = false;
     reconstructLock = true;
   };
   svelte-language-server = nodeEnv.buildNodePackage {
@@ -2454,7 +2454,7 @@ in
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
-      sources."@types/node-17.0.40"
+      sources."@types/node-17.0.41"
       sources."@types/pug-2.0.6"
       sources."@types/sass-1.43.1"
       sources."anymatch-3.1.2"
@@ -2549,7 +2549,7 @@ in
       license = "MIT";
     };
     production = true;
-    bypassCache = true;
+    bypassCache = false;
     reconstructLock = true;
   };
   standard = nodeEnv.buildNodePackage {
@@ -2780,7 +2780,7 @@ in
       license = "MIT";
     };
     production = true;
-    bypassCache = true;
+    bypassCache = false;
     reconstructLock = true;
   };
   vscode-langservers-extracted = nodeEnv.buildNodePackage {
@@ -2815,7 +2815,7 @@ in
       license = "MIT";
     };
     production = true;
-    bypassCache = true;
+    bypassCache = false;
     reconstructLock = true;
   };
 }
