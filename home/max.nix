@@ -64,9 +64,9 @@
 
     home.stateVersion = "20.09";
     home.packages = with pkgs; [
-      ((steam.override {
-        extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ];
-      }).run)
+      # ((steam.override {
+      #   extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ];
+      # }).run)
 
       _1password
       air
