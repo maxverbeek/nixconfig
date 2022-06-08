@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    oldpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-22.05";
@@ -12,9 +13,11 @@
 
     olis-stuff.url = "github:Kranex/nixos-config";
     olis-stuff.inputs.nixpkgs.follows = "nixpkgs";
+    olis-stuff.inputs.nixpkgs-unstable.follows = "unstable";
+    olis-stuff.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, olis-stuff, ... }:
+  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, olis-stuff, ... }:
 
   let
 
@@ -29,6 +32,7 @@
         (final: prev: {
           custom   = builtins.mapAttrs (n: d: final.callPackage d {}) (import ./packages);
           unstable = import unstable { inherit (prev) system; inherit config; };
+          oldpkgs  = import oldpkgs { inherit (prev) system; inherit config; };
           oli      = import nixpkgs { inherit (prev) system; inherit config; overlays = olis-stuff.overlays; };
         })
 
