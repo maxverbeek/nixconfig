@@ -10,6 +10,11 @@ in {
     config = "colorscheme";
   };
 
+  colorschemelight = {
+    plugin = gruvbox-community;
+    config = "presentations";
+  };
+
   lualine = {
     plugin = lualine-nvim;
     config = "lualine";
