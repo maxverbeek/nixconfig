@@ -3,7 +3,17 @@ vim.cmd [[
       autocmd!
       autocmd BufWritePre * Neoformat
     augroup END
+
+    let g:neoformat_proto_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['--style=google --assume-filename=file.proto'],
+    \ 'no_append': 1,
+    \ 'stdin': 1,
+    \ }
+
+    let g:neoformat_enabled_proto = ['clangformat']
 ]]
+
 
 local opt = { noremap = true, silent = false }
 vim.api.nvim_set_keymap('n', '<Leader>ff', '<CMD>Neoformat<cr>', opt)

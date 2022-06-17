@@ -7,6 +7,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
+    ../../modules/kvm2.nix
     ./hardware-configuration.nix
   ];
 
@@ -173,6 +174,9 @@
   ];
 
   virtualisation.docker.enable = true;
+
+  modules.kvm2.enable = true;
+  modules.kvm2.home.minikube.enable = true;
 
   nix = {
     package = pkgs.nixFlakes;
