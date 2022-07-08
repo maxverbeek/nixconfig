@@ -15,6 +15,7 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.incsearch = true
 vim.opt.hlsearch = false
+vim.opt.termguicolors = true
 vim.opt.mouse = "nvchr" -- mouse in all modes except insert
 
 local map = vim.api.nvim_set_keymap

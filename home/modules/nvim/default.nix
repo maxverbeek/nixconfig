@@ -1,28 +1,33 @@
 { pkgs, config, lib, ... }:
 let
-  vimPlugins = pkgs.unstable.vimPlugins;
-  configuredPlugins = import ./plugins.nix { inherit pkgs; inherit vimPlugins; };
+  vimPlugins = pkgs.vimPlugins;
+  configuredPlugins = import ./plugins.nix {
+    inherit pkgs;
+    inherit vimPlugins;
+  };
 
   plugins = builtins.attrValues configuredPlugins;
 
   pluginPkgs = let
     plugs = builtins.catAttrs "plugin" plugins;
     transitiveClosure = plugin:
-      [ plugin ] ++ (
-        lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or []))
-      );
+      [ plugin ] ++ (lib.unique (builtins.concatLists
+        (map transitiveClosure plugin.dependencies or [ ])));
 
     deps = lib.concatMap transitiveClosure plugs;
     pkgs = lib.unique (plugs ++ deps);
   in pkgs;
 
-  sourcestr = with builtins; concatStringsSep "\n" (map (x: "require('maxconf.${x}')") (catAttrs "config" plugins));
+  sourcestr = with builtins;
+    concatStringsSep "\n"
+    (map (x: "require('maxconf.${x}')") (catAttrs "config" plugins));
 
-  externals = with pkgs; [
-    xclip # for clipboard support
-  ] ++ builtins.concatLists (builtins.catAttrs "extern" plugins);
+  externals = with pkgs;
+    [
+      xclip # for clipboard support
+    ] ++ builtins.concatLists (builtins.catAttrs "extern" plugins);
 
-  nvim = (pkgs.unstable.neovim.override {
+  nvim = (pkgs.neovim.override {
     configure = {
       plug.plugins = pluginPkgs;
 
@@ -35,11 +40,6 @@ let
         EOF
       '';
     };
-  }).overrideAttrs (_: {
-    passthru.additionalPackages = externals;
-  });
+  }).overrideAttrs (_: { passthru.additionalPackages = externals; });
 
-in
-{
-  home.packages = [ nvim ] ++ nvim.additionalPackages;
-}
+in { home.packages = [ nvim ] ++ nvim.additionalPackages; }
