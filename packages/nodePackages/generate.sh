@@ -2,4 +2,4 @@
 
 rm -f ./node-env.nix ./node-packages.nix
 
-exec nix run 'unstable#nodePackages.node2nix' -- -i package.json -l package-lock.json --no-bypass-cache
+exec nix run 'unstable#nodePackages.node2nix' -- -i package.json --no-bypass-cache --nodejs-16

@@ -13,11 +13,10 @@ require 'telescope'.setup {
   },
 
   extensions = {
-	  -- fzf = {
-    --   override_generic_sorter = true,
-    --   override_file_sorter = true,
-    --   case_mode = "smart_case", -- ignore_case, respect_case, smart_case
-    -- },
+	  fzy = {
+      override_generic_sorter = true,
+      override_file_sorter = true,
+    },
     
     file_browser = {
         theme = "ivy",
@@ -25,7 +24,7 @@ require 'telescope'.setup {
   },
 }
 
--- require('telescope').load_extension('fzf')
+require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('file_browser')
 
 map('n', '<C-p>', '<cmd>Telescope find_files<CR>', opts)

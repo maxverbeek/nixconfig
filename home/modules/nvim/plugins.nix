@@ -20,11 +20,10 @@ in {
     config = "lualine";
   };
 
-  # keep telescope on nixpkgs stable, as unstable is broken currently
   telescope = {
     plugin = addDeps telescope-nvim [
       nvim-web-devicons
-      # telescope-fzf-native-nvim
+      telescope-fzy-native-nvim
       telescope-file-browser-nvim
     ];
     config = "telescope";
@@ -58,8 +57,8 @@ in {
     extern = with pkgs; [
       rnix-lsp
       nodePackages.typescript-language-server
-      # custom.nodePackages."@tailwindcss/language-server" # BROKEN
-      # custom.nodePackages."svelte-language-server" # BROKEN
+      unstable.nodePackages."@tailwindcss/language-server"
+      unstable.nodePackages."svelte-language-server"
       rust-analyzer
       gopls
       pyright
@@ -110,8 +109,8 @@ in {
     extern = with pkgs; [
       nixfmt
       rubocop
-      # custom.nodePackages.standard # BROKEN
-      # custom.nodePackages.vscode-langservers-extracted # BROKEN
+      unstable.nodePackages.prettier
+      unstable.nodePackages.vscode-langservers-extracted
     ];
   };
 
