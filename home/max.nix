@@ -132,8 +132,6 @@
       custom.pngcrop
       # custom.responsively-app
       # custom.figma-linux
-
-      oli.screencapture-scripts
     ];
   };
 }

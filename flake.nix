@@ -10,14 +10,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
-
-    olis-stuff.url = "github:Kranex/nixos-config";
-    olis-stuff.inputs.nixpkgs.follows = "nixpkgs";
-    olis-stuff.inputs.nixpkgs-unstable.follows = "unstable";
-    olis-stuff.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, olis-stuff, ... }:
+  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, ... }:
 
   let
 
@@ -33,7 +28,6 @@
           custom   = builtins.mapAttrs (n: d: final.callPackage d {}) (import ./packages);
           unstable = import unstable { inherit (prev) system; inherit config; };
           oldpkgs  = import oldpkgs { inherit (prev) system; inherit config; };
-          oli      = import nixpkgs { inherit (prev) system; inherit config; overlays = olis-stuff.overlays; };
         })
 
         # for any package version overrides
