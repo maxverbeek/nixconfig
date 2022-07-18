@@ -9,6 +9,9 @@
     # Include the results of the hardware scan.
     ../../modules/kvm2.nix
     ./hardware-configuration.nix
+
+    # set up networkign in this file
+    ./networking.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -35,8 +38,9 @@
   services.blueman.enable = true;
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
-  networking.nameservers =
-    [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+
+  # networking.nameservers =
+  #   [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
@@ -50,13 +54,13 @@
   };
 
   services.resolved = {
-    enable = false;
+    enable = true;
     fallbackDns =
       [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
 
-  networking.wireless.enable = false;
-  networking.wireless.interfaces = [ "wlp4s0" ];
+  # networking.wireless.enable = false;
+  # networking.wireless.interfaces = [ "wlp4s0" ];
 
   programs.nm-applet.enable = true;
   programs.light.enable = true;
@@ -67,9 +71,13 @@
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp2s0.useDHCP = true;
-  networking.interfaces.wlp4s0.useDHCP = true;
+
+  # see ./networking.nix
+
+  # networking.useDHCP = false;
+  # networking.useNetworkd = true;
+  # networking.interfaces.enp2s0.useDHCP = true;
+  # networking.interfaces.wlp4s0.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
