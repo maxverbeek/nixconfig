@@ -108,7 +108,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Register all the language servers
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd' }
+local servers = { 'rnix', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd' }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -116,3 +116,25 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+-- Register tsserver separately
+
+nvim_lsp['tsserver'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    handlers = {
+        ["textDocument/definition"] = function(err, result, ctx, config)
+            -- dont show results from node_modules when there are results that aren't from node_modules.
+            local projectres = vim.tbl_filter(function(v)
+                return not string.find(v.uri, "node_modules")
+            end, result)
+
+            if #projectres > 0 then
+                result = projectres
+            end
+
+            -- call the actual handler with the (modified) result
+            vim.lsp.handlers["textDocument/definition"](err, result, ctx, config)
+        end,
+    }
+}
