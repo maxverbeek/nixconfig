@@ -23,6 +23,7 @@
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtw88 ];
   boot.initrd.availableKernelModules = [ "btusb" ];
 
   boot.initrd.luks.devices.root = {
@@ -124,7 +125,8 @@
 
   # Attempt to save some battery
   services.tlp = {
-    enable = true;
+    # test if this kills wifi
+    enable = false;
 
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -132,7 +134,8 @@
     };
   };
 
-  powerManagement.powertop.enable = true;
+  # test if this kills wifi
+  powerManagement.powertop.enable = false;
 
   # Enable sound.
   sound.enable = true;
