@@ -27,6 +27,6 @@ require 'telescope'.setup {
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('file_browser')
 
-map('n', '<C-p>', '<cmd>Telescope find_files --hidden=true<CR>', opts)
+map('n', '<C-p>', '<cmd>Telescope git_files<CR>', opts)
 map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', opts)
 map('n', '<Leader><Tab>', '<cmd>Telescope file_browser<CR>', opts)
