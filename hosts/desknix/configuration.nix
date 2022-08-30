@@ -63,6 +63,7 @@
   };
 
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.opengl.enable = true;
 
   services.teamviewer.enable = false;
 

@@ -78,6 +78,7 @@
       discord
       dnsutils
       docker-compose
+      envsubst
       file
       firefox
       gcc
@@ -123,7 +124,7 @@
       pandoc
 
       jetbrains.idea-ultimate
-      openjdk11
+      openjdk17
       maven
 
       nodejs
