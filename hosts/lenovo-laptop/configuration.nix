@@ -65,6 +65,7 @@
 
   programs.nm-applet.enable = true;
   programs.light.enable = true;
+  programs.adb.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -153,6 +154,7 @@
       "dialout"
       "input"
       "video"
+      "adbusers"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
