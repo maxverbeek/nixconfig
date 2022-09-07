@@ -11,6 +11,10 @@ vim.cmd [[
     \ 'stdin': 1,
     \ }
 
+    let g:neoformat_enabled_typescript = ['standard']
+    let g:neoformat_enabled_javascript = ['standard']
+
+    let g:neoformat_try_node_exe = 1
     let g:neoformat_enabled_proto = ['clangformat']
 ]]
 

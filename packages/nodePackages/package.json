@@ -1,6 +1,3 @@
 [
-  "@tailwindcss/language-server",
-  "svelte-language-server",
-  "standard",
-  "vscode-langservers-extracted"
+  "standard"
 ]
