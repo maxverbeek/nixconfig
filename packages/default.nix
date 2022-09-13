@@ -10,4 +10,5 @@
   vim-pandoc-markdown-preview = ./vim-pandoc-markdown-preview;
   inherit (import ./vimPlugins) kanagawa-nvim dressing-nvim;
   nodePackages = import ./nodePackages;
+  rubocop = import ./rubocop;
 }

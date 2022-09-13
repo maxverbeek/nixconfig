@@ -108,7 +108,7 @@ in {
     config = "neoformat";
     extern = with pkgs; [
       nixfmt
-      rubocop
+      custom.rubocop
       unstable.nodePackages.prettier
       unstable.nodePackages.vscode-langservers-extracted
     ];
