@@ -14,6 +14,7 @@ with lib; {
       extraConfig = {
         pull.rebase = "false";
         push.default = "current";
+        push.autoSetupRemote = "true";
         init.defaultBranch = "master";
 
         url."git@github.com:rug-ds-lab".insteadOf =
