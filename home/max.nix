@@ -36,6 +36,11 @@
           user = "themis";
           identityFile = "/home/max/.ssh/laptop_rsa";
         };
+
+        "ssh.dev.azure.com".extraOptions = {
+          PubkeyAcceptedKeyTypes = "+ssh-rsa";
+          HostkeyAlgorithms = "+ssh-rsa";
+        };
       };
     };
 
