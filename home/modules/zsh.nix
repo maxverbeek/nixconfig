@@ -16,14 +16,10 @@ let
   '';
 in {
 
-  options = {
-    modules.zsh.enable = lib.mkEnableOption "Enable ZSH";
-  };
+  options = { modules.zsh.enable = lib.mkEnableOption "Enable ZSH"; };
 
   config = lib.mkIf config.modules.zsh.enable {
-    home.packages = with pkgs; [
-      thefuck
-    ];
+    home.packages = with pkgs; [ thefuck ];
 
     programs.zsh = {
       enable = true;
@@ -74,15 +70,17 @@ in {
         }
       ];
 
+      initExtra = ''
+        autoload -U edit-command-line
+        zle -N edit-command-line
+        bindkey -M vicmd v edit-command-line
+      '';
+
     };
 
-    programs.starship = {
-      enable = true;
-    };
+    programs.starship = { enable = true; };
 
-    programs.dircolors = {
-      enable = true;
-    };
+    programs.dircolors = { enable = true; };
 
     programs.fzf = {
       enable = true;
