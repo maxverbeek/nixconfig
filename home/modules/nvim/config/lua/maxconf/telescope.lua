@@ -27,6 +27,17 @@ require 'telescope'.setup {
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('file_browser')
 
-map('n', '<C-p>', '<cmd>Telescope git_files<CR>', opts)
+local projfiles = function()
+  local opts = {} -- define here if you want to define something
+  vim.fn.system('git rev-parse --is-inside-work-tree')
+  if vim.v.shell_error == 0 then
+    require('telescope.builtin').git_files(opts)
+  else
+    require('telescope.builtin').find_files(opts)
+  end
+end
+
+vim.keymap.set('n', '<C-p>', projfiles, opts)
+
 map('n', '<C-f>', '<cmd>Telescope live_grep<CR>', opts)
 map('n', '<Leader><Tab>', '<cmd>Telescope file_browser<CR>', opts)
