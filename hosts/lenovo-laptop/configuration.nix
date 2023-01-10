@@ -67,6 +67,8 @@
   programs.light.enable = true;
   programs.adb.enable = true;
 
+  programs.steam.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 

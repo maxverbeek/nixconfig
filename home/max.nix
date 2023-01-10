@@ -77,7 +77,6 @@
 
       _1password
       air
-      android-studio
       binutils
       chromium
       cht-sh
