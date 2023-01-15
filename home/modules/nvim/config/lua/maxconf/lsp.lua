@@ -91,7 +91,7 @@ local on_attach = function(client, bufnr)
   map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
   -- highlight word under cursor
-  if client.server_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.cmd([[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -125,7 +125,7 @@ nvim_lsp['tsserver'].setup {
         ["textDocument/definition"] = function(err, result, ctx, config)
             -- dont show results from node_modules when there are results that aren't from node_modules.
             local projectres = vim.tbl_filter(function(v)
-                return not string.find(v.uri, "node_modules")
+                return not string.find(v.targetUri, "node_modules")
             end, result)
 
             if #projectres > 0 then

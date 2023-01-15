@@ -52,5 +52,10 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+
+  -- requires playground
+  playground = {
+    enable = true,
+  }
 }
 

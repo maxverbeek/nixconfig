@@ -138,6 +138,8 @@
       custom.pngcrop
       # custom.responsively-app
       # custom.figma-linux
+
+      unstable.nurl
     ];
   };
 }

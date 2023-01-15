@@ -31,14 +31,15 @@ in {
   };
 
   treesitter = {
-    plugin = addDeps nvim-treesitter.withAllGrammars [
-        nvim-autopairs
-        nvim-treesitter-textobjects
-        nvim-ts-autotag
-        playground
-      ];
+    plugin = addDeps (nvim-treesitter.withAllGrammars) [
+      nvim-autopairs
+      nvim-treesitter-textobjects
+      nvim-ts-autotag
+    ];
     config = "treesitter";
   };
+
+  playground.plugin = playground;
 
   nvim-tree = {
     plugin = nvim-tree-lua;
