@@ -198,7 +198,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "@wheel" ];
+    settings.trusted-users = [ "@wheel" ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

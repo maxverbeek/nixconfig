@@ -29,7 +29,7 @@ let
 
   nvim = (pkgs.neovim.override {
     configure = {
-      plug.plugins = pluginPkgs;
+      packages.whatever.start = pluginPkgs;
 
       customRC = ''
         set runtimepath^=${./config}

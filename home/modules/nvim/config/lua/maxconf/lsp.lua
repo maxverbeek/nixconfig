@@ -91,7 +91,7 @@ local on_attach = function(client, bufnr)
   map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
   -- highlight word under cursor
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd([[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -104,8 +104,7 @@ end
 
 -- Setup lspconfig.
 local nvim_lsp = require'lspconfig'
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Register all the language servers
 local servers = { 'rnix', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd' }

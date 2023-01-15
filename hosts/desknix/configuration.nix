@@ -18,7 +18,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "@wheel" ];
+    settings.trusted-users = [ "@wheel" ];
   };
 
   # Use the systemd-boot EFI boot loader.
