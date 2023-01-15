@@ -39,6 +39,8 @@ in {
     config = "treesitter";
   };
 
+  # actually part of treesitter, but marking this as a dependency of treesitter
+  # breaks all my shit for some reason..
   playground.plugin = playground;
 
   nvim-tree = {
