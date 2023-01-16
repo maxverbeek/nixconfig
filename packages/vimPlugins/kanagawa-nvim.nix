@@ -58,4 +58,40 @@ pkgs.vimUtils.buildVimPluginFrom2Nix rec {
       }
     ];
   };
+
+  # some colors i've assigned random names so that they can be used elsewhere
+  passthru.colors.term = {
+    normal = {
+      black = "#090618";
+      red = "#C34043";
+      green = "#76946A";
+      yellow = "#C0A36E";
+      blue = "#7E9CD8";
+      purple = "#957FB8";
+      teal = "#6A9589";
+      white = "#C8C093";
+    };
+
+    bright = {
+      grey = " #727169";
+      red = " #E82424";
+      green = "#98BB6C";
+      yellow = "#E6C384";
+      blue = "#7FB4CA";
+      purple = "#938AA9";
+      teal = "#7AA89F";
+      white = "#DCD7BA";
+    };
+
+    extended = {
+      orange = "#FFA066";
+      red = "#FF5D62";
+      black = "#1F1F28";
+      slate = "#2D4F67";
+      lbrown = "#C8C093";
+      blue = "#72A7BC";
+      darker = "#15161E";
+      background = "#1f1f28";
+    };
+  };
 }
