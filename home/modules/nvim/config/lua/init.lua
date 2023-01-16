@@ -18,6 +18,7 @@ vim.opt.hlsearch = false
 vim.opt.termguicolors = true
 vim.opt.mouse = "nvchr" -- mouse in all modes except insert
 vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
