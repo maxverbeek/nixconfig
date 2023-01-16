@@ -38,7 +38,7 @@ let
       spacing: 0;
       background-color: transparent;
 
-      font: "JetBrainsMono Nerd Font 13";
+      font: "JetBrainsMono Nerd Font 12";
       text-color: @text;
     }
 
