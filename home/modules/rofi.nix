@@ -122,7 +122,9 @@ in {
     programs.rofi = {
       enable = true;
 
-      font = "JetBrainsMono Nerd Font 13";
+      font = "JetBrainsMono Nerd Font 12";
+
+      terminal = "${pkgs.alacritty}/bin/alacritty";
 
       extraConfig = {
         modi = "drun,run,window";
