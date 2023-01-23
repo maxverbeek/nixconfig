@@ -140,6 +140,8 @@
       # custom.figma-linux
 
       unstable.nurl
+
+      (rstudioWrapper.override { packages = with rPackages; [ haven Rcpp ]; })
     ];
   };
 }
