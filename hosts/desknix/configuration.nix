@@ -38,6 +38,8 @@
     127.0.0.1 keycloak
   '';
 
+  networking.firewall.enable = false;
+
   # Set your time zone.
   # Also set hardware clock to local, since that's what windows uses
   time = {
