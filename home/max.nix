@@ -141,7 +141,9 @@
 
       unstable.nurl
 
-      (rstudioWrapper.override { packages = with rPackages; [ haven Rcpp ]; })
+      (rstudioWrapper.override {
+        packages = with rPackages; [ haven Rcpp caret labelled ];
+      })
     ];
   };
 }
