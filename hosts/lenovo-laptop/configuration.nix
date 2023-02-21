@@ -36,6 +36,7 @@
   hardware.opengl.enable = true;
 
   hardware.bluetooth.enable = true;
+
   services.blueman.enable = true;
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
@@ -141,8 +142,45 @@
   powerManagement.powertop.enable = false;
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  sound.enable = false;
+  hardware.pulseaudio.enable = false;
+
+  ## Instead of using pulseaudio, try pipewire
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+
+    # Configure bluetooth options for pipewire
+    media-session.config.bluez-monitor.rules = [
+      {
+        # Matches all cards
+        matches = [{ "device.name" = "~bluez_card.*"; }];
+        actions = {
+          "update-props" = {
+            "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+            # mSBC is not expected to work on all headset + adapter combinations.
+            "bluez5.msbc-support" = true;
+            # SBC-XQ is not expected to work on all headset + adapter combinations.
+            "bluez5.sbc-xq-support" = true;
+          };
+        };
+      }
+      {
+        matches = [
+          # Matches all sources
+          {
+            "node.name" = "~bluez_input.*";
+          }
+          # Matches all outputs
+          { "node.name" = "~bluez_output.*"; }
+        ];
+      }
+    ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
