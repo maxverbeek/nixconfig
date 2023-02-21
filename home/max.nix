@@ -91,6 +91,7 @@
       gnumake
       htop
       httpie
+      inkscape
 
       jq
       ijq # note 2 packages here
