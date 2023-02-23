@@ -8,6 +8,7 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/kvm2.nix
+    ../../modules/bluetooth.nix
     # ./vim.nix
     # ./i3.nix
   ];
