@@ -8,6 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ../../modules/kvm2.nix
+    ../../modules/bluetooth.nix
     ./hardware-configuration.nix
 
     # set up networkign in this file
@@ -34,10 +35,6 @@
 
   hardware.cpu.amd.updateMicrocode = true;
   hardware.opengl.enable = true;
-
-  hardware.bluetooth.enable = true;
-
-  services.blueman.enable = true;
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
 
@@ -153,33 +150,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-
-    # Configure bluetooth options for pipewire
-    media-session.config.bluez-monitor.rules = [
-      {
-        # Matches all cards
-        matches = [{ "device.name" = "~bluez_card.*"; }];
-        actions = {
-          "update-props" = {
-            "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-            # mSBC is not expected to work on all headset + adapter combinations.
-            "bluez5.msbc-support" = true;
-            # SBC-XQ is not expected to work on all headset + adapter combinations.
-            "bluez5.sbc-xq-support" = true;
-          };
-        };
-      }
-      {
-        matches = [
-          # Matches all sources
-          {
-            "node.name" = "~bluez_input.*";
-          }
-          # Matches all outputs
-          { "node.name" = "~bluez_output.*"; }
-        ];
-      }
-    ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -189,7 +159,6 @@
       "wheel"
       "docker"
       "networkmanager"
-      "bluetooth"
       "plugdev"
       "dialout"
       "input"
