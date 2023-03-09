@@ -61,6 +61,7 @@ in {
       nodePackages.typescript-language-server
       unstable.nodePackages."@tailwindcss/language-server"
       unstable.nodePackages."svelte-language-server"
+      unstable.texlab
       rust-analyzer
       gopls
       pyright

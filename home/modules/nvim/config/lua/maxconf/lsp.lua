@@ -107,7 +107,7 @@ local nvim_lsp = require'lspconfig'
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Register all the language servers
-local servers = { 'rnix', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd' }
+local servers = { 'rnix', 'rust_analyzer', 'gopls', 'tailwindcss', 'svelte', 'pyright', 'clangd', 'texlab' }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
