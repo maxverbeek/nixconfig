@@ -4,6 +4,10 @@ let
   addDeps = plugin: deps:
     plugin.overrideAttrs
     (old: { dependencies = (old.dependencies or [ ]) ++ deps; });
+
+  # update some packages to unstable
+  inherit (pkgs.unstable.vimPlugins)
+    nvim-treesitter nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag;
 in {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
@@ -30,18 +34,19 @@ in {
     extern = with pkgs; [ ripgrep fd ];
   };
 
+  # Tree sitter + treesitter plugins
   treesitter = {
-    plugin = addDeps (nvim-treesitter.withAllGrammars) [
-      nvim-autopairs
-      nvim-treesitter-textobjects
-      nvim-ts-autotag
-    ];
+    plugin = nvim-treesitter.withAllGrammars;
     config = "treesitter";
   };
 
-  # actually part of treesitter, but marking this as a dependency of treesitter
-  # breaks all my shit for some reason..
+  # these plugins are actually part of treesitter, but marking this as a
+  # dependency of treesitter breaks all my shit because they don't get included
+  # in the lua path for some reason..
   playground.plugin = playground;
+  autopairs.plugin = nvim-autopairs;
+  textobjects.plugin = nvim-treesitter-textobjects;
+  autotag.plugin = nvim-ts-autotag;
 
   nvim-tree = {
     plugin = nvim-tree-lua;
