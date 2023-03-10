@@ -10,11 +10,8 @@ let
 
   pluginPkgs = let
     plugs = builtins.catAttrs "plugin" plugins;
-    transitiveClosure = plugin:
-      [ plugin ] ++ (lib.unique (builtins.concatLists
-        (map transitiveClosure plugin.dependencies or [ ])));
+    deps = builtins.catAttrs "depend" plugins;
 
-    deps = lib.concatMap transitiveClosure plugs;
     pkgs = lib.unique (plugs ++ deps);
   in pkgs;
 

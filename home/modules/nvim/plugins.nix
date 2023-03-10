@@ -1,10 +1,6 @@
 { pkgs, vimPlugins ? pkgs.vimPlugins, ... }:
 with vimPlugins;
 let
-  addDeps = plugin: deps:
-    plugin.overrideAttrs
-    (old: { dependencies = (old.dependencies or [ ]) ++ deps; });
-
   # update some packages to unstable
   inherit (pkgs.unstable.vimPlugins)
     nvim-treesitter nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag;
@@ -25,28 +21,28 @@ in {
   };
 
   telescope = {
-    plugin = addDeps telescope-nvim [
-      nvim-web-devicons
-      telescope-fzy-native-nvim
-      telescope-file-browser-nvim
-    ];
+    plugin = telescope-nvim;
     config = "telescope";
     extern = with pkgs; [ ripgrep fd ];
+
+    depend = [
+      nvim-web-devicons
+      telescope-fzf-native-nvim
+      telescope-file-browser-nvim
+    ];
   };
 
   # Tree sitter + treesitter plugins
   treesitter = {
     plugin = nvim-treesitter.withAllGrammars;
     config = "treesitter";
+    depend =
+      [ playground nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag ];
   };
 
   # these plugins are actually part of treesitter, but marking this as a
   # dependency of treesitter breaks all my shit because they don't get included
   # in the lua path for some reason..
-  playground.plugin = playground;
-  autopairs.plugin = nvim-autopairs;
-  textobjects.plugin = nvim-treesitter-textobjects;
-  autotag.plugin = nvim-ts-autotag;
 
   nvim-tree = {
     plugin = nvim-tree-lua;
@@ -54,12 +50,14 @@ in {
   };
 
   nvim-lspconfig = {
-    plugin = addDeps nvim-lspconfig [ lsp_extensions-nvim lsp_signature-nvim ];
+    plugin = nvim-lspconfig;
+    depend = [ lsp_extensions-nvim lsp_signature-nvim ];
     config = "lsp";
   };
 
   nvim-cmp = {
-    plugin = addDeps nvim-cmp [ cmp-nvim-lsp cmp-buffer cmp-path ];
+    plugin = nvim-cmp;
+    depend = [ cmp-nvim-lsp cmp-buffer cmp-path ];
 
     extern = with pkgs; [
       rnix-lsp
@@ -97,7 +95,8 @@ in {
   };
 
   comment-nvim = {
-    plugin = addDeps comment-nvim [ nvim-ts-context-commentstring ];
+    plugin = comment-nvim;
+    depend = [ nvim-ts-context-commentstring ];
     config = "comment-nvim";
   };
 
