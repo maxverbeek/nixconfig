@@ -116,8 +116,9 @@
       slack
       sshfs
       spotify
-      tldr
       teams
+      teleport
+      tldr
       unp
       unzip
       vlc
