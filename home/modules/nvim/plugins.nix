@@ -3,7 +3,8 @@ with vimPlugins;
 let
   # update some packages to unstable
   inherit (pkgs.unstable.vimPlugins)
-    nvim-treesitter nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag;
+    nvim-treesitter nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag
+    formatter-nvim;
 in {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
@@ -110,16 +111,29 @@ in {
     config = "indent-blankline";
   };
 
-  neoformat = {
-    plugin = neoformat;
-    config = "neoformat";
+  formatter-nvim = {
+    plugin = formatter-nvim;
+    config = "formatter";
     extern = with pkgs; [
       nixfmt
+      stylua
       custom.rubocop
+      custom.nodePackages."@fsouza/prettierd"
       unstable.nodePackages.prettier
       unstable.nodePackages.vscode-langservers-extracted
     ];
   };
+
+  # neoformat = {
+  #   plugin = neoformat;
+  #   config = "neoformat";
+  #   extern = with pkgs; [
+  #     nixfmt
+  #     custom.rubocop
+  #     unstable.nodePackages.prettier
+  #     unstable.nodePackages.vscode-langservers-extracted
+  #   ];
+  # };
 
   luasnip.plugin = luasnip;
 
