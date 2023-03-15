@@ -146,4 +146,5 @@ in {
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;
   vim-fugitive.plugin = vim-fugitive;
+  vimtext.plugin = vimtex;
 }
