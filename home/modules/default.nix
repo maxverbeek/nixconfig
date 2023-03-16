@@ -12,6 +12,7 @@
     ./playerctld.nix
     ./polybar.nix
     ./rofi.nix
+    ./rstudio.nix
     ./screenlocker
     ./sxhkd.nix
     ./vscode.nix

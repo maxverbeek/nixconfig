@@ -13,6 +13,7 @@
       autorandr.enable = true;
       polybar.enable = true;
       rofi.enable = true;
+      rstudio.enable = true;
       screenlocker.enable = true;
       zsh.enable = true;
       alacritty.enable = true;
@@ -142,10 +143,6 @@
       # custom.figma-linux
 
       unstable.nurl
-
-      (rstudioWrapper.override {
-        packages = with rPackages; [ haven Rcpp caret labelled ];
-      })
     ];
   };
 }
