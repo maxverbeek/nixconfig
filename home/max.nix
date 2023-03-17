@@ -119,6 +119,7 @@
       spotify
       teams
       unstable.teleport
+      unstable.terraform
       tldr
       unp
       unzip
