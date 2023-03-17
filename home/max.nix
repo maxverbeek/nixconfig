@@ -78,6 +78,7 @@
 
       _1password
       air
+      azure-cli
       binutils
       chromium
       cht-sh
