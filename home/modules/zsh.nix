@@ -78,7 +78,7 @@ in {
 
     };
 
-    programs.starship = { enable = true; };
+    programs.starship = { enable = true; enableNushellIntegration = false; };
 
     programs.dircolors = { enable = true; };
 
