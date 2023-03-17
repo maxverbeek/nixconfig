@@ -118,7 +118,7 @@
       sshfs
       spotify
       teams
-      teleport
+      unstable.teleport
       tldr
       unp
       unzip
