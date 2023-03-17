@@ -4,7 +4,7 @@
     home.packages = with pkgs;
       [
         (rstudioWrapper.override {
-          packages = with rPackages; [ haven Rcpp caret labelled  ggplot2 ];
+          packages = with rPackages; [ haven Rcpp caret labelled tidyverse ggplot2 ];
         })
       ];
   };
