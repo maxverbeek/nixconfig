@@ -5,6 +5,12 @@ in {
   options.modules.kubectl = {
     enable = lib.mkEnableOption "kubectl";
 
+    enableKubeseal = lib.mkOption {
+      type = lib.types.bool;
+      description = "Enable kubeseal for sealed secrets";
+      default = true;
+    };
+
     enableZshIntegration = lib.mkOption {
       type = lib.types.bool;
       description = "Enable ZSH shell completions for kubectl";
@@ -19,7 +25,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.kubectl ];
+    home.packages = [ pkgs.kubectl ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
     programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
       source <(kubectl completion zsh)
