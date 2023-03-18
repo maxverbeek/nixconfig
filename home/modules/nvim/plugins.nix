@@ -41,10 +41,6 @@ in {
       [ playground nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag ];
   };
 
-  # these plugins are actually part of treesitter, but marking this as a
-  # dependency of treesitter breaks all my shit because they don't get included
-  # in the lua path for some reason..
-
   nvim-tree = {
     plugin = nvim-tree-lua;
     config = "nvim-tree";
@@ -58,7 +54,7 @@ in {
 
   nvim-cmp = {
     plugin = nvim-cmp;
-    depend = [ cmp-nvim-lsp cmp-buffer cmp-path ];
+    depend = [ cmp-nvim-lsp cmp-buffer cmp-path cmp_luasnip lspkind-nvim ];
 
     extern = with pkgs; [
       rnix-lsp
@@ -135,7 +131,10 @@ in {
   #   ];
   # };
 
-  luasnip.plugin = luasnip;
+  luasnip = {
+    plugin = luasnip;
+    config = "luasnip";
+  };
 
   dressing-nvim = {
     plugin = dressing-nvim;
