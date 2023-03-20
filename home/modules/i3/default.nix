@@ -31,7 +31,7 @@ in {
       enable = true;
       package = pkgs.i3-gaps;
       config = rec {
-        menu = "rofi -show drun";
+        menu = "rofi -show-icons -show drun";
         modifier = cfg.mod;
 
         startup = [{

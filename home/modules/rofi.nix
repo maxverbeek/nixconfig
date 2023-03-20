@@ -76,16 +76,21 @@ let
     }
 
     listview {
-      spacing: 5px;
+      spacing: 3px;
       dynamic: true;
       scrollbar: false;
     }
 
     element {
-      padding: 5px;
+      padding: 6px;
       text-color: @text-alt;
       highlight: bold ${colors.green};
       border-radius: 3px;
+    }
+
+    element-icon {
+      size: 20;
+      padding: 0 5px 0 0;
     }
 
     element selected {
