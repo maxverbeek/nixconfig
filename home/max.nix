@@ -103,6 +103,7 @@
       minikube
       neofetch
       nix-index
+      neo4j-desktop
       okular
       openvpn
       patchelf
