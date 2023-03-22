@@ -32,12 +32,13 @@ if has_telescope then
 end
 
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.setup({
 	snippet = {
 		expand = function(args)
 			-- For `luasnip` user.
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	mapping = {
@@ -45,9 +46,42 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.close(),
-		["<Tab>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+
+		-- ["<Tab>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+			elseif luasnip.expand_or_locally_jumpable() then
+				luasnip.expand_or_jump()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		-- Move back and forwards in cmp if there are suggestions, otherwise move
+		-- back and forwards within luasnip if there is a snippet
 		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-k>"] = cmp.mapping.select_prev_item(),
+
+		-- ["<C-j>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_next_item()
+		-- 	elseif luasnip.locally_jumpable(1) then
+		-- 		luasnip.jump(1)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
+		--
+		-- ["<C-k>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_prev_item()
+		-- 	elseif luasnip.locally_jumpable(-1) then
+		-- 		luasnip.jump(-1)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
