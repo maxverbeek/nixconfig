@@ -131,7 +131,8 @@
       zoom-us
 
       # latex
-      (texlive.combine { inherit (texlive) scheme-medium latexmk; })
+      (texlive.combine { inherit (texlive) scheme-medium latexmk biblatex; })
+      biber # required for biblatex
       pandoc
 
       jetbrains.idea-ultimate
