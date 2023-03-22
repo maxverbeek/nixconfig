@@ -39,6 +39,16 @@ local function get_prop_names(id_node)
 	return prop_names
 end
 
+local function suggest_filename(fname, dname)
+	print("fname", vim.inspect(fname))
+	print("dname", vim.inspect(dname))
+	if fname == "index" then
+		return vim.fn.substitute(dname, "^.*/", "", "g")
+	else
+		return fname
+	end
+end
+
 return {
 	s(
 		"newcomp",
@@ -58,7 +68,7 @@ export default {}
 				-- Initialize component name to file name
 				d(1, function(_, snip)
 					return sn(1, {
-						i(1, vim.fn.substitute(snip.env.TM_FILENAME, "\\..*$", "", "g")),
+						i(1, suggest_filename(snip.env.TM_FILENAME_BASE, snip.env.TM_DIRECTORY)),
 					})
 				end, {}),
 				i(2, "// props"),
