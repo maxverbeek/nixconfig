@@ -66,6 +66,7 @@ in {
       gopls
       pyright
       clang-tools
+      terraform-ls
     ];
 
     # config is in lsp
