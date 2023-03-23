@@ -23,6 +23,9 @@
           "bluez5.msbc-support" = true;
           # SBC-XQ is not expected to work on all headset + adapter combinations.
           "bluez5.sbc-xq-support" = true;
+
+          # try autoswitching profiles to something that supports mic whenever mic input is required
+          "bluez5.autoswitch-profile" = true;
         };
       };
     }
