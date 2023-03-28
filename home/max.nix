@@ -78,6 +78,7 @@
 
       _1password
       air
+      unstable.argocd
       azure-cli
       binutils
       chromium

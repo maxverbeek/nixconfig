@@ -1,8 +1,9 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 with lib; {
   options = { modules.git.enable = mkEnableOption "Enable Git config"; };
 
   config = mkIf config.modules.git.enable {
+    home.packages = [ pkgs.git-filter-repo ];
     programs.git = {
       enable = true;
 
