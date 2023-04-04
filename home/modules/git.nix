@@ -18,6 +18,9 @@ with lib; {
         push.autoSetupRemote = "true";
         init.defaultBranch = "master";
 
+        # recursively clone submodules
+        submodule.recurse = "true";
+
         url."git@github.com:rug-ds-lab".insteadOf =
           "https://github.com/rug-ds-lab";
         url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
