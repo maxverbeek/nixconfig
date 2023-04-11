@@ -114,6 +114,7 @@ in {
     extern = with pkgs; [
       nixfmt
       stylua
+      unstable.yamlfmt
       custom.rubocop
       custom.nodePackages."@fsouza/prettierd"
       unstable.nodePackages.prettier
