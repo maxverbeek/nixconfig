@@ -25,7 +25,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.kubectl ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
+    home.packages = [ pkgs.kubectl pkgs.k9s ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
     programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
       source <(kubectl completion zsh)
