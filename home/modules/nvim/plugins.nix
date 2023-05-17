@@ -3,8 +3,7 @@ with vimPlugins;
 let
   # update some packages to unstable
   inherit (pkgs.unstable.vimPlugins)
-    nvim-treesitter nvim-autopairs nvim-treesitter-textobjects nvim-ts-autotag
-    formatter-nvim;
+    nvim-autopairs nvim-ts-autotag formatter-nvim;
 in {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
@@ -57,7 +56,7 @@ in {
     depend = [ cmp-nvim-lsp cmp-buffer cmp-path cmp_luasnip lspkind-nvim ];
 
     extern = with pkgs; [
-      rnix-lsp
+      unstable.nil
       nodePackages.typescript-language-server
       unstable.nodePackages."@tailwindcss/language-server"
       unstable.nodePackages."svelte-language-server"
