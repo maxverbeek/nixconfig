@@ -4,18 +4,18 @@ with lib; {
 
   config = mkIf config.modules.vscode.enable {
     programs.vscode = {
-      package = pkgs.vscode-fhs;
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        # bbenoist.Nix # gone?
-        dbaeumer.vscode-eslint # not in unstable yet?
-        eamodio.gitlens
-        # editorconfig.editorconfig # not in master yet
-        # firefox-devtools.vscode-firefox-debug # not in master yet
-        ms-azuretools.vscode-docker
-        ms-vsliveshare.vsliveshare
-        vscodevim.vim
-      ];
+      package = pkgs.vscode.fhsWithPackages (ps:
+        with ps.vscode-extensions; [
+          # bbenoist.Nix # gone?
+          dbaeumer.vscode-eslint # not in unstable yet?
+          eamodio.gitlens
+          # editorconfig.editorconfig # not in master yet
+          # firefox-devtools.vscode-firefox-debug # not in master yet
+          ms-azuretools.vscode-docker
+          ms-vsliveshare.vsliveshare
+          vscodevim.vim
+        ]);
     };
   };
 }
