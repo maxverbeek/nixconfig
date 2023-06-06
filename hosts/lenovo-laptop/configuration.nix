@@ -139,14 +139,14 @@
   powerManagement.powertop.enable = false;
 
   # Enable sound.
-  sound.enable = false;
-  hardware.pulseaudio.enable = false;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   ## Instead of using pulseaudio, try pipewire
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    enable = false;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
