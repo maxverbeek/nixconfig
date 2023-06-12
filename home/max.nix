@@ -115,7 +115,6 @@
       rsync
       rtorrent
       ruby
-      rustup
       silver-searcher
       slack
       sshfs

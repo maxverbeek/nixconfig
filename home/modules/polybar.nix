@@ -111,7 +111,7 @@ in {
 
       package = pkgs.polybar.override {
         pulseSupport = true;
-        i3GapsSupport = config.xsession.windowManager.i3.enable;
+        i3Support = config.xsession.windowManager.i3.enable;
       };
 
       config = all-bars // {

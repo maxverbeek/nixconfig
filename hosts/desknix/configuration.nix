@@ -112,9 +112,7 @@
   };
 
   # Fix required to set zsh as shell
-  # Fix: apparently not, thought this solved issues with
-  # steam-run, but it works fine now...
-  # programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
   # Fonts
   fonts.fonts = with pkgs; [

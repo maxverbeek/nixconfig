@@ -29,7 +29,7 @@ in {
     home.packages = with pkgs; [ feh scripts.fixscreens scripts.mirror ];
     xsession.windowManager.i3 = {
       enable = true;
-      package = pkgs.i3-gaps;
+      package = pkgs.i3;
       config = rec {
         menu = "rofi -show-icons -show drun";
         modifier = cfg.mod;
