@@ -112,7 +112,10 @@
   };
 
   # Fix required to set zsh as shell
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
+  };
 
   # Fonts
   fonts.fonts = with pkgs; [
