@@ -131,7 +131,7 @@
       zoom-us
 
       # latex
-      (texlive.combine { inherit (texlive) scheme-medium latexmk biblatex; })
+      (texlive.combine { inherit (texlive) scheme-tetex latexmk biblatex; })
       biber # required for biblatex
       pandoc
 
