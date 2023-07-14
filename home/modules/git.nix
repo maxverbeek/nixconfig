@@ -26,7 +26,8 @@ with lib; {
         url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
       };
 
-      delta.enable = true;
+      delta.enable = false;
+      difftastic.enable = true;
 
       aliases = {
         s = "status";
