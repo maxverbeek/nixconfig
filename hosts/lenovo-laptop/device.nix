@@ -2,10 +2,10 @@
   device = {
     screens = [
       {
-        name = "eDP";
+        name = "eDP-1";
         isPrimary = true;
       }
-      { name = "HDMI-A-0"; } # external monitor, sometimes :)
+      { name = "HDMI-1"; } # external monitor, sometimes :)
     ];
 
     hasBattery = true;
