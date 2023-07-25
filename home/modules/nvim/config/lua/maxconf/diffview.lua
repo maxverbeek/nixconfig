@@ -5,6 +5,6 @@ require("diffview").setup({
 })
 
 vim.cmd([[
-abbreviate DVO DiffviewOpen
-abbreviate DVC DiffviewClose
+cabbrev DVO DiffviewOpen
+cabbrev DVC DiffviewClose
 ]])
