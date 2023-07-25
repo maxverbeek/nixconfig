@@ -23,18 +23,18 @@ vim.opt.splitbelow = true
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
-map('n', '<Leader>cq', '<CMD>cclose<cr>', opt)
-map('n', '<C-j>', '<CMD>cnext<cr>', opt)
-map('n', '<C-k>', '<CMD>cprev<cr>', opt)
-map('n', 'n', 'nzzzv', opt)
-map('n', 'N', 'Nzzzv', opt)
+map("n", "<Leader>cq", "<CMD>cclose<cr>", opt)
+map("n", "<C-j>", "<CMD>cnext<cr>", opt)
+map("n", "<C-k>", "<CMD>cprev<cr>", opt)
+map("n", "n", "nzzzv", opt)
+map("n", "N", "Nzzzv", opt)
 
 -- move code around
-map('v', 'J', ":m '>+1<CR>gv=gv", opt)
-map('v', 'K', ":m '<-2<CR>gv=gv", opt)
+map("v", "J", ":m '>+1<CR>gv=gv", opt)
+map("v", "K", ":m '<-2<CR>gv=gv", opt)
 
 -- yank to eol like D
-map('n', 'Y', 'yg$', opt)
+map("n", "Y", "yg$", opt)
 
-map('n', '<leader>d', '"_d', opt)
-map('v', '<leader>d', '"_d', opt)
+map("n", "<leader>d", '"_d', opt)
+map("v", "<leader>d", '"_d', opt)
