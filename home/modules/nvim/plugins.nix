@@ -142,6 +142,11 @@ in {
     config = "dressing";
   };
 
+  diffview-nvim = {
+    plugin = diffview-nvim;
+    config = "diffview";
+  };
+
   editorconfig-vim.plugin = editorconfig-vim;
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;
