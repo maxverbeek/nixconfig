@@ -11,4 +11,5 @@
   inherit (import ./vimPlugins) kanagawa-nvim dressing-nvim;
   nodePackages = import ./nodePackages;
   rubocop = import ./rubocop;
+  samdump2 = import ./samdump2;
 }

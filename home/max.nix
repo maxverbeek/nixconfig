@@ -147,6 +147,7 @@
       # custom.figma-linux
 
       unstable.nurl
+      custom.samdump2
     ];
   };
 }

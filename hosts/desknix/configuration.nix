@@ -30,6 +30,8 @@
     efiSysMountPoint = "/boot/efi";
   };
 
+  boot.supportedFilesystems = ["ntfs"];
+
   networking.hostName = "desknix"; # Define your hostname.
   networking.hostId = "aa111111"; # required for zfs
   networking.nameservers =
