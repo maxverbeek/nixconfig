@@ -4,7 +4,16 @@
     home.packages = with pkgs;
       [
         (rstudioWrapper.override {
-          packages = with rPackages; [ haven rms Rcpp caret labelled tidyverse ggplot2 ];
+          packages = with rPackages; [
+            haven
+            rms
+            Rcpp
+            caret
+            labelled
+            tidyverse
+            ggplot2
+            markdown
+          ];
         })
       ];
   };
