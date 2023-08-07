@@ -29,6 +29,13 @@ in {
     $HOME/.fehbg
   '';
 
+  autorandr = pkgs.writeScriptBin "fixscreensautorandr" ''
+    #!${pkgs.stdenv.shell}
+    autorandr -c
+    ~/.fehbg
+    systemctl --user restart polybar.service
+  '';
+
   mirror = pkgs.writeScriptBin "mirror" ''
     #!${pkgs.stdenv.shell}
     xrandr | grep -q "${screen 1} connected"

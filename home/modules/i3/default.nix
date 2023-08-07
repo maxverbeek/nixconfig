@@ -13,7 +13,7 @@ let
   reloadcmd = with lib;
     let
       reload = "reload";
-      fixscreens = "exec ${scripts.fixscreens}/bin/fixscreens";
+      fixscreens = "exec ${scripts.autorandr}/bin/fixscreensautorandr";
       polybar = "exec systemctl --user restart polybar.service";
 
       commands = [ reload ] ++ optional (length screens > 1) fixscreens
