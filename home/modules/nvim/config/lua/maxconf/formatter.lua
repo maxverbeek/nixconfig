@@ -68,7 +68,7 @@ require("formatter").setup({
         return {
           exe = "sed",
           args = {
-            vim.fn.shellescape("/\\b  $/!s/[ \\t]*$//g"),
+            vim.fn.shellescape("/  $/!s/[ \\t]*$//g"),
           },
           stdin = true,
         }
