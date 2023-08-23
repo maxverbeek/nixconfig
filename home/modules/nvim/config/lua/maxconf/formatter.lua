@@ -60,6 +60,10 @@ require("formatter").setup({
       require("formatter.filetypes.yaml").yamlfmt,
     },
 
+    json = {
+      require("formatter.filetypes.json").jq,
+    },
+
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
     ["*"] = function(...)
