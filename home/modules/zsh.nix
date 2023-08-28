@@ -14,12 +14,19 @@ let
 
     exit 0
   '';
+
+  secrand = pkgs.writeScriptBin "secrand" ''
+    #!${pkgs.ruby}/bin/ruby
+    require 'securerandom'
+
+    puts SecureRandom.hex(if ARGV[0].nil? then 64 else ARGV[0].to_i end)
+  '';
 in {
 
   options = { modules.zsh.enable = lib.mkEnableOption "Enable ZSH"; };
 
   config = lib.mkIf config.modules.zsh.enable {
-    home.packages = with pkgs; [ thefuck ];
+    home.packages = with pkgs; [ thefuck secrand ];
 
     programs.zsh = {
       enable = true;
@@ -78,7 +85,10 @@ in {
 
     };
 
-    programs.starship = { enable = true; enableNushellIntegration = false; };
+    programs.starship = {
+      enable = true;
+      enableNushellIntegration = false;
+    };
 
     programs.dircolors = { enable = true; };
 
