@@ -1,61 +1,71 @@
 require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
+  highlight = {
+    enable = true,
 
-		disable = {
-			"cuda",
-			"cpp",
-			"latex",
-		},
-	},
+    disable = {
+      "cuda",
+      "cpp",
+      "latex",
+    },
+  },
 
-	indent = {
-		enable = true,
-	},
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gsi", -- default gnn
+      scope_incremental = "grc", -- default grc
+      node_incremental = "<M-h>", -- default grn
+      node_decremental = "<M-l>", -- default grm
+    },
+  },
 
-	-- requires nvim-autopairs
-	autopairs = {
-		enable = true,
-	},
+  indent = {
+    enable = true,
+  },
 
-	-- requires nvim-ts-autotag
-	autotag = {
-		enable = true,
-	},
+  -- requires nvim-autopairs
+  autopairs = {
+    enable = true,
+  },
 
-	-- requires nvim-treesitter-textobjects
-	textobjects = {
-		select = {
-			enable = true,
+  -- requires nvim-ts-autotag
+  autotag = {
+    enable = true,
+  },
 
-			lookahead = true,
+  -- requires nvim-treesitter-textobjects
+  textobjects = {
+    select = {
+      enable = true,
 
-			keymaps = {
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
+      lookahead = true,
 
-				["ac"] = "@conditional.outer",
-				["ic"] = "@conditional.inner",
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
 
-				["iC"] = "@class.inner",
-				["aC"] = "@class.outer",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
 
-				["iB"] = "@block.inner",
-				["aB"] = "@block.outer",
+        ["iC"] = "@class.inner",
+        ["aC"] = "@class.outer",
 
-				-- argument (p is already paragraph)
-				["ia"] = "@parameter.inner",
-				["aa"] = "@parameter.outer",
+        ["iB"] = "@block.inner",
+        ["aB"] = "@block.outer",
 
-				-- invocation
-				["ii"] = "@call.inner",
-				["ai"] = "@call.outer",
-			},
-		},
-	},
+        -- argument (p is already paragraph)
+        ["ia"] = "@parameter.inner",
+        ["aa"] = "@parameter.outer",
 
-	-- requires playground
-	playground = {
-		enable = true,
-	},
+        -- invocation
+        ["ii"] = "@call.inner",
+        ["ai"] = "@call.outer",
+      },
+    },
+  },
+
+  -- requires playground
+  playground = {
+    enable = true,
+  },
 })
