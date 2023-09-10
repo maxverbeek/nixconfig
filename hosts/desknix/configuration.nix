@@ -8,6 +8,7 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/kvm2.nix
+    ../../modules/hyprland.nix
     ../../modules/bluetooth.nix
     # ./vim.nix
     # ./i3.nix
@@ -30,7 +31,7 @@
     efiSysMountPoint = "/boot/efi";
   };
 
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "desknix"; # Define your hostname.
   networking.hostId = "aa111111"; # required for zfs
@@ -80,20 +81,19 @@
     videoDrivers = [ "nvidia" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
-    desktopManager.xterm.enable = true;
-    displayManager.lightdm.greeters.mini = {
-      enable = true;
-      user = "max";
-    };
-    desktopManager.session = [{
-      manage = "desktop";
-      name = "default"; # was previously "home-manager"
-      start = ''
-        exec $HOME/.xsession &
-      '';
-    }];
-    # apparently not used, this is the default value.
-    displayManager.defaultSession = "default";
+    # desktopManager.xterm.enable = true;
+    # displayManager.sddm.enable = true;
+    #
+    # desktopManager.session = [{
+    #   manage = "desktop";
+    #   name = "default"; # was previously "home-manager"
+    #   start = ''
+    #     exec $HOME/.xsession &
+    #   '';
+    # }];
+
+    # # apparently not used, this is the default value.
+    # displayManager.defaultSession = "default";
   };
 
   # Enable CUPS to print documents.

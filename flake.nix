@@ -10,85 +10,110 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, ... }:
+  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils
+    , hyprland, ... }:
 
-  let
+    let
 
-    # config to extend nixpkgs. this needs to be applied as a module
-    nixpkgsConfig = rec {
-      config = {
-        allowUnfree = true;
+      # config to extend nixpkgs. this needs to be applied as a module
+      nixpkgsConfig = rec {
+        config = { allowUnfree = true; };
+
+        overlays = [
+          # adding custom packages/flakes to nixpkgs
+          (final: prev: {
+            custom = builtins.mapAttrs (n: d: final.callPackage d { })
+              (import ./packages);
+            unstable = import unstable {
+              inherit (prev) system;
+              inherit config;
+            };
+            oldpkgs = import oldpkgs {
+              inherit (prev) system;
+              inherit config;
+            };
+          })
+
+          # for any package version overrides
+          (import ./overlays)
+        ];
       };
 
-      overlays = [
-        # adding custom packages/flakes to nixpkgs
-        (final: prev: {
-          custom   = builtins.mapAttrs (n: d: final.callPackage d {}) (import ./packages);
-          unstable = import unstable { inherit (prev) system; inherit config; };
-          oldpkgs  = import oldpkgs { inherit (prev) system; inherit config; };
-        })
+      # modules to configure nixos
+      hmsettings = { withModules ? [ ] }: {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
 
-        # for any package version overrides
-        (import ./overlays)
+        # set up everything in home-manager
+        home-manager.users.max.imports = [
+          ./home/max.nix
+          ./hosts/options.nix
+          hyprland.homeManagerModules.default
+        ] ++ withModules;
+      };
+
+      pin-flake-reg = {
+        nix.registry.nixpkgs.flake = nixpkgs;
+        nix.registry.unstable.flake = unstable;
+        nix.registry.self.flake = self;
+      };
+
+      cachix = {
+        nix.settings = {
+          substituters = [ "https://hyprland.cachix.org" ];
+          trusted-public-keys = [
+            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+          ];
+        };
+      };
+
+      # modules defined above
+      commonModules = [
+        ({ nixpkgs = nixpkgsConfig; })
+        pin-flake-reg
+
+        cachix
+
+        # add home-manager as a module
+        home-manager.nixosModules.home-manager
+
+        # use hyperland's modules
+        hyprland.nixosModules.default
       ];
-    };
 
-    # modules to configure nixos
-    hmsettings = { withModules ? [] }: {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
+      eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
+        packages = (import nixpkgs {
+          inherit system;
+          inherit (nixpkgsConfig) config overlays;
+        }).custom;
+      });
 
-      # set up everything in home-manager
-      home-manager.users.max.imports = [
-        ./home/max.nix
-        ./hosts/options.nix
-      ] ++ withModules;
-    };
+    in {
+      templates = import ./templates;
 
-    pin-flake-reg = {
-      nix.registry.nixpkgs.flake = nixpkgs;
-      nix.registry.unstable.flake = unstable;
-      nix.registry.self.flake = self;
-    };
+      nixosConfigurations = {
 
-    # modules defined above
-    commonModules = [
-      ({ nixpkgs = nixpkgsConfig; })
-      pin-flake-reg
+        # PC at home
+        desknix = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = commonModules ++ [
+            ./hosts/desknix/configuration.nix
+            (hmsettings { withModules = [ ./hosts/desknix/device.nix ]; })
+          ];
+        };
 
-      # add home-manager as a module
-      home-manager.nixosModules.home-manager
-    ];
-
-    eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
-      packages = (import nixpkgs { inherit system; inherit (nixpkgsConfig) config overlays; }).custom;
-    });
-
-  in
-  {
-    templates = import ./templates;
-
-    nixosConfigurations = {
-
-      # PC at home
-      desknix = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = commonModules ++ [
-          ./hosts/desknix/configuration.nix
-          (hmsettings { withModules = [ ./hosts/desknix/device.nix ]; })
-        ];
+        # Laptop for work
+        lenovo-laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = commonModules ++ [
+            ./hosts/lenovo-laptop/configuration.nix
+            (hmsettings { withModules = [ ./hosts/lenovo-laptop/device.nix ]; })
+          ];
+        };
       };
-
-      # Laptop for work
-      lenovo-laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = commonModules ++ [
-          ./hosts/lenovo-laptop/configuration.nix
-          (hmsettings { withModules = [ ./hosts/lenovo-laptop/device.nix ]; })
-        ];
-      };
-    };
-  } // eachSystemExport;
+    } // eachSystemExport;
 }

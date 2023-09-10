@@ -5,6 +5,7 @@
     ./bspwm.nix
     ./direnv.nix
     ./git.nix
+    ./hyprland.nix
     ./i3
     ./kubectl.nix
     ./nvim
