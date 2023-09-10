@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
@@ -9,8 +9,9 @@
     config.programs.hyprland.enableNvidiaPatches;
 
   services.xserver = {
-    desktopManager.xterm.enable = true;
-    displayManager.sddm.enable = true;
+    # enable = lib.mkForce false;
+    desktopManager.xterm.enable = false;
+    displayManager.lightdm.greeter.enable = true;
 
     desktopManager.session = [{
       manage = "desktop";
@@ -20,6 +21,9 @@
       '';
     }];
   };
+
+  services.greetd.enable = false;
+  programs.regreet.enable = false;
 
   services.pipewire.enable = true;
   services.pipewire.wireplumber.enable = true;
