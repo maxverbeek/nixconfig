@@ -133,7 +133,11 @@
       zoom-us
 
       # latex
-      (texlive.combine { inherit (texlive) scheme-tetex latexmk biblatex; })
+      (texlive.combine {
+        inherit (texlive)
+          scheme-tetex latexmk biblatex tcolorbox pdfcol upquote grffile
+          adjustbox;
+      })
       biber # required for biblatex
       pandoc
 
