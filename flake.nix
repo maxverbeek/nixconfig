@@ -89,7 +89,7 @@
         home-manager.nixosModules.home-manager
 
         # use hyperland's modules
-        hyprland.nixosModules.default
+        # hyprland.nixosModules.default
       ];
 
       eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {

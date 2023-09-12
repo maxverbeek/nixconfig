@@ -20,7 +20,7 @@
       direnv.enable = true;
       playerctld.enable = true;
 
-      hyprland.enable = false;
+      hyprland.enable = true;
 
       picom = {
         enable = true;

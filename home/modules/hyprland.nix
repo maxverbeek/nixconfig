@@ -8,6 +8,10 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       enableNvidiaPatches = true;
+
+      extraConfig = ''
+        source = ~/.config/hypr/actualconfig.conf
+      '';
     };
   };
 }
