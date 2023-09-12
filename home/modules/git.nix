@@ -1,5 +1,13 @@
 { pkgs, config, lib, ... }:
-with lib; {
+with lib;
+let
+  pushscript = pkgs.writeScript "_gitpushcopy" ''
+    #!${pkgs.stdenv.shell}
+
+    git push $@ 2>&1 | ${pkgs.text2url}/bin/text2url --out tee --clip --ok
+  '';
+
+in {
   options = { modules.git.enable = mkEnableOption "Enable Git config"; };
 
   config = mkIf config.modules.git.enable {
@@ -40,6 +48,8 @@ with lib; {
           "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
 
         difflast = "diff HEAD^";
+
+        mp = "!${pushscript} -o merge_request.create";
       };
     };
   };

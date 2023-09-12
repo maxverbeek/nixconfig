@@ -12,10 +12,12 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    text2url.url = "github:maxverbeek/text2url";
   };
 
   outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils
-    , hyprland, ... }:
+    , hyprland, text2url, ... }:
 
     let
 
@@ -36,6 +38,11 @@
               inherit (prev) system;
               inherit config;
             };
+          })
+
+          # packages from flakes
+          (final: prev: {
+            text2url = text2url.packages.${final.system}.default;
           })
 
           # for any package version overrides

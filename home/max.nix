@@ -154,6 +154,9 @@
 
       unstable.nurl
       custom.samdump2
+
+      # my own stuff
+      text2url
     ];
   };
 }
