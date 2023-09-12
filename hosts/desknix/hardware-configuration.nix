@@ -13,6 +13,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # Note: I ran `sudo zfs set acltype=posixacl rpool/safe` to enable ACL which
+  # is required for journald
   fileSystems."/" =
     { device = "rpool/safe/root";
       fsType = "zfs";
