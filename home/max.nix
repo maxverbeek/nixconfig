@@ -105,9 +105,10 @@
       librsvg
       minikube
       neofetch
-      nix-index
       neo4j-desktop
+      nix-index
       okular
+      openssl
       openvpn
       patchelf
       pdftk
