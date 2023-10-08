@@ -41,6 +41,8 @@ in {
         default = [ ];
       };
 
+      hyprland.enable = mkEnableOption "Hyprland config";
+
       wifi = {
         enabled = mkEnableOption "wifi" // {
           description = "Whether wifi is enabled";

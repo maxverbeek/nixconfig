@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   imports = [ ./modules ];
 
   config = {
@@ -20,7 +20,7 @@
       direnv.enable = true;
       playerctld.enable = true;
 
-      hyprland.enable = true;
+      hyprland.enable = config.device.hyprland.enable;
 
       picom = {
         enable = true;
@@ -57,12 +57,23 @@
     services.gpg-agent.enable = true;
     services.flameshot.enable = true;
 
-    home.pointerCursor = {
-      x11.enable = true;
-      x11.defaultCursor = "left_ptr";
-      package = pkgs.custom.mcmojave-cursors;
-      name = "McMojave-cursors";
+    gtk = {
+      enable = true;
+      cursorTheme = {
+        package = pkgs.custom.mcmojave-cursors;
+        name = "McMojave-cursors";
+      };
+
+      iconTheme = {
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus";
+      };
     };
+
+    # home.pointerCursor = {
+    #   x11.enable = true;
+    #   x11.defaultCursor = "left_ptr";
+    # };
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";

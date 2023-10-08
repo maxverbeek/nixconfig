@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 let cfg = config.modules.hyprland;
 in {
 
@@ -13,5 +13,6 @@ in {
         source = ~/.config/hypr/actualconfig.conf
       '';
     };
+    home.packages = with pkgs; [ eww-hyprland-fork swaybg ];
   };
 }

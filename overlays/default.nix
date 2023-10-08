@@ -28,6 +28,19 @@ final: prev: {
     });
   });
 
+  eww-wayland = prev.eww-wayland.overrideAttrs (oldAttrs: rec {
+    src = final.fetchFromGitHub {
+      owner = "ralismark";
+      repo = "eww";
+      rev = "a82ed62c25ba50f28dc8c3d57efe440d51d6136b";
+      hash = "sha256-vxMGAa/RTsMADPK4dM/28SV2ktCT0DenYvGsHZ4IJ8c=";
+    };
+
+    cargoHash = "sha256-vxMGAa/RTsMADPK4dM/28SV2ktCT0DenYvGsHZ4IJ7c=";
+
+    buildInputs = oldAttrs.buildInputs ++ [ final.libdbusmenu-gtk3 ];
+  });
+
   # zsh = prev.zsh.overrideAttrs (oldAttrs: {
   #   configureFlags = [ "--enable-zsh-debug" ] ++ oldAttrs.configureFlags;
   # });

@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let useNvidia = true;
+in {
   programs.hyprland = {
     enable = true;
-    # enableNvidiaPatches = true;
-    # portalPackage = pkgs.xdg-desktop-portal-wlr;
+    nvidiaPatches = useNvidia;
   };
 
   # if nvidia patches for hyprland are required, then so is this modesetting thing
-  hardware.nvidia = lib.optionalAttrs true {
+  hardware.nvidia = lib.optionalAttrs useNvidia {
     # open = true;
     modesetting.enable = true;
     powerManagement.enable = true;
@@ -15,14 +16,14 @@
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
-    extraPackages = lib.optionals true [ pkgs.nvidia-vaapi-driver ];
+    extraPackages = lib.optionals useNvidia [ pkgs.nvidia-vaapi-driver ];
   };
 
   # required for pipewire?
   boot.kernelModules = [ "v4l2loopback" ];
 
   services.xserver = {
-    enable = true;
+    enable = lib.mkForce false;
     desktopManager.xterm.enable = false;
     # displayManager.lightdm.greeter.enable = true;
 
@@ -35,11 +36,59 @@
     }];
   };
 
-  # services.greetd.enable = true;
-  # programs.regreet.enable = true;
+  programs.dconf.enable = true;
+
+  services.dbus.packages = [ pkgs.gcr ];
+
+  programs.regreet = {
+    enable = true;
+    package =
+      pkgs.unstable.greetd.regreet; # .overrideAttrs (old: { patches = [ ../patches/regreet-debug.patch ]; });
+    settings = {
+      background = {
+        path = ../wallpapers/windows.png;
+        fit = "Cover";
+      };
+
+      GTK = {
+        application_prefer_dark_theme = true;
+        cursor_theme_name = "McMojave-cursors";
+        # font_name = "Jost * 12";
+        icon_theme_name = "Papirus-Dark";
+        theme_name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+      };
+
+      commands = {
+        reboot = [ "reboot" ];
+        poweroff = [ "shutdown" "now" ];
+      };
+    };
+  };
+
+  # themes for regreet
+  environment.systemPackages = with pkgs; [
+    glib
+    custom.mcmojave-cursors
+    # theme packages
+    (catppuccin-gtk.override {
+      accents = [ "mauve" ];
+      size = "compact";
+      variant = "mocha";
+    })
+    bibata-cursors
+    papirus-icon-theme
+  ];
+
+  services.greetd = {
+    # Configuration for using with regreet -- only enable if regreet is enabled
+    enable = config.programs.regreet.enable;
+    settings.default_session.command = "${pkgs.dbus}/bin/dbus-run-session ${
+        lib.getExe pkgs.cage
+      } -s -m last -- ${lib.getExe config.programs.regreet.package} -l debug";
+  };
 
   services.xserver.displayManager.gdm = {
-    enable = true;
+    enable = false;
     wayland = true;
   };
 
@@ -52,6 +101,20 @@
     alsa.support32Bit = true;
     jack.enable = true;
     wireplumber.enable = true;
+  };
+
+  xdg.portal.enable = true;
+
+  # enable better codecs for bluetooth headset
+  environment.etc = {
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+      bluez_monitor.properties = {
+        ["bluez5.enable-sbc-xq"] = true,
+        ["bluez5.enable-msbc"] = true,
+        ["bluez5.enable-hw-volume"] = true,
+        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '';
   };
 
   hardware.pulseaudio.enable = lib.mkForce false;

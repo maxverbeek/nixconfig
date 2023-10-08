@@ -6,5 +6,7 @@
     ];
 
     hasBattery = false;
+
+    hyprland.enable = true;
   };
 }
