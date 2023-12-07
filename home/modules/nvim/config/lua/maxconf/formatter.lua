@@ -32,6 +32,10 @@ require("formatter").setup({
       require("formatter.filetypes.javascript").prettierd,
     },
 
+    json = {
+      require("formatter.filetypes.json").jq,
+    },
+
     go = {
       require("formatter.filetypes.go").gofmt,
     },

@@ -66,6 +66,7 @@ in {
       pyright
       clang-tools
       terraform-ls
+      metals
     ];
 
     # config is in lsp

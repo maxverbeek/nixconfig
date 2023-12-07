@@ -13,6 +13,14 @@ in {
         source = ~/.config/hypr/actualconfig.conf
       '';
     };
-    home.packages = with pkgs; [ eww-hyprland-fork swaybg ];
+
+    home.packages = with pkgs; [
+      swaybg
+      unstable.waybar
+      blueberry
+      networkmanagerapplet
+      xdg-launch # xdg-open
+      xdg-utils
+    ];
   };
 }

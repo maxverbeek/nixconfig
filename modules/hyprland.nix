@@ -103,7 +103,10 @@ in {
     wireplumber.enable = true;
   };
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal ];
+  };
 
   # enable better codecs for bluetooth headset
   environment.etc = {

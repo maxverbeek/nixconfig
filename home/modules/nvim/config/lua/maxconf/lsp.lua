@@ -152,7 +152,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Register all the language servers
 local servers =
-  { "nil_ls", "rust_analyzer", "gopls", "tailwindcss", "svelte", "pyright", "clangd", "texlab", "terraformls" }
+  { "nil_ls", "rust_analyzer", "gopls", "tailwindcss", "svelte", "pyright", "clangd", "texlab", "terraformls", "metals" }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({

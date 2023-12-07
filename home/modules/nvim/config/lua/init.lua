@@ -38,3 +38,5 @@ map("n", "Y", "yg$", opt)
 
 map("n", "<leader>d", '"_d', opt)
 map("v", "<leader>d", '"_d', opt)
+
+map("t", "<Esc><Esc>", "<C-\\><C-N>", opt)
