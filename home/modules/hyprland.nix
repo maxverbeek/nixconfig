@@ -7,8 +7,7 @@ in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
-      enableNvidiaPatches = true;
-
+      xwayland.enable = true;
       extraConfig = ''
         source = ~/.config/hypr/actualconfig.conf
       '';

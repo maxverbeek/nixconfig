@@ -3,14 +3,18 @@ let useNvidia = true;
 in {
   programs.hyprland = {
     enable = true;
-    nvidiaPatches = useNvidia;
+    # nvidiaPatches = useNvidia;
   };
 
   # if nvidia patches for hyprland are required, then so is this modesetting thing
+  services.xserver.videoDrivers = lib.optionals useNvidia [ "nvidia" ];
+
   hardware.nvidia = lib.optionalAttrs useNvidia {
     # open = true;
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
+
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.opengl = {

@@ -3,7 +3,7 @@ with vimPlugins;
 let
   # update some packages to unstable
   inherit (pkgs.unstable.vimPlugins)
-    nvim-autopairs nvim-ts-autotag formatter-nvim;
+    nvim-autopairs nvim-ts-autotag formatter-nvim conform-nvim;
 in {
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
@@ -67,6 +67,8 @@ in {
       clang-tools
       terraform-ls
       metals
+      ocamlPackages.ocaml-lsp
+      haskell-language-server
     ];
 
     # config is in lsp
@@ -108,8 +110,8 @@ in {
     config = "indent-blankline";
   };
 
-  formatter-nvim = {
-    plugin = formatter-nvim;
+  conform-nvim = {
+    plugin = conform-nvim;
     config = "formatter";
     extern = with pkgs; [
       nixfmt
@@ -119,6 +121,7 @@ in {
       custom.nodePackages."@fsouza/prettierd"
       unstable.nodePackages.prettier
       unstable.nodePackages.vscode-langservers-extracted
+      ocamlformat
     ];
   };
 

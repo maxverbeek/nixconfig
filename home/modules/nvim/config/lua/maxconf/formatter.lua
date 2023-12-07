@@ -1,116 +1,98 @@
--- Utilities for creating configurations
-local util = require("formatter.util")
-local defaults = require("formatter.defaults")
-
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
-require("formatter").setup({
-  -- Enable or disable logging
-  logging = false,
-  -- Set the log level
-  log_level = vim.log.levels.WARN,
-  -- All formatter configurations are opt-in
-  filetype = {
-    -- Formatter configurations for filetype "lua" go here
-    -- and will be executed in order
-    lua = {
-      require("formatter.filetypes.lua").stylua,
-    },
+require("conform").setup({
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Conform will run multiple formatters sequentially
+    python = { "isort", "black" },
+    -- Use a sub-list to run only the first available formatter
+    javascript = { { "prettierd", "prettier" } },
+    javascriptreact = { { "prettierd", "prettier " } },
+    typescript = { { "prettierd", "prettier " } },
+    typescriptreact = { { "prettierd", "prettier " } },
 
-    typescriptreact = {
-      require("formatter.filetypes.typescriptreact").prettierd,
-    },
-
-    typescript = {
-      require("formatter.filetypes.typescript").prettierd,
-    },
-
-    javascriptreact = {
-      require("formatter.filetypes.javascriptreact").prettierd,
-    },
-
-    javascript = {
-      require("formatter.filetypes.javascript").prettierd,
-    },
-
-    json = {
-      require("formatter.filetypes.json").jq,
-    },
-
-    go = {
-      require("formatter.filetypes.go").gofmt,
-    },
-
-    rust = {
-      require("formatter.filetypes.rust").rustfmt,
-    },
-
-    ruby = {
-      require("formatter.filetypes.ruby").rubocop,
-    },
-
-    c = {
-      require("formatter.filetypes.c").clangformat,
-    },
-
-    nix = {
-      require("formatter.filetypes.nix").nixfmt,
-    },
-
-    terraform = {
-      require("formatter.filetypes.terraform").terraformfmt,
-    },
-
-    yaml = {
-      require("formatter.filetypes.yaml").yamlfmt,
-    },
-
-    json = {
-      require("formatter.filetypes.json").jq,
-    },
-
-    -- Use the special "*" filetype for defining formatter configurations on
-    -- any filetype
-    ["*"] = function(...)
-      if vim.endswith(util.get_current_buffer_file_extension(), "md") then
-        -- don't delete two spaces at the end of md files
-        return {
-          exe = "sed",
-          args = {
-            vim.fn.shellescape("/\\S  $/!s/[ \\t]*$//;s/^  $//"),
-          },
-          stdin = true,
-        }
-      end
-      --
-      -- "formatter.filetypes.any" defines default configurations for any
-      -- filetype
-      return require("formatter.filetypes.any").remove_trailing_whitespace(...)
-    end,
+    json = { "jq" },
+    go = { "gofmt" },
+    rust = { "rustfmt" },
+    ruby = { "rubocop" },
+    c = { "clangformat" },
+    nix = { "nixfmt" },
+    terraform = { "terraformfmt" },
   },
 })
+-- -- Use the special "*" filetype for defining formatter configurations on
+-- -- any filetype
+-- ["*"] = function(...)
+--   if vim.endswith(util.get_current_buffer_file_extension(), "md") then
+--     -- don't delete two spaces at the end of md files
+--     return {
+--       exe = "sed",
+--       args = {
+--         vim.fn.shellescape("/\\S  $/!s/[ \\t]*$//;s/^  $//"),
+--       },
+--       stdin = true,
+--     }
+--   end
+--   --
+--   -- "formatter.filetypes.any" defines default configurations for any
+--   -- filetype
+--   return require("formatter.filetypes.any").remove_trailing_whitespace(...)
+-- end,
+
+vim.api.nvim_create_user_command("Format", function(args)
+  local range = nil
+  if args.count ~= -1 then
+    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+    range = {
+      start = { args.line1, 0 },
+      ["end"] = { args.line2, end_line:len() },
+    }
+  end
+  require("conform").format({ async = true, lsp_fallback = true, range = range })
+end, { range = true })
 
 local opt = { noremap = true, silent = false }
 vim.api.nvim_set_keymap("n", "<Leader>ff", "<CMD>Format<cr>", opt)
 
-local augroup = vim.api.nvim_create_augroup("FormatOnSave", {})
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-  group = augroup,
-  command = "FormatWrite",
+require("conform").setup({
+  format_on_save = function(bufnr)
+    -- Disable with a global or buffer-local variable
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return
+    end
+    return { timeout_ms = 500, lsp_fallback = true }
+  end,
 })
 
-local toggleAutoformat = function()
-  if #vim.api.nvim_get_autocmds({ group = augroup }) > 0 then
-    vim.api.nvim_clear_autocmds({ group = augroup })
-    print("Disabled autoformatting")
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
   else
-    vim.api.nvim_create_autocmd("BufWritePost", {
-      group = augroup,
-      command = "FormatWrite",
-    })
-    print("Enabled autoformatting")
+    vim.g.disable_autoformat = true
   end
-end
+end, {
+  desc = "Disable autoformat-on-save",
+  bang = true,
+})
 
-vim.api.nvim_create_user_command("ToggleFormatting", toggleAutoformat, {})
-vim.keymap.set("n", "<F4>", toggleAutoformat)
+vim.api.nvim_create_user_command("FormatEnable", function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = "Re-enable autoformat-on-save",
+})
+
+vim.keymap.set("n", "<F6>", function()
+  if vim.g.disable_autoformat then
+    vim.g.disable_autoformat = false
+    print("Enabled autoformat")
+  else
+    vim.g.disable_autoformat = true
+    print("Disabled autoformat")
+  end
+end)

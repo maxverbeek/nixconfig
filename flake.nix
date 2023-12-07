@@ -25,7 +25,10 @@
 
       # config to extend nixpkgs. this needs to be applied as a module
       nixpkgsConfig = rec {
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [ "teams-1.5.00.23861" ];
+        };
 
         overlays = [
           # adding custom packages/flakes to nixpkgs
@@ -94,7 +97,7 @@
         home-manager.nixosModules.home-manager
 
         # use hyperland's modules
-        # hyprland.nixosModules.default
+        hyprland.nixosModules.default
       ];
 
       eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
