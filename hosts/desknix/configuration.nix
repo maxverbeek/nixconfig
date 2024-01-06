@@ -148,7 +148,7 @@
 
   virtualisation.docker = {
     enable = true;
-    # storageDriver = "zfs"; # according to internet, overlayfs + zfs = bad
+    storageDriver = "overlay2";
   };
 
   modules.kvm2.enable = true;

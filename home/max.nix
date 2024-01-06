@@ -13,7 +13,7 @@
       autorandr.enable = true;
       polybar.enable = true;
       rofi.enable = true;
-      rstudio.enable = true;
+      rstudio.enable = false;
       screenlocker.enable = true;
       zsh.enable = true;
       alacritty.enable = true;
@@ -134,7 +134,6 @@
       slack
       sshfs
       spotify
-      teams
       unstable.teleport
       unstable.terraform
       tldr
@@ -154,7 +153,7 @@
       biber # required for biblatex
       pandoc
 
-      jetbrains.idea-ultimate
+      jetbrains.idea-community
       openjdk17
       maven
 

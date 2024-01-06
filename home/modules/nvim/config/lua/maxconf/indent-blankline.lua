@@ -1,7 +1,12 @@
-require "indent_blankline".setup {
-  show_current_context = true,
-  show_current_context_start = false,
-  show_first_indent_level = false,
-  char = "",
-  context_char = "│",
-}
+require("ibl").setup({
+  scope = {
+    enabled = true,
+    show_start = false,
+    char = "▏",
+  },
+
+  indent = {
+    -- dont show a character for all indentations, only the current scope
+    char = " ",
+  },
+})

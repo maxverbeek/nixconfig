@@ -1,17 +1,5 @@
-{ pkgs, lib, fetchFromGitHub, ... }:
-pkgs.vimUtils.buildVimPluginFrom2Nix rec {
-  pname = "kanagawa.nvim";
-
-  # latest commit as of 2023-01-15
-  version = "476eb2289d47d132ebacc1a4d459e3204866599b";
-
-  src = fetchFromGitHub {
-    owner = "rebelot";
-    repo = "kanagawa.nvim";
-    rev = "476eb2289d47d132ebacc1a4d459e3204866599b";
-    hash = "sha256-KP3DgywCxMnKuB/Rg2VRFQpKULLKR5dX98j10Fm1IQ4=";
-  };
-
+{ pkgs, ... }:
+pkgs.vimPlugins.kanagawa-nvim.overrideAttrs (old: {
   # see file in repo: $out/extras/alacritty_kanagawa.yml
   # dont know how to convert yml to nix, so i did it manually
   passthru.colors.foot = {
@@ -123,4 +111,4 @@ pkgs.vimUtils.buildVimPluginFrom2Nix rec {
       background = "#1f1f28";
     };
   };
-}
+})

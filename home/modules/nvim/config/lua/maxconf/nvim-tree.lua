@@ -1,12 +1,10 @@
-require 'nvim-tree'.setup {
-  disable_netrw       = false,
-  hijack_netrw        = false,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  open_on_tab         = false,
-  hijack_cursor       = true,
-  update_cwd          = false,
-  hijack_directories  = {
+require("nvim-tree").setup({
+  disable_netrw = false,
+  hijack_netrw = false,
+  open_on_tab = false,
+  hijack_cursor = true,
+  update_cwd = false,
+  hijack_directories = {
     enable = true,
     auto_open = true,
   },
@@ -15,11 +13,11 @@ require 'nvim-tree'.setup {
       window_picker = {
         exclude = {
           filetype = {
-            'packer',
-            'qf',
+            "packer",
+            "qf",
           },
           buftype = {
-            'terminal',
+            "terminal",
           },
         },
       },
@@ -32,20 +30,20 @@ require 'nvim-tree'.setup {
       info = "",
       warning = "",
       error = "",
-    }
+    },
   },
   update_focused_file = {
-    enable      = true,
-    update_cwd  = false,
-    ignore_list = {}
+    enable = true,
+    update_cwd = false,
+    ignore_list = {},
   },
   system_open = {
-    cmd  = nil,
-    args = {}
+    cmd = nil,
+    args = {},
   },
   filters = {
     dotfiles = false,
-    custom = { '.git', 'node_modules', '.cache' }
+    custom = { ".git", "node_modules", ".cache" },
   },
   git = {
     enable = true,
@@ -54,28 +52,23 @@ require 'nvim-tree'.setup {
   },
   view = {
     width = 40,
-    hide_root_folder = false,
-    side = 'left',
+    side = "left",
     adaptive_size = true,
-    mappings = {
-      custom_only = false,
-      list = {}
-    },
     number = false,
-    relativenumber = false
+    relativenumber = false,
   },
   trash = {
     cmd = "trash",
-    require_confirm = true
+    require_confirm = true,
   },
 
   renderer = {
-    special_files = { 'README.md', 'Makefile', 'MAKEFILE' },
+    special_files = { "README.md", "Makefile", "MAKEFILE" },
     group_empty = true,
     icons = {
       glyphs = {
-        default = '',
-        symlink = '',
+        default = "",
+        symlink = "",
         git = {
           unstaged = "✗",
           staged = "✓",
@@ -83,7 +76,7 @@ require 'nvim-tree'.setup {
           renamed = "➜",
           untracked = "★",
           deleted = "",
-          ignored = "◌"
+          ignored = "◌",
         },
         folder = {
           arrow_open = "",
@@ -93,16 +86,16 @@ require 'nvim-tree'.setup {
           empty = "",
           empty_open = "",
           symlink = "",
-          symlink_open = ""
-        }
-      }
-    }
-  }
-}
+          symlink_open = "",
+        },
+      },
+    },
+  },
+})
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-map('n', '<C-n>', ':NvimTreeFindFileToggle<CR>', opts)
-map('n', '<leader>-r>', ':NvimTreeRefresh<CR>', opts)
-map('n', '<leader>-n>', ':NvimTreeFindFile<CR>', opts)
+map("n", "<C-n>", ":NvimTreeFindFileToggle<CR>", opts)
+map("n", "<leader>-r>", ":NvimTreeRefresh<CR>", opts)
+map("n", "<leader>-n>", ":NvimTreeFindFile<CR>", opts)

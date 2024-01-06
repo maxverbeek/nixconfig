@@ -2,7 +2,7 @@
   kanagawa-nvim = import ./kanagawa-nvim.nix;
 
   dressing-nvim = { pkgs, ... }:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pkgs.vimUtils.buildVimPlugin {
       pname = "cmp-buffer";
       version = "2022-03-14";
       src = pkgs.fetchFromGitHub {
