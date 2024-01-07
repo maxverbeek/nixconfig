@@ -41,6 +41,14 @@ final: prev: {
     buildInputs = oldAttrs.buildInputs ++ [ final.libdbusmenu-gtk3 ];
   });
 
+  # cliphist = prev.cliphist.overrideAttrs (old: {
+  #   postInstall = ''
+  #     cp $src/contrib/cliphist-rofi-img $out/bin/cliphist-rofi-img
+  #
+  #     chmod +x $out/bin/cliphist-rofi-img
+  #   '';
+  # });
+
   # zsh = prev.zsh.overrideAttrs (oldAttrs: {
   #   configureFlags = [ "--enable-zsh-debug" ] ++ oldAttrs.configureFlags;
   # });

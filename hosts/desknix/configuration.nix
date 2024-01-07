@@ -120,7 +120,7 @@
   };
 
   # Fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     corefonts
     custom.fa-custom
     custom.teg-font

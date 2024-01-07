@@ -6,7 +6,8 @@ with lib; {
     programs.foot = {
       enable = true;
       settings.colors = pkgs.custom.kanagawa-nvim.colors.foot;
-      settings.main.font = "JetBrainsMono Nerd Font:size=9";
+      settings.main.font =
+        "JetBrainsMono Nerd Font:size=${toString config.device.termFontSize}";
     };
     programs.alacritty = {
       enable = true;

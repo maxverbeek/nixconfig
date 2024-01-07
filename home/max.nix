@@ -11,7 +11,7 @@
       vscode.enable = true;
       kubectl.enable = true;
       autorandr.enable = true;
-      polybar.enable = true;
+      polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
       rstudio.enable = false;
       screenlocker.enable = true;
@@ -55,7 +55,7 @@
     };
 
     services.gpg-agent.enable = true;
-    services.flameshot.enable = true;
+    services.flameshot.enable = !config.device.hyprland.enable;
 
     gtk = {
       enable = true;
