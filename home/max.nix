@@ -98,6 +98,7 @@
       chromium
       cht-sh
       discord
+      dolphin
       dnsutils
       docker-compose
       envsubst
