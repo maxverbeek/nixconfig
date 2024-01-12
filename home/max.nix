@@ -115,6 +115,7 @@
       ijq # note 2 packages here
 
       kubernetes-helm
+      kolourpaint
       librsvg
       minikube
       neofetch

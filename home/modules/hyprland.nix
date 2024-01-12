@@ -39,6 +39,11 @@ in {
       '';
     };
 
+    home.sessionVariables = {
+      # set screenshot editor to something lightweight
+      GRIMBLAST_EDITOR = "kolourpaint";
+    };
+
     home.packages = with pkgs; [
       swaybg
       unstable.waybar
