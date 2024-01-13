@@ -1,0 +1,20 @@
+[
+  {
+    "include": [
+      "~/.config/waybar/modules.json"
+    ],
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "mpris"
+    ],
+    "modules-right": [
+      "bluetooth",
+      "network",
+      "wireplumber",
+      "tray",
+      "clock"
+    ]
+  }
+]
