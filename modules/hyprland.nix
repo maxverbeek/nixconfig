@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let useNvidia = true;
+let useNvidia = false;
 in {
   programs.hyprland = {
     enable = true;

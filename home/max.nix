@@ -170,7 +170,7 @@
       custom.samdump2
 
       # my own stuff
-      text2url
+      # text2url
     ];
   };
 }

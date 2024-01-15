@@ -16,7 +16,9 @@
       interface = "wlp4s0";
     };
 
-    withScreenLocker = true;
-    termFontSize = 9;
+    hyprland.enable = true;
+
+    withScreenLocker = false;
+    termFontSize = 12;
   };
 }

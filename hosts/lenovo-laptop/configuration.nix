@@ -9,6 +9,7 @@
     # Include the results of the hardware scan.
     ../../modules/kvm2.nix
     ../../modules/bluetooth.nix
+    ../../modules/hyprland.nix
     ./hardware-configuration.nix
 
     # set up networkign in this file
@@ -28,7 +29,7 @@
   boot.initrd.availableKernelModules = [ "btusb" ];
 
   boot.initrd.luks.devices.root = {
-    device = "/dev/disk/by-uuid/6a5c2154-c367-44d3-a9f0-a06d112b2c5d";
+    device = "/dev/disk/by-uuid/6e6ef9ba-0ecf-4c94-9a31-1c417274cec3";
     preLVM = true;
     allowDiscards = true;
   };
@@ -100,7 +101,7 @@
     # videoDrivers = [ "radeon" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
-    desktopManager.xterm.enable = true;
+    # desktopManager.xterm.enable = true;
     desktopManager.session = [{
       manage = "desktop";
       name = "home-manager";
@@ -144,13 +145,13 @@
 
   ## Instead of using pulseaudio, try pipewire
   # rtkit is optional but recommended
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = false;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+  # security.rtkit.enable = true;
+  # services.pipewire = {
+  #   enable = false;
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {

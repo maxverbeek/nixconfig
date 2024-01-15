@@ -13,13 +13,13 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    text2url.url = "github:maxverbeek/text2url";
+    # text2url.url = "github:maxverbeek/text2url";
 
     eww.url = "github:ralismark/eww/tray-3";
   };
 
   outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils
-    , hyprland, text2url, eww, ... }:
+    , hyprland, eww, ... }:
 
     let
 
@@ -48,7 +48,7 @@
 
           # packages from flakes
           (final: prev: {
-            text2url = text2url.packages.${final.system}.default;
+            # text2url = text2url.packages.${final.system}.default;
             eww-hyprland-fork =
               eww.outputs.packages.${final.system}.eww-wayland;
           })

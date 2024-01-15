@@ -4,7 +4,8 @@ let
   pushscript = pkgs.writeScript "_gitpushcopy" ''
     #!${pkgs.stdenv.shell}
 
-    git push $@ 2>&1 | ${pkgs.text2url}/bin/text2url --out tee --clip --ok
+    # git push $@ 2>&1 | $${pkgs.text2url}/bin/text2url --out tee --clip --ok
+    git push
   '';
 
 in {
