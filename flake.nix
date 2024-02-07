@@ -116,6 +116,7 @@
         # PC at home
         desknix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { nvidia = true; };
           modules = commonModules ++ [
             ./hosts/desknix/configuration.nix
             (hmsettings { withModules = [ ./hosts/desknix/device.nix ]; })
@@ -125,6 +126,7 @@
         # Laptop for work
         lenovo-laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { nvidia = false; };
           modules = commonModules ++ [
             ./hosts/lenovo-laptop/configuration.nix
             (hmsettings { withModules = [ ./hosts/lenovo-laptop/device.nix ]; })

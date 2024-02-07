@@ -1,15 +1,13 @@
-{ config, lib, pkgs, ... }:
-let useNvidia = false;
-in {
+{ config, lib, pkgs, nvidia, ... }: {
   programs.hyprland = {
     enable = true;
     # nvidiaPatches = useNvidia;
   };
 
   # if nvidia patches for hyprland are required, then so is this modesetting thing
-  services.xserver.videoDrivers = lib.optionals useNvidia [ "nvidia" ];
+  services.xserver.videoDrivers = lib.optionals nvidia [ "nvidia" ];
 
-  hardware.nvidia = lib.optionalAttrs useNvidia {
+  hardware.nvidia = lib.optionalAttrs nvidia {
     # open = true;
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -20,7 +18,7 @@ in {
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
-    extraPackages = lib.optionals useNvidia [ pkgs.nvidia-vaapi-driver ];
+    extraPackages = lib.optionals nvidia [ pkgs.nvidia-vaapi-driver ];
   };
 
   # required for pipewire?
