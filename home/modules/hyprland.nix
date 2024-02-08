@@ -51,6 +51,8 @@ in {
       networkmanagerapplet
       xdg-launch # xdg-open
       xdg-utils
+      swaylock
+      swayidle
 
       cliphist
       wl-clipboard

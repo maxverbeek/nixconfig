@@ -21,12 +21,23 @@ let
 
     puts SecureRandom.hex(if ARGV[0].nil? then 64 else ARGV[0].to_i end)
   '';
+
+  gitlabcivars = pkgs.writeScriptBin "gitlabcivars" ''
+    #!${pkgs.bash}/bin/bash
+
+    if [ ! -f ~/.gitlab_pat ]; then
+      echo "File ~/.gitlab_pat not found"
+      exit 1
+    fi
+
+    GITLAB_TOKEN=$(cat ~/.gitlab_pat) ${pkgs.glab}/bin/glab variable export | ${pkgs.jq}/bin/jq -r ".[] | (.key + \"=\" + .value)"
+  '';
 in {
 
   options = { modules.zsh.enable = lib.mkEnableOption "Enable ZSH"; };
 
   config = lib.mkIf config.modules.zsh.enable {
-    home.packages = with pkgs; [ thefuck secrand ];
+    home.packages = with pkgs; [ thefuck secrand gitlabcivars ];
 
     programs.zsh = {
       enable = true;

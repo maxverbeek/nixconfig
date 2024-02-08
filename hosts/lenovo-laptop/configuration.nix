@@ -198,7 +198,10 @@
     yarn
   ];
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    package = pkgs.unstable.docker.override { buildxSupport = true; };
+  };
 
   modules.kvm2.enable = true;
   modules.kvm2.home.minikube.enable = true;
