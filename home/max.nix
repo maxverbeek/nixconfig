@@ -13,7 +13,7 @@
       autorandr.enable = true;
       polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
-      rstudio.enable = false;
+      rstudio.enable = true;
       screenlocker.enable = true;
       zsh.enable = true;
       alacritty.enable = true;
@@ -118,6 +118,7 @@
       kolourpaint
       librsvg
       minikube
+      mongodb-compass
       neofetch
       neo4j-desktop
       nix-index
