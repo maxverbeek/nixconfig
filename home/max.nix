@@ -122,6 +122,8 @@
       neofetch
       neo4j-desktop
       nix-index
+      nomad
+      mr
       okular
       openssl
       openvpn

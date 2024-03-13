@@ -151,6 +151,21 @@ in {
     config = "diffview";
   };
 
+  # viewing notebook stuff in nvim
+  molten-nvim = {
+    plugin = molten-nvim;
+    depend = [ image-nvim ];
+    extern = let
+      pythonpackages = with pkgs.python3Packages; [
+        pynvim
+        cairosvg
+        ipython
+        nbformat
+        jupyter-client
+      ];
+    in with pkgs; [ imagemagick ] ++ pythonpackages;
+  };
+
   editorconfig-vim.plugin = editorconfig-vim;
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;
