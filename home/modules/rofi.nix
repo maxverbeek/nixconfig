@@ -127,6 +127,8 @@ in {
     programs.rofi = {
       enable = true;
 
+      package = pkgs.rofi-wayland;
+
       font = "JetBrainsMono Nerd Font 12";
 
       terminal = "${pkgs.alacritty}/bin/alacritty";
