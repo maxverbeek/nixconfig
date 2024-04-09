@@ -69,6 +69,7 @@ in {
       metals
       ocamlPackages.ocaml-lsp
       haskell-language-server
+      elixir-ls
     ];
 
     # config is in lsp
