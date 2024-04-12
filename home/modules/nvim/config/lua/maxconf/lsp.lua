@@ -164,6 +164,7 @@ local servers = {
   "metals",
   "ocamllsp",
   "hls",
+  "solargraph",
 }
 
 for _, lsp in ipairs(servers) do

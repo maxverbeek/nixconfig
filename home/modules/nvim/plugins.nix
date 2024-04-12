@@ -70,6 +70,7 @@ in {
       ocamlPackages.ocaml-lsp
       haskell-language-server
       elixir-ls
+      solargraph
     ];
 
     # config is in lsp
