@@ -33,6 +33,8 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  networking.networkmanager.enable = true;
+
   networking.hostName = "desknix"; # Define your hostname.
   networking.hostId = "aa111111"; # required for zfs
   networking.nameservers =
@@ -109,7 +111,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "networkmanager" ];
     shell = pkgs.zsh;
   };
 

@@ -23,7 +23,7 @@
       hyprland.enable = config.device.hyprland.enable;
 
       picom = {
-        enable = true;
+        enable = !config.device.hyprland.enable;
         experimentalBackends = true;
       };
     };
@@ -70,10 +70,13 @@
       };
     };
 
-    # home.pointerCursor = {
-    #   x11.enable = true;
-    #   x11.defaultCursor = "left_ptr";
-    # };
+    home.pointerCursor = {
+      package = pkgs.custom.mcmojave-cursors;
+      size = 32;
+      name = "McMojave-cursors";
+      gtk.enable = true;
+      x11.enable = false;
+    };
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
