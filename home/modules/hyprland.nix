@@ -76,6 +76,8 @@ in {
       wl-clipboard
       wl-clip-persist
       rofi-cliphist # thing that shows clip history in rofi (from cliphist)
+      wf-recorder
+      slurp
 
       # screenshots
       grimblast
