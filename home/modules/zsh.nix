@@ -32,12 +32,18 @@ let
 
     GITLAB_TOKEN=$(cat ~/.gitlab_pat) ${pkgs.glab}/bin/glab variable export | ${pkgs.jq}/bin/jq -r ".[] | (.key + \"=\" + .value)"
   '';
+
+  jqd = pkgs.writeScriptBin "jqd" ''
+    #!${pkgs.bash}/bin/bash
+
+    exec jq 'map_values(.| @base64d)'
+  '';
 in {
 
   options = { modules.zsh.enable = lib.mkEnableOption "Enable ZSH"; };
 
   config = lib.mkIf config.modules.zsh.enable {
-    home.packages = with pkgs; [ thefuck secrand gitlabcivars ];
+    home.packages = with pkgs; [ thefuck secrand gitlabcivars jqd ];
 
     programs.zsh = {
       enable = true;
