@@ -3,6 +3,7 @@
     ./alacritty.nix
     ./autorandr.nix
     ./bspwm.nix
+    ./cursor.nix
     ./direnv.nix
     ./git.nix
     ./hyprland.nix

@@ -42,10 +42,6 @@ in {
     home.sessionVariables = {
       # set screenshot editor to something lightweight
       GRIMBLAST_EDITOR = "kolourpaint";
-
-      # set cursor using Hyprcursor
-      HYPRCURSOR_THEME = config.gtk.cursorTheme.name;
-      HYPRCURSOR_SIZE = "32"; # doesn't match gtk theme size
     };
 
     # waybar stuff

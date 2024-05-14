@@ -26,6 +26,14 @@
         enable = !config.device.hyprland.enable;
         experimentalBackends = true;
       };
+
+      # cursor = {
+      #   enable = true;
+      #   package = pkgs.custom.mcmojave-cursors;
+      #   size = 32;
+      #   hyprcursor = true;
+      #   name = "McMojave-cursors";
+      # };
     };
 
     programs.ssh = {
@@ -59,10 +67,6 @@
 
     gtk = {
       enable = true;
-      cursorTheme = {
-        package = pkgs.custom.mcmojave-cursors;
-        name = "McMojave-cursors";
-      };
 
       iconTheme = {
         package = pkgs.papirus-icon-theme;
