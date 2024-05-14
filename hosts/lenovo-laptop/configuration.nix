@@ -34,6 +34,11 @@
     allowDiscards = true;
   };
 
+  boot.plymouth = {
+    enable = true;
+    logo = ../../wallpapers/thonkpad.png;
+  };
+
   hardware.cpu.amd.updateMicrocode = true;
   hardware.opengl.enable = true;
 
