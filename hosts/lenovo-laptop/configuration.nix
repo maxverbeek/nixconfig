@@ -34,6 +34,7 @@
     allowDiscards = true;
   };
 
+  boot.initrd.systemd.enable = true;
   boot.plymouth = {
     enable = true;
     logo = ../../wallpapers/thonkpad.png;
