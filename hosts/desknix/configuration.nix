@@ -121,6 +121,11 @@
     enableCompletion = false;
   };
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+  };
+
   # Fonts
   fonts.packages = with pkgs; [
     corefonts
