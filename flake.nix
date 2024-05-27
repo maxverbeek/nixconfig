@@ -11,13 +11,13 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
+    # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
 
     # text2url.url = "github:maxverbeek/text2url";
   };
 
-  outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils
-    , hyprland, ... }:
+  outputs =
+    { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, ... }:
 
     let
 
@@ -61,11 +61,8 @@
         home-manager.useUserPackages = true;
 
         # set up everything in home-manager
-        home-manager.users.max.imports = [
-          ./home/max.nix
-          ./hosts/options.nix
-          hyprland.homeManagerModules.default
-        ] ++ withModules;
+        home-manager.users.max.imports = [ ./home/max.nix ./hosts/options.nix ]
+          ++ withModules;
       };
 
       pin-flake-reg = {
@@ -94,7 +91,7 @@
         home-manager.nixosModules.home-manager
 
         # use hyperland's modules
-        hyprland.nixosModules.default
+        # hyprland.nixosModules.default
         # hyprland.homeManagerModules.default
       ];
 
