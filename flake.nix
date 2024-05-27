@@ -11,15 +11,13 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
 
     # text2url.url = "github:maxverbeek/text2url";
-
-    eww.url = "github:ralismark/eww/tray-3";
   };
 
   outputs = { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils
-    , hyprland, eww, ... }:
+    , hyprland, ... }:
 
     let
 
@@ -47,11 +45,10 @@
           })
 
           # packages from flakes
-          (final: prev: {
-            # text2url = text2url.packages.${final.system}.default;
-            eww-hyprland-fork =
-              eww.outputs.packages.${final.system}.eww-wayland;
-          })
+          (final: prev:
+            {
+              # text2url = text2url.packages.${final.system}.default;
+            })
 
           # for any package version overrides
           (import ./overlays)
