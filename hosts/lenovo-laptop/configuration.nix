@@ -10,6 +10,7 @@
     ../../modules/kvm2.nix
     ../../modules/bluetooth.nix
     ../../modules/hyprland.nix
+    ../../modules/nix-ld.nix
     ./hardware-configuration.nix
 
     # set up networkign in this file

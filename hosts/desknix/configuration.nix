@@ -10,6 +10,7 @@
     ../../modules/kvm2.nix
     ../../modules/hyprland.nix
     ../../modules/bluetooth.nix
+    ../../modules/nix-ld.nix
     # ./vim.nix
     # ./i3.nix
   ];
@@ -119,11 +120,6 @@
   programs.zsh = {
     enable = true;
     enableCompletion = false;
-  };
-
-  programs.nix-ld = {
-    enable = true;
-    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
   };
 
   # Fonts
