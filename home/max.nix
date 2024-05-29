@@ -13,6 +13,7 @@
       autorandr.enable = true;
       polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
+      fuzzel.enable = false;
       rstudio.enable = true;
       screenlocker.enable = true;
       zsh.enable = true;

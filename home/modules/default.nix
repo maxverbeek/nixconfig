@@ -5,6 +5,7 @@
     ./bspwm.nix
     ./cursor.nix
     ./direnv.nix
+    ./fuzzel.nix
     ./git.nix
     ./hyprland.nix
     ./i3
