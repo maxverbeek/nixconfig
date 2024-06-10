@@ -122,16 +122,17 @@
       jq
       ijq # note 2 packages here
 
-      kubernetes-helm
+      just
       kolourpaint
+      kubernetes-helm
       librsvg
       minikube
       mongodb-compass
-      neofetch
+      mr
       neo4j-desktop
+      neofetch
       nix-index
       nomad
-      mr
       okular
       openssl
       openvpn
@@ -145,12 +146,12 @@
       ruby
       silver-searcher
       slack
-      sshfs
       spotify
-      unstable.teleport
-      unstable.terraform
+      sshfs
       tldr
       unp
+      unstable.teleport
+      unstable.terraform
       unzip
       vlc
       wget
