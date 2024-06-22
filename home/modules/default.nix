@@ -1,5 +1,6 @@
 {
   imports = [
+    ./ags
     ./alacritty.nix
     ./autorandr.nix
     ./bspwm.nix
