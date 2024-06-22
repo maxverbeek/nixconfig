@@ -8,6 +8,12 @@
   # if nvidia patches for hyprland are required, then so is this modesetting thing
   services.xserver.videoDrivers = lib.optionals nvidia [ "nvidia" ];
 
+  # use new kernel for new nvidia drivers
+  # boot.kernelPackages = if nvidia then
+  #   pkgs.unstable.linuxPackages_latest
+  # else
+  #   pkgs.linuxPackages_latest;
+
   hardware.nvidia = lib.optionalAttrs nvidia {
     # open = true;
     modesetting.enable = true;
