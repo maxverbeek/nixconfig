@@ -116,7 +116,7 @@ in {
     plugin = conform-nvim;
     config = "formatter";
     extern = with pkgs; [
-      nixfmt
+      nixfmt-rfc-style
       stylua
       unstable.yamlfmt
       custom.rubocop

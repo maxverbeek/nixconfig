@@ -11,6 +11,7 @@
     ../../modules/bluetooth.nix
     ../../modules/hyprland.nix
     ../../modules/nix-ld.nix
+    ../../modules/shell.nix
     ./hardware-configuration.nix
 
     # set up networkign in this file
@@ -103,8 +104,12 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbOptions = "eurosign:e";
+
+    xkb = {
+      layout = "us";
+      options = "eurosign:e";
+    };
+
     # videoDrivers = [ "radeon" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
@@ -114,19 +119,22 @@
       name = "home-manager";
       start = "exec $HOME/.xsession &";
     }];
-    displayManager.defaultSession = "home-manager";
-    displayManager.job.logToJournal = true;
 
     displayManager.lightdm.greeters.mini = {
       enable = true;
       user = "max";
     };
+  };
 
-    libinput = {
-      enable = true;
-      touchpad.naturalScrolling = true;
-      touchpad.disableWhileTyping = true;
-    };
+  services.displayManager = {
+    defaultSession = "home-manager";
+    logToJournal = true;
+  };
+
+  services.libinput = {
+    enable = true;
+    touchpad.naturalScrolling = true;
+    touchpad.disableWhileTyping = true;
   };
 
   # Enable CUPS to print documents.
@@ -173,10 +181,7 @@
       "video"
       "adbusers"
     ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
   };
-
-  programs.zsh.enable = true;
 
   # Fonts
   fonts.packages = with pkgs; [

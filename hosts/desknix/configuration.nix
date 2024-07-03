@@ -11,6 +11,7 @@
     ../../modules/hyprland.nix
     ../../modules/bluetooth.nix
     ../../modules/nix-ld.nix
+    ../../modules/shell.nix
     # ./vim.nix
     # ./i3.nix
   ];
@@ -113,13 +114,6 @@
   users.users.max = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "networkmanager" ];
-    shell = pkgs.zsh;
-  };
-
-  # Fix required to set zsh as shell
-  programs.zsh = {
-    enable = true;
-    enableCompletion = false;
   };
 
   # Fonts
