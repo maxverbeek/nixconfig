@@ -42,6 +42,8 @@ with lib; {
         difflast = "diff HEAD^";
 
         mp = "push -o merge_request.create";
+
+        gfp = "push --force-with-lease --force-if-includes";
       };
     };
   };
