@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/kvm2.nix
     ../../modules/hyprland.nix
@@ -39,8 +40,12 @@
 
   networking.hostName = "desknix"; # Define your hostname.
   networking.hostId = "aa111111"; # required for zfs
-  networking.nameservers =
-    [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  ];
 
   networking.extraHosts = ''
     127.0.0.1 keycloak
@@ -113,7 +118,11 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.max = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+    ];
   };
 
   # Fonts
@@ -158,5 +167,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05"; # Did you read the comment?
-
 }

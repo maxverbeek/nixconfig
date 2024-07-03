@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.modules.i3 = with lib; {
     enable = mkEnableOption "i3 window manager";
 

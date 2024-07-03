@@ -1,20 +1,20 @@
-{ stdenv
-, lib
-, appimageTools
-, fetchurl
-, makeWrapper
-, electron_13
+{
+  stdenv,
+  lib,
+  appimageTools,
+  fetchurl,
+  makeWrapper,
+  electron_13,
 
-, alsaLib
-, dbus-glib
-, glib
-, gtk3
-, gtk3-x11
-, libdbusmenu-gtk2
-, sqlite
-, xorg
+  alsaLib,
+  dbus-glib,
+  glib,
+  gtk3,
+  gtk3-x11,
+  libdbusmenu-gtk2,
+  sqlite,
+  xorg,
 }:
-
 
 stdenv.mkDerivation rec {
   pname = "figma-linux";
@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall
@@ -72,5 +70,4 @@ stdenv.mkDerivation rec {
       --add-flags $out/share/${pname}/resources/app.asar \
       --prefix LD_LIBRARY_PATH : "${libPath}"
   '';
-
 }

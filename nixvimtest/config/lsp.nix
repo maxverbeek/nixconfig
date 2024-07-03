@@ -41,7 +41,6 @@
       # hls.enable = true;
       # nixd.enable = true;
     };
-
   };
 
   plugins.cmp = {

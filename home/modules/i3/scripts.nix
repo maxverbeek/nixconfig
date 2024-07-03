@@ -1,11 +1,15 @@
-{ config, pkgs, lib }:
+{
+  config,
+  pkgs,
+  lib,
+}:
 let
   # helpers to quickly get screen attributes
   screens = config.device.screens;
   screen = with builtins; x: (elemAt screens x).name;
   primscreen = with builtins; x: (elemAt screens x).isPrimary;
-
-in {
+in
+{
   # take care that this script isnt evaluated when there is only 1 screen configured
   # assume that only 1 screen is connected, otherwise this becomes much more complicated
   fixscreens = pkgs.writeScriptBin "fixscreens" ''

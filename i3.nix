@@ -1,8 +1,11 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 let
   jbmono = pkgs.nerdfonts.override {
-    fonts = [ "JetBrainsMono" "Hermit" ];
+    fonts = [
+      "JetBrainsMono"
+      "Hermit"
+    ];
   };
 in
 {
@@ -33,9 +36,7 @@ in
       windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
-        extraPackages = with pkgs; [
-          alacritty
-        ];
+        extraPackages = with pkgs; [ alacritty ];
         configFile = pkgs.writeText "i3-config" ''
           # Mod4 = windows key
           set $mod Mod4

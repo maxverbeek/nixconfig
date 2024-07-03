@@ -63,8 +63,12 @@
 
   services.resolved = {
     enable = true;
-    fallbackDns =
-      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+    fallbackDns = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
   };
 
   # networking.wireless.enable = false;
@@ -114,11 +118,13 @@
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
     # desktopManager.xterm.enable = true;
-    desktopManager.session = [{
-      manage = "desktop";
-      name = "home-manager";
-      start = "exec $HOME/.xsession &";
-    }];
+    desktopManager.session = [
+      {
+        manage = "desktop";
+        name = "home-manager";
+        start = "exec $HOME/.xsession &";
+      }
+    ];
 
     displayManager.lightdm.greeters.mini = {
       enable = true;
@@ -240,7 +246,11 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3000 3100 3200 ];
+  networking.firewall.allowedTCPPorts = [
+    3000
+    3100
+    3200
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -252,5 +262,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
-
 }

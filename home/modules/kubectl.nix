@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.modules.kubectl;
-in {
+let
+  cfg = config.modules.kubectl;
+in
+{
   options.modules.kubectl = {
     enable = lib.mkEnableOption "kubectl";
 
@@ -25,7 +32,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.kubectl pkgs.k9s ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
+    home.packages = [
+      pkgs.kubectl
+      pkgs.k9s
+    ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
     programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
       source <(kubectl completion zsh)

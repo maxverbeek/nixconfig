@@ -13,8 +13,15 @@ stdenv.mkDerivation rec {
   light = ./TEG-Light.otf;
   extralight = ./TEG-ExtraLight.otf;
 
-  allfonts = [ ultra black bold medium regular light extralight ];
-
+  allfonts = [
+    ultra
+    black
+    bold
+    medium
+    regular
+    light
+    extralight
+  ];
 
   installPhase = with lib; ''
     install -D -v -m 444 ${concatStringsSep " " allfonts} -t $out/share/fonts/opentype

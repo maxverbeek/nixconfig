@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -15,40 +20,40 @@ let
     glx-no-stencil = true;
     glx-copy-from-front = false;
     glx-no-rebind-pixmap = true;
-    
+
     vsync = true;
-    
+
     unredir-if-possible = true;
-    
+
     shadow = true;
     shadow-radius = 6;
     shadow-opacity = 0.4
     shadow-offset-x = -4;
     shadow-offset-y = -6;
-    
+
     shadow-exclude = [
       "name = 'Polybar tray window'",
       "class_g = 'Bspwm' && class_i = 'presel_feedback'"
     ];
-    
+
     mark-overdir-focused = true;
     frame-opacity = 0.3;
     inactive-opacity = 0.87;
     inactive-opacity-override = false;
-    
+
     opacity-rule = [
         "40:class_g = 'Bspwm' && class_i = 'presel_feedback'",
     ];
-    
+
     focus-exclude = [
         "name = 'i3lock'"
     ]
-    
+
     blur-background = true;
     blur-method = "dual_kawase"
     blur-strength = 8;
     blur-background-exclude = "( !window_type = 'dock' && !class_g = 'Dunst' )";
-    
+
     wintypes: {
       tooltip = { fade = true; shadow = false; }
       menu = { shadow = false; }
@@ -62,7 +67,6 @@ let
   '';
 
   backendFlag = optionalString cfg.experimentalBackends " --experimental-backends";
-
 in
 {
   options.modules.picom = {

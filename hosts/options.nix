@@ -16,21 +16,19 @@ let
 
       isPrimary = mkOption {
         type = types.bool;
-        description =
-          "Whether this monitor is the primary monitor (that contains the system tray)";
+        description = "Whether this monitor is the primary monitor (that contains the system tray)";
         example = true;
         default = false;
       };
     };
   };
-
-in {
+in
+{
   options = {
     device = {
       screens = mkOption {
         type = types.listOf screenType;
-        description =
-          "All the monitors plugged in. Dunno yet what to do about external monitors";
+        description = "All the monitors plugged in. Dunno yet what to do about external monitors";
         example = literalExample ''
           screens = [
             { name = "DP-2"; isPrimary = true; }
@@ -88,8 +86,7 @@ in {
     }
 
     {
-      assertion = with builtins;
-        length (filter (s: s.isPrimary) cfg.screens) == 1;
+      assertion = with builtins; length (filter (s: s.isPrimary) cfg.screens) == 1;
       message = "the number of primary screens must be 1";
     }
 

@@ -2,7 +2,11 @@
   plugins.treesitter = {
     enable = true;
 
-    disabledLanguages = [ "cpp" "cuda" "latex" ];
+    disabledLanguages = [
+      "cpp"
+      "cuda"
+      "latex"
+    ];
 
     incrementalSelection = {
       enable = true;

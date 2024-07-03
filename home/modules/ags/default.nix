@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     bun
     dart-sass
@@ -13,5 +14,7 @@
     wayshot
   ];
 
-  programs.ags = { enable = true; };
+  programs.ags = {
+    enable = true;
+  };
 }

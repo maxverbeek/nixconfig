@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
@@ -30,7 +35,7 @@ in
 
     xssLockExtraOptions = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         Extra command-line arguments to pass to <command>xss-lock</command>.
       '';
@@ -88,21 +93,21 @@ in
         PartOf = [ "graphical-session.target" ];
       };
 
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
 
-
-      Service =
-        {
-          # TODO: add socket communication so timers can be triggered manually
-          # (nicer way to prevent double locking)
-          ExecStart = concatStringsSep " " (
-            [ "${pkgs.xidlehook}/bin/xidlehook" ]
-            ++ optional cfg.detectFullScreen "--not-when-fullscreen"
-            ++ optional cfg.detectWebcam "--not-when-webcam"
-            ++ optional cfg.detectSleep "--detect-sleep"
-            ++ [ "--timer ${toString (cfg.inactiveInterval * 60)} '${xssLock}' ''" ]
-          );
-        };
+      Service = {
+        # TODO: add socket communication so timers can be triggered manually
+        # (nicer way to prevent double locking)
+        ExecStart = concatStringsSep " " (
+          [ "${pkgs.xidlehook}/bin/xidlehook" ]
+          ++ optional cfg.detectFullScreen "--not-when-fullscreen"
+          ++ optional cfg.detectWebcam "--not-when-webcam"
+          ++ optional cfg.detectSleep "--detect-sleep"
+          ++ [ "--timer ${toString (cfg.inactiveInterval * 60)} '${xssLock}' ''" ]
+        );
+      };
     };
 
     systemd.user.services.xss-lock = {
@@ -112,17 +117,20 @@ in
         PartOf = [ "graphical-session.target" ];
       };
 
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
 
       Service = {
-        ExecStart = concatStringsSep " "
-          (
-            [ "${pkgs.xss-lock}/bin/xss-lock" "-s \${XDG_SESSION_ID}" ]
-            ++ cfg.xssLockExtraOptions ++ [ "-- ${cfg.lockCmd}" ]
-          );
+        ExecStart = concatStringsSep " " (
+          [
+            "${pkgs.xss-lock}/bin/xss-lock"
+            "-s \${XDG_SESSION_ID}"
+          ]
+          ++ cfg.xssLockExtraOptions
+          ++ [ "-- ${cfg.lockCmd}" ]
+        );
       };
     };
-
   };
-
 }

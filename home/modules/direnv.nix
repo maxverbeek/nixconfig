@@ -1,13 +1,23 @@
-{ pkgs, config, lib, ... }:
-with lib; {
-  options = { modules.direnv.enable = mkEnableOption "Enable direnv"; };
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib;
+{
+  options = {
+    modules.direnv.enable = mkEnableOption "Enable direnv";
+  };
 
   config = {
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
 
-      nix-direnv = { enable = true; };
+      nix-direnv = {
+        enable = true;
+      };
 
       stdlib = ''
         layout_poetry() {

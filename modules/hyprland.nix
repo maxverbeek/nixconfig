@@ -1,4 +1,11 @@
-{ config, lib, pkgs, nvidia, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  nvidia,
+  ...
+}:
+{
   programs.hyprland = {
     enable = true;
     package = pkgs.unstable.hyprland;
@@ -36,13 +43,15 @@
     desktopManager.xterm.enable = false;
     # displayManager.lightdm.greeter.enable = true;
 
-    desktopManager.session = [{
-      manage = "desktop";
-      name = "default"; # was previously "home-manager"
-      start = ''
-        exec $HOME/.xsession &
-      '';
-    }];
+    desktopManager.session = [
+      {
+        manage = "desktop";
+        name = "default"; # was previously "home-manager"
+        start = ''
+          exec $HOME/.xsession &
+        '';
+      }
+    ];
   };
 
   programs.dconf.enable = true;
@@ -51,8 +60,7 @@
 
   programs.regreet = {
     enable = true;
-    package =
-      pkgs.unstable.greetd.regreet; # .overrideAttrs (old: { patches = [ ../patches/regreet-debug.patch ]; });
+    package = pkgs.unstable.greetd.regreet; # .overrideAttrs (old: { patches = [ ../patches/regreet-debug.patch ]; });
     settings = {
       background = {
         path = ../wallpapers/windows.png;
@@ -69,7 +77,10 @@
 
       commands = {
         reboot = [ "reboot" ];
-        poweroff = [ "shutdown" "now" ];
+        poweroff = [
+          "shutdown"
+          "now"
+        ];
       };
     };
   };
@@ -91,9 +102,7 @@
   services.greetd = {
     # Configuration for using with regreet -- only enable if regreet is enabled
     enable = config.programs.regreet.enable;
-    settings.default_session.command = "${pkgs.dbus}/bin/dbus-run-session ${
-        lib.getExe pkgs.cage
-      } -s -m last -- ${lib.getExe config.programs.regreet.package} -l debug";
+    settings.default_session.command = "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -m last -- ${lib.getExe config.programs.regreet.package} -l debug";
   };
 
   services.xserver.displayManager.gdm = {

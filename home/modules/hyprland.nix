@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.hyprland;
   rofi-cliphist = pkgs.writeScriptBin "rofi-cliphist" ''
@@ -26,7 +31,8 @@ let
     cliphist list | gawk "$prog"
 
   '';
-in {
+in
+{
 
   options.modules.hyprland.enable = lib.mkEnableOption null;
 
@@ -51,8 +57,7 @@ in {
       Install.WantedBy = [ "hyprland-session.target" ];
 
       Service = {
-        ExecStart =
-          "${pkgs.unstable.waybar}/bin/waybar -c %h/.config/waybar/config.json -s %h/.config/waybar/style.css";
+        ExecStart = "${pkgs.unstable.waybar}/bin/waybar -c %h/.config/waybar/config.json -s %h/.config/waybar/style.css";
         Restart = "always";
         RestartSec = "3";
       };

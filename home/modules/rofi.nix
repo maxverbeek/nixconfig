@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (config.lib.formats.rasi) mkLiteral;
 
@@ -120,8 +125,11 @@ let
       background-color: @emphasis;
     }
   '';
-in {
-  options = { modules.rofi.enable = lib.mkEnableOption "Enable rofi"; };
+in
+{
+  options = {
+    modules.rofi.enable = lib.mkEnableOption "Enable rofi";
+  };
 
   config = lib.mkIf config.modules.rofi.enable {
     programs.rofi = {
@@ -141,6 +149,5 @@ in {
 
       theme = "${themefile}";
     };
-
   };
 }

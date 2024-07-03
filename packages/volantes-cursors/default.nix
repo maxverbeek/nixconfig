@@ -1,4 +1,9 @@
-{ stdenvNoCC, fetchFromGitHub, inkscape, xcursorgen }:
+{
+  stdenvNoCC,
+  fetchFromGitHub,
+  inkscape,
+  xcursorgen,
+}:
 
 stdenvNoCC.mkDerivation rec {
   name = "volantes-cursors";
@@ -11,8 +16,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-irMN/enoo90nYLfvSOScZoYdvhZKvqqp+grZB2BQD9o=";
   };
 
-  nativeBuildInputs = [ inkscape xcursorgen ];
-  
+  nativeBuildInputs = [
+    inkscape
+    xcursorgen
+  ];
+
   installPhase = ''
     install -dm 0755 $out/share/icons
     cp -pr dist/volantes_cursors $out/share/icons

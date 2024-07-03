@@ -1,4 +1,8 @@
-{ lib, bundlerEnv, ruby }:
+{
+  lib,
+  bundlerEnv,
+  ruby,
+}:
 
 bundlerEnv {
   pname = "rubocop";

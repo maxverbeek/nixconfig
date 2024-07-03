@@ -1,4 +1,10 @@
-{ stdenv, fetchgit, openssl, which, ... }:
+{
+  stdenv,
+  fetchgit,
+  openssl,
+  which,
+  ...
+}:
 stdenv.mkDerivation rec {
   name = "samdump2-${version}";
   version = "3.0.0";

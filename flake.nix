@@ -17,7 +17,16 @@
   };
 
   outputs =
-    { self, nixpkgs, oldpkgs, unstable, home-manager, flake-utils, ags, ... }:
+    {
+      self,
+      nixpkgs,
+      oldpkgs,
+      unstable,
+      home-manager,
+      flake-utils,
+      ags,
+      ...
+    }:
 
     let
 
@@ -31,8 +40,7 @@
         overlays = [
           # adding custom packages/flakes to nixpkgs
           (final: prev: {
-            custom = builtins.mapAttrs (n: d: final.callPackage d { })
-              (import ./packages);
+            custom = builtins.mapAttrs (n: d: final.callPackage d { }) (import ./packages);
             unstable = import unstable {
               inherit (prev) system;
               inherit config;
@@ -41,14 +49,12 @@
               inherit (prev) system;
               inherit config;
             };
-
           })
 
           # packages from flakes
-          (final: prev:
-            {
-              # text2url = text2url.packages.${final.system}.default;
-            })
+          (final: prev: {
+            # text2url = text2url.packages.${final.system}.default;
+          })
 
           # for any package version overrides
           (import ./overlays)
@@ -56,15 +62,21 @@
       };
 
       # modules to configure nixos
-      hmsettings = { withModules ? [ ] }: {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
+      hmsettings =
+        {
+          withModules ? [ ],
+        }:
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
 
-        # set up everything in home-manager
-        home-manager.users.max.imports =
-          [ ags.homeManagerModules.default ./home/max.nix ./hosts/options.nix ]
-          ++ withModules;
-      };
+          # set up everything in home-manager
+          home-manager.users.max.imports = [
+            ags.homeManagerModules.default
+            ./home/max.nix
+            ./hosts/options.nix
+          ] ++ withModules;
+        };
 
       pin-flake-reg = {
         nix.registry.nixpkgs.flake = nixpkgs;
@@ -75,9 +87,7 @@
       cachix = {
         nix.settings = {
           substituters = [ "https://hyprland.cachix.org" ];
-          trusted-public-keys = [
-            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-          ];
+          trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
         };
       };
 
@@ -97,13 +107,14 @@
       ];
 
       eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
-        packages = (import nixpkgs {
-          inherit system;
-          inherit (nixpkgsConfig) config overlays;
-        }).custom;
+        packages =
+          (import nixpkgs {
+            inherit system;
+            inherit (nixpkgsConfig) config overlays;
+          }).custom;
       });
-
-    in {
+    in
+    {
       templates = import ./templates;
 
       nixosConfigurations = {
@@ -111,7 +122,9 @@
         # PC at home
         desknix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { nvidia = true; };
+          specialArgs = {
+            nvidia = true;
+          };
           modules = commonModules ++ [
             ./hosts/desknix/configuration.nix
             (hmsettings { withModules = [ ./hosts/desknix/device.nix ]; })
@@ -121,12 +134,15 @@
         # Laptop for work
         lenovo-laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { nvidia = false; };
+          specialArgs = {
+            nvidia = false;
+          };
           modules = commonModules ++ [
             ./hosts/lenovo-laptop/configuration.nix
             (hmsettings { withModules = [ ./hosts/lenovo-laptop/device.nix ]; })
           ];
         };
       };
-    } // eachSystemExport;
+    }
+    // eachSystemExport;
 }

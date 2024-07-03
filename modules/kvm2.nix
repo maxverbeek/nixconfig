@@ -1,12 +1,17 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.kvm2;
-
-in {
+let
+  cfg = config.modules.kvm2;
+in
+{
   options.modules.kvm2 = {
     enable = lib.mkEnableOption "KVM2 virtualisation";
-    home.minikube.enable =
-      lib.mkEnableOption "enable home-manager minikube support";
+    home.minikube.enable = lib.mkEnableOption "enable home-manager minikube support";
   };
 
   config = lib.mkIf cfg.enable {
@@ -20,8 +25,7 @@ in {
     users.users.max.extraGroups = [ "libvirtd" ];
 
     home-manager.users.max = lib.mkIf cfg.home.minikube.enable {
-      home.file.".minikube/bin/docker-machine-driver-kvm2".source =
-        "${pkgs.docker-machine-kvm2}/bin/docker-machine-driver-kvm2";
+      home.file.".minikube/bin/docker-machine-driver-kvm2".source = "${pkgs.docker-machine-kvm2}/bin/docker-machine-driver-kvm2";
     };
   };
 }

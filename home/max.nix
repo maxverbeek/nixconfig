@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   imports = [ ./modules ];
 
   config = {
@@ -41,7 +42,9 @@
       enable = true;
 
       matchBlocks = {
-        "pg-gpu.hpc.rug.nl" = { user = "f119970"; };
+        "pg-gpu.hpc.rug.nl" = {
+          user = "f119970";
+        };
 
         "themis" = {
           hostname = "themis.housing.rug.nl";
@@ -161,8 +164,15 @@
       # latex
       (texlive.combine {
         inherit (texlive)
-          scheme-tetex latexmk biblatex tcolorbox pdfcol upquote grffile
-          adjustbox;
+          scheme-tetex
+          latexmk
+          biblatex
+          tcolorbox
+          pdfcol
+          upquote
+          grffile
+          adjustbox
+          ;
       })
       biber # required for biblatex
       pandoc

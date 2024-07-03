@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   checkdocker = pkgs.writeScript "checkdocker" ''
@@ -38,12 +43,20 @@ let
 
     exec jq 'map_values(.| @base64d)'
   '';
-in {
+in
+{
 
-  options = { modules.zsh.enable = lib.mkEnableOption "Enable ZSH"; };
+  options = {
+    modules.zsh.enable = lib.mkEnableOption "Enable ZSH";
+  };
 
   config = lib.mkIf config.modules.zsh.enable {
-    home.packages = with pkgs; [ thefuck secrand gitlabcivars jqd ];
+    home.packages = with pkgs; [
+      thefuck
+      secrand
+      gitlabcivars
+      jqd
+    ];
 
     programs.zsh = {
       enable = true;
@@ -100,7 +113,6 @@ in {
         zle -N edit-command-line
         bindkey -M vicmd v edit-command-line
       '';
-
     };
 
     programs.starship = {
@@ -108,7 +120,9 @@ in {
       enableNushellIntegration = false;
     };
 
-    programs.dircolors = { enable = true; };
+    programs.dircolors = {
+      enable = true;
+    };
 
     programs.fzf = {
       enable = true;

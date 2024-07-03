@@ -1,10 +1,14 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   kanagawa = pkgs.custom.kanagawa-nvim.colors.term;
 
   # some helpers that turn a color #rrggbb into rrggbbff
-  hex2rgba = str:
-    builtins.substring 1 (builtins.stringLength str - 1) str + "ff";
+  hex2rgba = str: builtins.substring 1 (builtins.stringLength str - 1) str + "ff";
   fixcolors = builtins.mapAttrs (name: value: hex2rgba value);
 
   colors = fixcolors {
@@ -15,9 +19,11 @@ let
 
     bgselected = kanagawa.normal.teal;
   };
-
-in {
-  options = { modules.fuzzel.enable = lib.mkEnableOption "Enable fuzzel"; };
+in
+{
+  options = {
+    modules.fuzzel.enable = lib.mkEnableOption "Enable fuzzel";
+  };
 
   config = lib.mkIf config.modules.fuzzel.enable {
     programs.fuzzel = {
