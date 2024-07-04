@@ -85,8 +85,10 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbOptions = "eurosign:e";
+    xkb = {
+      layout = "us";
+      options = "eurosign:e";
+    };
     videoDrivers = [ "nvidia" ];
     autoRepeatDelay = 250;
     autoRepeatInterval = 50;
