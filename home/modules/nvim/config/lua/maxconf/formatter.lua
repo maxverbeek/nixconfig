@@ -21,7 +21,7 @@ require("conform").setup({
     ruby = { "rubocop" },
     c = { "clangformat" },
     nix = { "nixfmt" },
-    terraform = { "terraformfmt" },
+    terraform = { "terraform_fmt" },
   },
 })
 -- -- Use the special "*" filetype for defining formatter configurations on
