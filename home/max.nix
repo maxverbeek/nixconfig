@@ -141,6 +141,7 @@
       openvpn
       patchelf
       pdftk
+      poetry
       pulsemixer
       python3
       ripgrep
