@@ -36,6 +36,8 @@ in
       package = pkgs.unstable.waybar;
       settings = waybarconfig;
       style = ./style.css;
+
+      systemd.enable = true;
     };
 
     home.packages = with pkgs; [
