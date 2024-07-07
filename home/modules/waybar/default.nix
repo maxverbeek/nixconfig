@@ -40,6 +40,9 @@ in
       systemd.enable = true;
     };
 
+    # make sure this doesnt timeout too fast when hyprland loads slowly
+    systemd.user.services.waybar.Service.RestartSec = "3";
+
     home.packages = with pkgs; [
       unstable.waybar-mpris
       blueberry

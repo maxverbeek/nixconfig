@@ -44,6 +44,8 @@ in
       extraConfig = ''
         source = ~/.config/hypr/actualconfig.conf
       '';
+
+      plugins = with pkgs.hyprlandPlugins; [ hy3 ];
     };
 
     home.sessionVariables = {
