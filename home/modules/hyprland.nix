@@ -53,9 +53,6 @@ in
 
     home.packages = with pkgs; [
       swaybg
-      unstable.waybar-mpris
-      blueberry
-      networkmanagerapplet
       xdg-launch # xdg-open
       xdg-utils
       swaylock

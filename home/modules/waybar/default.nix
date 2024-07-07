@@ -37,5 +37,11 @@ in
       settings = waybarconfig;
       style = ./style.css;
     };
+
+    home.packages = with pkgs; [
+      unstable.waybar-mpris
+      blueberry
+      networkmanagerapplet
+    ];
   };
 }

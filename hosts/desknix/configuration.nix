@@ -9,7 +9,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/kvm2.nix
-    ../../modules/hyprland.nix
+    ../../modules/wayland
+    ../../modules/pipewire.nix
     ../../modules/bluetooth.nix
     ../../modules/nix-ld.nix
     ../../modules/shell.nix
