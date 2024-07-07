@@ -51,21 +51,8 @@ in
       GRIMBLAST_EDITOR = "kolourpaint";
     };
 
-    # waybar stuff
-    systemd.user.services.waybar = {
-      Unit.Description = "Waybar bar";
-      Install.WantedBy = [ "hyprland-session.target" ];
-
-      Service = {
-        ExecStart = "${pkgs.unstable.waybar}/bin/waybar -c %h/.config/waybar/config.json -s %h/.config/waybar/style.css";
-        Restart = "always";
-        RestartSec = "3";
-      };
-    };
-
     home.packages = with pkgs; [
       swaybg
-      unstable.waybar
       unstable.waybar-mpris
       blueberry
       networkmanagerapplet

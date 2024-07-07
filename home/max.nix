@@ -23,6 +23,7 @@
       playerctld.enable = true;
 
       hyprland.enable = config.device.hyprland.enable;
+      waybar.enable = config.device.hyprland.enable;
 
       picom = {
         enable = !config.device.hyprland.enable;

@@ -19,6 +19,7 @@
     ./rstudio.nix
     ./screenlocker
     ./sxhkd.nix
+    ./waybar
     ./vscode.nix
     ./zsh.nix
   ];
