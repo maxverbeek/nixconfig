@@ -1,12 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./hyprland.nix
+    ./niri.nix
     ./nvidia.nix
     ./greeter.nix
   ];
@@ -26,4 +22,7 @@
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
   home-manager.users.max.xsession.enable = lib.mkForce false;
+
+  # testing!
+  modules.niri.enable = true;
 }
