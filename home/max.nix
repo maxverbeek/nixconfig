@@ -11,7 +11,7 @@
       git.enable = true;
       vscode.enable = true;
       kubectl.enable = true;
-      autorandr.enable = true;
+      autorandr.enable = !config.device.hyprland.enable;
       polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
       fuzzel.enable = false;
