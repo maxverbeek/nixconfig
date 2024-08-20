@@ -1,10 +1,19 @@
-{ pkgs, vimPlugins ? pkgs.vimPlugins, ... }:
+{
+  pkgs,
+  vimPlugins ? pkgs.vimPlugins,
+  ...
+}:
 with vimPlugins;
 let
   # update some packages to unstable
   inherit (pkgs.unstable.vimPlugins)
-    nvim-autopairs nvim-ts-autotag formatter-nvim conform-nvim;
-in {
+    nvim-autopairs
+    nvim-ts-autotag
+    formatter-nvim
+    conform-nvim
+    ;
+in
+{
   colorscheme = {
     plugin = pkgs.custom.kanagawa-nvim;
     config = "colorscheme";
@@ -23,7 +32,10 @@ in {
   telescope = {
     plugin = telescope-nvim;
     config = "telescope";
-    extern = with pkgs; [ ripgrep fd ];
+    extern = with pkgs; [
+      ripgrep
+      fd
+    ];
 
     depend = [
       nvim-web-devicons
@@ -36,7 +48,11 @@ in {
   treesitter = {
     plugin = nvim-treesitter.withAllGrammars;
     config = "treesitter";
-    depend = [ playground nvim-autopairs nvim-treesitter-textobjects ];
+    depend = [
+      playground
+      nvim-autopairs
+      nvim-treesitter-textobjects
+    ];
   };
 
   nvim-ts-autotag = {
@@ -51,13 +67,22 @@ in {
 
   nvim-lspconfig = {
     plugin = nvim-lspconfig;
-    depend = [ lsp_extensions-nvim lsp_signature-nvim ];
+    depend = [
+      lsp_extensions-nvim
+      lsp_signature-nvim
+    ];
     config = "lsp";
   };
 
   nvim-cmp = {
     plugin = nvim-cmp;
-    depend = [ cmp-nvim-lsp cmp-buffer cmp-path cmp_luasnip lspkind-nvim ];
+    depend = [
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp_luasnip
+      lspkind-nvim
+    ];
 
     extern = with pkgs; [
       unstable.nil
@@ -126,7 +151,7 @@ in {
       custom.rubocop
       custom.nodePackages."@fsouza/prettierd"
       unstable.nodePackages.prettier
-      unstable.nodePackages.vscode-langservers-extracted
+      # unstable.nodePackages.vscode-langservers-extracted
       ocamlformat
     ];
   };
@@ -161,15 +186,18 @@ in {
   molten-nvim = {
     plugin = molten-nvim;
     depend = [ image-nvim ];
-    extern = let
-      pythonpackages = with pkgs.python3Packages; [
-        pynvim
-        cairosvg
-        ipython
-        nbformat
-        jupyter-client
-      ];
-    in with pkgs; [ imagemagick ] ++ pythonpackages;
+    extern =
+      let
+        pythonpackages = with pkgs.python3Packages; [
+          pynvim
+          cairosvg
+          ipython
+          nbformat
+          jupyter-client
+        ];
+      in
+      with pkgs;
+      [ imagemagick ] ++ pythonpackages;
   };
 
   editorconfig-vim.plugin = editorconfig-vim;
