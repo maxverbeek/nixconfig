@@ -1,3 +1,31 @@
+function string:contains(sub)
+  return self:find(sub, 1, true) ~= nil
+end
+
+local format_js = function(bufnr)
+  local path = vim.api.nvim_buf_get_name(bufnr)
+
+  -- nasty check to see if working on base-platform because we use custom rules there
+  if path:contains("sdv") ~= nil and path:contains("base-platform") ~= nil then
+    return { "standardjs" }
+  end
+
+  return { { "prettierd", "prettier", "standardjs" } }
+end
+
+local format_ts = function(bufnr)
+  local path = vim.api.nvim_buf_get_name(bufnr)
+
+  -- nasty check to see if working on base-platform because we use custom rules there
+  if path:contains("sdv") ~= nil and path:contains("base-platform") ~= nil then
+    return { "standardts" }
+  end
+
+  return { { "prettierd", "prettier", "standardts" } }
+end
+
+local util = require("conform.util")
+
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("conform").setup({
   format_on_save = {
@@ -5,15 +33,24 @@ require("conform").setup({
     timeout_ms = 500,
     lsp_fallback = true,
   },
+  -- Conform will notify you when no formatters are available for the buffer
+  notify_no_formatters = true,
+  formatters = {
+    standardts = {
+      command = util.from_node_modules("ts-standard"),
+      args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
+    },
+  },
   formatters_by_ft = {
     lua = { "stylua" },
     -- Conform will run multiple formatters sequentially
     python = { "isort", "black" },
+
     -- Use a sub-list to run only the first available formatter
-    javascript = { { "prettierd", "prettier" } },
-    javascriptreact = { { "prettierd", "prettier " } },
-    typescript = { { "prettierd", "prettier " } },
-    typescriptreact = { { "prettierd", "prettier " } },
+    javascript = format_js,
+    javascriptreact = format_js,
+    typescript = format_ts,
+    typescriptreact = format_ts,
 
     json = { "jq" },
     go = { "gofmt" },
