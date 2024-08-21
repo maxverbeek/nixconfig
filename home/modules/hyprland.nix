@@ -39,13 +39,13 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
-      package = pkgs.unstable.hyprland;
+      package = pkgs.hyprland;
       xwayland.enable = true;
       extraConfig = ''
         source = ~/.config/hypr/actualconfig.conf
       '';
 
-      plugins = with pkgs.hyprlandPlugins; [ hy3 ];
+      # plugins = with pkgs.hyprlandPlugins; [ hy3 ];
     };
 
     home.sessionVariables = {
