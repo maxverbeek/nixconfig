@@ -100,9 +100,6 @@
       # ((steam.override {
       #   extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ];
       # }).run)
-
-      _1password
-      _1password-gui
       air
       unstable.argocd
       azure-cli

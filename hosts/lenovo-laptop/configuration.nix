@@ -13,6 +13,7 @@
     ../../modules/pipewire.nix
     ../../modules/nix-ld.nix
     ../../modules/shell.nix
+    ../../modules/1password.nix
     ./hardware-configuration.nix
 
     # set up networkign in this file

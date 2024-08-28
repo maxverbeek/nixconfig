@@ -14,6 +14,7 @@
     ../../modules/bluetooth.nix
     ../../modules/nix-ld.nix
     ../../modules/shell.nix
+    ../../modules/1password.nix
     # ./vim.nix
     # ./i3.nix
   ];
