@@ -79,6 +79,17 @@
       };
     };
 
+    # # start 1password on load, maybe I'll make a nix module for this later?
+    # systemd.user.services."1password" = {
+    #   Unit.Description = "1password tray thingy";
+    #   Unit.PartOf = [ "graphical-session.target" ];
+    #   Unit.After = [ "graphical-session-pre.target" ];
+    #   Service.Type = "exec";
+    #   Service.ExecStart = "1password --silent";
+    #   Service.KeyringMode = "inherit";
+    #   Install.WantedBy = [ "graphical-session.target" ];
+    # };
+    #
     home.pointerCursor = {
       package = pkgs.custom.mcmojave-cursors;
       size = 32;
