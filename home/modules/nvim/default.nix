@@ -34,7 +34,7 @@ let
     ++ builtins.concatLists (builtins.catAttrs "extern" plugins);
 
   nvim =
-    (pkgs.neovim.override {
+    (pkgs.unstable.neovim.override {
       configure = {
         packages.whatever.start = pluginPkgs;
 
