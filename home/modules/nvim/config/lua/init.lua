@@ -40,3 +40,7 @@ map("n", "<leader>d", '"_d', opt)
 map("v", "<leader>d", '"_d', opt)
 
 map("t", "<Esc><Esc>", "<C-\\><C-N>", opt)
+
+-- base64 encode & decode with leader64 and leader46
+map("v", "<leader>64", "c<c-r>=system('base64 --wrap 0', @\")<cr><esc>", opt)
+map("v", "<leader>46", "c<c-r>=system('base64 --decode', @\")<cr><esc>", opt)
