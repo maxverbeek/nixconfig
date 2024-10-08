@@ -25,4 +25,5 @@
 
   # testing!
   modules.niri.enable = true;
+  modules.niri.package = pkgs.unstable.niri.override { mesa = pkgs.mesa; };
 }

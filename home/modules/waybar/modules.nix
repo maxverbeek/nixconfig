@@ -56,6 +56,18 @@
       default = "";
     };
   };
+  "niri/workspaces" = {
+    format = "{name}";
+    format-icons = {
+      "1" = "";
+      "2" = "";
+      "3" = "";
+      "4" = "";
+      "5" = "";
+      active = "";
+      default = "";
+    };
+  };
   layer = "top";
   network = {
     format = " {ifname}";

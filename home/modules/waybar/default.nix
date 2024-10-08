@@ -13,7 +13,10 @@ let
     {
       include = [ modulesfile ];
       modules-center = [ "mpris" ];
-      modules-left = [ "hyprland/workspaces" ];
+      modules-left = [
+        "hyprland/workspaces"
+        "niri/workspaces"
+      ];
       modules-right = [
         "bluetooth"
         "battery"
