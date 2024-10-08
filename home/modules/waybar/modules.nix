@@ -45,7 +45,7 @@
   };
   height = 34;
   "hyprland/workspaces" = {
-    format = "{name}";
+    format = "{index}";
     format-icons = {
       "1" = "";
       "2" = "";
