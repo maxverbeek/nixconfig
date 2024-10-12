@@ -45,7 +45,7 @@
   };
   height = 34;
   "hyprland/workspaces" = {
-    format = "{index}";
+    format = "{name}";
     format-icons = {
       "1" = "";
       "2" = "";
@@ -57,7 +57,7 @@
     };
   };
   "niri/workspaces" = {
-    format = "{name}";
+    format = "{index}";
     format-icons = {
       "1" = "";
       "2" = "";
