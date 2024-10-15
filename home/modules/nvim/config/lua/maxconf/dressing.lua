@@ -1,5 +1,5 @@
-require('dressing').setup {
+require("dressing").setup({
   input = {
-    insert_only = false
-  }
-}
+    insert_only = false,
+  },
+})

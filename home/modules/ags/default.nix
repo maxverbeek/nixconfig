@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     bun
+    libdbusmenu-gtk3
     dart-sass
     fd
     brightnessctl

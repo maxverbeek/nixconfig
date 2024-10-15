@@ -2,7 +2,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./niri.nix
+    ./niri
     ./nvidia.nix
     ./greeter.nix
   ];
