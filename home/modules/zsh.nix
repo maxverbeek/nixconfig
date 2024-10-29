@@ -102,9 +102,9 @@ in
           src = "${zsh-z}/share/zsh-z";
         }
         {
-          name = "zsh-bd";
-          src = "${zsh-bd}/share/zsh-bd";
-          file = "bd.zsh";
+          name = "vi-mode";
+          src = pkgs.unstable.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
       ];
 
