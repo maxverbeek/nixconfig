@@ -233,6 +233,12 @@ window-rule {
     default-column-width {}
 }
 
+window-rule {
+    match app-id="chromium"
+
+    default-column-width { proportion 1.0; }
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
