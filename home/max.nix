@@ -172,6 +172,7 @@
       vlc
       wget
       zathura
+      unstable.zed-editor
       zoom-us
 
       # latex
