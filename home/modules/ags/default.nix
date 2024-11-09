@@ -17,5 +17,17 @@
 
   programs.ags = {
     enable = true;
+
+    extraPackages = with pkgs.astal; [
+      io
+      apps
+      battery
+      bluetooth
+      network
+      mpris
+      notifd
+      tray
+      wireplumber
+    ];
   };
 }

@@ -41,6 +41,7 @@ in
       style = ./style.css;
 
       systemd.enable = true;
+      systemd.target = "hyprland-session.target";
     };
 
     # make sure this doesnt timeout too fast when hyprland loads slowly
