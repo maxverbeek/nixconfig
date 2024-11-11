@@ -29,4 +29,7 @@
   modules.niri.package = pkgs.unstable.niri.override { mesa = pkgs.mesa; };
 
   modules.xwayland-satellite.enable = true;
+  modules.xwayland-satellite.package = pkgs.unstable.xwayland-satellite.override {
+    xwayland = pkgs.xwayland;
+  };
 }

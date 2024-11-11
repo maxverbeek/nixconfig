@@ -5,12 +5,18 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption;
   cfg = config.modules.xwayland-satellite;
 in
 {
   options.modules.xwayland-satellite = {
     enable = mkEnableOption "Enable XWayland-satellite";
+    package = mkOption {
+      type = lib.types.package;
+      description = "Xwayland-satellite package";
+      default = pkgs.unstable.xwayland-satellite;
+      example = lib.literalExpression "pkgs.unstable.xwayland-satellite";
+    };
   };
 
   config.systemd.user.services = mkIf cfg.enable {
@@ -28,7 +34,7 @@ in
       serviceConfig = {
         Type = "notify";
         NotifyAccess = "all";
-        ExecStart = "${pkgs.unstable.xwayland-satellite}/bin/xwayland-satellite :0";
+        ExecStart = "${cfg.package}/bin/xwayland-satellite :0";
         StandardOutput = "journal";
         Restart = "on-failure";
       };
