@@ -329,8 +329,8 @@ binds {
 
     // use arrows for workspaces
     Mod+Shift+Left  { move-workspace-to-monitor-left; }
-    Mod+Shift+Down  { move-workspace-to-monitor-down; }
-    Mod+Shift+Up    { move-workspace-to-monitor-up; }
+    Mod+Shift+Down  { move-workspace-down; }
+    Mod+Shift+Up    { move-workspace-up; }
     Mod+Shift+Right { move-workspace-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
