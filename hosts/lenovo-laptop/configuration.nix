@@ -159,6 +159,9 @@
     };
   };
 
+  # battery monitoring
+  services.upower.enable = true;
+
   # test if this kills wifi
   powerManagement.powertop.enable = false;
 
