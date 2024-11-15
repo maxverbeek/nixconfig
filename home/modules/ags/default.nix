@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     bun
@@ -29,5 +29,21 @@
       tray
       wireplumber
     ];
+  };
+
+  systemd.user.services.ags = {
+    Unit = {
+      Description = "Astal (ags) bar";
+      Wants = [ "niri.service" ];
+      After = [ "niri.service" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${config.programs.ags.finalPackage}/bin/ags run";
+      Restart = "always";
+      RestartSec = "5s";
+    };
   };
 }
