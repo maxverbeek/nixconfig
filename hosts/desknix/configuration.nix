@@ -84,6 +84,11 @@
 
   services.teamviewer.enable = false;
 
+  # both of these are needed for ags
+  # FIXME: refactor later
+  services.upower.enable = true;
+  services.gvfs.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     enable = true;

@@ -161,6 +161,7 @@
 
   # battery monitoring
   services.upower.enable = true;
+  services.gvfs.enable = true;
 
   # test if this kills wifi
   powerManagement.powertop.enable = false;
