@@ -44,6 +44,12 @@
       ExecStart = "${config.programs.ags.finalPackage}/bin/ags run";
       Restart = "always";
       RestartSec = "5s";
+
+      # disable logging for this, because child apps (such as anything i launch
+      # with the launcher) will end up logging here, and chrome is super
+      # verbose + may log sensitive info
+      StandardOutput = "null";
+      StandardError = "null";
     };
   };
 }
