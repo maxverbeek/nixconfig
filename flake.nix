@@ -13,7 +13,7 @@
 
     # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
     # text2url.url = "github:maxverbeek/text2url";
-    ags.url = "github:Aylur/ags/v2";
+    ags.url = "github:Aylur/ags";
   };
 
   outputs =
