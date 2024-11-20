@@ -17,6 +17,12 @@ in
       default = pkgs.unstable.xwayland-satellite;
       example = lib.literalExpression "pkgs.unstable.xwayland-satellite";
     };
+    address = mkOption {
+      type = lib.types.str;
+      description = "The address of the display server";
+      default = ":0";
+      example = lib.literalExpression ":0";
+    };
   };
 
   config.systemd.user.services = mkIf cfg.enable {
@@ -34,7 +40,7 @@ in
       serviceConfig = {
         Type = "notify";
         NotifyAccess = "all";
-        ExecStart = "${cfg.package}/bin/xwayland-satellite :0";
+        ExecStart = "${cfg.package}/bin/xwayland-satellite ${cfg.address}";
         StandardOutput = "journal";
         Restart = "on-failure";
       };

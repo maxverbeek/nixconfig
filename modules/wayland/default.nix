@@ -14,11 +14,6 @@
 
   services.dbus.packages = [ pkgs.gcr ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal ];
-  };
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
@@ -28,8 +23,9 @@
   modules.niri.enable = true;
   modules.niri.package = pkgs.unstable.niri.override { mesa = pkgs.mesa; };
 
-  modules.xwayland-satellite.enable = true;
-  modules.xwayland-satellite.package = pkgs.unstable.xwayland-satellite.override {
-    xwayland = pkgs.xwayland;
+  modules.xwayland-satellite = {
+    enable = true;
+    package = pkgs.unstable.xwayland-satellite.override { xwayland = pkgs.xwayland; };
+    address = ":0";
   };
 }

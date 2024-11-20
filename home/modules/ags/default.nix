@@ -50,6 +50,12 @@
       # verbose + may log sensitive info
       StandardOutput = "null";
       StandardError = "null";
+
+      # Add environment variables for xwayland-satellite so that stuff started
+      # through here can use Xwayland through this.
+      # FIXME: the value for this is set in system configuration but i cannot
+      # access that from home configuration
+      Environment = [ "DISPLAY=:0" ];
     };
   };
 }
