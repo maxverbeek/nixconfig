@@ -11,7 +11,7 @@
     ../../modules/bluetooth.nix
     ../../modules/wayland
     ../../modules/pipewire.nix
-    ../../modules/nix-ld.nix
+    ../../modules/nix.nix
     ../../modules/shell.nix
     ../../modules/1password.nix
     ./hardware-configuration.nix
@@ -229,14 +229,6 @@
 
   modules.kvm2.enable = true;
   modules.kvm2.home.minikube.enable = true;
-
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    settings.trusted-users = [ "@wheel" ];
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

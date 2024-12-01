@@ -12,21 +12,12 @@
     ../../modules/wayland
     ../../modules/pipewire.nix
     ../../modules/bluetooth.nix
-    ../../modules/nix-ld.nix
+    ../../modules/nix.nix
     ../../modules/shell.nix
     ../../modules/1password.nix
     # ./vim.nix
     # ./i3.nix
   ];
-
-  # Use experimental nix flakes
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    settings.trusted-users = [ "@wheel" ];
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
