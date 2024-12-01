@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-CcJru1z57hYfYKz4ewk10BO7/47T2UOBEcYmeq7Z4vI=";
   };
 
-  cargoSha256 = "sha256-POiVm4tSUMNDyZ2SMuO7abPrHhWfZES0E6qzHp1F1UU=";
+  cargoHash = "sha256-POiVm4tSUMNDyZ2SMuO7abPrHhWfZES0E6qzHp1F1UU=";
 
   meta = with lib; {
     description = "A tool to crop away background around edges of an image";

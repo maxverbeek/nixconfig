@@ -45,7 +45,7 @@
   };
 
   hardware.cpu.amd.updateMicrocode = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   networking.hostName = "lenovo-laptop"; # Define your hostname.
 
@@ -167,7 +167,6 @@
   powerManagement.powertop.enable = false;
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   ## Instead of using pulseaudio, try pipewire

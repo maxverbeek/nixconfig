@@ -71,7 +71,7 @@
   };
 
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   services.teamviewer.enable = false;
 
@@ -111,7 +111,6 @@
   services.gnome.gnome-keyring.enable = true;
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.daemon.config.default-sample-format = "s24le";
 

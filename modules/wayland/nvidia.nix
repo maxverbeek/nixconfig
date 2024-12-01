@@ -21,11 +21,14 @@
     powerManagement.enable = false;
 
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # my card is too old :(
+    open = false;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = lib.optionals nvidia [ pkgs.nvidia-vaapi-driver ];
   };
 }

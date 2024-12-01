@@ -16,10 +16,10 @@
 
       GTK = {
         application_prefer_dark_theme = true;
-        cursor_theme_name = "McMojave-cursors";
+        cursor_theme_name = lib.mkForce "McMojave-cursors";
         # font_name = "Jost * 12";
-        icon_theme_name = "Papirus-Dark";
-        theme_name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+        icon_theme_name = lib.mkForce "Papirus-Dark";
+        theme_name = lib.mkForce "Catppuccin-Mocha-Compact-Mauve-Dark";
       };
 
       commands = {

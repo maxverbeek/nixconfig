@@ -2,7 +2,7 @@
 {
   # Use experimental nix flakes
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -11,7 +11,6 @@
 
   programs.nix-ld = {
     enable = true;
-    libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
   };
 
   programs.nh.enable = true;
