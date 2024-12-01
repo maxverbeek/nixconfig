@@ -14,12 +14,25 @@
         fit = "Cover";
       };
 
-      GTK = {
-        application_prefer_dark_theme = true;
-        cursor_theme_name = lib.mkForce "McMojave-cursors";
-        # font_name = "Jost * 12";
-        icon_theme_name = lib.mkForce "Papirus-Dark";
-        theme_name = lib.mkForce "Catppuccin-Mocha-Compact-Mauve-Dark";
+      cursorTheme = {
+        name = "McMojave-cursors";
+        package = pkgs.custom.mcmojave-cursors;
+      };
+
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+      };
+
+      theme = {
+        name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+        package = (
+          pkgs.catppuccin-gtk.override {
+            accents = [ "mauve" ];
+            size = "compact";
+            variant = "mocha";
+          }
+        );
       };
 
       commands = {

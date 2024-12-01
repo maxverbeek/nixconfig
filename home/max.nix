@@ -70,6 +70,12 @@
     services.gpg-agent.enable = true;
     services.flameshot.enable = !config.device.hyprland.enable;
 
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts.serif = [ "Noto Serif" ];
+      defaultFonts.sansSerif = [ "Noto Sans" ];
+    };
+
     gtk = {
       enable = true;
 
@@ -126,7 +132,7 @@
       docker-compose
       envsubst
       file
-      firefox
+      (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { })
       gcc
       gimp
       gnumake
