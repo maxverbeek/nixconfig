@@ -150,6 +150,7 @@
       minikube
       mongodb-compass
       mr
+      nautilus
       neo4j-desktop
       neofetch
       nix-index
