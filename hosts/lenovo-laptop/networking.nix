@@ -39,4 +39,8 @@
     ""
     "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
   ];
+
+  programs.captive-browser.enable = true;
+  programs.captive-browser.interface = "wlp4s0";
+
 }
