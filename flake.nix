@@ -6,6 +6,9 @@
     oldpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # xtee try out thingy
+    xtee.url = "github:maxverbeek/xtee";
+
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -22,6 +25,7 @@
       nixpkgs,
       oldpkgs,
       unstable,
+      xtee,
       home-manager,
       flake-utils,
       ags,
@@ -56,6 +60,7 @@
           # packages from flakes
           (final: prev: {
             # text2url = text2url.packages.${final.system}.default;
+            xtee = xtee.packages.${prev.system}.default;
           })
 
           # for any package version overrides

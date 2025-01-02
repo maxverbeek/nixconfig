@@ -214,6 +214,7 @@
 
       # my own stuff
       # text2url
+      xtee
     ];
   };
 }

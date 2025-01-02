@@ -47,7 +47,8 @@ with lib;
 
         difflast = "diff HEAD^";
 
-        mp = "push -o merge_request.create";
+        # see: github.com/maxverbeek/xtee
+        mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy >&2'';
 
         gfp = "push --force-with-lease --force-if-includes";
       };
