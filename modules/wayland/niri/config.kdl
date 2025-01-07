@@ -48,6 +48,14 @@ input {
     workspace-auto-back-and-forth
 }
 
+output "Dell Inc. DELL S2721DGF 7M7Q023" {
+    mode "2560x1440@143.912"
+}
+
+output "PNP(AOC) 2460G5 0x00000314" {
+    mode "1920x1080@74.924"
+}
+
 output "eDP-1" {
     position x=0 y=0
 }
