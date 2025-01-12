@@ -203,6 +203,9 @@ in
   editorconfig-vim.plugin = editorconfig-vim;
   vim-surround.plugin = vim-surround;
   vim-repeat.plugin = vim-repeat;
-  vim-fugitive.plugin = vim-fugitive;
+  vim-fugitive = {
+    plugin = vim-fugitive;
+    depend = [ fugitive-gitlab-vim ];
+  };
   vimtext.plugin = vimtex;
 }

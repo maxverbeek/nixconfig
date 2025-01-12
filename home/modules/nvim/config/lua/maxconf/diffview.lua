@@ -6,5 +6,6 @@ require("diffview").setup({
 
 vim.cmd([[
 cabbrev DVO DiffviewOpen
+cabbrev DVH DiffviewFileHistory
 cabbrev DVC DiffviewClose
 ]])
