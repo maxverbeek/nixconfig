@@ -60,11 +60,6 @@ in
     config = "nvim-ts-autotag";
   };
 
-  # nvim-tree = {
-  #   plugin = nvim-tree-lua;
-  #   config = "nvim-tree";
-  # };
-
   neotree = {
     plugin = neo-tree-nvim;
     config = "nvim-neo-tree";
