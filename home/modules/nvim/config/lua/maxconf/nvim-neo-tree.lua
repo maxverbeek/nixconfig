@@ -1,10 +1,6 @@
 require("neo-tree").setup({
   window = {
     position = "right",
-    mappings = {
-      ["l"] = "open_node",
-      ["h"] = "close_node",
-    },
   },
 })
 
