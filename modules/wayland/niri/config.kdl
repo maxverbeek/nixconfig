@@ -82,6 +82,17 @@ output "Iiyama North America PLX2783H 1155982521834" {
     position x=3840 y=0
 }
 
+// samenwerk eiland muur bij het raam link
+output "Dell Inc. DELL S2421HS 18975H3" {
+    position x=1920 y=0
+}
+
+// samenwerk eiland muur bij het raam rechts
+// output "Invalid Vendor Codename - RTK 0x1D1A 0x01010101" {
+//     position x=3840 y=0
+// }
+
+
 switch-events {
     lid-close { spawn "swaylock"; }
 }
