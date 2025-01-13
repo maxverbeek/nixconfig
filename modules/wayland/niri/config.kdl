@@ -92,6 +92,17 @@ output "Dell Inc. DELL S2421HS 18975H3" {
 //     position x=3840 y=0
 // }
 
+// samenwerk eiland niet bij de muur, rechts
+output "Iiyama North America PLX2783H 1155982521831" {
+    position x=1920 y=0
+    mode "1920x1080@74.973"
+}
+
+// samenwerk eiland niet bij de muur, rechts
+output "Iiyama North America PLX2783H 1155982521856" {
+    position x=3840 y=0
+    mode "1920x1080@74.973"
+}
 
 switch-events {
     lid-close { spawn "swaylock"; }
