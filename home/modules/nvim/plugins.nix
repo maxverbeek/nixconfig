@@ -90,6 +90,7 @@ in
     ];
 
     extern = with pkgs; [
+      arduino-language-server
       unstable.nil
       nodePackages.typescript-language-server
       unstable.nodePackages."@tailwindcss/language-server"

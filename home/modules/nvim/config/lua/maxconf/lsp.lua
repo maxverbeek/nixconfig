@@ -152,6 +152,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Register all the language servers
 local servers = {
+  "arduino_language_server",
   "nil_ls",
   "rust_analyzer",
   "gopls",
