@@ -1,25 +1,29 @@
 {
+  description = "devshell";
+
   inputs = {
     nixpkgs.url = "nixpkgs";
-    utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      systems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+    in
     {
-      self,
-      nixpkgs,
-      utils,
-    }:
-    utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        devShell = pkgs.mkShell {
-          name = "devshell";
-          buildInputs = with pkgs; [ ];
-        };
-      }
-    );
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgsFor.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            name = "devshell";
+            packages = with pkgs; [ ];
+          };
+        }
+      );
+    };
 }
