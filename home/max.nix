@@ -111,7 +111,8 @@
     };
 
     # TODO: really nasty
-    home.file.".config/niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "/home/max/nixconfig/modules/wayland/niri/config.kdl";
+    home.file.".config/niri/config.kdl".source =
+      config.lib.file.mkOutOfStoreSymlink "/home/max/nixconfig/modules/wayland/niri/config.kdl";
 
     home.file.".jdk/openjdk17".source = pkgs.openjdk17;
 

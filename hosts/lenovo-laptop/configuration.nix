@@ -219,6 +219,8 @@
 
     nodejs
     yarn
+
+    citrix_workspace
   ];
 
   virtualisation.docker = {
