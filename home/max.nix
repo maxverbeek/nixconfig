@@ -156,12 +156,14 @@
       neofetch
       nix-index
       nomad
+      ngrok
       okular
       openssl
       openvpn
       patchelf
       pdftk
       poetry
+      positron-bin
       pulsemixer
       python3
       ripgrep

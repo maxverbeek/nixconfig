@@ -228,6 +228,13 @@
     package = pkgs.unstable.docker.override { buildxSupport = true; };
   };
 
+  # allow docker to access the host network from containers via the bridge
+  # interfaces. they always seem to use 172.16.0.0/12 IPs
+  networking.firewall.extraCommands = ''
+    iptables -I INPUT 1 -s 172.16.0.0/12 -p tcp -d 172.17.0.1 -j ACCEPT
+    iptables -I INPUT 2 -s 172.16.0.0/12 -p udp -d 172.17.0.1 -j ACCEPT
+  '';
+
   modules.kvm2.enable = true;
   modules.kvm2.home.minikube.enable = true;
 
