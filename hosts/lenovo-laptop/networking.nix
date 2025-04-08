@@ -3,7 +3,7 @@
 {
   networking = {
     useDHCP = false;
-    useNetworkd = true;
+    useNetworkd = false;
   };
 
   systemd.network.networks =

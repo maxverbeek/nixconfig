@@ -55,6 +55,7 @@
   networking.extraHosts = ''
     127.0.0.1 keycloak
     127.0.0.1 s3
+    49.12.21.124 retriever.dev.legalmike.ai
   '';
 
   networking.networkmanager = {

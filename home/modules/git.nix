@@ -31,6 +31,8 @@ with lib;
 
         url."git@github.com:rug-ds-lab".insteadOf = "https://github.com/rug-ds-lab";
         url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
+        url."git@gitlab.com:researchable".insteadOf = "https://gitlab.com/researchable";
+        url."git@gitlab.com:axtion".insteadOf = "https://gitlab.com/axtion";
       };
 
       delta.enable = false;
