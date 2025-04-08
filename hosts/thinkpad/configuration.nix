@@ -32,6 +32,7 @@
   };
 
   boot.kernelParams = [ "i915.force_probe=7d55" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "thinkpad"; # Define your hostname.
   networking.networkmanager.enable = true;
