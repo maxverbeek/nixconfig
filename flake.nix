@@ -139,6 +139,18 @@
         };
 
         # Laptop for work
+        thinkpad = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            nvidia = false;
+          };
+          modules = commonModules ++ [
+            ./hosts/thinkpad/configuration.nix
+            (hmsettings { withModules = [ ./hosts/thinkpad/device.nix ]; })
+          ];
+        };
+
+        # Laptop for work
         lenovo-laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {

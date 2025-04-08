@@ -163,7 +163,6 @@
       patchelf
       pdftk
       poetry
-      positron-bin
       pulsemixer
       python3
       ripgrep
