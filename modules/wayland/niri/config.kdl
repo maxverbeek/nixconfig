@@ -58,6 +58,7 @@ output "PNP(AOC) 2460G5 0x00000314" {
 
 output "eDP-1" {
     position x=0 y=0
+    scale 1.1
 }
 
 output "Philips Consumer Electronics Company 55BDL3511Q" {
@@ -313,16 +314,16 @@ window-rule {
     default-floating-position x=32 y=32 relative-to="bottom-right"
 }
 
-// Example: block out two password managers from screen capture.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
+// block out sharing 1password in screenshare
+window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    match app-id="1Password"
 
-    block-out-from "screen-capture"
+    // block-out-from "screen-capture"
 
     // Use this instead if you want them visible on third-party screenshot tools.
-    // block-out-from "screencast"
+    block-out-from "screencast"
 }
 
 binds {
