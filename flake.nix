@@ -17,6 +17,8 @@
     # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
     # text2url.url = "github:maxverbeek/text2url";
     ags.url = "github:Aylur/ags";
+
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
 
   outputs =
@@ -29,6 +31,7 @@
       home-manager,
       flake-utils,
       ags,
+      zen-browser,
       ...
     }:
 
@@ -55,6 +58,7 @@
             };
 
             astal = ags.packages.${prev.system};
+            zen-browser = zen-browser.packages.${prev.system};
           })
 
           # packages from flakes

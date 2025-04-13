@@ -345,6 +345,7 @@ binds {
     Mod+Return { spawn "foot"; }
     Mod+Space { spawn "ags" "toggle" "launcher"; }
     Super+Alt+L { spawn "swaylock"; }
+    Mod+P { spawn "1password"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }

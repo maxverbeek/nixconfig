@@ -217,6 +217,8 @@
       # my own stuff
       # text2url
       xtee
+
+      zen-browser.default
     ];
   };
 }
