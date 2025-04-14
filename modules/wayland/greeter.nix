@@ -7,12 +7,13 @@
 {
   programs.regreet = {
     enable = true;
-    package = pkgs.unstable.greetd.regreet; # .overrideAttrs (old: { patches = [ ../patches/regreet-debug.patch ]; });
     settings = {
       background = {
         path = ../../wallpapers/windows.png;
         fit = "Cover";
       };
+
+      GTK.application_prefer_dark_theme = true;
 
       cursorTheme = {
         name = "McMojave-cursors";
@@ -62,7 +63,6 @@
   services.greetd = {
     # Configuration for using with regreet -- only enable if regreet is enabled
     enable = config.programs.regreet.enable;
-    settings.default_session.command = "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -m last -- ${lib.getExe config.programs.regreet.package} -l debug";
   };
 
   security.rtkit.enable = true;
