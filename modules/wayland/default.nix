@@ -19,11 +19,10 @@
 
   home-manager.users.max.xsession.enable = lib.mkForce false;
 
-  # testing!
   modules.niri.enable = true;
-  modules.niri.package = pkgs.unstable.niri.overrideAttrs (old: {
-    buildInputs = ((builtins.filter (p: p != pkgs.unstable.libgbm) old.buildInputs) ++ [ pkgs.mesa ]);
-  });
+  # modules.niri.package = pkgs.unstable.niri.overrideAttrs (old: {
+  #   buildInputs = ((builtins.filter (p: p != pkgs.unstable.libgbm) old.buildInputs) ++ [ pkgs.mesa ]);
+  # });
 
   modules.xwayland-satellite = {
     enable = true;
