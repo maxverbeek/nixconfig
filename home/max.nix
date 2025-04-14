@@ -96,13 +96,13 @@
     #   Install.WantedBy = [ "graphical-session.target" ];
     # };
     #
-    home.pointerCursor = {
-      package = pkgs.custom.mcmojave-cursors;
-      size = 32;
-      name = "McMojave-cursors";
-      gtk.enable = true;
-      x11.enable = false;
-    };
+    # home.pointerCursor = {
+    #   package = pkgs.custom.mcmojave-cursors;
+    #   size = 32;
+    #   name = "McMojave-cursors";
+    #   gtk.enable = true;
+    #   x11.enable = false;
+    # };
 
     home.sessionVariables = {
       JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";

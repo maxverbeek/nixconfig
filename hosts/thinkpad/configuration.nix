@@ -32,7 +32,7 @@
   };
 
   boot.kernelParams = [ "i915.force_probe=7d55" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "thinkpad"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -42,6 +42,9 @@
     vaapiIntel
     intel-media-driver
   ];
+
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
   services.resolved = {
     enable = true;
@@ -91,8 +94,10 @@
   # Enable sound.
   services.pipewire = {
     enable = true;
-    pulse.enable = true;
+    alsa.enable = true;
   };
+
+  hardware.pulseaudio.enable = false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput = {
@@ -162,6 +167,10 @@
     3100
     3200
   ];
+
+  networking.extraHosts = ''
+    49.12.21.124 retriever.dev.legalmike.ai
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
