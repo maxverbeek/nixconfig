@@ -7,6 +7,11 @@
 {
   programs.regreet = {
     enable = true;
+    cageArgs = [
+      "-s"
+      "-m"
+      "last"
+    ];
     settings = {
       background = {
         path = ../../wallpapers/windows.png;
