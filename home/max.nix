@@ -219,6 +219,11 @@
       xtee
 
       zen-browser.default
+
+      (pkgs.writeShellScriptBin "codex" ''
+        export OPENAI_API_KEY=$(<"$HOME/.openai_key")
+        exec ${custom.nodePackages."@openai/codex"}/bin/codex "$@"
+      '')
     ];
   };
 }

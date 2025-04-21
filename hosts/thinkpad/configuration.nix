@@ -32,7 +32,7 @@
   };
 
   boot.kernelParams = [ "i915.force_probe=7d55" ];
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "thinkpad"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -45,6 +45,12 @@
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
+
+  # maybe fix sound issues?
+  hardware.firmware = with pkgs; [
+    linux-firmware
+    sof-firmware
+  ];
 
   services.resolved = {
     enable = true;
@@ -94,6 +100,7 @@
   # Enable sound.
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
   };
 
@@ -124,6 +131,7 @@
       "dialout"
       "input"
       "video"
+      "audio"
       "adbusers"
     ];
     packages = with pkgs; [
@@ -174,6 +182,8 @@
   networking.extraHosts = ''
     49.12.21.124 retriever.dev.legalmike.ai
   '';
+
+  environment.systemPackages = with pkgs; [ alsa-ucm-conf ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
