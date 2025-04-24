@@ -31,7 +31,6 @@
     allowDiscards = true;
   };
 
-  boot.kernelParams = [ "i915.force_probe=7d55" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "thinkpad"; # Define your hostname.
@@ -39,7 +38,6 @@
 
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
-    vaapiIntel
     intel-media-driver
   ];
 
@@ -49,7 +47,25 @@
   # maybe fix sound issues?
   hardware.firmware = with pkgs; [
     linux-firmware
-    sof-firmware
+    unstable.sof-firmware
+  ];
+
+  services.pipewire.package = pkgs.unstable.pipewire;
+
+  # update ucm-conf without rebuilding literally everything that depends in some way on alsa
+  system.replaceDependencies.replacements = [
+    ({
+      original = pkgs.alsa-ucm-conf;
+      replacement = (
+        pkgs.alsa-ucm-conf.overrideAttrs (old: rec {
+          version = "1.2.10";
+          src = pkgs.fetchurl {
+            url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
+            hash = "sha256-nCHj8B/wC6p1jfF+hnzTbiTrtBpr7ElzfpkQXhbyrpc=";
+          };
+        })
+      );
+    })
   ];
 
   services.resolved = {
@@ -177,10 +193,12 @@
     3000
     3100
     3200
+    8080
   ];
 
   networking.extraHosts = ''
     49.12.21.124 retriever.dev.legalmike.ai
+    127.0.0.1 keycloak
   '';
 
   environment.systemPackages = with pkgs; [ alsa-ucm-conf ];

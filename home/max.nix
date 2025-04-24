@@ -15,7 +15,7 @@
       polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
       fuzzel.enable = false;
-      rstudio.enable = true;
+      rstudio.enable = false;
       screenlocker.enable = true;
       zsh.enable = true;
       alacritty.enable = true;
@@ -122,6 +122,7 @@
       #   extraPkgs = pkgs: [ mesa libxkbcommon gtk3 xorg.libxshmfence ];
       # }).run)
       air
+      alsa-utils
       unstable.argocd
       azure-cli
       binutils

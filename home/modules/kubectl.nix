@@ -34,6 +34,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.kubectl
+      pkgs.kubectl-cnpg
       pkgs.k9s
     ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
