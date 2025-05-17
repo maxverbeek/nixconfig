@@ -19,6 +19,7 @@
     ../../modules/nix.nix
     ../../modules/shell.nix
     ../../modules/1password.nix
+    ../../modules/printer.nix
     ./hardware-configuration.nix
   ];
 
@@ -50,7 +51,11 @@
     unstable.sof-firmware
   ];
 
-  services.pipewire.package = pkgs.unstable.pipewire;
+  services.pipewire = {
+    package = pkgs.unstable.pipewire;
+  };
+
+  roles.printer.enable = true;
 
   # update ucm-conf without rebuilding literally everything that depends in some way on alsa
   system.replaceDependencies.replacements = [
@@ -132,6 +137,11 @@
   # battery monitoring
   services.upower.enable = true;
   services.gvfs.enable = true;
+
+  # fingerprint stuff
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix-550a; # Goodix 550a driver (from Lenovo)
 
   # monitoring brightness
   programs.light.enable = true;

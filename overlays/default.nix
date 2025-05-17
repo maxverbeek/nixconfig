@@ -52,6 +52,8 @@ final: prev: {
     };
   });
 
+  pycustom.ecida = prev.python3.pkgs.callPackage ./ecida.nix { };
+
   # cliphist = prev.cliphist.overrideAttrs (old: {
   #   postInstall = ''
   #     cp $src/contrib/cliphist-rofi-img $out/bin/cliphist-rofi-img

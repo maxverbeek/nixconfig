@@ -15,7 +15,7 @@
       polybar.enable = !config.device.hyprland.enable;
       rofi.enable = true;
       fuzzel.enable = false;
-      rstudio.enable = false;
+      rstudio.enable = true;
       screenlocker.enable = true;
       zsh.enable = true;
       alacritty.enable = true;
@@ -136,6 +136,7 @@
       file
       (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { })
       gcc
+      glab
       gimp
       gnumake
       htop
@@ -165,6 +166,7 @@
       pdftk
       poetry
       pulsemixer
+      # (python3.withPackages (ps: [ pkgs.pycustom.ecida  ]))
       python3
       ripgrep
       rsync
@@ -222,7 +224,12 @@
       zen-browser.default
 
       (pkgs.writeShellScriptBin "codex" ''
-        export OPENAI_API_KEY=$(<"$HOME/.openai_key")
+        if [[ $PWD =~ "Researchable/legal-mike" ]]; then
+          export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
+        else
+          export OPENAI_API_KEY=$(<"$HOME/.openai_key")
+        fi
+
         exec ${custom.nodePackages."@openai/codex"}/bin/codex "$@"
       '')
     ];

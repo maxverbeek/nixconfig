@@ -92,7 +92,7 @@ in
     extern = with pkgs; [
       arduino-language-server
       unstable.nil
-      nodePackages.typescript-language-server
+      unstable.nodePackages.typescript-language-server
       unstable.nodePackages."@tailwindcss/language-server"
       unstable.nodePackages."svelte-language-server"
       unstable.texlab
