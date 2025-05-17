@@ -106,6 +106,7 @@ cmp.setup({
 require("lsp_signature").setup({
   bind = true,
   floating_window_above_cur_line = true,
+  cursorhold_update = false,
 })
 
 local on_attach = function(client, bufnr)
