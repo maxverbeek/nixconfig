@@ -21,6 +21,7 @@
       alacritty.enable = true;
       direnv.enable = true;
       playerctld.enable = true;
+      codex.enable = true;
 
       hyprland.enable = config.device.hyprland.enable;
       waybar.enable = config.device.hyprland.enable;
@@ -223,15 +224,6 @@
 
       zen-browser.default
 
-      (pkgs.writeShellScriptBin "codex" ''
-        if [[ $PWD =~ "Researchable/legal-mike" ]]; then
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
-        else
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key")
-        fi
-
-        exec ${custom.nodePackages."@openai/codex"}/bin/codex "$@"
-      '')
     ];
   };
 }

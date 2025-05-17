@@ -4,6 +4,7 @@
     ./alacritty.nix
     ./autorandr.nix
     ./bspwm.nix
+    ./codex.nix
     ./cursor.nix
     ./direnv.nix
     ./fuzzel.nix
