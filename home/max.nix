@@ -127,6 +127,7 @@
       unstable.argocd
       azure-cli
       binutils
+      btop
       chromium
       cht-sh
       discord

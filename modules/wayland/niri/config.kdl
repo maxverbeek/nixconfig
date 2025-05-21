@@ -80,17 +80,17 @@ output "Iiyama North America PLX2783H 1155982521838" {
 
 // stilteruimte 2, links
 output "Iiyama North America PLX2783H 1155982521836" {
-    position x=1745 y=0
+    position x=1746 y=0
 }
 
 // stilteruimte 2, rechts
 output "Iiyama North America PLX2783H 1155982521834" {
-    position x=3665 y=0
+    position x=3666 y=0
 }
 
 // samenwerk eiland muur bij het raam link
 output "Dell Inc. DELL S2421HS 18975H3" {
-    position x=1745 y=0
+    position x=1746 y=0
 }
 
 // samenwerk eiland muur bij het raam rechts
