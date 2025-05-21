@@ -168,8 +168,8 @@
       pdftk
       poetry
       pulsemixer
-      # (python3.withPackages (ps: [ pkgs.pycustom.ecida  ]))
-      python3
+      (python3.withPackages (ps: [ ps.bcrypt ]))
+      # python3
       ripgrep
       rsync
       rtorrent
