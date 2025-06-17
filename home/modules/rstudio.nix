@@ -23,6 +23,6 @@
     #     ];
     #   })
     # ];
-    home.packages = [ pkgs.unstable.rstudio ];
+    home.packages = [ pkgs.rstudio ];
   };
 }
