@@ -168,7 +168,7 @@
   powerManagement.powertop.enable = false;
 
   # Enable sound.
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
 
   ## Instead of using pulseaudio, try pipewire
   # rtkit is optional but recommended
@@ -209,7 +209,7 @@
     terminus_font
     ubuntu_font_family
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   # List packages installed in system profile. To search, run:

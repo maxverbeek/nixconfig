@@ -131,7 +131,6 @@
       chromium
       cht-sh
       discord
-      dolphin
       dnsutils
       docker-compose
       envsubst
@@ -149,7 +148,9 @@
       ijq # note 2 packages here
 
       just
-      kolourpaint
+      kdePackages.dolphin
+      kdePackages.okular
+      kdePackages.kolourpaint
       kubernetes-helm
       librsvg
       minikube
@@ -161,7 +162,6 @@
       nix-index
       nomad
       ngrok
-      okular
       openssl
       openvpn
       patchelf

@@ -38,7 +38,7 @@ in
       pkgs.k9s
     ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
-    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
+    programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration ''
       source <(kubectl completion zsh)
     '';
 

@@ -125,7 +125,7 @@
     alsa.enable = true;
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput = {
@@ -179,7 +179,7 @@
     terminus_font
     ubuntu_font_family
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   # programs.firefox.enable = true;

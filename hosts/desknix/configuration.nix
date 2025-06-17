@@ -138,7 +138,7 @@
     terminus_font
     ubuntu_font_family
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   # List packages installed in system profile. To search, run:

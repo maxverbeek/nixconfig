@@ -68,8 +68,14 @@ in
 
       # do this before the other shell aliasses so that
       # this definition of ls is used recursively
-      initExtraFirst = ''
+      initContent = lib.mkBefore ''
         alias ls="ls --color=auto"
+
+        autoload -U edit-command-line
+        zle -N edit-command-line
+        bindkey -M vicmd v edit-command-line
+
+        eval "$(op completion zsh)"; compdef _op op
       '';
 
       shellAliases = {
@@ -107,14 +113,6 @@ in
           file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
       ];
-
-      initExtra = ''
-        autoload -U edit-command-line
-        zle -N edit-command-line
-        bindkey -M vicmd v edit-command-line
-
-        eval "$(op completion zsh)"; compdef _op op
-      '';
     };
 
     programs.starship = {
