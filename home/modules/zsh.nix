@@ -69,13 +69,18 @@ in
       # do this before the other shell aliasses so that
       # this definition of ls is used recursively
       initContent = lib.mkBefore ''
-        alias ls="ls --color=auto"
+        autoload -U +X compinit
+        compinit
 
         autoload -U edit-command-line
+
+        alias ls="ls --color=auto"
+
         zle -N edit-command-line
         bindkey -M vicmd v edit-command-line
 
-        eval "$(op completion zsh)"; compdef _op op
+        eval "$(op completion zsh)"
+        compdef _op op
       '';
 
       shellAliases = {
