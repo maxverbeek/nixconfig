@@ -151,7 +151,6 @@
       kdePackages.dolphin
       kdePackages.okular
       kdePackages.kolourpaint
-      kubernetes-helm
       librsvg
       minikube
       mongodb-compass

@@ -36,6 +36,12 @@ in
       pkgs.kubectl
       pkgs.kubectl-cnpg
       pkgs.k9s
+
+      (pkgs.wrapHelm pkgs.kubernetes-helm {
+        plugins = [
+          pkgs.kubernetes-helmPlugins.helm-diff
+        ];
+      })
     ] ++ lib.optional cfg.enableKubeseal pkgs.kubeseal;
 
     programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration ''
