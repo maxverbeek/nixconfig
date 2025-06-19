@@ -112,6 +112,11 @@ output "Iiyama North America PLX2783H 1155982521856" {
     mode "1920x1080@74.973"
 }
 
+// het sales bureau
+output "Samsung Electric Company S34CG50 HNBXB00569" {
+    mode "3440x1440@100.000"
+}
+
 switch-events {
     lid-close { spawn "swaylock"; }
 }

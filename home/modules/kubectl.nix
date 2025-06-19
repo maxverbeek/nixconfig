@@ -46,10 +46,14 @@ in
 
     programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration ''
       source <(kubectl completion zsh)
+      source <(helm completion zsh)
+      source <(helm diff completion zsh)
     '';
 
     programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration ''
       source <(kubectl completion bash)
+      source <(helm completion zsh)
+      source <(helm diff completion zsh)
     '';
   };
 }
