@@ -20,12 +20,18 @@ in
     environment.systemPackages = [ cfg.package ];
     services.displayManager.sessionPackages = [ cfg.package ];
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gnome
-        pkgs.xdg-desktop-portal-gtk
-      ];
+    xdg = {
+      autostart.enable = true;
+      menus.enable = true;
+      mime.enable = true;
+      icons.enable = true;
+      portal = {
+        enable = true;
+        extraPortals = [
+          pkgs.xdg-desktop-portal-gnome
+          pkgs.xdg-desktop-portal-gtk
+        ];
+      };
     };
   };
 }

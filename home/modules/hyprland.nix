@@ -38,7 +38,9 @@ in
 
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
-      enable = true;
+      # BUG: if home-manager adds xdg portals, the system-wide ones will not be
+      # found. this module will add portals so it's disabled for now.
+      enable = false;
       package = pkgs.hyprland;
       xwayland.enable = true;
       extraConfig = ''
