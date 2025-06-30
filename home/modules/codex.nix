@@ -16,6 +16,12 @@ let
     exec ${cfg.codexPackage}/bin/codex "$@"
   '';
 
+  gemini = pkgs.writeShellScriptBin "gemini" ''
+    export GEMINI_API_KEY=$(<"$HOME/.gemini_key")
+
+    exec ${pkgs.custom.nodePackages."@google/gemini-cli"}/bin/gemini
+  '';
+
   llm = pkgs.writeShellScriptBin "llm" ''
     if [[ $PWD =~ "Researchable/legal-mike" ]]; then
       export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
@@ -65,6 +71,7 @@ in
     home.packages = [
       codex
       llm
+      gemini
     ];
   };
 }

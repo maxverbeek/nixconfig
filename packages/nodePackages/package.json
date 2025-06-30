@@ -1,5 +1,6 @@
 [
   "standard",
   "@fsouza/prettierd",
-  "@openai/codex"
+  "@openai/codex",
+  "@google/gemini-cli"
 ]
