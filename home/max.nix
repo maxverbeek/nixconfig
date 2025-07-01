@@ -129,6 +129,7 @@
       binutils
       btop
       chromium
+      clockify
       cht-sh
       discord
       dnsutils
