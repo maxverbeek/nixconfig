@@ -53,5 +53,11 @@ let
       });
 in
 {
-  home.packages = [ nvim ] ++ nvim.additionalPackages;
+  home.packages = [
+    nvim
+
+    # TODO: move
+    pkgs.unstable.nvim-immut
+    pkgs.unstable.nvim-mutable
+  ] ++ nvim.additionalPackages;
 }

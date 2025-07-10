@@ -51,6 +51,11 @@
             unstable = import unstable {
               inherit (prev) system;
               inherit config;
+
+              overlays = [
+                # neovim from nvim-on-nix overlay
+                (import ./neovim)
+              ];
             };
             oldpkgs = import oldpkgs {
               inherit (prev) system;
@@ -69,6 +74,9 @@
 
           # for any package version overrides
           (import ./overlays)
+
+          # neovim from nvim-on-nix overlay
+          (import ./neovim)
         ];
       };
 

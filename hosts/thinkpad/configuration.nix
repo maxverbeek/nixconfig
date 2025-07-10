@@ -141,7 +141,11 @@
   # fingerprint stuff
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix-550a; # Goodix 550a driver (from Lenovo)
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix-550a;
+  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan;
+  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090; # broken
+  # services.fprintd.tod.driver = pkgs.libfprint-focaltech-2808-a658;
 
   # monitoring brightness
   programs.light.enable = true;

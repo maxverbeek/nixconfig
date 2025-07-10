@@ -124,6 +124,7 @@
       # }).run)
       air
       alsa-utils
+      amazon-q-cli
       unstable.argocd
       azure-cli
       binutils
