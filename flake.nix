@@ -16,7 +16,8 @@
 
     # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
     # text2url.url = "github:maxverbeek/text2url";
-    ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
+    # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
+    ags.url = "github:maxverbeek/astalconfig";
 
     zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
@@ -45,6 +46,9 @@
         };
 
         overlays = [
+          # adds ags-max from my other repo
+          ags.overlays.default
+
           # adding custom packages/flakes to nixpkgs
           (final: prev: {
             custom = builtins.mapAttrs (n: d: final.callPackage d { }) (import ./packages);
@@ -62,7 +66,6 @@
               inherit config;
             };
 
-            astal = ags.packages.${prev.system};
             zen-browser = zen-browser.packages.${prev.system};
           })
 
@@ -91,7 +94,6 @@
 
           # set up everything in home-manager
           home-manager.users.max.imports = [
-            ags.homeManagerModules.default
             ./home/max.nix
             ./hosts/options.nix
           ] ++ withModules;
