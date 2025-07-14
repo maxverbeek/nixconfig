@@ -16,6 +16,16 @@ let
     exec ${cfg.codexPackage}/bin/codex "$@"
   '';
 
+  opencode = pkgs.writeShellScriptBin "opencode" ''
+    if [[ $PWD =~ "Researchable/legal-mike" ]]; then
+      export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
+    else
+      export OPENAI_API_KEY=$(<"$HOME/.openai_key")
+    fi
+
+    exec ${cfg.opencodePackage}/bin/opencode "$@"
+  '';
+
   gemini = pkgs.writeShellScriptBin "gemini" ''
     export GEMINI_API_KEY=$(<"$HOME/.gemini_key")
 
@@ -66,12 +76,19 @@ in
       default = pkgs.custom.nodePackages."@openai/codex";
       description = "Package providing the 'codex' CLI";
     };
+
+    opencodePackage = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.unstable.opencode;
+      description = "Package providing the 'opencode' CLI";
+    };
   };
   config = lib.mkIf cfg.enable {
     home.packages = [
       codex
       llm
       gemini
+      opencode
     ];
   };
 }

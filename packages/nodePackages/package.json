@@ -2,5 +2,6 @@
   "standard",
   "@fsouza/prettierd",
   "@openai/codex",
-  "@google/gemini-cli"
+  "@google/gemini-cli",
+  "opencode-ai"
 ]

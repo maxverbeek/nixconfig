@@ -57,8 +57,9 @@ output "PNP(AOC) 2460G5 0x00000314" {
 }
 
 output "eDP-1" {
+    mode "2880x1800@120"
     position x=0 y=0
-    scale 1.1
+    scale 1.5
 }
 
 output "Philips Consumer Electronics Company 55BDL3511Q" {
@@ -68,49 +69,49 @@ output "Philips Consumer Electronics Company 55BDL3511Q" {
 
 // stilteruimte 1, widescreen
 output "Samsung Electric Company S34J55x HTOM601054" {
-    position x=1745 y=0
+    position x=1920 y=0
 }
 
 // stilteruimte 1, vertical ding
 output "Iiyama North America PLX2783H 1155982521838" {
     mode "1920x1080@74.973"
-    position x=5185 y=0
+    position x=5360 y=0
     transform "90"
 }
 
 // stilteruimte 2 (ando plek), links
 output "Iiyama North America PLX2783H 1155982521836" {
-    position x=1746 y=0
+    position x=1920 y=0
 }
 
 // stilteruimte 2 (ando plek), rechts
 output "Iiyama North America PLX2783H 1155982521834" {
-    position x=3666 y=0
+    position x=3840 y=0
     mode "1920x1080@74.973"
     transform "90"
 }
 
 // samenwerk eiland muur bij het raam link
 output "Dell Inc. DELL S2421HS 18975H3" {
-    position x=1746 y=0
+    position x=1920 y=0
     mode "1920x1080@74.973"
 }
 
 // samenwerk eiland muur bij het raam rechts
 output "Dell Inc. DELL S2421HS 47975H3" {
-    position x=3665 y=0
+    position x=3840 y=0
     mode "1920x1080@74.973"
 }
 
 // samenwerk eiland niet bij de muur, rechts
 output "Iiyama North America PLX2783H 1155982521831" {
-    position x=1745 y=0
+    position x=1920 y=0
     mode "1920x1080@74.973"
 }
 
 // samenwerk eiland niet bij de muur, rechts
 output "Iiyama North America PLX2783H 1155982521856" {
-    position x=3665 y=0
+    position x=3840 y=0
     mode "1920x1080@74.973"
 }
 
