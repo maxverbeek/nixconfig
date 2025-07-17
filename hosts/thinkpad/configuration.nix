@@ -35,6 +35,15 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # NOTE: this line took me 4 months of debugging
+  # source: https://bbs.archlinux.org/viewtopic.php?id=60854 (interesting future options)
+  # source: https://bbs.archlinux.org/viewtopic.php?id=297831 (this one has the fix)
+  #
+  # due to some super obscure issue with intel audio, whenever external monitors are detected, the audio profile
+  # switches to something else. this "something else" could be incompatible. to avoid this, this arch lord suggested
+  # not binding the iPGU to the audio interface using the below kernel parameter.
+  boot.kernelParams = [ "snd_hda_core.gpu_bind=0" ];
+
   networking.hostName = "thinkpad"; # Define your hostname.
   networking.networkmanager.enable = true;
 
