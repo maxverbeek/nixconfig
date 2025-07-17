@@ -195,6 +195,8 @@
   modules.kvm2.enable = true;
   modules.kvm2.home.minikube.enable = true;
 
+  modules.fingerprint.enable = true;
+
   networking.firewall.allowedTCPPorts = [
     3000
     3100

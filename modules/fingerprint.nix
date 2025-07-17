@@ -20,5 +20,6 @@ in
     };
 
     security.pam.services.sudo.fprintAuth = false;
+    security.pam.services.login.fprintAuth = false;
   };
 }
