@@ -19,7 +19,8 @@
     # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
     ags.url = "github:maxverbeek/astalconfig";
 
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

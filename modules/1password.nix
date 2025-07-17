@@ -14,6 +14,7 @@
     "1password/custom_allowed_browsers" = {
       text = ''
         chromium
+        zen
         .zen-wrapped
       '';
       mode = "0755";
