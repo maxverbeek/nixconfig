@@ -358,6 +358,7 @@ binds {
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+O { toggle-overview; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return { spawn "foot"; }
@@ -366,8 +367,8 @@ binds {
     Mod+P { spawn "1password"; }
 
     // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
-    Mod+Shift+C { spawn "sh" "-c" "xsel -ob | wl-copy"; }
-    Mod+Shift+V { spawn "sh" "-c" "wl-paste -n | xsel -ib"; }
+    Mod+Shift+C hotkey-overlay-title="Copy x to wayland" { spawn "sh" "-c" "xsel -ob | wl-copy"; }
+    Mod+Shift+V hotkey-overlay-title="Copy wayland to x" { spawn "sh" "-c" "wl-paste -n | xsel -ib"; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
@@ -524,8 +525,8 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     // There are also commands that consume or expel a single window to the side.
-    // Mod+BracketLeft  { consume-or-expel-window-left; }
-    // Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+R { switch-preset-column-width; }
     Mod+Escape { reset-window-height; }
