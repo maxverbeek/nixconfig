@@ -5,22 +5,25 @@ return {
       [[
 {{ config, lib, ... }}:
 let
-  cfg = config.roles.{role};
+  cfg = config.{}.{}; 
 in
 {{
-  options = {{
-    enable = lib.mkEnableOption "Enable {desc} module";
+  options.{}.{} = {{
+    enable = lib.mkEnableOption "Enable {} module";
   }};
 
   config = lib.mkIf cfg.enable {{
-    {configBody}
+    {}
   }};
 }}
 ]],
       {
-        role = i(1, "template"),
-        desc = rep(1),
-        configBody = i(2),
+        i(2, "template"),
+        i(1, "roles"),
+        rep(2),
+        rep(1),
+        rep(1),
+        i(3),
       }
     )
   ),
