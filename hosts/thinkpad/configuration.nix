@@ -17,6 +17,7 @@
     ../../modules/wayland
     ../../modules/pipewire.nix
     ../../modules/nix.nix
+    ../../modules/fingerprint.nix
     ../../modules/shell.nix
     ../../modules/1password.nix
     ../../modules/printer.nix
@@ -103,7 +104,7 @@
   # Attempt to save some battery
   services.tlp = {
     # test if this kills wifi
-    enable = false;
+    enable = true;
 
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -137,15 +138,6 @@
   # battery monitoring
   services.upower.enable = true;
   services.gvfs.enable = true;
-
-  # fingerprint stuff
-  services.fprintd.enable = true;
-  services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix-550a;
-  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-elan;
-  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
-  # services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090; # broken
-  # services.fprintd.tod.driver = pkgs.libfprint-focaltech-2808-a658;
 
   # monitoring brightness
   programs.light.enable = true;
@@ -215,7 +207,13 @@
     127.0.0.1 keycloak
   '';
 
-  environment.systemPackages = with pkgs; [ alsa-ucm-conf ];
+  programs.steam.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    alsa-ucm-conf
+    steamcmd
+    steam-tui
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

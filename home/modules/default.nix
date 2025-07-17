@@ -15,6 +15,7 @@
     ./nvim
     ./picom.nix
     ./playerctld.nix
+    ./polkit.nix
     ./polybar.nix
     ./rofi.nix
     ./rstudio.nix

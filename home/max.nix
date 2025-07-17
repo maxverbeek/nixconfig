@@ -23,6 +23,8 @@
       playerctld.enable = true;
       codex.enable = true;
 
+      polkit.enable = true;
+
       hyprland.enable = config.device.hyprland.enable;
       waybar.enable = config.device.hyprland.enable;
 
