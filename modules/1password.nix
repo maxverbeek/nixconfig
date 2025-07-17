@@ -20,4 +20,10 @@
       mode = "0755";
     };
   };
+
+  # used by some cheeky bindings to copy stuff between x and wayland
+  # i hope that 1pass fixes their wayland client soon
+  environment.systemPackages = [
+    pkgs.xsel
+  ];
 }

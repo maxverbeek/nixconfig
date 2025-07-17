@@ -365,6 +365,10 @@ binds {
     Super+Alt+L { spawn "swaylock"; }
     Mod+P { spawn "1password"; }
 
+    // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
+    Mod+Shift+C { spawn "sh" "-c" "xsel -ob | wl-copy"; }
+    Mod+Shift+V { spawn "sh" "-c" "wl-paste -n | xsel -ib"; }
+
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
