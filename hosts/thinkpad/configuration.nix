@@ -42,7 +42,10 @@
   # due to some super obscure issue with intel audio, whenever external monitors are detected, the audio profile
   # switches to something else. this "something else" could be incompatible. to avoid this, this arch lord suggested
   # not binding the iPGU to the audio interface using the below kernel parameter.
-  boot.kernelParams = [ "snd_hda_core.gpu_bind=0" ];
+  # boot.kernelParams = [ "snd_hda_core.gpu_bind=0" ];
+  # NOTE: update: this disables audio through HDMI :(
+  # for some reason, use pavucontrol, i can set the pipewire profile to something else that includes my speakers.
+  # this is persisted in ~/.local/state/wireplumber/default-profile so I think I only have to do it once.
 
   networking.hostName = "thinkpad"; # Define your hostname.
   networking.networkmanager.enable = true;
