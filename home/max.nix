@@ -165,6 +165,7 @@
       nix-index
       nomad
       ngrok
+      obsidian
       openssl
       openvpn
       patchelf

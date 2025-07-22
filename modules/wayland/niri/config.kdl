@@ -365,6 +365,7 @@ binds {
     Mod+Space { spawn "ags" "-i" "ags-max" "toggle" "launcher"; }
     Super+Alt+L { spawn "swaylock"; }
     Mod+P { spawn "1password"; }
+    Mod+N { spawn "obsidian"; }
 
     // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
     Mod+Shift+C hotkey-overlay-title="Copy x to wayland" { spawn "sh" "-c" "xsel -ob | wl-copy"; }
