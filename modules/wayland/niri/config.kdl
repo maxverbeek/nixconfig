@@ -120,6 +120,11 @@ output "Samsung Electric Company S34CG50 HNBXB00569" {
     mode "3440x1440@100.000"
 }
 
+// het sales bureau 2
+output "Samsung Electric Company S34CG50 HNBXB00576" {
+    mode "3440x1440@100.000"
+}
+
 switch-events {
     lid-close { spawn "swaylock"; }
 }
