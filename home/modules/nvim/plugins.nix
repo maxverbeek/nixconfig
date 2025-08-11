@@ -104,7 +104,7 @@ in
       metals
       ocamlPackages.ocaml-lsp
       haskell-language-server
-      elixir-ls
+      # elixir-ls # there is a conflict in the readme???
       solargraph
     ];
 
