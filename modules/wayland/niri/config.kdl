@@ -315,12 +315,12 @@ window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
+    match app-id=r#"^foot$"#
+    default-column-width { proportion 0.33333; }
 }
 
 window-rule {
-    match app-id="chromium|firefox"
+    match app-id="chromium|firefox|zen"
     default-column-width { proportion 1.0; }
 }
 
@@ -535,6 +535,17 @@ binds {
     Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+R { switch-preset-column-width; }
+
+    // still experimetning with this
+    Alt+1 { maximize-column; }
+    Alt+2 { set-column-width "50%"; }
+    Alt+3 { set-column-width "33.33333%"; }
+    Alt+4 { set-column-width "25%"; }
+
+    // single double full -> SDF
+    Mod+S { set-column-width "33.33333%"; }
+    Mod+D { set-column-width "66.66666%"; }
+
     Mod+Escape { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }

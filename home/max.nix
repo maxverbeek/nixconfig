@@ -60,6 +60,18 @@
           PubkeyAcceptedKeyTypes = "+ssh-rsa";
           HostkeyAlgorithms = "+ssh-rsa";
         };
+
+        "researchable-1" = {
+          hostname = "176.9.32.68";
+          user = "root";
+          identityFile = "/home/max/.ssh/hetzner_researchable";
+        };
+
+        "researchable-2" = {
+          hostname = "176.9.48.16";
+          user = "root";
+          identityFile = "/home/max/.ssh/hetzner_researchable";
+        };
       };
     };
 
@@ -131,6 +143,8 @@
       azure-cli
       binutils
       btop
+      code-cursor
+      unstable.claude-code
       chromium
       clockify
       cht-sh

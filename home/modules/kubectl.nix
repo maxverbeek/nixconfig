@@ -35,6 +35,7 @@ in
     home.packages = [
       pkgs.kubectl
       pkgs.kubectl-cnpg
+      pkgs.cmctl
       pkgs.k9s
 
       (pkgs.wrapHelm pkgs.kubernetes-helm {
