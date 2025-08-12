@@ -233,6 +233,7 @@
       custom.pngcrop
       # custom.responsively-app
       # custom.figma-linux
+      custom.kiro
 
       unstable.nurl
       custom.samdump2

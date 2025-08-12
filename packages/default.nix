@@ -12,4 +12,5 @@
   nodePackages = import ./nodePackages;
   rubocop = import ./rubocop;
   samdump2 = import ./samdump2;
+  kiro = ./kiro;
 }
