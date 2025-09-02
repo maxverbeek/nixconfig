@@ -23,7 +23,14 @@ in
     xdg = {
       autostart.enable = true;
       menus.enable = true;
-      mime.enable = true;
+      mime = {
+        enable = true;
+        # todo: migrate away from home manager
+        defaultApplications = {
+          "inode/directory" = [ "neovim-opener.desktop" ];
+          "text/plain" = [ "neovim-opener.desktop" ];
+        };
+      };
       icons.enable = true;
       portal = {
         enable = true;

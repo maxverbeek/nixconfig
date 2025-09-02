@@ -234,6 +234,7 @@
       # custom.responsively-app
       # custom.figma-linux
       custom.kiro
+      custom.neovim-opener-desktop
 
       unstable.nurl
       custom.samdump2
@@ -246,4 +247,5 @@
 
     ];
   };
+
 }

@@ -7,6 +7,7 @@
   responsively-app = ./responsively-app;
   figma-linux = ./figma-linux;
   neovim-ayu = ./neovim-ayu;
+  neovim-opener-desktop = ./neovim-opener-desktop;
   vim-pandoc-markdown-preview = ./vim-pandoc-markdown-preview;
   inherit (import ./vimPlugins) kanagawa-nvim dressing-nvim;
   nodePackages = import ./nodePackages;
