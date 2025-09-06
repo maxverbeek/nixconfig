@@ -143,6 +143,8 @@
       azure-cli
       binutils
       btop
+      bruno
+      bruno-cli
       code-cursor
       unstable.claude-code
       chromium
