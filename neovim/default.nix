@@ -38,12 +38,23 @@ let
     with vimPlugins;
     [
       # lazy-load plugins https://github.com/BirdeeHub/lze
-      (start lze)
+      lze
 
-      (opt guess-indent-nvim) # it's lazy-loaded in `lazy-loading.lua`
+      # style
+      kanagawa-nvim
+      dressing-nvim
+      fidget-nvim
+
+      # completion
+      blink-cmp
+      nvim-lspconfig
+
+      luasnip
+
+      # navigation
+      snacks-nvim
 
       nvim-treesitter.withAllGrammars
-      nvim-unception # run nvim from nvim terminal
     ];
 
   extraPackages = with final; [

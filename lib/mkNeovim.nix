@@ -1,4 +1,4 @@
-# Credit: github.com/shofel/nvim-on-nix -- a little copy pasta is better than a little dependency.
+# Credit: https://github.com/shofel/nvim-on-nix -- a little copy pasta is better than a little dependency.
 
 # Function for creating a Neovim derivation
 {
