@@ -53,8 +53,11 @@ let
 
       # navigation
       snacks-nvim
+      oil-nvim
+      fugitive
 
       nvim-treesitter.withAllGrammars
+      mini-nvim
     ];
 
   extraPackages = with final; [
