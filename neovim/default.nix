@@ -44,10 +44,12 @@ let
       kanagawa-nvim
       dressing-nvim
       fidget-nvim
+      nvim-web-devicons
 
       # completion
       blink-cmp
       nvim-lspconfig
+      nvim-ts-autotag
 
       luasnip
 

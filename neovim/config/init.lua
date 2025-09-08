@@ -14,8 +14,10 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 vim.opt.termguicolors = true
 vim.opt.mouse = "nvchr" -- mouse in all modes except insert
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
 vim.opt.title = true
 
 -- Set update time for cursorhold autocommand
@@ -38,6 +40,11 @@ vim.lsp.enable({
   "terraformls",
   "texlab",
   "ts_ls",
+})
+
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
 })
 
 -- lsp keymaps
