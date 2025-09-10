@@ -54,22 +54,32 @@ vim.keymap.set("n", "gd", snacks.picker.lsp_definitions)
 vim.keymap.set("n", "gr", snacks.picker.lsp_references)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
-vim.keymap.set("n", "g[", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "g]", vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+
+vim.cmd([[
+  augroup holddiagnostics
+    autocmd!
+    autocmd CursorHold * lua vim.diagnostic.open_float({ scope = "cursor", focusable = false })
+  augroup END
+]])
 
 -- file browse keymaps
-vim.keymap.set("n", "<Leader>ff", function()
+vim.keymap.set("n", "<Leader>fd", function()
   snacks.picker.files({ cmd = "rg" })
 end)
 
-vim.keymap.set("n", "<Leader>fg", function()
+vim.keymap.set("n", "<Leader>fs", function()
   snacks.picker.grep({ cmd = "rg" })
 end)
 
+
+vim.keymap.set("n", "<Leader>tt", snacks.picker.diagnostics)
 vim.keymap.set("n", "<Leader>fh", snacks.picker.help)
+vim.keymap.set("n", "<Leader>fb", snacks.picker.buffers)
 vim.keymap.set("n", "<Leader>fq", snacks.picker.qflist)
-vim.keymap.set("n", "<C-n>", snacks.explorer.reveal)
-vim.keymap.set("x", "<Leader>gb", snacks.gitbrowse.open)
+vim.keymap.set("n", "<Leader>n", snacks.explorer.reveal)
+vim.keymap.set({ "n", "x" }, "<Leader>gb", snacks.gitbrowse.open)
 
 -- base64 encode & decode with leader64 and leader46
 vim.keymap.set("v", "<leader>64", "c<c-r>=system('base64 --wrap 0', @\")<cr><esc>")
@@ -85,3 +95,21 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- yank to eol like D
 vim.keymap.set("n", "Y", "yg$")
+
+-- quickfix
+vim.keymap.set('n', '<leader>q', function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      qf_exists = true
+    end
+  end
+  if qf_exists == true then
+    vim.cmd "cclose"
+  else
+    vim.cmd "copen"
+  end
+end)
+
+vim.keymap.set('n', '<M-j>', "<cmd>:cnext<CR>")
+vim.keymap.set('n', '<M-k>', "<cmd>:cprev<CR>")
