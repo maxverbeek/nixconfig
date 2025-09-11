@@ -57,6 +57,8 @@ let
       snacks-nvim
       oil-nvim
       fugitive
+      gitsigns-nvim
+      diffview-nvim
 
       nvim-treesitter.withAllGrammars
       mini-nvim
