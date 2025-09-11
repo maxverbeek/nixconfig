@@ -81,6 +81,8 @@ vim.keymap.set("n", "<Leader>fq", snacks.picker.qflist)
 vim.keymap.set("n", "<Leader>n", snacks.explorer.reveal)
 vim.keymap.set({ "n", "x" }, "<Leader>gb", snacks.gitbrowse.open)
 
+vim.keymap.set("n", "-", ":Oil<CR>")
+
 -- base64 encode & decode with leader64 and leader46
 vim.keymap.set("v", "<leader>64", "c<c-r>=system('base64 --wrap 0', @\")<cr><esc>")
 vim.keymap.set("v", "<leader>46", "c<c-r>=system('base64 --decode', @\")<cr><esc>")
