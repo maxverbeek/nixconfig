@@ -14,6 +14,7 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 vim.opt.termguicolors = true
 vim.opt.mouse = "nvchr" -- mouse in all modes except insert
+vim.opt.textwidth = 120
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true

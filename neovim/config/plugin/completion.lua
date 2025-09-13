@@ -27,6 +27,10 @@ require("blink.cmp").setup({
     default = { "lsp", "path", "snippets", "buffer" },
   },
 
+  snippets = {
+    preset = "luasnip"
+  },
+
   appearance = {
     nerd_font_variant = "mono",
   },
