@@ -51,6 +51,7 @@ vim.diagnostic.config({
 -- lsp keymaps
 local snacks = require("snacks")
 
+vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "gd", snacks.picker.lsp_definitions)
 vim.keymap.set("n", "gr", snacks.picker.lsp_references)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)

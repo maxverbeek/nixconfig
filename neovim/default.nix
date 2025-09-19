@@ -52,6 +52,7 @@ let
       nvim-ts-autotag
 
       luasnip
+      conform-nvim
 
       # navigation
       snacks-nvim
