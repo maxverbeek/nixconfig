@@ -16,6 +16,9 @@ vim.opt.termguicolors = true
 vim.opt.mouse = "nvchr" -- mouse in all modes except insert
 vim.opt.textwidth = 120
 
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -56,8 +59,12 @@ vim.keymap.set("n", "gd", snacks.picker.lsp_definitions)
 vim.keymap.set("n", "gr", snacks.picker.lsp_references)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end)
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end)
 
 vim.cmd([[
   augroup holddiagnostics
@@ -75,9 +82,9 @@ vim.keymap.set("n", "<Leader>fs", function()
   snacks.picker.grep({ cmd = "rg" })
 end)
 
-
 vim.keymap.set("n", "<Leader>tt", snacks.picker.diagnostics)
 vim.keymap.set("n", "<Leader>fh", snacks.picker.help)
+vim.keymap.set("n", "<Leader>fp", snacks.picker.projects)
 vim.keymap.set("n", "<Leader>fb", snacks.picker.buffers)
 vim.keymap.set("n", "<Leader>fq", snacks.picker.qflist)
 vim.keymap.set("n", "<Leader>n", snacks.explorer.reveal)
@@ -101,7 +108,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "Y", "yg$")
 
 -- quickfix
-vim.keymap.set('n', '<leader>q', function()
+vim.keymap.set("n", "<leader>q", function()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win.quickfix == 1 then
@@ -109,11 +116,11 @@ vim.keymap.set('n', '<leader>q', function()
     end
   end
   if qf_exists == true then
-    vim.cmd "cclose"
+    vim.cmd("cclose")
   else
-    vim.cmd "copen"
+    vim.cmd("copen")
   end
 end)
 
-vim.keymap.set('n', '<M-j>', "<cmd>:cnext<CR>")
-vim.keymap.set('n', '<M-k>', "<cmd>:cprev<CR>")
+vim.keymap.set("n", "<M-j>", "<cmd>:cnext<CR>")
+vim.keymap.set("n", "<M-k>", "<cmd>:cprev<CR>")

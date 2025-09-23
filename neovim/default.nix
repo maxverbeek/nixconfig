@@ -62,6 +62,7 @@ let
       diffview-nvim
 
       nvim-treesitter.withAllGrammars
+      nvim-ts-context-commentstring
       mini-nvim
     ];
 

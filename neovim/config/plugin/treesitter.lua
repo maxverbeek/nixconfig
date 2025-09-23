@@ -62,3 +62,9 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
 })
+
+-- auto set comment string based on ts context
+require("ts_context_commentstring").setup({
+  enable = true,
+  enable_autocmd = false,
+})
