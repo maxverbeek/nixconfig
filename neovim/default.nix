@@ -69,6 +69,7 @@ let
   extraPackages = with final; [
     # language servers
     lua-language-server
+    nodePackages.yaml-language-server
   ];
 
   immutableConfig = ./config;
