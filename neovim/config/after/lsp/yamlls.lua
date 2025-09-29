@@ -1,6 +1,7 @@
 return {
   settings = {
     yaml = {
+      validate = false,
       schemas = {
         kubernetes = "{manifests,argo}/**/*.ya?ml",
         ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{ya?ml}",
