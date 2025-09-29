@@ -42,6 +42,8 @@ with lib;
         s = "status";
         cm = "commit -m";
         co = "checkout";
+        l = "pull --rebase";
+        lm = "pull";
         a = "add";
         # The !/*/ is a regex that excludes the literal '*' (current branch),
         # and /: gone/ includes branches that are gone on the remote.
@@ -53,6 +55,9 @@ with lib;
         mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy >&2'';
 
         gfp = "push --force-with-lease --force-if-includes";
+
+        sm = "!git switch master || git switch main";
+        sd = "!git switch develop || git switch development || git switch beta";
       };
     };
   };
