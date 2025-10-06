@@ -25,8 +25,10 @@
   # });
 
   modules.xwayland-satellite = {
-    enable = true;
+    enable = false;
     package = pkgs.unstable.xwayland-satellite.override { xwayland = pkgs.xwayland; };
     address = ":0";
   };
+
+  environment.systemPackages = [ pkgs.xwayland-satellite ];
 }
