@@ -54,6 +54,15 @@ final: prev: {
 
   pycustom.ecida = prev.python3.pkgs.callPackage ./ecida.nix { };
 
+  # FIXME: wait for upstream fix
+  slack = prev.slack.overrideAttrs (old: {
+    installPhase = old.installPhase + ''
+      # Patch the desktop entry to add Wayland flag
+      substituteInPlace $out/share/applications/slack.desktop \
+        --replace 'bin/slack -s' 'bin/slack -s --ozone-platform=wayland'
+    '';
+  });
+
   # cliphist = prev.cliphist.overrideAttrs (old: {
   #   postInstall = ''
   #     cp $src/contrib/cliphist-rofi-img $out/bin/cliphist-rofi-img
