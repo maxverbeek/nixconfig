@@ -77,6 +77,8 @@ in
         bindkey -M vicmd v edit-command-line
 
         eval "$(op completion zsh)"
+
+        eval "$(rbenv init - --no-rehash zsh)"
       '';
 
       shellAliases = {
@@ -87,6 +89,9 @@ in
         la = "ls -a";
         ld = "ls";
         ks = "ls";
+        gsm = "git sm";
+        gsd = "git sd";
+        gl = "git l";
         dc = "docker compose";
         ":q" = "exit";
         ":wq" = "exit";

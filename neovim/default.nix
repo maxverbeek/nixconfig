@@ -70,6 +70,7 @@ let
     # language servers
     lua-language-server
     nodePackages.yaml-language-server
+    ruby-lsp
   ];
 
   immutableConfig = ./config;

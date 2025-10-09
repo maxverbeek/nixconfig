@@ -194,6 +194,7 @@
       rsync
       rtorrent
       ruby
+      rbenv
       silver-searcher
       slack
       spotify

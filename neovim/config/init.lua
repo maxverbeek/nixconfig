@@ -17,6 +17,7 @@ vim.opt.mouse = "nvchr" -- mouse in all modes except insert
 vim.opt.textwidth = 120
 
 vim.opt.expandtab = true
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
 
 vim.opt.splitright = true
@@ -38,7 +39,7 @@ vim.lsp.enable({
   "ocamllsp",
   "pyright",
   "rust_analyzer",
-  "solargraph",
+  "ruby_lsp",
   "svelte",
   "tailwindcss",
   "terraformls",
