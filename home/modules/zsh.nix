@@ -77,8 +77,6 @@ in
         bindkey -M vicmd v edit-command-line
 
         eval "$(op completion zsh)"
-
-        eval "$(rbenv init - --no-rehash zsh)"
       '';
 
       shellAliases = {

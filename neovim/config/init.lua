@@ -31,7 +31,6 @@ vim.o.updatetime = 300
 vim.lsp.enable({
   "arduino_language_server",
   "clangd",
-  "elixirls",
   "gopls",
   "hls",
   "metals",

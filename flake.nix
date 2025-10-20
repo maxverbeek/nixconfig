@@ -6,6 +6,8 @@
     oldpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixpkgs-ruby.url = "github:bobvanderlinden/nixpkgs-ruby";
+
     # xtee try out thingy
     xtee.url = "github:maxverbeek/xtee";
 
@@ -29,6 +31,7 @@
       nixpkgs,
       oldpkgs,
       unstable,
+      nixpkgs-ruby,
       xtee,
       home-manager,
       flake-utils,
@@ -67,6 +70,11 @@
               inherit config;
             };
 
+            ruby-custom = import nixpkgs-ruby {
+              inherit (prev) system;
+              inherit config;
+            };
+
             zen-browser = zen-browser.packages.${prev.system};
           })
 
@@ -97,7 +105,8 @@
           home-manager.users.max.imports = [
             ./home/max.nix
             ./hosts/options.nix
-          ] ++ withModules;
+          ]
+          ++ withModules;
         };
 
       pin-flake-reg = {

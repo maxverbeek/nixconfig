@@ -193,8 +193,8 @@
       ripgrep
       rsync
       rtorrent
-      ruby
-      rbenv
+      # ruby
+      # rbenv
       silver-searcher
       slack
       spotify
