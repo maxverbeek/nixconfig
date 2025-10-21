@@ -36,7 +36,7 @@ vim.lsp.enable({
   "metals",
   "nil_ls",
   "ocamllsp",
-  "pyright",
+  "basedpyright",
   "rust_analyzer",
   "ruby_lsp",
   "svelte",

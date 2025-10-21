@@ -98,7 +98,7 @@ in
       unstable.texlab
       rust-analyzer
       gopls
-      pyright
+      basedpyright
       clang-tools
       terraform-ls
       metals
