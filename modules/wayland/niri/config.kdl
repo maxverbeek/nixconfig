@@ -120,6 +120,11 @@ output "Samsung Electric Company S34CG50 HNBXB00576" {
     mode "3440x1440@100.000"
 }
 
+// het vergrootte bureau links
+output "LG Electronics LG ULTRAWIDE 505NTYTDV466" {
+  mode "3440x1440@99.997"
+}
+
 switch-events {
     lid-close { spawn "swaylock" "-i" "~/Pictures/Backgrounds/blurred.png" "--inside-color" "1a1a2e" "--ring-color" "336699" "--text-color" "ffffff" "--key-hl-color" "ff0055" "--bs-hl-color" "007bff" "--inside-ver-color" "007bff" "--ring-ver-color" "007bff" "--inside-wrong-color" "ff0055" "--ring-wrong-color" "ff0055" "--separator-color" "00000000"; }
 }
