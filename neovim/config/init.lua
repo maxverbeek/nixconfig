@@ -34,6 +34,7 @@ vim.lsp.enable({
   "gopls",
   "hls",
   "metals",
+  "markdown_oxide",
   "nil_ls",
   "ocamllsp",
   "basedpyright",

@@ -85,6 +85,8 @@
     services.gpg-agent.enable = true;
     services.flameshot.enable = !config.device.hyprland.enable;
 
+    services.swww.enable = true;
+
     fonts.fontconfig = {
       enable = true;
       defaultFonts.serif = [ "Noto Serif" ];

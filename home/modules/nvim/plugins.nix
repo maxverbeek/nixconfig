@@ -102,6 +102,7 @@ in
       clang-tools
       terraform-ls
       metals
+      markdown-oxide
       ocamlPackages.ocaml-lsp
       haskell-language-server
     ];
