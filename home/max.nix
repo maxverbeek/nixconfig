@@ -170,6 +170,7 @@
       ijq # note 2 packages here
 
       just
+      killall
       kdePackages.dolphin
       kdePackages.okular
       kdePackages.kolourpaint
