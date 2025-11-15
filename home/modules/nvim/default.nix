@@ -57,7 +57,8 @@ in
     nvim
 
     # TODO: move
-    pkgs.unstable.nvim-immut
-    pkgs.unstable.nvim-mutable
-  ] ++ nvim.additionalPackages;
+    # pkgs.unstable.nvim-immut
+    pkgs.unstable.nvim-mut
+  ]
+  ++ nvim.additionalPackages;
 }

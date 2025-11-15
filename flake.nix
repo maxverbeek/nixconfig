@@ -14,11 +14,10 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    mnw.url = "github:Gerg-L/mnw";
+
     flake-utils.url = "github:numtide/flake-utils";
 
-    # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
-    # text2url.url = "github:maxverbeek/text2url";
-    # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
     ags.url = "github:maxverbeek/astalconfig";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -34,6 +33,7 @@
       nixpkgs-ruby,
       xtee,
       home-manager,
+      mnw,
       flake-utils,
       ags,
       zen-browser,
@@ -41,7 +41,6 @@
     }:
 
     let
-
       # config to extend nixpkgs. this needs to be applied as a module
       nixpkgsConfig = rec {
         config = {
@@ -62,7 +61,7 @@
 
               overlays = [
                 # neovim from nvim-on-nix overlay
-                (import ./neovim)
+                (import ./neovim { inherit mnw; })
               ];
             };
             oldpkgs = import oldpkgs {
@@ -88,7 +87,7 @@
           (import ./overlays)
 
           # neovim from nvim-on-nix overlay
-          (import ./neovim)
+          (import ./neovim { inherit mnw; })
         ];
       };
 
