@@ -96,6 +96,12 @@
     ];
   };
 
+  # enable via udev rules
+  services.udev.packages = [
+    pkgs.via
+    pkgs.qmk-udev-rules
+  ];
+
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "both";
