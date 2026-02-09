@@ -52,13 +52,18 @@ with lib;
         difflast = "diff HEAD^";
 
         # see: github.com/maxverbeek/xtee
-        mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy >&2'';
+        mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open >&2'';
 
         gfp = "push --force-with-lease --force-if-includes";
 
         sm = "!git switch master || git switch main";
         sd = "!git switch develop || git switch development || git switch beta";
       };
+
+      ignores = [
+        "**/.claude/settings.local.json"
+        ".direnv"
+      ];
     };
   };
 }

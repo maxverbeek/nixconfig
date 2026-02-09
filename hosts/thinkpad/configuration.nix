@@ -142,6 +142,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.clamav.daemon.enable = true;
+
   # Enable sound.
   services.pipewire = {
     enable = true;

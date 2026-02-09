@@ -57,11 +57,12 @@ let
       # navigation
       snacks-nvim
       oil-nvim
-      fugitive
+      vim-fugitive
       gitsigns-nvim
       diffview-nvim
 
       nvim-treesitter.withAllGrammars
+      nvim-treesitter-textobjects
       nvim-ts-context-commentstring
       mini-nvim
     ];

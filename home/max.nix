@@ -206,6 +206,7 @@
       unp
       unstable.teleport
       unstable.terraform
+      unstable.opentofu
       unzip
       vlc
       wget

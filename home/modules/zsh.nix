@@ -52,7 +52,6 @@ in
 
   config = lib.mkIf config.modules.zsh.enable {
     home.packages = with pkgs; [
-      thefuck
       secrand
       gitlabcivars
       jqd

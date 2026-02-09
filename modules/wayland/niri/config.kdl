@@ -125,6 +125,28 @@ output "LG Electronics LG ULTRAWIDE 505NTYTDV466" {
   mode "3440x1440@99.997"
 }
 
+// axtion
+output "Dell Inc. DELL P2419H JVWL3Q2" {
+  mode "1920x1080@60.000"
+  position x=1920 y=0
+}
+
+output "Dell Inc. DELL P2419H 8YML3Q2" {
+  mode "1920x1080@60.000"
+  position x=3840 y=0
+}
+
+output "Samsung Electric Company S34J55x HTRM700138" {
+  mode "3440x1440@49.987"
+  position x=1920 y=0
+}
+
+output "Philips Consumer Electronics Company PHL 243S7 UHB1937016962" {
+  mode "1920x1080@60.000"
+  position x=5360 y=0
+  transform "90"
+}
+
 switch-events {
     lid-close { spawn "swaylock" "-i" "~/Pictures/Backgrounds/blurred.png" "--inside-color" "1a1a2e" "--ring-color" "336699" "--text-color" "ffffff" "--key-hl-color" "ff0055" "--bs-hl-color" "007bff" "--inside-ver-color" "007bff" "--ring-ver-color" "007bff" "--inside-wrong-color" "ff0055" "--ring-wrong-color" "ff0055" "--separator-color" "00000000"; }
 }
@@ -535,6 +557,7 @@ binds {
     Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+R { switch-preset-column-width; }
+    Mod+T { toggle-column-tabbed-display; }
 
     // still experimetning with this
     Alt+1 { maximize-column; }
@@ -556,7 +579,7 @@ binds {
     // * set width in pixels: "1000"
     // * adjust width in pixels: "-5" or "+5"
     // * set width as a percentage of screen width: "25%"
-    // * adjust width as a percentage of screen width: "-10%" or "+10%"
+    // * adjust width as a percentage of Dell Inc. DELL P2419H JVWL3Q2screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
     Mod+Minus { set-column-width "-10%"; }
