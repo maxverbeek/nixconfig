@@ -22,6 +22,7 @@
       direnv.enable = true;
       playerctld.enable = true;
       codex.enable = true;
+      walker.enable = true;
 
       polkit.enable = true;
 
@@ -141,7 +142,7 @@
       air
       alsa-utils
       amazon-q-cli
-      unstable.argocd
+      argocd
       azure-cli
       binutils
       btop

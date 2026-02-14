@@ -21,6 +21,7 @@
     ./rstudio.nix
     ./screenlocker
     ./sxhkd.nix
+    ./walker.nix
     ./waybar
     ./vscode.nix
     ./zsh.nix

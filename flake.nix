@@ -2,7 +2,7 @@
   description = "Flakey flakes";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     oldpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -11,7 +11,7 @@
     # xtee try out thingy
     xtee.url = "github:maxverbeek/xtee";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -20,6 +20,13 @@
     # text2url.url = "github:maxverbeek/text2url";
     # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
     ags.url = "github:maxverbeek/astalconfig";
+
+    elephant.url = "github:abenz1267/elephant";
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +43,7 @@
       home-manager,
       flake-utils,
       ags,
+      walker,
       zen-browser,
       ...
     }:
@@ -50,9 +58,6 @@
         };
 
         overlays = [
-          # adds ags-max from my other repo
-          ags.overlays.default
-
           # adding custom packages/flakes to nixpkgs
           (final: prev: {
             custom = builtins.mapAttrs (n: d: final.callPackage d { }) (import ./packages);
@@ -76,6 +81,8 @@
             };
 
             zen-browser = zen-browser.packages.${prev.system};
+
+            agsmax = ags.packages.${prev.system}.default;
           })
 
           # packages from flakes
@@ -105,6 +112,7 @@
           home-manager.users.max.imports = [
             ./home/max.nix
             ./hosts/options.nix
+            walker.homeManagerModules.default
           ]
           ++ withModules;
         };
@@ -119,6 +127,14 @@
         nix.settings = {
           substituters = [ "https://hyprland.cachix.org" ];
           trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+          extra-substituters = [
+            "https://walker.cachix.org"
+            "https://walker-git.cachix.org"
+          ];
+          extra-trusted-public-keys = [
+            "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+            "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+          ];
         };
       };
 

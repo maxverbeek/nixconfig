@@ -71,20 +71,20 @@
   roles.printer.enable = true;
 
   # update ucm-conf without rebuilding literally everything that depends in some way on alsa
-  system.replaceDependencies.replacements = [
-    ({
-      original = pkgs.alsa-ucm-conf;
-      replacement = (
-        pkgs.alsa-ucm-conf.overrideAttrs (old: rec {
-          version = "1.2.10";
-          src = pkgs.fetchurl {
-            url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
-            hash = "sha256-nCHj8B/wC6p1jfF+hnzTbiTrtBpr7ElzfpkQXhbyrpc=";
-          };
-        })
-      );
-    })
-  ];
+  # system.replaceDependencies.replacements = [
+  #   ({
+  #     original = pkgs.alsa-ucm-conf;
+  #     replacement = (
+  #       pkgs.alsa-ucm-conf.overrideAttrs (old: rec {
+  #         version = "1.2.10";
+  #         src = pkgs.fetchurl {
+  #           url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
+  #           hash = "sha256-nCHj8B/wC6p1jfF+hnzTbiTrtBpr7ElzfpkQXhbyrpc=";
+  #         };
+  #       })
+  #     );
+  #   })
+  # ];
 
   services.resolved = {
     enable = true;
@@ -198,7 +198,7 @@
     roboto-mono
     source-code-pro
     terminus_font
-    ubuntu_font_family
+    ubuntu-classic
 
     nerd-fonts.jetbrains-mono
   ];

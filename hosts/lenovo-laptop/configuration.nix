@@ -207,7 +207,7 @@
     roboto-mono
     source-code-pro
     terminus_font
-    ubuntu_font_family
+    ubuntu-classic
 
     nerd-fonts.jetbrains-mono
   ];
