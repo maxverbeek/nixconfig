@@ -198,7 +198,7 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 12
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -206,7 +206,7 @@ layout {
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
-    center-focused-column "never"
+    center-focused-column "on-overflow"
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
@@ -243,7 +243,7 @@ layout {
         // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 4
+        width 2
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -251,10 +251,10 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        active-color "#7AA89F"
 
         // Color of the ring on inactive monitors.
-        inactive-color "#505050"
+        inactive-color "#54546D"
 
         // You can also use gradients. They take precedence over solid colors.
         // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
@@ -262,7 +262,7 @@ layout {
         // defaulting to 180 (top-to-bottom gradient).
         // You can use any CSS linear-gradient tool on the web to set these up.
         //
-        // active-gradient from="#80c8ff" to="#bbddff" angle=45
+        active-gradient from="#7FB4CA" to="#98BB6C" angle=120
 
         // You can also color the gradient relative to the entire view
         // of the workspace, rather than relative to just the window itself.
@@ -278,11 +278,20 @@ layout {
         off
 
         width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        active-color "#E6C384"
+        inactive-color "#54546D"
 
         // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#00000070"
+        inactive-color "#00000050"
     }
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -339,6 +348,17 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^foot$"#
     default-column-width { proportion 0.33333; }
+
+}
+
+// rounded corner rules
+window-rule {
+    match app-id=r#"^foot$"#
+    match app-id="firefox$" title="^Picture-in-Picture$"
+    match app-id="1password"
+
+    clip-to-geometry true
+    geometry-corner-radius 8
 }
 
 window-rule {
@@ -369,6 +389,24 @@ window-rule {
 
     // Use this instead if you want them visible on third-party screenshot tools.
     block-out-from "screencast"
+}
+
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        width 2
+        active-color "#FF9E3B"
+    }
+
+    shadow {
+        on
+        softness 20
+        spread 2
+        offset x=0 y=0
+        color "#FF9E3B50"
+        inactive-color "#FF9E3B"
+    }
 }
 
 binds {
@@ -573,6 +611,7 @@ binds {
     Mod+Escape { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
     Mod+C { center-column; }
 
     // Finer width adjustments.
@@ -601,6 +640,9 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+
+    Mod+Ctrl+S { set-dynamic-cast-monitor; }
+    Mod+Shift+S { set-dynamic-cast-window; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }

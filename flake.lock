@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1771081990,
-        "narHash": "sha256-7rCUDFceQFh/2Vl8ljb7gORHt0O9a1+jIZdCX8/xtCs=",
+        "lastModified": 1771165583,
+        "narHash": "sha256-spU0hEwRm1G7kpLAhviAPh6cYTvayjYFSZqxlQhmskA=",
         "owner": "maxverbeek",
         "repo": "astalconfig",
-        "rev": "4342d8363699812c0c916242527c8fdcc9bb25e3",
+        "rev": "6aa050873e74e9b58a6b9c5be9e441a4c0491592",
         "type": "github"
       },
       "original": {
