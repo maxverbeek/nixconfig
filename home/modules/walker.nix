@@ -42,6 +42,15 @@ in
             "F3"
           ];
 
+          next = [
+            "Down"
+            "ctrl j"
+          ];
+          previous = [
+            "Up"
+            "ctrl k"
+          ];
+
           left = [
             "Left"
             "ctrl h"
