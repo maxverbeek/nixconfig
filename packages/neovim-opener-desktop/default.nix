@@ -3,7 +3,7 @@
 let
   nvimDesktopItem = pkgs.makeDesktopItem {
     name = "neovim-opener";
-    exec = "${pkgs.foot}/bin/foot -e nvim %F";
+    exec = "${pkgs.foot}/bin/foot -e nv %F";
     icon = "nvim";
     desktopName = "Open in Neovim";
     comment = "Edit files and folders in Neovim inside a terminal";

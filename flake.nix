@@ -153,13 +153,20 @@
         # hyprland.homeManagerModules.default
       ];
 
-      eachSystemExport = flake-utils.lib.eachDefaultSystem (system: {
-        packages =
-          (import nixpkgs {
+      eachSystemExport = flake-utils.lib.eachDefaultSystem (
+        system:
+        let
+          pkgs = import nixpkgs {
             inherit system;
             inherit (nixpkgsConfig) config overlays;
-          }).custom;
-      });
+          };
+        in
+        {
+          packages = pkgs.custom;
+
+          devShells.default = import ./shell.nix { inherit pkgs; };
+        }
+      );
     in
     {
       templates = import ./templates;

@@ -88,7 +88,8 @@ in
       codex
       llm
       gemini
-      opencode
+      # opencode
+      cfg.opencodePackage
     ];
   };
 }

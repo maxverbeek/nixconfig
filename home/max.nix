@@ -149,7 +149,10 @@
       bruno
       bruno-cli
       code-cursor
+
       unstable.claude-code
+      unstable.claude-code-acp
+
       chromium
       clockify
       cht-sh
@@ -163,6 +166,7 @@
       glab
       gimp
       gnumake
+      hcloud
       htop
       httpie
       inkscape

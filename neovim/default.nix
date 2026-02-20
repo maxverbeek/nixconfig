@@ -51,6 +51,9 @@ let
       nvim-lspconfig
       nvim-ts-autotag
 
+      # AI
+      codecompanion-nvim
+
       luasnip
       conform-nvim
 
