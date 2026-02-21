@@ -53,6 +53,8 @@ with lib;
 
         # see: github.com/maxverbeek/xtee
         mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open >&2'';
+        mpr = ''!f() { git push -o merge_request.create -o "merge_request.description=/assign_reviewer @$1" 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open >&2; }; f'';
+        mprf = ''!f() { reviewer=$(gitlab-reviewer | fzf --with-nth=1 --delimiter=$'\t' | cut -f2) || return; [ -n "$reviewer" ] && git mpr "$reviewer"; }; f'';
 
         gfp = "push --force-with-lease --force-if-includes";
 

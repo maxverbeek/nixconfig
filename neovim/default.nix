@@ -74,6 +74,8 @@ let
     # language servers
     lua-language-server
     nodePackages.yaml-language-server
+
+    gitlab-reviewer
   ];
 
   immutableConfig = ./config;

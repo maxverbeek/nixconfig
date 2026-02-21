@@ -163,6 +163,7 @@
       file
       (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { })
       gcc
+      gitlab-reviewer
       glab
       gimp
       gnumake

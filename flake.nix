@@ -11,6 +11,8 @@
     # xtee try out thingy
     xtee.url = "github:maxverbeek/xtee";
 
+    gitlab-reviewer.url = "github:maxverbeek/gitlab-reviewer";
+
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -40,6 +42,7 @@
       unstable,
       nixpkgs-ruby,
       xtee,
+      gitlab-reviewer,
       home-manager,
       flake-utils,
       ags,
@@ -49,6 +52,11 @@
     }:
 
     let
+
+      sharedOverlays = [
+        gitlab-reviewer.overlays.default
+        (import ./neovim)
+      ];
 
       # config to extend nixpkgs. this needs to be applied as a module
       nixpkgsConfig = rec {
@@ -64,11 +72,7 @@
             unstable = import unstable {
               inherit (prev) system;
               inherit config;
-
-              overlays = [
-                # neovim from nvim-on-nix overlay
-                (import ./neovim)
-              ];
+              overlays = sharedOverlays;
             };
             oldpkgs = import oldpkgs {
               inherit (prev) system;
@@ -93,10 +97,8 @@
 
           # for any package version overrides
           (import ./overlays)
-
-          # neovim from nvim-on-nix overlay
-          (import ./neovim)
-        ];
+        ]
+        ++ sharedOverlays;
       };
 
       # modules to configure nixos
