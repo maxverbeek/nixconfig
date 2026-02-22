@@ -7,4 +7,6 @@
   # e.g. flake.modules.homeManager.desktop = { pkgs, ... }: { home.packages = [ htop ]; }
   # e.g. flake.modules.nixvim.desktop = { pkgs, ... }: { ... some nixvim settings ... } except i don't use nixvim
   imports = [ inputs.flake-parts.flakeModules.modules ];
+
+  systems = [ "x86_64-linux" ];
 }
