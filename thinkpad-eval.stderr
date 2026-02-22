@@ -1,0 +1,50 @@
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+evaluation warning: nixfmt-rfc-style is now the same as pkgs.nixfmt which should be used instead.
+trace: Obsolete option `programs.exa.enable' is used. It was renamed to `programs.eza.enable'.
+trace: Obsolete option `programs.wpaperd.enable' is used. It was renamed to `services.wpaperd.enable'.
+trace: Obsolete option `programs.info.enable' is used. It was renamed to `documentation.info.enable'.
+trace: Obsolete option `programs.man.enable' is used. It was renamed to `documentation.man.enable'.
+trace: Obsolete option `programs.river.enable' is used. It was renamed to `programs.river-classic.enable'.
+trace: Obsolete option `programs.unity3d.enable' is used. It was renamed to `security.chromiumSuidSandbox.enable'.
+trace: Obsolete option `programs.x2goserver' is used. It was renamed to `services.x2goserver'.
+trace: Obsolete option `services.resolved.fallbackDns' is used. It was renamed to `services.resolved.settings.Resolve.FallbackDNS'.
+trace: Obsolete option `services.bitwarden_rs' is used. It was renamed to `services.vaultwarden'.
+trace: Obsolete option `services.codimd' is used. It was renamed to `services.hedgedoc'.
+trace: Obsolete option `services.dleyna-renderer' is used. It was renamed to `services.dleyna'.
+trace: Obsolete option `services.dleyna-server' is used. It was renamed to `services.dleyna'.
+trace: Obsolete option `services.dnscrypt-proxy2' is used. It was renamed to `services.dnscrypt-proxy'.
+trace: Obsolete option `services.foldingAtHome' is used. It was renamed to `services.foldingathome'.
+trace: Obsolete option `services.hbase' is used. It was renamed to `services.hbase-standalone'.
+trace: Obsolete option `services.iodined.enable' is used. It was renamed to `services.iodine.server.enable'.
+trace: Obsolete option `services.ipfs.enable' is used. It was renamed to `services.kubo.enable'.
+trace: Obsolete option `services.libreddit' is used. It was renamed to `services.redlib'.
+trace: Obsolete option `services.localtime' is used. It was renamed to `services.localtimed'.
+trace: Obsolete option `services.mingetty' is used. It was renamed to `services.getty'.
+trace: Obsolete option `services.nixosManual.enable' is used. It was renamed to `documentation.nixos.enable'.
+trace: Obsolete option `services.oauth2_proxy' is used. It was renamed to `services.oauth2-proxy'.
+trace: Obsolete option `services.paperless-ng' is used. It was renamed to `services.paperless'.
+trace: Obsolete option `services.pds.enable' is used. It was renamed to `services.bluesky-pds.enable'.
+trace: Obsolete option `services.piwik.enable' is used. It was renamed to `services.matomo.enable'.
+trace: Obsolete option `services.plexpy' is used. It was renamed to `services.tautulli'.
+trace: Obsolete option `services.prometheus2' is used. It was renamed to `services.prometheus'.
+trace: Obsolete option `services.redis.enable' is used. It was renamed to `services.redis.servers."".enable'.
+error:
+       … while evaluating attribute 'services'
+         at /home/max/dendritic/render-old-config.nix:349:3:
+          348|
+          349|   services = filterEnabled cfg.services;
+             |   ^
+          350|
+
+       … while calling the 'listToAttrs' builtin
+         at /home/max/dendritic/render-old-config.nix:274:5:
+          273|     attrs:
+          274|     builtins.listToAttrs (
+             |     ^
+          275|       builtins.concatMap (
+
+       … while evaluating the option `services.redis.enable':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: evaluation aborted with the following error message: 'Renaming error: option `services.redis.servers."".enable' does not exist.'
