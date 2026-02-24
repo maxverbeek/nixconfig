@@ -38,6 +38,7 @@ let
       # packages from flakes
       (final: prev: {
         xtee = inputs.xtee.packages.${prev.system}.default;
+        opencode = inputs.opencode.packages.${prev.system}.opencode;
       })
 
       # version overrides

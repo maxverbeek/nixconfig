@@ -13,16 +13,6 @@
         exec ${pkgs.custom.nodePackages."@openai/codex"}/bin/codex "$@"
       '';
 
-      opencode = pkgs.writeShellScriptBin "opencode" ''
-        if [[ $PWD =~ "Researchable/legal-mike" ]]; then
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
-        else
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key")
-        fi
-
-        exec ${pkgs.unstable.opencode}/bin/opencode "$@"
-      '';
-
       gemini = pkgs.writeShellScriptBin "gemini" ''
         export GEMINI_API_KEY=$(<"$HOME/.gemini_key")
 
@@ -61,7 +51,7 @@
         codex
         llm
         gemini
-        pkgs.unstable.opencode
+        pkgs.opencode
       ];
     };
 }
