@@ -9,29 +9,15 @@
       # Nixpkgs configuration (overlays, allowUnfree)
       { nixpkgs = config.flake.lib.nixpkgsConfig; }
 
-      # Flake registry + cachix
-      config.flake.modules.nixos.registry
-      config.flake.modules.nixos.cachix
-
       # User "max" (includes home-manager wiring)
       config.flake.modules.nixos.max
 
-      # Base archetype
+      # Archetypes
       config.flake.modules.nixos.base
-      config.flake.modules.nixos.nix
-      config.flake.modules.nixos.shell
-      config.flake.modules.nixos.bluetooth
-      config.flake.modules.nixos.pipewire
-      config.flake.modules.nixos.onepassword
-      config.flake.modules.nixos.docker
-      config.flake.modules.nixos.kvm
-      config.flake.modules.nixos.fonts
-
-      # Headful archetype
       config.flake.modules.nixos.headful
-      config.flake.modules.nixos.niri
-      config.flake.modules.nixos.greeter
-      config.flake.modules.nixos.xwayland-satellite
+
+      # Host-specific modules with enable options
+      config.flake.modules.nixos.kvm
       config.flake.modules.nixos.nvidia
 
       # Hardware
@@ -75,9 +61,6 @@
           hardware.graphics.enable = true;
 
           # Services
-          services.upower.enable = true;
-          services.gvfs.enable = true;
-
           services.xserver = {
             enable = true;
             xkb = {

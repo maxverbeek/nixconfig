@@ -1,7 +1,6 @@
 { ... }:
 {
-  # Home-manager: development packages (compilers, CLIs, language servers, etc.)
-  flake.modules.homeManager.devpackages =
+  flake.modules.homeManager.dev-packages =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

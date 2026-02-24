@@ -1,5 +1,12 @@
 { ... }:
 {
+  flake.modules.nixos.ags =
+    { ... }:
+    {
+      services.upower.enable = true;
+      services.gvfs.enable = true;
+    };
+
   flake.modules.homeManager.ags =
     { pkgs, ... }:
     {

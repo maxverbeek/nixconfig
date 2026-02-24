@@ -63,6 +63,8 @@
 
       services.greetd.enable = config.programs.regreet.enable;
 
+      services.dbus.packages = [ pkgs.gcr ];
+
       security.rtkit.enable = true;
       security.pam.services.swaylock = { };
     };

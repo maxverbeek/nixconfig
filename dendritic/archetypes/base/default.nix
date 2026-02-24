@@ -1,18 +1,21 @@
-{ ... }:
+{ config, ... }:
 {
-  # The base archetype is composed entirely from the individual modules in this directory.
-  # import-tree automatically discovers all .nix files here.
-  #
-  # Hosts that use the base archetype should include:
-  #   config.flake.modules.nixos.base
-  #   config.flake.modules.homeManager.base
-  #
-  # This file defines the composite modules that aggregate the individual features.
-
   flake.modules.nixos.base =
-    { pkgs, lib, ... }:
+    { ... }:
     {
-      # Common system settings shared by all hosts
+      imports = with config.flake.modules.nixos; [
+        _1password
+        bluetooth
+        cachix
+        docker
+        fonts
+        nix-config
+        pipewire
+        printer
+        registry
+        shell
+      ];
+
       i18n.defaultLocale = "en_US.UTF-8";
       time.timeZone = "Europe/Amsterdam";
 
@@ -22,8 +25,16 @@
       };
     };
 
-  flake.modules.homeManager.base = {
-    # Base home-manager settings shared by all hosts
-    programs.man.enable = true;
-  };
+  flake.modules.homeManager.base =
+    { ... }:
+    {
+      imports = with config.flake.modules.homeManager; [
+        gtk
+        shell
+        ssh
+        terminal
+      ];
+
+      programs.man.enable = true;
+    };
 }

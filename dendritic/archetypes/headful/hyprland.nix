@@ -1,6 +1,14 @@
 { ... }:
 {
-  # Home-manager: hyprland session tools (clipboard, screenshots, wayland utils)
+  flake.modules.nixos.hyprland =
+    { pkgs, ... }:
+    {
+      programs.hyprland = {
+        enable = true;
+        package = pkgs.unstable.hyprland;
+      };
+    };
+
   flake.modules.homeManager.hyprland =
     { pkgs, ... }:
     let

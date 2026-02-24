@@ -1,11 +1,11 @@
 { ... }:
 {
-  # NixOS: docker + KVM/libvirtd with option flags
   flake.modules.nixos.docker = {
     virtualisation.docker.enable = true;
     users.users.max.extraGroups = [ "docker" ];
   };
 
+  # KVM stays as its own named module (toggled per-host via modules.kvm2.enable)
   flake.modules.nixos.kvm =
     {
       pkgs,

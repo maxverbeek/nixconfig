@@ -1,5 +1,6 @@
 { ... }:
 {
+  # Fingerprint stays as its own named module (toggled per-host via modules.fingerprint.enable)
   flake.modules.nixos.fingerprint =
     {
       pkgs,

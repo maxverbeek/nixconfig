@@ -1,12 +1,12 @@
-{ ... }:
+{ config, ... }:
 {
-  # The portable archetype represents laptop-specific features:
-  # battery, brightness, TLP, fingerprint, etc.
-  # Individual features are in separate files.
-
   flake.modules.nixos.portable =
-    { pkgs, ... }:
+    { ... }:
     {
+      imports = with config.flake.modules.nixos; [
+        tlp
+      ];
+
       # Battery monitoring
       services.upower.enable = true;
 

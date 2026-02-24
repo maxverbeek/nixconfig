@@ -1,6 +1,5 @@
 { ... }:
 {
-  # Home-manager: i3 window manager (legacy X11)
   flake.modules.homeManager.i3 =
     {
       config,

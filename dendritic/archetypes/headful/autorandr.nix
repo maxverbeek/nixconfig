@@ -1,6 +1,5 @@
 { ... }:
 {
-  # Home-manager: autorandr monitor profiles (X11 legacy)
   flake.modules.homeManager.autorandr =
     {
       pkgs,

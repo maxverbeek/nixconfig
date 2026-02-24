@@ -1,6 +1,5 @@
 { ... }:
 {
-  # Home-manager: foot + alacritty terminal configuration with kanagawa colors
   flake.modules.homeManager.terminal =
     { pkgs, config, ... }:
     {

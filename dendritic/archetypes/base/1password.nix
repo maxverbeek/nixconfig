@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.onepassword =
+  flake.modules.nixos._1password =
     { pkgs, ... }:
     {
       programs._1password.enable = true;

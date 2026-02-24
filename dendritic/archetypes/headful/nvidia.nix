@@ -1,6 +1,6 @@
 { ... }:
 {
-  # NixOS: nvidia driver config, conditional on specialArgs.nvidia
+  # NixOS: nvidia driver config — keeps its own name (conditional on specialArgs.nvidia)
   flake.modules.nixos.nvidia =
     {
       pkgs,

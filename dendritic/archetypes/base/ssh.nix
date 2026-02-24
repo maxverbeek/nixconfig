@@ -1,6 +1,5 @@
 { ... }:
 {
-  # Home-manager: SSH + GPG config
   flake.modules.homeManager.ssh = {
     programs.ssh = {
       enable = true;

@@ -1,6 +1,5 @@
 { ... }:
 {
-  # NixOS: system-level zsh + user shell
   flake.modules.nixos.shell =
     { pkgs, ... }:
     {
@@ -13,7 +12,6 @@
       users.users.max.shell = pkgs.zsh;
     };
 
-  # Home-manager: zsh config with vi-mode, starship, fzf, aliases
   flake.modules.homeManager.shell =
     { pkgs, ... }:
     let

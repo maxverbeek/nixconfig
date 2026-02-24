@@ -1,49 +1,21 @@
 { ... }:
 {
-  # NixOS module for niri tiling window manager
   flake.modules.nixos.niri =
+    { pkgs, ... }:
     {
-      pkgs,
-      lib,
-      config,
-      ...
-    }:
-    let
-      cfg = config.modules.niri;
-    in
-    {
-      options.modules.niri = {
-        enable = lib.mkEnableOption "Enable Niri tiling window manager";
-        package = lib.mkPackageOption pkgs "niri" { extraDescription = "Which package to use for Niri"; };
-      };
+      # Niri
+      environment.systemPackages = [
+        pkgs.niri
+        pkgs.xwayland-satellite
+      ];
 
-      config = lib.mkIf cfg.enable {
-        environment.systemPackages = [ cfg.package ];
-        services.displayManager.sessionPackages = [ cfg.package ];
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-        xdg = {
-          autostart.enable = true;
-          menus.enable = true;
-          mime = {
-            enable = true;
-            defaultApplications = {
-              "inode/directory" = [ "neovim-opener.desktop" ];
-              "text/plain" = [ "neovim-opener.desktop" ];
-            };
-          };
-          icons.enable = true;
-          portal = {
-            enable = true;
-            extraPortals = [
-              pkgs.xdg-desktop-portal-gnome
-              pkgs.xdg-desktop-portal-gtk
-            ];
-          };
-        };
-      };
+      services.displayManager.sessionPackages = [ pkgs.niri ];
+
     };
 
-  # Home-manager: niri config symlink
+  # Home-manager: niri config symlink — contributes to headful
   flake.modules.homeManager.niri =
     { config, ... }:
     {

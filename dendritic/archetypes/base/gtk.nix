@@ -1,6 +1,5 @@
 { ... }:
 {
-  # Home-manager: GTK theme, icons, fontconfig
   flake.modules.homeManager.gtk =
     { pkgs, ... }:
     {
