@@ -13,6 +13,9 @@
       # Brightness control
       programs.light.enable = true;
 
+      # Input device access
+      users.users.max.extraGroups = [ "input" ];
+
       # Touchpad support
       services.libinput = {
         enable = true;

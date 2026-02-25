@@ -4,14 +4,8 @@
     { ... }:
     {
       imports = with config.flake.modules.nixos; [
-        _1password
-        bluetooth
-        cachix
-        docker
-        fonts
+        locale
         nix-config
-        pipewire
-        printer
         registry
         shell
       ];
@@ -21,7 +15,6 @@
     { ... }:
     {
       imports = with config.flake.modules.homeManager; [
-        gtk
         shell
         ssh
         terminal

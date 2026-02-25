@@ -7,11 +7,16 @@
         # User "max" (includes home-manager wiring)
         config.flake.modules.nixos.max
 
-        # Archetypes
+        # Roles
         config.flake.modules.nixos.base
+        config.flake.modules.nixos.networked
+        config.flake.modules.nixos.multimedia
+        config.flake.modules.nixos.personal
         config.flake.modules.nixos.headful
+        config.flake.modules.nixos.development
+        config.flake.modules.nixos.docker
 
-        # Host-specific modules with enable options
+        # Host-specific modules
         config.flake.modules.nixos.kvm
         config.flake.modules.nixos.nvidia
 
@@ -31,13 +36,6 @@
       # Networking
       networking.hostName = "desknix";
       networking.hostId = "aa111111";
-      networking.networkmanager.enable = true;
-      networking.nameservers = [
-        "1.1.1.1"
-        "1.0.0.1"
-        "2606:4700:4700::1111"
-        "2606:4700:4700::1001"
-      ];
       networking.extraHosts = ''
         127.0.0.1 keycloak
       '';
@@ -52,36 +50,21 @@
       hardware.cpu.intel.updateMicrocode = true;
       hardware.graphics.enable = true;
 
-      # Services
+      # X server (keyboard config)
       services.xserver = {
         enable = true;
         xkb = {
           layout = "us";
           options = "eurosign:e";
         };
-        videoDrivers = [ "nvidia" ];
         autoRepeatDelay = 250;
         autoRepeatInterval = 50;
       };
 
-      services.printing.enable = true;
       services.gnome.gnome-keyring.enable = true;
 
       # Docker
       virtualisation.docker.storageDriver = "overlay2";
-
-      # Custom modules
-      modules.kvm2.enable = true;
-      modules.kvm2.home.minikube.enable = true;
-
-      # Extra system packages
-      environment.systemPackages = with pkgs; [
-        git
-        killall
-        vim
-        nodejs
-        yarn
-      ];
 
       system.stateVersion = "21.05";
     };

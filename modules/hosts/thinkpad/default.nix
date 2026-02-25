@@ -10,12 +10,20 @@
         # User "max" (includes home-manager wiring)
         config.flake.modules.nixos.max
 
-        # Archetypes
+        # Roles
         config.flake.modules.nixos.base
+        config.flake.modules.nixos.networked
+        config.flake.modules.nixos.multimedia
+        config.flake.modules.nixos.personal
         config.flake.modules.nixos.headful
+        config.flake.modules.nixos.development
+        config.flake.modules.nixos.docker
         config.flake.modules.nixos.portable
+        config.flake.modules.nixos.gaming
 
-        # Host-specific modules with enable options
+        # Host-specific modules
+        config.flake.modules.nixos.clamav
+        config.flake.modules.nixos.keyboards
         config.flake.modules.nixos.kvm
         config.flake.modules.nixos.nvidia
         config.flake.modules.nixos.fingerprint
@@ -24,7 +32,6 @@
         ./_hardware-configuration.nix
       ];
 
-      # Host-specific configuration
       # Boot
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -37,7 +44,6 @@
 
       # Networking
       networking.hostName = "thinkpad";
-      networking.networkmanager.enable = true;
       networking.firewall.allowedTCPPorts = [
         3000
         3100
@@ -47,12 +53,6 @@
       networking.extraHosts = ''
         49.12.21.124 retriever.dev.legalmike.ai
         127.0.0.1 keycloak
-      '';
-
-      # Allow docker bridge traffic
-      networking.firewall.extraCommands = ''
-        iptables -I INPUT 1 -s 172.16.0.0/12 -p tcp -d 172.17.0.1 -j ACCEPT
-        iptables -I INPUT 2 -s 172.16.0.0/12 -p udp -d 172.17.0.1 -j ACCEPT
       '';
 
       # Hardware
@@ -67,45 +67,6 @@
 
       # Pipewire (unstable for better hardware support)
       services.pipewire.package = pkgs.unstable.pipewire;
-      services.pipewire.enable = true;
-      services.pipewire.audio.enable = true;
-      services.pipewire.alsa.enable = true;
-
-      # DNS
-      services.resolved = {
-        enable = true;
-        fallbackDns = [
-          "1.1.1.1"
-          "1.0.0.1"
-          "2606:4700:4700::1111"
-          "2606:4700:4700::1001"
-        ];
-      };
-
-      # Udev rules for keyboards
-      services.udev.packages = [
-        pkgs.via
-        pkgs.qmk-udev-rules
-      ];
-
-      # Docker with buildx
-      virtualisation.docker.package = pkgs.unstable.docker.override { buildxSupport = true; };
-
-      # Custom modules
-      modules.kvm2.enable = true;
-      modules.kvm2.home.minikube.enable = true;
-      modules.fingerprint.enable = true;
-
-      # ClamAV
-      services.clamav.daemon.enable = true;
-
-      # Steam
-      programs.steam.enable = true;
-      environment.systemPackages = with pkgs; [
-        alsa-ucm-conf
-        steamcmd
-        steam-tui
-      ];
 
       system.stateVersion = "24.11";
     };

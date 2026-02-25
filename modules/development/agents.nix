@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.codex =
+  flake.modules.homeManager.agents =
     { pkgs, ... }:
     let
       codex = pkgs.writeShellScriptBin "codex" ''

@@ -1,7 +1,7 @@
 { inputs, config, ... }:
 {
   # NixOS module for user "max"
-  # This wires home-manager and composes HM archetype modules.
+  # This wires home-manager and composes HM role modules.
   flake.modules.nixos.max =
     { pkgs, ... }:
     {
@@ -16,6 +16,7 @@
           imports = with config.flake.modules.homeManager; [
             base
             headful
+            personal
             development
           ];
 
@@ -32,13 +33,6 @@
         isNormalUser = true;
         extraGroups = [
           "wheel"
-          "networkmanager"
-          "plugdev"
-          "dialout"
-          "input"
-          "video"
-          "audio"
-          "adbusers"
         ];
       };
     };

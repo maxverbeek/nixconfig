@@ -5,11 +5,15 @@
     {
       imports = with config.flake.modules.nixos; [
         ags
+        fonts
         greeter
+        networkmanager
         # hyprland
         niri
         xdg
       ];
+
+      users.users.max.extraGroups = [ "video" ];
     };
 
   flake.modules.homeManager.headful =

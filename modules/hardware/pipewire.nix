@@ -32,5 +32,7 @@
       };
 
       services.pulseaudio.enable = lib.mkForce false;
+
+      users.users.max.extraGroups = [ "audio" ];
     };
 }
