@@ -1,3 +1,6 @@
 # nixos-rebuild test
 result
 .aider*
+
+# Generated config snapshots for migration comparison
+old-*.json
