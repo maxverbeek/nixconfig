@@ -19,7 +19,7 @@
       users.users.max.extraGroups = [ "libvirtd" ];
     };
 
-  flake.modules.homeMangager.kvm =
+  flake.modules.homeManager.kvm =
     { pkgs, ... }:
     {
       home.file.".minikube/bin/docker-machine-driver-kvm2".source =

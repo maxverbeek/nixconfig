@@ -25,7 +25,6 @@
         config.flake.modules.nixos.clamav
         config.flake.modules.nixos.keyboards
         config.flake.modules.nixos.kvm
-        config.flake.modules.nixos.nvidia
         config.flake.modules.nixos.fingerprint
 
         # Hardware

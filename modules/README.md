@@ -42,10 +42,10 @@ hosts -> roles -> modules
 Safe for any NixOS machine, including headless servers and VPSs. Contains only
 what you would expect from a freshly installed system with your Nix preferences.
 
-| Layer | Modules |
-|---|---|
-| **NixOS** | `locale`, `nix-config`, `registry`, `shell` |
-| **Home-Manager** | `shell`, `ssh`, `terminal` |
+| Layer            | Modules                                     |
+|------------------|---------------------------------------------|
+| **NixOS**        | `locale`, `nix-config`, `registry`, `shell` |
+| **Home-Manager** | `shell`, `ssh`, `terminal`                  |
 
 **What it provides:** Nix daemon config (flakes, nix-ld, nh), locale/timezone,
 Zsh shell, nix registry entries, SSH host configs, terminal emulator configs.
@@ -56,8 +56,8 @@ For any machine on a network. Sets up DNS resolution and firewall defaults.
 Does **not** choose a network backend (NetworkManager vs systemd-networkd) --
 that is determined by other roles or host config.
 
-| Layer | Config |
-|---|---|
+| Layer     | Config                                                                             |
+|-----------|------------------------------------------------------------------------------------|
 | **NixOS** | `services.resolved` (Cloudflare fallback DNS), `networking.firewall.enable = true` |
 
 ### `headful` -- Graphical desktop
@@ -65,9 +65,9 @@ that is determined by other roles or host config.
 Everything needed for an interactive graphical session: compositor, display
 manager, fonts, NetworkManager, application launchers, status bar.
 
-| Layer | Modules |
-|---|---|
-| **NixOS** | `ags`, `fonts`, `greeter`, `networkmanager`, `niri`, `xdg` |
+| Layer            | Modules                                                                                               |
+|------------------|-------------------------------------------------------------------------------------------------------|
+| **NixOS**        | `ags`, `fonts`, `greeter`, `networkmanager`, `niri`, `xdg`                                            |
 | **Home-Manager** | `ags`, `hyprland`, `niri`, `playerctld`, `polkit`, `rofi`, `screenlocker`, `swww`, `walker`, `waybar` |
 
 **Groups:** `video`
@@ -78,8 +78,8 @@ PipeWire audio stack and Bluetooth support. Separated from `headful` because
 a graphical machine might not need audio (e.g. a kiosk), and a server might
 want Bluetooth for specific hardware.
 
-| Layer | Modules |
-|---|---|
+| Layer     | Modules                 |
+|-----------|-------------------------|
 | **NixOS** | `bluetooth`, `pipewire` |
 
 **Groups:** `audio` (via pipewire), `bluetooth` (via bluetooth)
@@ -89,10 +89,10 @@ want Bluetooth for specific hardware.
 Personal desktop preferences that don't belong on shared or work
 infrastructure: password manager, printer support, Cachix caches, GTK theme.
 
-| Layer | Modules |
-|---|---|
-| **NixOS** | `_1password`, `cachix`, `printer` |
-| **Home-Manager** | `gtk` |
+| Layer            | Modules                           |
+|------------------|-----------------------------------|
+| **NixOS**        | `_1password`, `cachix`, `printer` |
+| **Home-Manager** | `gtk`                             |
 
 ### `portable` -- Laptop power and input
 
