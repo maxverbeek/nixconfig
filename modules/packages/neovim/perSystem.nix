@@ -53,7 +53,7 @@
 
       immutableConfig = ./config;
 
-      outOfStoreConfig = "/home/max/dendritic/modules/packages/neovim/config";
+      outOfStoreConfig = "/home/max/nixconfig/modules/packages/neovim/config";
     in
     {
       packages = {

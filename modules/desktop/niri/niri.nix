@@ -20,6 +20,6 @@
     {
       # Symlink niri config from the repo (mutable)
       home.file.".config/niri/config.kdl".source =
-        config.lib.file.mkOutOfStoreSymlink "/home/max/dendritic/modules/desktop/niri/niri-config.kdl";
+        config.lib.file.mkOutOfStoreSymlink "/home/max/nixconfig/modules/desktop/niri/niri-config.kdl";
     };
 }
