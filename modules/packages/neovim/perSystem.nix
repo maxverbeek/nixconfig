@@ -45,8 +45,19 @@
 
       extraPackages = with pkgs.unstable; [
         # language servers
+        basedpyright
+        gopls
         lua-language-server
+        markdown-oxide
+        nil
         nodePackages.yaml-language-server
+        ruby-lsp
+        typescript-language-server
+        terraform-ls
+
+        # formatters
+        nixfmt
+        stylua
 
         pkgs.gitlab-reviewer
       ];
