@@ -347,22 +347,6 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1771482645,
-        "narHash": "sha256-MpAKyXfJRDTgRU33Hja+G+3h9ywLAJJNRq4Pjbb4dQs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "724cf38d99ba81fbb4a347081db93e2e3a9bc2ae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_7": {
-      "locked": {
         "lastModified": 1768564909,
         "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
         "owner": "NixOS",
@@ -377,7 +361,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_8": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1732824227,
         "narHash": "sha256-fYNXgpu1AEeLyd3fQt4Ym0tcVP7cdJ8wRoqJ+CtTRyY=",
@@ -390,7 +374,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_9": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1728538411,
         "narHash": "sha256-f0SBJz1eZ2yOuKUr5CA9BHULGXVSn6miBuUWdTyhUhU=",
@@ -408,18 +392,21 @@
     },
     "opencode": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": [
+          "unstable"
+        ]
       },
       "locked": {
-        "lastModified": 1771929202,
-        "narHash": "sha256-gMAG4UqZew5EW5ywUCliJMxBpHMr/lpdHRcXsFqGFNw=",
+        "lastModified": 1772031356,
+        "narHash": "sha256-PA3/P5nUDlrKD6xjDXFoNNF8U2Wzz2JeeY4H+CzWWgY=",
         "owner": "anomalyco",
         "repo": "opencode",
-        "rev": "659068942eda0e48f8453d96b03724cfb1f9698d",
+        "rev": "de2bc25677b419d2af0da8b6a24a05d3f22b67a8",
         "type": "github"
       },
       "original": {
         "owner": "anomalyco",
+        "ref": "refs/tags/v1.2.14",
         "repo": "opencode",
         "type": "github"
       }
@@ -444,7 +431,7 @@
     },
     "rustoverlay": {
       "inputs": {
-        "nixpkgs": "nixpkgs_9"
+        "nixpkgs": "nixpkgs_8"
       },
       "locked": {
         "lastModified": 1735784864,
@@ -607,7 +594,7 @@
         "elephant": [
           "elephant"
         ],
-        "nixpkgs": "nixpkgs_7",
+        "nixpkgs": "nixpkgs_6",
         "systems": "systems_5"
       },
       "locked": {
@@ -626,7 +613,7 @@
     },
     "xtee": {
       "inputs": {
-        "nixpkgs": "nixpkgs_8",
+        "nixpkgs": "nixpkgs_7",
         "rustoverlay": "rustoverlay",
         "utils": "utils_2"
       },

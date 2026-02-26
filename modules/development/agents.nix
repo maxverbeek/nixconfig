@@ -1,5 +1,11 @@
-{ ... }:
+{ inputs, ... }:
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
+    })
+  ];
+
   flake.modules.homeManager.agents =
     { pkgs, ... }:
     let
