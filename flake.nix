@@ -25,12 +25,16 @@
     # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
     ags.url = "github:maxverbeek/astalconfig";
 
-    elephant.url = "github:abenz1267/elephant";
+    # walker + elephant stuff
+    walker.url = "github:abenz1267/walker";
+    walker.inputs.elephant.follows = "elephant";
 
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
+    elephant.url = "github:abenz1267/elephant";
+    elephant.inputs.nixpkgs.follows = "unstable";
+
+    elephant-gitlab.url = "github:maxverbeek/elephant-gitlab";
+    elephant-gitlab.inputs.elephant.follows = "elephant";
+    elephant-gitlab.inputs.nixpkgs.follows = "unstable";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
