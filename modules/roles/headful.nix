@@ -10,6 +10,7 @@
         networkmanager
         # hyprland
         niri
+        screenlocker
         xdg
       ];
 

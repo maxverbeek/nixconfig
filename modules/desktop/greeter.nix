@@ -66,6 +66,5 @@
       services.dbus.packages = [ pkgs.gcr ];
 
       security.rtkit.enable = true;
-      security.pam.services.swaylock = { };
     };
 }

@@ -148,7 +148,7 @@ output "Philips Consumer Electronics Company PHL 243S7 UHB1937016962" {
 }
 
 switch-events {
-    lid-close { spawn "swaylock" "-i" "~/Pictures/Backgrounds/blurred.png" "--inside-color" "1a1a2e" "--ring-color" "336699" "--text-color" "ffffff" "--key-hl-color" "ff0055" "--bs-hl-color" "007bff" "--inside-ver-color" "007bff" "--ring-ver-color" "007bff" "--inside-wrong-color" "ff0055" "--ring-wrong-color" "ff0055" "--separator-color" "00000000"; }
+    lid-close { spawn "lock"; }
 }
 
 // You can configure outputs by their name, which you can find
@@ -430,7 +430,7 @@ binds {
     Mod+Return { spawn "foot"; }
     // Mod+Space { spawn "ags" "-i" "ags-max" "toggle" "launcher"; }
     Mod+Space { spawn "walker"; }
-    Super+Alt+L { spawn "swaylock" "-i" "~/Pictures/Backgrounds/blurred.png" "--inside-color" "1a1a2e" "--ring-color" "336699" "--text-color" "ffffff" "--key-hl-color" "ff0055" "--bs-hl-color" "007bff" "--inside-ver-color" "007bff" "--ring-ver-color" "007bff" "--inside-wrong-color" "ff0055" "--ring-wrong-color" "ff0055" "--separator-color" "00000000"; }
+    Super+Alt+L { spawn "lock"; }
     Mod+P { spawn "1password"; }
     Mod+N { spawn "obsidian"; }
 
