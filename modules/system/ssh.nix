@@ -6,6 +6,10 @@
       enableDefaultConfig = false;
 
       matchBlocks = {
+        "*".setEnv = {
+          "TERM" = "xterm-256color";
+        };
+
         "pg-gpu.hpc.rug.nl" = {
           user = "f119970";
         };
@@ -37,13 +41,5 @@
 
     programs.gpg.enable = true;
     services.gpg-agent.enable = true;
-
-    programs.go = {
-      enable = true;
-      env = {
-        GOPATH = "go";
-        GOBIN = "go/bin";
-      };
-    };
   };
 }

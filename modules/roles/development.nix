@@ -20,6 +20,7 @@
         dev-packages
         direnv
         git
+        go
         kubectl
         kvm
         neovim
