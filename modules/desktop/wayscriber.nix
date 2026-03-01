@@ -2,7 +2,7 @@
   flake.modules.homeManager.wayscriber =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.wayscriber ];
+      home.packages = [ pkgs.unstable.wayscriber ];
 
       systemd.user.services.wayscriber = {
         Unit = {
@@ -15,7 +15,7 @@
         };
         Service = {
           Type = "simple";
-          ExecStart = "${pkgs.wayscriber}/bin/wayscriber --daemon";
+          ExecStart = "${pkgs.unstable.wayscriber}/bin/wayscriber --daemon";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 5;
