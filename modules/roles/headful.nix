@@ -31,6 +31,7 @@
         swww
         walker
         waybar
+        wlr-which-key
       ];
     };
 }

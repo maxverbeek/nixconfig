@@ -433,6 +433,7 @@ binds {
     Super+Alt+L { spawn "lock"; }
     Mod+P { spawn "1password"; }
     Mod+N { spawn "obsidian"; }
+    Mod+M { spawn "wlr-which-key"; }
 
     // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
     Mod+Shift+C hotkey-overlay-title="Copy x to wayland" { spawn "sh" "-c" "xsel -ob | wl-copy"; }
