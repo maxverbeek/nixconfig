@@ -32,6 +32,7 @@
         walker
         waybar
         wlr-which-key
+        wayscriber
       ];
     };
 }

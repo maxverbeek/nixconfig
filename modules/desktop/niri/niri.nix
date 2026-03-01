@@ -9,6 +9,15 @@
         pkgs.xwayland-satellite
       ];
 
+      xdg.portal = {
+        enable = true;
+        extraPortals = [
+          pkgs.xdg-desktop-portal-gnome
+          pkgs.xdg-desktop-portal-gtk
+        ];
+        configPackages = [ pkgs.niri ];
+      };
+
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
       services.displayManager.sessionPackages = [ pkgs.niri ];

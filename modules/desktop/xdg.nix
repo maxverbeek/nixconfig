@@ -16,14 +16,6 @@
           };
         };
         icons.enable = true;
-        portal = {
-          enable = true;
-          config.common.default = "*";
-          extraPortals = [
-            pkgs.xdg-desktop-portal-gnome
-            pkgs.xdg-desktop-portal-gtk
-          ];
-        };
       };
     };
 }

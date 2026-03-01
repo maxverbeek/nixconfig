@@ -10,8 +10,13 @@
       config.menu = [
         {
           key = "p";
-          desc = "1password";
+          desc = "Open 1password";
           cmd = "1password";
+        }
+        {
+          key = "l";
+          desc = "Open S(l)ack";
+          cmd = "slack";
         }
         {
           key = "n";
@@ -22,6 +27,53 @@
           key = "b";
           desc = "Browser (zen)";
           cmd = "zen-beta";
+        }
+        {
+          key = "c";
+          desc = "Open config files";
+          submenu = [
+            {
+              key = "n";
+              desc = "Nix";
+              cmd = "foot -D ~/nixconfig nvim";
+            }
+          ];
+        }
+        {
+          key = "s";
+          desc = "Screen (share)";
+          submenu = [
+            {
+              key = "s";
+              desc = "Share current window";
+              cmd = "niri msg action set-dynamic-cast-window";
+            }
+            {
+              key = "m";
+              desc = "Share current monitor";
+              cmd = "niri msg action set-dynamic-cast-monitor";
+            }
+            {
+              key = "c";
+              desc = "Clear dynamic cast";
+              cmd = "niri msg action clear-dynamic-cast-target";
+            }
+            {
+              key = "1";
+              desc = "Scale current output 1";
+              cmd = "sh -c 'niri msg output $(niri msg -j focused-output | jq -r .name) scale 1'";
+            }
+            {
+              key = "2";
+              desc = "Scale current output 2";
+              cmd = "sh -c 'niri msg output $(niri msg -j focused-output | jq -r .name) scale 2'";
+            }
+            {
+              key = "5";
+              desc = "Scale current output 1.5";
+              cmd = "sh -c 'niri msg output $(niri msg -j focused-output | jq -r .name) scale 1.5'";
+            }
+          ];
         }
       ];
     };

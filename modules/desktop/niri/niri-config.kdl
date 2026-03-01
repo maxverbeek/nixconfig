@@ -431,8 +431,6 @@ binds {
     // Mod+Space { spawn "ags" "-i" "ags-max" "toggle" "launcher"; }
     Mod+Space { spawn "walker"; }
     Super+Alt+L { spawn "lock"; }
-    Mod+P { spawn "1password"; }
-    Mod+N { spawn "obsidian"; }
     Mod+M { spawn "wlr-which-key"; }
 
     // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
