@@ -5,6 +5,7 @@
     {
       imports = with config.flake.modules.nixos; [
         tlp
+        tailscale
       ];
 
       # Battery monitoring
@@ -23,10 +24,7 @@
         touchpad.disableWhileTyping = true;
       };
 
-      # Tailscale VPN
-      services.tailscale = {
-        enable = true;
-        useRoutingFeatures = "both";
-      };
+      # Tailscale: allow acting as both subnet router and exit node
+      services.tailscale.useRoutingFeatures = "both";
     };
 }

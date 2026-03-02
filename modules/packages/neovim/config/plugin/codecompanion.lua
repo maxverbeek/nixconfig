@@ -14,7 +14,7 @@ require("codecompanion").setup({
 
   interactions = {
     chat = {
-      adapter = "claude_code",
+      adapter = "opencode",
     },
   },
 })

@@ -4,6 +4,9 @@ switch *ARGS:
 test:
     sudo nixos-rebuild test --flake .
 
+deploy host ip:
+    nix run github:nix-community/nixos-anywhere -- --flake .#{{host}} --target-host root@{{ip}}
+
 update:
     just lockfile && just commit && just
 
