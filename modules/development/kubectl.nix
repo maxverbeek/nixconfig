@@ -12,6 +12,7 @@
         (pkgs.wrapHelm pkgs.kubernetes-helm {
           plugins = [ pkgs.kubernetes-helmPlugins.helm-diff ];
         })
+        pkgs.dyff
       ];
 
       programs.zsh.initContent = ''
