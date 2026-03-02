@@ -1,11 +1,15 @@
 { inputs, config, ... }:
 {
-  # NixOS module for user "max"
-  # This wires home-manager and composes HM role modules.
+  # Minimal NixOS module for user "max"
+  # Provides user creation, home-manager wiring, and the base HM role (zsh, starship, fzf, ssh).
+  # Desktop hosts should add extra HM role imports (headful, personal, development) directly.
   flake.modules.nixos.max =
     { pkgs, ... }:
     {
-      imports = [ inputs.home-manager.nixosModules.home-manager ];
+      imports = [
+        inputs.home-manager.nixosModules.home-manager
+        config.flake.modules.nixos.shell
+      ];
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -15,22 +19,18 @@
         {
           imports = with config.flake.modules.homeManager; [
             base
-            headful
-            personal
-            development
           ];
 
           home.stateVersion = "20.09";
 
           home.sessionVariables = {
-            JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
-            _JAVA_AWT_WM_NONREPARENTING = "1";
             EDITOR = "nvim";
           };
         };
 
       users.users.max = {
         isNormalUser = true;
+        shell = pkgs.zsh;
         extraGroups = [
           "wheel"
         ];

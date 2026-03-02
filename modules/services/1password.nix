@@ -24,4 +24,10 @@
 
       environment.systemPackages = [ pkgs.xsel ];
     };
+
+  flake.modules.homeManager._1password = {
+    programs.zsh.initContent = ''
+      eval "$(op completion zsh)"
+    '';
+  };
 }

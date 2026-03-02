@@ -21,6 +21,7 @@
     { ... }:
     {
       imports = with config.flake.modules.homeManager; [
+        terminal
         ags
         hyprland
         niri

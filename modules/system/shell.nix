@@ -9,7 +9,6 @@
       };
 
       environment.pathsToLink = [ "/share/zsh" ];
-      users.users.max.shell = pkgs.zsh;
     };
 
   flake.modules.homeManager.shell =
@@ -73,8 +72,6 @@
 
           zle -N edit-command-line
           bindkey -M vicmd v edit-command-line
-
-          eval "$(op completion zsh)"
         '';
 
         shellAliases = {

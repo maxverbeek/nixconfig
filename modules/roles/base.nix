@@ -17,7 +17,6 @@
       imports = with config.flake.modules.homeManager; [
         shell
         ssh
-        terminal
       ];
     };
 }

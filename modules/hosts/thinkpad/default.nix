@@ -31,6 +31,18 @@
         ./_hardware-configuration.nix
       ];
 
+      # Desktop home-manager roles for max (on top of base from max.nix)
+      home-manager.users.max.imports = with config.flake.modules.homeManager; [
+        headful
+        personal
+        development
+      ];
+
+      home-manager.users.max.home.sessionVariables = {
+        JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
+        _JAVA_AWT_WM_NONREPARENTING = "1";
+      };
+
       # Boot
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;

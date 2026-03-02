@@ -1,6 +1,13 @@
 switch *ARGS:
     sudo nixos-rebuild switch --flake . {{ARGS}}
 
+apply host:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  store_path=$(nix flake prefetch --json . | jq -r '.storePath')
+  nix copy --to ssh://root@{{host}} --no-check-sigs "$store_path"
+  ssh root@{{host}} "nixos-rebuild switch --flake ${store_path}#{{host}}"
+
 test:
     sudo nixos-rebuild test --flake .
 

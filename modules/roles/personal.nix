@@ -14,6 +14,7 @@
     { ... }:
     {
       imports = with config.flake.modules.homeManager; [
+        _1password
         gtk
       ];
     };
