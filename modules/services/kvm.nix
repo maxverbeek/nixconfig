@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.kvm =
+  flake.modules.nixos.development =
     {
       pkgs,
       lib,
@@ -19,7 +19,7 @@
       users.users.max.extraGroups = [ "libvirtd" ];
     };
 
-  flake.modules.homeManager.kvm =
+  flake.modules.homeManager.development =
     { pkgs, ... }:
     {
       home.file.".minikube/bin/docker-machine-driver-kvm2".source =

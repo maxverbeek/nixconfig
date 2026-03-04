@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.git =
+  flake.modules.homeManager.development =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.git-filter-repo ];

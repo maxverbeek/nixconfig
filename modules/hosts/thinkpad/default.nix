@@ -12,7 +12,6 @@
 
         # Roles
         config.flake.modules.nixos.base
-        config.flake.modules.nixos.networked
         config.flake.modules.nixos.multimedia
         config.flake.modules.nixos.personal
         config.flake.modules.nixos.headful
@@ -24,7 +23,6 @@
         # Host-specific modules
         config.flake.modules.nixos.clamav
         config.flake.modules.nixos.keyboards
-        config.flake.modules.nixos.kvm
         config.flake.modules.nixos.fingerprint
 
         # Hardware

@@ -7,11 +7,8 @@ in
     { modulesPath, pkgs, ... }:
     {
       imports = [
-        modules.locale
-        modules.nix-config
-        modules.registry
+        modules.base
 
-        modules.networked
         modules.server
         modules.hetzner-tailscale-cloudinit
         modules.n8n

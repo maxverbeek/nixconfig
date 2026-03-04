@@ -5,7 +5,6 @@
     {
       imports = with config.flake.modules.nixos; [
         sshd
-        tailscale
       ];
 
       # Serial console for Hetzner web console

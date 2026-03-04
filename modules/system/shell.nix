@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.shell =
+  flake.modules.nixos.base =
     { pkgs, ... }:
     {
       programs.zsh = {
@@ -11,7 +11,7 @@
       environment.pathsToLink = [ "/share/zsh" ];
     };
 
-  flake.modules.homeManager.shell =
+  flake.modules.homeManager.base =
     { pkgs, ... }:
     let
       checkdocker = pkgs.writeScript "checkdocker" ''

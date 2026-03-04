@@ -1,13 +1,13 @@
 { ... }:
 {
-  flake.modules.nixos.ags =
+  flake.modules.nixos.headful =
     { ... }:
     {
       services.upower.enable = true;
       services.gvfs.enable = true;
     };
 
-  flake.modules.homeManager.ags =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

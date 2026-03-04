@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.niri =
+  flake.modules.nixos.headful =
     { pkgs, ... }:
     {
       # Niri
@@ -24,7 +24,7 @@
     };
 
   # Home-manager: niri config symlink — contributes to headful
-  flake.modules.homeManager.niri =
+  flake.modules.homeManager.headful =
     { config, ... }:
     {
       # Symlink niri config from the repo (mutable)

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.greeter =
+  flake.modules.nixos.headful =
     { pkgs, config, ... }:
     {
       programs.regreet = {

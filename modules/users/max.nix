@@ -8,7 +8,6 @@
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
-        config.flake.modules.nixos.shell
       ];
 
       home-manager.useGlobalPkgs = true;

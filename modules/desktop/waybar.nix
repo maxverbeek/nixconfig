@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.waybar =
+  flake.modules.homeManager.headful =
     {
       pkgs,
       config,

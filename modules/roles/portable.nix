@@ -1,13 +1,8 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.nixos.portable =
     { ... }:
     {
-      imports = with config.flake.modules.nixos; [
-        tlp
-        tailscale
-      ];
-
       # Battery monitoring
       services.upower.enable = true;
 

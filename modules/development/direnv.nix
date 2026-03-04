@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.direnv = {
+  flake.modules.homeManager.development = {
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;

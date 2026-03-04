@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.cachix = {
+  flake.modules.nixos.personal = {
     nix.settings = {
       substituters = [
         "https://hyprland.cachix.org"

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.swww = {
+  flake.modules.homeManager.headful = {
     services.swww.enable = true;
   };
 }

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.kubectl =
+  flake.modules.homeManager.development =
     { pkgs, lib, ... }:
     {
       home.packages = [

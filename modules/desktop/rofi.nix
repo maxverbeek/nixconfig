@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.rofi =
+  flake.modules.homeManager.headful =
     { pkgs, lib, ... }:
     let
       kanagawa = pkgs.custom.kanagawa-nvim.colors.term;

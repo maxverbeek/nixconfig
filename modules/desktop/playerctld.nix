@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.playerctld =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     {
       services.playerctld.enable = true;

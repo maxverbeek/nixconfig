@@ -1,10 +1,10 @@
 { ... }:
 {
-  flake.modules.nixos.screenlocker = {
+  flake.modules.nixos.headful = {
     security.pam.services.swaylock = { };
   };
 
-  flake.modules.homeManager.screenlocker =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     let
       lock = pkgs.writeScriptBin "lock" ''

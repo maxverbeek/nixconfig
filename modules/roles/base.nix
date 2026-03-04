@@ -1,22 +1,6 @@
-{ config, ... }:
+{ ... }:
 {
-  flake.modules.nixos.base =
-    { ... }:
-    {
-      imports = with config.flake.modules.nixos; [
-        locale
-        nix-config
-        registry
-        shell
-      ];
-    };
-
-  flake.modules.homeManager.base =
-    { ... }:
-    {
-      imports = with config.flake.modules.homeManager; [
-        shell
-        ssh
-      ];
-    };
+  # Module content is now defined directly in the individual files
+  # (locale.nix, nix.nix, registry.nix, shell.nix, tailscale.nix, ssh.nix)
+  # which all set flake.modules.nixos.base / flake.modules.homeManager.base
 }

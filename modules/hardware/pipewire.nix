@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.pipewire =
+  flake.modules.nixos.multimedia =
     { lib, ... }:
     {
       boot.kernelModules = [ "v4l2loopback" ];

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.go =
+  flake.modules.homeManager.development =
     { config, ... }:
     {
       programs.go = {

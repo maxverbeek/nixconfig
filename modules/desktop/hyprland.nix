@@ -9,7 +9,7 @@
       };
     };
 
-  flake.modules.homeManager.hyprland =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     let
       rofi-cliphist = pkgs.writeScriptBin "rofi-cliphist" ''

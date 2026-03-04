@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.bluetooth = {
+  flake.modules.nixos.multimedia = {
     users.users.max.extraGroups = [ "bluetooth" ];
 
     hardware.bluetooth = {

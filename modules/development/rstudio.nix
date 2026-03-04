@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.rstudio =
+  flake.modules.homeManager.development =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.rstudio ];

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.printer = {
+  flake.modules.nixos.personal = {
     services.printing.enable = true;
 
     services.avahi = {

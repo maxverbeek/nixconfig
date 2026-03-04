@@ -3,7 +3,7 @@ let
   fontsize = 12;
 in
 {
-  flake.modules.homeManager.terminal =
+  flake.modules.homeManager.headful =
     { pkgs, config, ... }:
     {
       programs.foot = {

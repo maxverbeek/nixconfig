@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.wayscriber =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.unstable.wayscriber ];

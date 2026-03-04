@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos._1password =
+  flake.modules.nixos.personal =
     { pkgs, ... }:
     {
       programs._1password.enable = true;
@@ -25,7 +25,7 @@
       environment.systemPackages = [ pkgs.xsel ];
     };
 
-  flake.modules.homeManager._1password = {
+  flake.modules.homeManager.personal = {
     programs.zsh.initContent = ''
       eval "$(op completion zsh)"
     '';

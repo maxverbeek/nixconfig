@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.cachix = {
+  flake.modules.nixos.headful = {
     nix.settings = {
       substituters = [
         "https://walker.cachix.org"
@@ -14,7 +14,7 @@
     };
   };
 
-  flake.modules.homeManager.walker =
+  flake.modules.homeManager.headful =
     { pkgs, ... }:
     let
       elephantpkg = pkgs.symlinkJoin {

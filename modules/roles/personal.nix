@@ -1,21 +1,6 @@
-{ config, ... }:
+{ ... }:
 {
-  flake.modules.nixos.personal =
-    { ... }:
-    {
-      imports = with config.flake.modules.nixos; [
-        _1password
-        cachix
-        printer
-      ];
-    };
-
-  flake.modules.homeManager.personal =
-    { ... }:
-    {
-      imports = with config.flake.modules.homeManager; [
-        _1password
-        gtk
-      ];
-    };
+  # Module content is now defined directly in the individual files
+  # (1password.nix, cachix.nix, printer.nix, gtk.nix)
+  # which all set flake.modules.nixos.personal / flake.modules.homeManager.personal
 }
