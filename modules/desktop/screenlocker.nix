@@ -9,7 +9,7 @@
     let
       lock = pkgs.writeScriptBin "lock" ''
         #!${pkgs.bash}/bin/bash
-        exec ${pkgs.swaylock-effects}/bin/swaylock -S --effect-pixelate 20 $@
+        exec ${pkgs.swaylock-effects}/bin/swaylock -S --effect-pixelate 50 $@
       '';
       inactiveInterval = 5 * 60; # seconds, ISO27001 compliant
     in
