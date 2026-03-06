@@ -18,6 +18,8 @@
         kiro = ./_definitions/kiro;
         rubocop = ./_definitions/rubocop;
         samdump2 = ./_definitions/samdump2;
+        opencode-notify = ./_definitions/opencode-notify;
+        not = ./_definitions/not;
       };
 
       vimPlugins = builtins.mapAttrs (_: fn: callPackage fn { }) (import ./_definitions/vimPlugins);

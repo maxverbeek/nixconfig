@@ -21,5 +21,9 @@ in
       };
 
       programs.man.enable = true;
+
+      home.packages = [
+        pkgs.self.not
+      ];
     };
 }

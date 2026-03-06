@@ -53,11 +53,16 @@
       '';
     in
     {
+      xdg.configFile."opencode/plugins/opencode-notify.ts" = {
+        source = "${pkgs.custom.opencode-notify}/opencode-notify.ts";
+      };
+
       home.packages = [
         codex
         llm
         gemini
         pkgs.opencode
+        pkgs.libnotify
       ];
     };
 }
