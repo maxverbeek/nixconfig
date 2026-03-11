@@ -29,6 +29,11 @@
           cmd = "zen-beta";
         }
         {
+          key = "f";
+          desc = "Files (nautilus)";
+          cmd = "nautilus";
+        }
+        {
           key = "c";
           desc = "Open config files";
           submenu = [
