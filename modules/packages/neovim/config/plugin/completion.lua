@@ -28,7 +28,7 @@ require("blink.cmp").setup({
   },
 
   snippets = {
-    preset = "luasnip"
+    preset = "luasnip",
   },
 
   appearance = {
@@ -39,14 +39,29 @@ require("blink.cmp").setup({
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client:supports_method("textDocument/documentHighlight") then
-      vim.cmd([[
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]])
+    if not client or not client:supports_method("textDocument/documentHighlight") then
+      return
     end
+
+    local group = vim.api.nvim_create_augroup("lsp_document_highlight_" .. args.buf, { clear = true })
+
+    vim.api.nvim_create_autocmd("CursorHold", {
+      group = group,
+      buffer = args.buf,
+      callback = function()
+        for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf, method = "textDocument/documentHighlight" })) do
+          local params = vim.lsp.util.make_position_params(0, c.offset_encoding)
+          c.request("textDocument/documentHighlight", params, nil, args.buf)
+        end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      group = group,
+      buffer = args.buf,
+      callback = function()
+        vim.lsp.buf.clear_references()
+      end,
+    })
   end,
 })

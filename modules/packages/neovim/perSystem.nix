@@ -41,6 +41,11 @@
         nvim-treesitter-textobjects
         nvim-ts-context-commentstring
         mini-nvim
+
+        # python stuff??
+        molten-nvim
+        image-nvim
+        quarto-nvim
       ];
 
       extraPackages = with pkgs.unstable; [
@@ -60,7 +65,25 @@
         stylua
 
         pkgs.gitlab-reviewer
+
+        # also python stuff for molten??
+        imagemagick
       ];
+
+      extraPython3Packages =
+        ps: with ps; [
+          pynvim
+          jupyter-client
+          cairosvg
+          pnglatex
+          plotly
+          pyperclip
+        ];
+
+      extraLuaPackages =
+        ps: with ps; [
+          magick
+        ];
 
       immutableConfig = ./config;
 
@@ -69,12 +92,26 @@
     {
       packages = {
         nvim-mutable = mkNeovim {
-          inherit plugins extraPackages outOfStoreConfig;
+          inherit
+            plugins
+            extraPackages
+            extraPython3Packages
+            extraLuaPackages
+            outOfStoreConfig
+            ;
+
           appName = "nv";
         };
 
         nvim = mkNeovim {
-          inherit plugins extraPackages immutableConfig;
+          inherit
+            plugins
+            extraPackages
+            extraPython3Packages
+            extraLuaPackages
+            immutableConfig
+            ;
+
           appName = "nvim"; # nv IM-mutable
         };
       };

@@ -57,8 +57,22 @@ vim.diagnostic.config({
 local snacks = require("snacks")
 
 vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action)
-vim.keymap.set("n", "gd", snacks.picker.lsp_definitions)
-vim.keymap.set("n", "grr", snacks.picker.lsp_references)
+-- otter-ls is an in-process LSP that responds synchronously,
+-- which breaks snacks' async request tracking. Fall back to
+-- the native LSP handler when otter-ls is active on the buffer.
+local function with_otter_fallback(snacks_fn, lsp_fn)
+  return function()
+    for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+      if c.name:match("^otter%-ls") then
+        return lsp_fn()
+      end
+    end
+    snacks_fn()
+  end
+end
+
+vim.keymap.set("n", "gd", with_otter_fallback(snacks.picker.lsp_definitions, vim.lsp.buf.definition))
+vim.keymap.set("n", "grr", with_otter_fallback(snacks.picker.lsp_references, vim.lsp.buf.references))
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
 vim.keymap.set("n", "[d", function()
