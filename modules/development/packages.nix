@@ -62,7 +62,6 @@
         pdftk
         poetry
         pulsemixer
-        (python3.withPackages (ps: [ ps.bcrypt ]))
         ripgrep
         rsync
         rtorrent

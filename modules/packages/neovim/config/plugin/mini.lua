@@ -1,4 +1,9 @@
-require("mini.ai").setup()
+local nn = require("notebook-navigator")
+
+require("mini.ai").setup({
+  custom_textobjects = { c = nn.miniai_spec },
+})
+
 require("mini.align").setup({
   mappings = {
     start = "<Leader>ga",

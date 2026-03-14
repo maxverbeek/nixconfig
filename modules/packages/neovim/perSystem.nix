@@ -46,6 +46,7 @@
         molten-nvim
         image-nvim
         quarto-nvim
+        pkgs.custom.NotebookNavigator-nvim
       ];
 
       extraPackages = with pkgs.unstable; [
