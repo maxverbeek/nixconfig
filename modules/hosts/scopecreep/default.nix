@@ -12,6 +12,7 @@ in
         modules.server
         modules.hetzner-tailscale-cloudinit
         modules.n8n
+        modules.webdav
 
         # User "max" (home-manager + base HM role: zsh, starship, fzf)
         modules.max
