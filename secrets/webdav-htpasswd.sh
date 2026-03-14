@@ -9,10 +9,10 @@ generate() {
 
   htpasswd -Bbc "$tmpfile" "$webdav_username" "$webdav_password"
 
-  ssh root@scopecreep mkdir -p /run/secrets
-  scp "$tmpfile" root@scopecreep:/run/secrets/webdav.htpasswd
-  ssh root@scopecreep chown webdav:webdav /run/secrets/webdav.htpasswd
-  echo "Uploaded webdav.htpasswd to scopecreep:/run/secrets/webdav.htpasswd"
+  ssh root@scopecreep mkdir -p /var/secrets
+  scp "$tmpfile" root@scopecreep:/var/secrets/webdav.htpasswd
+  ssh root@scopecreep chown webdav:webdav /var/secrets/webdav.htpasswd
+  echo "Uploaded webdav.htpasswd to scopecreep:/var/secrets/webdav.htpasswd"
 }
 
 export -f generate

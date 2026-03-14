@@ -3,7 +3,7 @@
     { pkgs, ... }:
     let
       port = 8543;
-      htpasswdFile = "/run/secrets/webdav.htpasswd";
+      htpasswdFile = "/var/secrets/webdav.htpasswd";
       serveDirectory = "/srv/data/webdav";
     in
     {
