@@ -20,6 +20,7 @@
         samdump2 = ./_definitions/samdump2;
         opencode-notify = ./_definitions/opencode-notify;
         not = ./_definitions/not;
+        opencode-sessions = ./_definitions/opencode-sessions;
       };
 
       vimPlugins = builtins.mapAttrs (_: fn: callPackage fn { }) (import ./_definitions/vimPlugins);

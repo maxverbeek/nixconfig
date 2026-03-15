@@ -63,6 +63,7 @@
         gemini
         pkgs.opencode
         pkgs.libnotify
+        pkgs.self.opencode-sessions
       ];
     };
 }

@@ -17,7 +17,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    opencode.url = "github:anomalyco/opencode?ref=refs/tags/v1.2.14";
+    opencode.url = "github:anomalyco/opencode?ref=refs/tags/v1.2.26";
     opencode.inputs.nixpkgs.follows = "unstable";
 
     # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
