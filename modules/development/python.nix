@@ -6,6 +6,8 @@
         ps.bcrypt
         ps.numpy
         ps.pandas
+        ps.polars
+        ps.pyiceberg
         ps.matplotlib
         ps.seaborn
       ]);
@@ -20,6 +22,7 @@
         uv
         python
         quarto
+        duckdb
       ];
     };
 }

@@ -21,6 +21,7 @@
         opencode-notify = ./_definitions/opencode-notify;
         not = ./_definitions/not;
         opencode-sessions = ./_definitions/opencode-sessions;
+        tad = ./_definitions/tad;
       };
 
       vimPlugins = builtins.mapAttrs (_: fn: callPackage fn { }) (import ./_definitions/vimPlugins);

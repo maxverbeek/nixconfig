@@ -17,6 +17,10 @@
           push.default = "current";
           push.autoSetupRemote = "true";
           init.defaultBranch = "master";
+
+          commit.gpgsign = true;
+          gpg.format = "ssh";
+          user.signingkey = "~/.ssh/id_ed25519.pub";
           submodule.recurse = "true";
           url."git@github.com:rug-ds-lab".insteadOf = "https://github.com/rug-ds-lab";
           url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
