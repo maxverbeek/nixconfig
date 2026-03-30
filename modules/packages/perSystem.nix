@@ -21,6 +21,7 @@
         opencode-notify = ./_definitions/opencode-notify;
         not = ./_definitions/not;
         opencode-sessions = ./_definitions/opencode-sessions;
+        claude-sessions = ./_definitions/claude-sessions;
         tad = ./_definitions/tad;
       };
 

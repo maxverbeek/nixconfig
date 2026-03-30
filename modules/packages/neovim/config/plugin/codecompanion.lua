@@ -19,5 +19,5 @@ require("codecompanion").setup({
   },
 })
 
-vim.keymap.set({ "n", "v" }, "<leader>a", "<cmd>CodeCompanionChat Toggle<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>ga", "<cmd>CodeCompanionChat Toggle<cr>")
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>")

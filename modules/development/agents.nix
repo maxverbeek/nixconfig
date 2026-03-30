@@ -64,6 +64,7 @@
         pkgs.opencode
         pkgs.libnotify
         pkgs.self.opencode-sessions
+        pkgs.self.claude-sessions
       ];
     };
 }
