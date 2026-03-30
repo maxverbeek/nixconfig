@@ -61,6 +61,8 @@
         codex
         llm
         gemini
+
+        pkgs.unstable.claude-code
         pkgs.opencode
         pkgs.libnotify
         pkgs.self.opencode-sessions
