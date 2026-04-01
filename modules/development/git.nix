@@ -3,7 +3,10 @@
   flake.modules.homeManager.development =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.git-filter-repo ];
+      home.packages = [
+        pkgs.git-filter-repo
+        pkgs.mr
+      ];
 
       programs.git = {
         enable = true;
