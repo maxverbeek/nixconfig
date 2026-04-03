@@ -1,12 +1,14 @@
 { config, ... }:
 {
   flake.modules.nixos.server =
-    { ... }:
+    { pkgs, ... }:
     {
       imports = with config.flake.modules.nixos; [
         sshd
         fail2ban
       ];
+
+      environment.systemPackages = [ pkgs.git ];
 
       # Serial console for Hetzner web console
       boot.kernelParams = [ "console=ttyS0" ];
