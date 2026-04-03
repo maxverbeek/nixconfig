@@ -67,6 +67,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1775187334,
+        "narHash": "sha256-SK9oZzrgeaaHgDXlc3fedpvoXhhw3cRb/7YXZhXN6+I=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "9f137cf7cb1293c69c5bf3beda37c00c698ed6c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -133,17 +148,18 @@
     },
     "feedbackers": {
       "inputs": {
+        "crane": "crane",
         "fenix": "fenix",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1775171831,
-        "narHash": "sha256-AiDynWbu1HI0uO1NFuvxAXSIWw3S15XI3yiAiUcxgVs=",
+        "lastModified": 1775218873,
+        "narHash": "sha256-0xZDAsIVOvTjVeceifgBLH2yX4U1YihVYHiumjD3xv8=",
         "ref": "refs/heads/master",
-        "rev": "25d1232d7b762ea1a178ff266ecfa023c3916ef7",
-        "revCount": 2,
+        "rev": "48251e86bfc45330327c2a87609cd10f27596dd8",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/feedbackers"
       },

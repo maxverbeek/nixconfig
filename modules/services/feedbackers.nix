@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.feedbackers =
-    { pkgs, inputs, ... }:
+    { inputs, ... }:
     let
       containerIP = "10.100.0.2";
       hostIP = "10.100.0.1";
@@ -21,30 +21,18 @@
         };
 
         config =
-          { pkgs, ... }:
+          { ... }:
           {
+            imports = [ inputs.feedbackers.nixosModules.default ];
+
             system.stateVersion = "25.11";
 
             networking.useHostResolvConf = false;
             networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
-            systemd.services.feedbackers = {
-              description = "Feedbackers Slack Bot";
-              after = [ "network.target" ];
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                ExecStart = "${inputs.feedbackers.packages.${pkgs.system}.default}/bin/feedbackers";
-                Restart = "always";
-                RestartSec = 5;
-                EnvironmentFile = "/var/secrets/feedbackers.env";
-                Environment = [
-                  "PORT=${toString port}"
-                  "DATABASE_PATH=/var/lib/feedbackers/feedbackers.db"
-                  "HOME=/var/lib/feedbackers"
-                ];
-                StateDirectory = "feedbackers";
-                DynamicUser = true;
-              };
+            services.feedbackers = {
+              enable = true;
+              environmentFile = "/var/secrets/feedbackers.env";
             };
 
             networking.firewall.allowedTCPPorts = [ port ];
