@@ -19,6 +19,10 @@
         type = lib.types.listOf lib.types.singleLineStr;
         default = [ ];
       };
+      permittedInsecurePackages = lib.mkOption {
+        type = lib.types.listOf lib.types.singleLineStr;
+        default = [ ];
+      };
     };
 
     overlays = lib.mkOption {
@@ -29,6 +33,7 @@
 
   config = {
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.permittedInsecurePackages = [ ];
 
     perSystem =
       { system, ... }:
