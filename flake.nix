@@ -42,6 +42,9 @@
     feedbackers.url = "git+ssh://git@github.com/maxverbeek/feedbackers";
     feedbackers.inputs.nixpkgs.follows = "nixpkgs";
 
+    breadhero.url = "git+ssh://git@github.com/maxverbeek/breadhero";
+    breadhero.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
