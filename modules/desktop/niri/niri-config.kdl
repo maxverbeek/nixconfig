@@ -83,7 +83,6 @@ output "Iiyama North America PLX2783H 1155982521836" {
 output "Iiyama North America PLX2783H 1155982521834" {
     position x=3840 y=0
     mode "1920x1080@74.973"
-    transform "90"
 }
 
 // samenwerk eiland muur bij het raam link
@@ -365,6 +364,16 @@ window-rule {
 window-rule {
     match app-id="chromium|firefox|zen"
     default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="openwhip"
+    open-floating true
+    open-maximized true
+    draw-border-with-background false
+    border {
+      off
+    }
 }
 
 window-rule {
