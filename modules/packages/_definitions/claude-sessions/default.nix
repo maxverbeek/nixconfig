@@ -1,17 +1,17 @@
 {
   lib,
-  writeShellApplication,
-  jq,
+  buildGoModule,
 }:
 
-writeShellApplication {
-  name = "claude-sessions";
-  runtimeInputs = [
-    jq
-  ];
-  text = builtins.readFile ./claude-sessions.sh;
+buildGoModule {
+  pname = "claude-sessions";
+  version = "0.2.0";
+  src = ./.;
+  vendorHash = null;
+  subPackages = [ "." ];
   meta = {
-    description = "List Claude Code sessions across all projects";
+    description = "List Claude Code sessions broken down into tasks, useful for hours registration";
     license = lib.licenses.mit;
+    mainProgram = "claude-sessions";
   };
 }
