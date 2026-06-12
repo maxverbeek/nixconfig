@@ -6,8 +6,12 @@ snacks.setup({
     sources = {
       explorer = {
         auto_close = true,
+        hidden = true,
+        exclude = { ".direnv", "node_modules" },
         layout = { layout = { position = "right" } },
       },
+      files = { hidden = true, exclude = { ".direnv", "node_modules" } },
+      grep = { hidden = true, exclude = { ".direnv", "node_modules" } },
     },
   },
   indent = {

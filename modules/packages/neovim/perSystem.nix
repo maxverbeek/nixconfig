@@ -56,7 +56,7 @@
         lua-language-server
         markdown-oxide
         nil
-        pkgs.nodePackages.yaml-language-server
+        yaml-language-server
         ruby-lsp
         typescript-language-server
         terraform-ls

@@ -5,7 +5,7 @@
       # DNS resolution with Cloudflare fallback
       services.resolved = {
         enable = true;
-        fallbackDns = [
+        settings.Resolve.FallbackDNS = [
           "1.1.1.1"
           "1.0.0.1"
           "2606:4700:4700::1111"

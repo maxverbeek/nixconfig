@@ -32,7 +32,7 @@
           format = "";
           format-connected = " {device_alias}";
           format-connected-battery = " {device_alias} {device_battery_percentage}%";
-          on-click = "blueberry";
+          on-click = "blueman-manager";
           tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
@@ -214,14 +214,14 @@
         style = pkgs.writeText "waybar-style.css" styleCss;
 
         systemd.enable = true;
-        systemd.target = "hyprland-session.target";
+        systemd.targets = [ "hyprland-session.target" ];
       };
 
       systemd.user.services.waybar.Service.RestartSec = "3";
 
       home.packages = with pkgs; [
         unstable.waybar-mpris
-        blueberry
+        blueman
         networkmanagerapplet
       ];
     };

@@ -1,16 +1,17 @@
 { ... }:
 {
   flake.modules.nixos.portable =
-    { ... }:
+    { pkgs, ... }:
     {
       # Battery monitoring
       services.upower.enable = true;
 
       # Brightness control
-      programs.light.enable = true;
+      environment.systemPackages = [ pkgs.brightnessctl ];
+      services.udev.packages = [ pkgs.brightnessctl ];
 
-      # Input device access
-      users.users.max.extraGroups = [ "input" ];
+      # Input device access (and brightnessctl backlight writes via video group)
+      users.users.max.extraGroups = [ "input" "video" ];
 
       # Touchpad support
       services.libinput = {

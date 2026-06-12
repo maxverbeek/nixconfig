@@ -5,36 +5,34 @@
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
-        "*".setEnv = {
-          "TERM" = "xterm-256color";
+      settings = {
+        "*".SetEnv = {
+          TERM = "xterm-256color";
         };
 
-        "pg-gpu.hpc.rug.nl" = {
-          user = "f119970";
-        };
+        "pg-gpu.hpc.rug.nl".User = "f119970";
 
         "themis" = {
-          hostname = "themis.housing.rug.nl";
-          user = "themis";
-          identityFile = "/home/max/.ssh/laptop_rsa";
+          HostName = "themis.housing.rug.nl";
+          User = "themis";
+          IdentityFile = "/home/max/.ssh/laptop_rsa";
         };
 
-        "ssh.dev.azure.com".extraOptions = {
+        "ssh.dev.azure.com" = {
           PubkeyAcceptedKeyTypes = "+ssh-rsa";
           HostkeyAlgorithms = "+ssh-rsa";
         };
 
         "researchable-1" = {
-          hostname = "176.9.32.68";
-          user = "root";
-          identityFile = "/home/max/.ssh/hetzner_researchable";
+          HostName = "176.9.32.68";
+          User = "root";
+          IdentityFile = "/home/max/.ssh/hetzner_researchable";
         };
 
         "researchable-2" = {
-          hostname = "176.9.48.16";
-          user = "root";
-          identityFile = "/home/max/.ssh/hetzner_researchable";
+          HostName = "176.9.48.16";
+          User = "root";
+          IdentityFile = "/home/max/.ssh/hetzner_researchable";
         };
       };
     };

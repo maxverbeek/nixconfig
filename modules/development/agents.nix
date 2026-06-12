@@ -4,6 +4,8 @@
     (final: prev: {
       opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
     })
+
+    inputs.claude-code.overlays.default
   ];
 
   flake.modules.homeManager.development =
@@ -62,7 +64,7 @@
         llm
         gemini
 
-        pkgs.unstable.claude-code
+        pkgs.claude-code
         pkgs.opencode
         pkgs.libnotify
         pkgs.self.opencode-sessions

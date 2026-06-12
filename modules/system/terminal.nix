@@ -8,7 +8,7 @@ in
     {
       programs.foot = {
         enable = true;
-        settings.colors = pkgs.custom.kanagawa-nvim.colors.foot;
+        settings.colors-dark = pkgs.custom.kanagawa-nvim.colors.foot;
         settings.main.font = "JetBrainsMono Nerd Font:size=${toString fontsize}";
       };
 

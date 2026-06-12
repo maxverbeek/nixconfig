@@ -15,7 +15,6 @@
         neovim-ayu = ./_definitions/neovim-ayu;
         neovim-opener-desktop = ./_definitions/neovim-opener-desktop;
         vim-pandoc-markdown-preview = ./_definitions/vim-pandoc-markdown-preview;
-        kiro = ./_definitions/kiro;
         rubocop = ./_definitions/rubocop;
         samdump2 = ./_definitions/samdump2;
         opencode-notify = ./_definitions/opencode-notify;

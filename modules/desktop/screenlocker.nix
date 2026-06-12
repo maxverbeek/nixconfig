@@ -26,16 +26,10 @@
             command = "${lock}/bin/lock --grace 10";
           }
         ];
-        events = [
-          {
-            event = "before-sleep";
-            command = "${lock}/bin/lock";
-          }
-          {
-            event = "lock";
-            command = "${lock}/bin/lock";
-          }
-        ];
+        events = {
+          before-sleep = "${lock}/bin/lock";
+          lock = "${lock}/bin/lock";
+        };
       };
     };
 }

@@ -47,8 +47,7 @@
         mongodb-compass
         mr
         nautilus
-        neo4j-desktop
-        neofetch
+        fastfetch
         nix-index
         nomad
         ngrok
@@ -101,7 +100,6 @@
         yarn
 
         custom.pngcrop
-        custom.kiro
         custom.neovim-opener-desktop
 
         unstable.nurl

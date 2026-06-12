@@ -101,9 +101,9 @@ brightness control, VPN.
 
 | Layer | Modules / Config |
 |---|---|
-| **NixOS** | `tlp`, `services.upower`, `programs.light`, `services.libinput`, `services.tailscale` |
+| **NixOS** | `tlp`, `services.upower`, `brightnessctl` + udev rules, `services.libinput`, `services.tailscale` |
 
-**Groups:** `input`
+**Groups:** `input`, `video`
 
 ### `development` -- Developer tooling
 
