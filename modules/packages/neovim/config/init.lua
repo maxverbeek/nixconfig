@@ -108,6 +108,10 @@ vim.keymap.set("n", "<Leader>fs", function()
   snacks.picker.grep({ cmd = "rg" })
 end)
 
+vim.keymap.set("n", "<leader>#", function()
+  snacks.picker.grep({ cmd = "rg", search = vim.fn.expand("<cword>") })
+end)
+
 vim.keymap.set("n", "<Leader>tt", snacks.picker.diagnostics)
 vim.keymap.set("n", "<Leader>fh", snacks.picker.help)
 vim.keymap.set("n", "<Leader>fp", snacks.picker.projects)
