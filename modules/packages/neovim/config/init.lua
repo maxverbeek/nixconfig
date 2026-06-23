@@ -28,10 +28,20 @@ vim.opt.title = true
 -- Set update time for cursorhold autocommand
 vim.o.updatetime = 300
 
+-- chart templates are Go-templated yaml, not valid yaml: route them to the
+-- `helm` filetype so helm_ls attaches and plain yamlls stays off.
+vim.filetype.add({
+  pattern = {
+    [".*/templates/.*%.ya?ml"] = "helm",
+    [".*/templates/.*%.tpl"] = "helm",
+  },
+})
+
 vim.lsp.enable({
   "arduino_language_server",
   "clangd",
   "gopls",
+  "helm_ls",
   "hls",
   "metals",
   "markdown_oxide",
@@ -41,7 +51,7 @@ vim.lsp.enable({
   "rust_analyzer",
   "ruby_lsp",
   "svelte",
-  "tailwindcss",
+  -- "tailwindcss",
   "terraformls",
   "texlab",
   "ts_ls",

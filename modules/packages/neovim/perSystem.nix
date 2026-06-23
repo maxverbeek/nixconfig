@@ -37,6 +37,9 @@
         gitsigns-nvim
         diffview-nvim
 
+        # yaml/helm
+        vim-helm
+
         nvim-treesitter.withAllGrammars
         nvim-treesitter-textobjects
         nvim-ts-context-commentstring
@@ -57,6 +60,7 @@
         markdown-oxide
         nil
         yaml-language-server
+        helm-ls
         ruby-lsp
         typescript-language-server
         terraform-ls
