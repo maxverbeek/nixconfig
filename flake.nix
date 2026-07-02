@@ -48,6 +48,9 @@
     breadhero.url = "git+ssh://git@github.com/maxverbeek/breadhero";
     breadhero.inputs.nixpkgs.follows = "nixpkgs";
 
+    niri-collector.url = "git+ssh://git@github.com/maxverbeek/niri-collector";
+    niri-collector.inputs.nixpkgs.follows = "unstable";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
