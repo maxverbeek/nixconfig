@@ -7,10 +7,11 @@ snacks.setup({
       explorer = {
         auto_close = true,
         hidden = true,
+        ignored = true,
         exclude = { ".direnv", "node_modules" },
         layout = { layout = { position = "right" } },
       },
-      files = { hidden = true, exclude = { ".direnv", "node_modules" } },
+      files = { hidden = true, ignored = true, exclude = { ".direnv", "node_modules" } },
       grep = { hidden = true, exclude = { ".direnv", "node_modules" } },
     },
   },
