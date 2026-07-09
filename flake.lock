@@ -286,7 +286,7 @@
     "fenix_3": {
       "inputs": {
         "nixpkgs": [
-          "niri-collector",
+          "stalker",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src_3"
@@ -466,28 +466,6 @@
         "owner": "vic",
         "repo": "import-tree",
         "type": "github"
-      }
-    },
-    "niri-collector": {
-      "inputs": {
-        "crane": "crane_3",
-        "fenix": "fenix_3",
-        "nixpkgs": [
-          "unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783623187,
-        "narHash": "sha256-n65rpl9Ha1VeJf2cWEtt06ZlyrVfGtDR/CBh2YAqq4E=",
-        "ref": "refs/heads/main",
-        "rev": "fb937d9c597b9c7354f2af4ab54e73cc8a7b1592",
-        "revCount": 309,
-        "type": "git",
-        "url": "ssh://git@github.com/maxverbeek/niri-collector"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/maxverbeek/niri-collector"
       }
     },
     "nixpkgs": {
@@ -683,10 +661,10 @@
         "gitlab-reviewer": "gitlab-reviewer",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
-        "niri-collector": "niri-collector",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-ruby": "nixpkgs-ruby",
         "opencode": "opencode",
+        "stalker": "stalker",
         "unstable": "unstable",
         "walker": "walker",
         "xtee": "xtee",
@@ -760,6 +738,28 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "stalker": {
+      "inputs": {
+        "crane": "crane_3",
+        "fenix": "fenix_3",
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783635865,
+        "narHash": "sha256-u2iFD1j7kwwXfsjm6tiWplwyNqWtRONRNAiVd3EyZoQ=",
+        "ref": "refs/heads/main",
+        "rev": "9d1d79c2d09f9449b7836883122b749c68382f6e",
+        "revCount": 312,
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/stalker"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/stalker"
       }
     },
     "systems": {

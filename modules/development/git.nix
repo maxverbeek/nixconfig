@@ -39,8 +39,8 @@
             a = "add";
             brd = "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
             difflast = "diff HEAD^";
-            mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e niri-collector-report-mr >&2'';
-            mpr = ''!f() { git push -o merge_request.create -o "merge_request.description=/assign_reviewer @$1" 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e niri-collector-report-mr >&2; }; f'';
+            mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e stalker-report-mr >&2'';
+            mpr = ''!f() { git push -o merge_request.create -o "merge_request.description=/assign_reviewer @$1" 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e stalker-report-mr >&2; }; f'';
             mprf = ''!f() { reviewer=$(gitlab-reviewer | fzf --with-nth=1 --delimiter=$'\t' | cut -f2) || return; [ -n "$reviewer" ] && git mpr "$reviewer"; }; f'';
             gfp = "push --force-with-lease --force-if-includes";
             sm = "!git switch master || git switch main";
