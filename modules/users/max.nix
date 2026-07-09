@@ -32,6 +32,7 @@
         shell = pkgs.zsh;
         extraGroups = [
           "wheel"
+          "nordvpn"
         ];
       };
     };

@@ -477,11 +477,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782986249,
-        "narHash": "sha256-WbFf7si0eW7Dvk9lbAKH7HbyssbRpj/RTnPlmjy9N/Y=",
+        "lastModified": 1783537583,
+        "narHash": "sha256-/2jNSXOD9dtac5wXiXiQ3yfzSbY9A9oXZ1T+74Kj/ro=",
         "ref": "refs/heads/main",
-        "rev": "e6bb7c8d012a9a8f210a1c02df111e38faae8cb2",
-        "revCount": 140,
+        "rev": "08e0c601b8c0f114b871aae3c3dea6df650f01f2",
+        "revCount": 280,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/niri-collector"
       },
