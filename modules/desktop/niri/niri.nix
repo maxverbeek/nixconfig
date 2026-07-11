@@ -1,4 +1,7 @@
-{ ... }:
+{ config, ... }:
+let
+  repoRoot = config.flake.lib.repoRoot;
+in
 {
   flake.modules.nixos.headful =
     { pkgs, ... }:
@@ -29,6 +32,6 @@
     {
       # Symlink niri config from the repo (mutable)
       home.file.".config/niri/config.kdl".source =
-        config.lib.file.mkOutOfStoreSymlink "/home/max/nixconfig/modules/desktop/niri/niri-config.kdl";
+        config.lib.file.mkOutOfStoreSymlink "${repoRoot}/modules/desktop/niri/niri-config.kdl";
     };
 }

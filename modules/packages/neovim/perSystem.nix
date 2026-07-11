@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   perSystem =
     {
@@ -92,7 +92,7 @@
 
       immutableConfig = ./config;
 
-      outOfStoreConfig = "/home/max/nixconfig/modules/packages/neovim/config";
+      outOfStoreConfig = "${config.flake.lib.repoRoot}/modules/packages/neovim/config";
     in
     {
       packages = {
