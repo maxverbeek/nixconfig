@@ -64,7 +64,6 @@
         llm
         gemini
 
-        pkgs.claude-code
         pkgs.opencode
         pkgs.libnotify
         pkgs.self.opencode-sessions
