@@ -12,6 +12,11 @@ let
       source = "github";
       repo = "JuliusBrussee/caveman";
     };
+
+    ponytail.source = {
+      source = "github";
+      repo = "DietrichGebert/ponytail";
+    };
   };
 
   basePlugins = {
@@ -23,6 +28,7 @@ let
     "workflow@researchable-tools" = true;
     "freedcamp@researchable-tools" = false;
     "caveman@caveman" = false;
+    "ponytail@ponytail" = true;
   };
 
   profiles = {
