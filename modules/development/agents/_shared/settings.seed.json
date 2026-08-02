@@ -1,0 +1,112 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Grep",
+      "Glob",
+      "Read",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(which *)",
+      "Bash(where *)",
+      "Bash(whereis *)",
+      "Bash(type *)",
+      "Bash(file *)",
+      "Bash(wc *)",
+      "Bash(du *)",
+      "Bash(df *)",
+      "Bash(stat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(cat *)",
+      "Bash(tree *)",
+      "Bash(pwd)",
+      "Bash(env)",
+      "Bash(printenv *)",
+      "Bash(uname *)",
+      "Bash(id)",
+      "Bash(whoami)",
+      "Bash(nix build .*)",
+      "Bash(nix search .*)",
+      "Bash(curl https://raw.githubusercontent.com/*)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(bash /home/max/nixconfig/modules/development/agents/_plugins/*/skills/*/fetch.sh *)",
+      "Bash(bash /home/max/nixconfig/modules/development/agents/_plugins/*/skills/*/fetch.sh)"
+    ],
+    "deny": [
+      "Bash(*git push*--force*)",
+      "Bash(*git push*-f *)",
+      "Bash(*git push*-f)",
+      "Bash(*git push*--mirror*)",
+      "Bash(git filter-branch*)",
+      "Bash(git reflog expire*)",
+      "Bash(git reflog delete*)"
+    ],
+    "ask": [
+      "Bash(find*-delete*)",
+      "Bash(find*-exec*rm*)",
+      "Bash(find*-execdir*rm*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v stalker-claude-prompt >/dev/null 2>&1 && exec stalker-claude-prompt; exit 0",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/block-store-glob.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/.claude/hooks/usage-dump.sh 'input=$(cat); cwd=$(echo \"$input\" | jq -r '\\''.workspace.current_dir'\\''); git_branch=\"\"; if [ -d \"$cwd/.git\" ] || git -C \"$cwd\" rev-parse --git-dir > /dev/null 2>&1; then git_branch=$(git -C \"$cwd\" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null); [ -n \"$git_branch\" ] && git_branch=\" ($git_branch)\"; fi; remaining=$(echo \"$input\" | jq -r '\\''.context_window.remaining_percentage // empty'\\''); context_info=\"\"; if [ -n \"$remaining\" ]; then remaining_int=$(printf \"%.0f\" \"$remaining\"); context_info=\" | ctx: ${remaining_int}%\"; fi; echo \"${cwd}${git_branch}${context_info}\"'"
+  },
+  "alwaysThinkingEnabled": false,
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
+}
