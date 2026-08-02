@@ -3,19 +3,18 @@
   flake.modules.nixos.headful =
     { ... }:
     {
-      services.upower.enable = true;
       services.gvfs.enable = true;
     };
 
-  # The ags bar itself is retired — barbarella.nix runs the quickshell bar now.
-  # The tools below predate ags and outlive it.
+  # Desktop CLI tools that predate the retired ags bar and outlive it.
+  # (The bar itself is barbell.nix; nmcli comes with
+  # networking.networkmanager.enable, upower moved to barbell.nix.)
   flake.modules.homeManager.headful =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
         fd
         brightnessctl
-        networkmanager
         swappy
         wayshot
       ];

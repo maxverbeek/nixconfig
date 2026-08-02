@@ -74,11 +74,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785669672,
-        "narHash": "sha256-aNkfst8CAVLRAwFPGZVnPgi/LDWE1gG0x21Y3HEzdQw=",
+        "lastModified": 1785706932,
+        "narHash": "sha256-KZWbQGpdiMwaUEw+PCZh/9mCfNW8ZpidmqO4adH8Wbs=",
         "ref": "refs/heads/master",
-        "rev": "f4c80f47074a63343cc7dd16cff1410300dbf750",
-        "revCount": 65,
+        "rev": "f62bf2add1a41c0a3c5988ea645e0908a07fbf52",
+        "revCount": 70,
         "type": "git",
         "url": "file:///home/max/Personal/barbell"
       },
