@@ -8,7 +8,12 @@ in
     {
       programs.foot = {
         enable = true;
+        # Both palettes live in the config at once; foot switches between them
+        # on SIGUSR1 (dark) / SIGUSR2 (light) with no restart and no rewrite.
+        # Switching also makes foot notify subscribed apps (private mode 2031),
+        # which is how nvim re-themes itself -- see modules/desktop/theme.nix.
         settings.colors-dark = pkgs.custom.kanagawa-nvim.colors.foot;
+        settings.colors-light = pkgs.custom.kanagawa-nvim.colors.lotus.foot;
         settings.main.font = "JetBrainsMono Nerd Font:size=${toString fontsize}";
       };
 
