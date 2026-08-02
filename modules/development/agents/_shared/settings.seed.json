@@ -106,7 +106,7 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
-  "theme": "dark",
+  "theme": "auto",
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": true,
   "enabledPlugins": {

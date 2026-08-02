@@ -5,7 +5,7 @@
     {
       # The wrapper is on PATH so niri binds can say `barbell ipc call menu
       # open` without knowing any store path.
-      home.packages = [ inputs.barbell.packages.${pkgs.system}.default ];
+      home.packages = [ inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 
       systemd.user.services.barbell = {
         Unit = {
@@ -17,7 +17,7 @@
           WantedBy = [ "graphical-session.target" ];
         };
         Service = {
-          ExecStart = "${inputs.barbell.packages.${pkgs.system}.default}/bin/barbell";
+          ExecStart = "${inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/barbell";
           Restart = "always";
           RestartSec = "1s";
         };

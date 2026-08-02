@@ -34,6 +34,11 @@
           cmd = "nautilus";
         }
         {
+          key = "t";
+          desc = "Toggle theme (light/dark)";
+          cmd = "theme-toggle";
+        }
+        {
           key = "c";
           desc = "Open config files";
           submenu = [

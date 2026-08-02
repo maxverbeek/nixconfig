@@ -1,6 +1,16 @@
 vim.loader.enable()
 
-vim.cmd("colorscheme kanagawa")
+-- Dark stays kanagawa (wave); light is catppuccin latte. nvim detects
+-- vim.o.background itself from the terminal (mode 2031) -- never set it here,
+-- see modules/desktop/theme.nix -- we only map it to a colorscheme.
+local function apply_colorscheme()
+  vim.cmd.colorscheme(vim.o.background == "light" and "catppuccin-latte" or "kanagawa")
+end
+apply_colorscheme()
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "background",
+  callback = apply_colorscheme,
+})
 
 vim.g.c_syntax_for_h = 1
 vim.g.mapleader = " "

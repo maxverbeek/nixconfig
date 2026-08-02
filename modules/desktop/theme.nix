@@ -23,9 +23,16 @@
       # it, barbell watches it. Outside the store on purpose -- a runtime
       # toggle can't be a function of the config alone.
       statePath = "theme.json";
+
+      # foot can't watch theme.json, and only reads config at startup -- so a
+      # new terminal in light mode would start dark. theme-toggle writes
+      # `initial-color-theme` here and foot.ini includes it. $HOME-relative
+      # (foot requires absolute or ~/ include paths, so no XDG_RUNTIME_DIR),
+      # which also means the variant survives reboots, matching dconf.
+      footThemeIni = ".config/foot/theme.ini";
     in
     {
-      inherit statePath;
+      inherit statePath footThemeIni;
 
       # Hex "#RRGGBB" -> { r, g, b } in 0-255. Lives here rather than in any
       # one consumer because it's a colour concern, not an app concern.
@@ -75,11 +82,12 @@
           # What the desktop calls this, for dconf/portal consumers.
           scheme = "prefer-dark";
 
-          # Neovim needs no colours from us: kanagawa maps
-          # background=dark -> wave, background=light -> lotus internally, and
-          # nvim sets `background` itself from the terminal (mode 2031).
-          # Nothing here should ever set vim.o.background -- doing so makes
-          # nvim delete its own auto-detect autocmd. See theme-toggle.nix.
+          # Neovim needs no colours from us: init.lua maps
+          # background=dark -> kanagawa (wave), background=light ->
+          # catppuccin-latte, and nvim sets `background` itself from the
+          # terminal (mode 2031). Nothing here should ever set
+          # vim.o.background -- doing so makes nvim delete its own
+          # auto-detect autocmd. See theme-toggle.nix.
           nvim.colorscheme = "kanagawa";
 
           gtk = {
@@ -90,10 +98,11 @@
 
         light = {
           scheme = "prefer-light";
-          nvim.colorscheme = "kanagawa";
+          nvim.colorscheme = "catppuccin-latte";
 
           # Kanagawa has no light GTK theme (kanagawa-gtk-theme ships four
-          # variants, all dark), so GTK is Catppuccin -- matching the greeter.
+          # variants, all dark), so light is Catppuccin Latte throughout
+          # (nvim, foot, GTK) -- matching the greeter.
           gtk = {
             variant = "latte";
             name = "catppuccin-latte-mauve-compact";

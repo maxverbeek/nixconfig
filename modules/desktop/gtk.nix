@@ -25,6 +25,9 @@
           package = catppuccin theme.variants.dark.gtk.variant;
           name = theme.variants.dark.gtk.name;
         };
+        # No GTK4 theme: libadwaita apps follow the color-scheme dconf key that
+        # theme-toggle writes. Forcing a theme here would pin them to mocha.
+        gtk4.theme = null;
       };
 
       # The light theme has to be installed too, or switching the dconf key

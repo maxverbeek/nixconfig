@@ -15,6 +15,7 @@
 
         # style
         kanagawa-nvim
+        catppuccin-nvim
         dressing-nvim
         fidget-nvim
         nvim-web-devicons
