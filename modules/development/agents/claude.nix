@@ -56,12 +56,25 @@ in
         name:
         { plugins, superpowers }:
         let
-          settings = builtins.toJSON {
-            extraKnownMarketplaces = marketplaces;
-            enabledPlugins = basePlugins // {
-              "superpowers@claude-plugins-official" = superpowers;
-            };
-          };
+          # Marketplaces are Nix-owned infrastructure and always forced.
+          #
+          # enabledPlugins is deliberately NOT forced for the default profile:
+          # --settings outranks the user settings file, so passing it would make
+          # /config plugin toggles silently no-op (anthropics/claude-code#25086).
+          # It lives in the mutable settings.json, seeded from settings.seed.json.
+          #
+          # `claudes` is the exception — it needs superpowers on, and there is no
+          # per-plugin CLI flag. It passes the FULL map (never a partial object,
+          # whose merge-vs-replace behaviour is unspecified), so that profile
+          # knowingly ignores /config plugin toggles for the session.
+          settings = builtins.toJSON (
+            { extraKnownMarketplaces = marketplaces; }
+            // lib.optionalAttrs superpowers {
+              enabledPlugins = basePlugins // {
+                "superpowers@claude-plugins-official" = true;
+              };
+            }
+          );
 
           pluginFlags = lib.concatMapStringsSep " " (p: "--plugin-dir ${pluginsDir}/${p}") plugins;
         in

@@ -24,7 +24,7 @@ command=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')
 
 # A glob is only dangerous when there's a wildcard inside the store path. A
 # literal /nix/store/<hash>-name path is exactly what we want people using.
-if printf '%s' "$command" | grep -qE '/nix/store/[^ ")'"'"']*\*'; then
+if printf '%s' "$command" | grep -qE '/nix/store/[^/ ")'"'"']*\*'; then
   cat >&2 <<'EOF'
 Blocked: this command globs over /nix/store.
 
