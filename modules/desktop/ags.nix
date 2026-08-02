@@ -7,33 +7,17 @@
       services.gvfs.enable = true;
     };
 
+  # The ags bar itself is retired — barbarella.nix runs the quickshell bar now.
+  # The tools below predate ags and outlive it.
   flake.modules.homeManager.headful =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        ags
-        bun
         fd
         brightnessctl
         networkmanager
         swappy
         wayshot
       ];
-
-      systemd.user.services.ags = {
-        Unit = {
-          Description = "Astal (ags) bar";
-          Wants = [ "niri.service" ];
-          After = [ "niri.service" ];
-        };
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
-        Service = {
-          ExecStart = "${pkgs.agsmax}/bin/maxags";
-          Restart = "always";
-          RestartSec = "1s";
-        };
-      };
     };
 }

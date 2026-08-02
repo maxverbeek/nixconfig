@@ -65,6 +65,7 @@
         gemini
 
         pkgs.opencode
+        pkgs.mcp-grafana
         pkgs.libnotify
         pkgs.self.opencode-sessions
         pkgs.self.claude-sessions

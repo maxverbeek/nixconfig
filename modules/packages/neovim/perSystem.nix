@@ -71,6 +71,9 @@
 
         pkgs.gitlab-reviewer
 
+        # ruby_lsp is launched via `direnv exec` (see after/lsp/ruby_lsp.lua)
+        direnv
+
         # also python stuff for molten??
         imagemagick
       ];

@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.development =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       home.packages = [
         pkgs.kubectl
@@ -9,8 +9,8 @@
         pkgs.cmctl
         pkgs.k9s
         pkgs.kubeseal
-        (pkgs.wrapHelm pkgs.kubernetes-helm {
-          plugins = [ pkgs.kubernetes-helmPlugins.helm-diff ];
+        (pkgs.unstable.wrapHelm pkgs.unstable.kubernetes-helm {
+          plugins = [ pkgs.unstable.kubernetes-helmPlugins.helm-diff ];
         })
         pkgs.dyff
       ];

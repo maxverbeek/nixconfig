@@ -28,6 +28,11 @@
     # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
     ags.url = "github:maxverbeek/astalconfig";
 
+    # the quickshell bar. Local path: update with `nix flake update barbell`
+    # after committing there. Follows unstable so quickshell stays current.
+    barbell.url = "git+file:///home/max/Personal/barbell";
+    barbell.inputs.nixpkgs.follows = "unstable";
+
     # walker + elephant stuff
     walker.url = "github:abenz1267/walker";
     walker.inputs.elephant.follows = "elephant";

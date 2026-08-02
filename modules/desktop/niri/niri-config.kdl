@@ -444,6 +444,10 @@ binds {
     Super+Alt+L { spawn "lock"; }
     Mod+M { spawn "wlr-which-key"; }
 
+    // Vim-mode for the laptop: ; is how vim enters command mode. Opens on
+    // audio; s/w/b/p/c switch tabs from there, Esc leaves.
+    Mod+Semicolon hotkey-overlay-title="Control menu" { spawn "barbell" "ipc" "call" "menu" "open"; }
+
     // cheeky binds for copy pasting xwayland stuff to wayland (1password sucks)
     Mod+Shift+C hotkey-overlay-title="Copy x to wayland" { spawn "sh" "-c" "xsel -ob | wl-copy"; }
     Mod+Shift+V hotkey-overlay-title="Copy wayland to x" { spawn "sh" "-c" "wl-paste -n | xsel -ib"; }
@@ -618,6 +622,9 @@ binds {
     // single double full -> SDF
     Mod+S { set-column-width "33.33333%"; }
     Mod+D { set-column-width "66.66666%"; }
+
+    Mod+V { toggle-window-floating; }
+    Mod+Ctrl+V { switch-focus-between-floating-and-tiling; }
 
     Mod+Escape { reset-window-height; }
     Mod+F { maximize-column; }

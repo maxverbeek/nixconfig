@@ -85,6 +85,8 @@
           gsm = "git sm";
           gsd = "git sd";
           gl = "git l";
+          wtlm = "work ticket list --mine";
+          wtlms = "work ticket list --mine --sprint";
           dc = "docker compose";
           ":q" = "exit";
           ":wq" = "exit";

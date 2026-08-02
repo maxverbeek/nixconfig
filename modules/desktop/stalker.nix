@@ -9,5 +9,7 @@
     imports = [ inputs.stalker.homeModules.default ];
 
     services.stalker.enable = true;
+    # zsh completion for the `work` CLI comes with the module (dynamic:
+    # ticket refs, projects, cycles complete from the local mirror).
   };
 }

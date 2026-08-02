@@ -8,6 +8,7 @@
         custom.fa-custom
         custom.teg-font
         hack-font
+        inter
         noto-fonts
         powerline-fonts
         roboto

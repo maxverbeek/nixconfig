@@ -67,6 +67,26 @@
         "type": "github"
       }
     },
+    "barbell": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785621298,
+        "narHash": "sha256-ML+Hq40KrwKSXW/zf00dm1kV5soMEWhvYbrbPR5Vn5M=",
+        "ref": "refs/heads/master",
+        "rev": "ff72cbc4c21fd5ce59d243d6ee9da95cf35ba609",
+        "revCount": 61,
+        "type": "git",
+        "url": "file:///home/max/Personal/barbell"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/max/Personal/barbell"
+      }
+    },
     "breadhero": {
       "inputs": {
         "crane": "crane",
@@ -95,11 +115,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1784484843,
-        "narHash": "sha256-DQpCBkh4J5yoBDKbWIxDqdicKU4nBjnX4Kx+404zD2I=",
+        "lastModified": 1785285785,
+        "narHash": "sha256-r1cMlvXjRVKe+uQ/GKwy4TpionpmbNgksFP2758D/MM=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "6ee481c21e1e069e465abe89bb722c3fcdb78a1f",
+        "rev": "da78262708d858861afbe1f68ea65fedda4054c4",
         "type": "github"
       },
       "original": {
@@ -418,11 +438,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784350909,
-        "narHash": "sha256-ZWyzLbS1yKUTeFJLmdVuWNnHttL333/ldJbEE+KzCrM=",
+        "lastModified": 1785119570,
+        "narHash": "sha256-Rgs2xKnGLFWQscxUaXX07oyZeuMDOHEbqDOsgliLFGM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4ce190229c73d44536caa7072f6308fb2d8feeb3",
+        "rev": "d4fd24667c8cbef124bb70a20380cab75ec8474d",
         "type": "github"
       },
       "original": {
@@ -506,11 +526,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1784189142,
-        "narHash": "sha256-+1w1B52n/TnmAV9bsZh7f2OVF4jnkFRm8QdjfIiRa0M=",
+        "lastModified": 1784765297,
+        "narHash": "sha256-ozaZxgtAcwCcf8IsUTwn39oLnRITt1i9U9VyD6ahRw4=",
         "owner": "bobvanderlinden",
         "repo": "nixpkgs-ruby",
-        "rev": "eed9cfb18ae6174c47e1ca4f380cf542ba777218",
+        "rev": "3f194ed1d05a97bd5f0306296a310ee66d305e3c",
         "type": "github"
       },
       "original": {
@@ -521,11 +541,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1784364478,
-        "narHash": "sha256-CdItYNdYUlm7NxqMVyQKqT2IxTwvapiPuRLWOyHTrbY=",
+        "lastModified": 1784783405,
+        "narHash": "sha256-4IHyyLgLBdKefkljdKod4IMn023pQiDXAWJA187cmdY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "20535e48e12c86043b577b8518234ff5dbb26957",
+        "rev": "7525d999cd850b9a488817abc89c75dc733acf17",
         "type": "github"
       },
       "original": {
@@ -551,11 +571,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1784432872,
-        "narHash": "sha256-n3gKTBIV4ZA5VQpUakffBe3KGu4+mhPoA34rrqS0GkA=",
+        "lastModified": 1785133411,
+        "narHash": "sha256-Yjv0WEg39KRYS0rBdTbu6Fc/or/ihAKk13W9sQ6VWd0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fd1462031fdee08f65fd0b4c6b64e22239a77870",
+        "rev": "2f5a153c270b70cb0f8c11f46d96d6d3bc39f4e3",
         "type": "github"
       },
       "original": {
@@ -650,6 +670,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "barbell": "barbell",
         "breadhero": "breadhero",
         "claude-code": "claude-code",
         "disko": "disko",
@@ -749,11 +770,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784544949,
-        "narHash": "sha256-D+exfI3FQNXusZuDfSUUy97b1YU97L1axVZaD6r5xHo=",
+        "lastModified": 1785402454,
+        "narHash": "sha256-JnDJZPasD9WArQYh72M6RUCULBeD2wNqiORRgY+pVDg=",
         "ref": "refs/heads/main",
-        "rev": "4cbd8d6d7aac14dbed57a9d39e83d10620090802",
-        "revCount": 410,
+        "rev": "0970e92aa3991948408b32bc909a10bd27735e4a",
+        "revCount": 456,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/stalker"
       },
@@ -854,11 +875,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1784497964,
-        "narHash": "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=",
+        "lastModified": 1785318670,
+        "narHash": "sha256-dN6Ou5x/+23FZLEpYP3IffO+NyJFzUlGumt1uu3MMaY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "241313f4e8e508cb9b13278c2b0fa25b9ca27163",
+        "rev": "0954f7ee2f6bb3dc7d4e3d0d8bcb8fd4bde4cfc5",
         "type": "github"
       },
       "original": {
@@ -936,11 +957,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784352415,
-        "narHash": "sha256-sHuh1KQopmLPWouFBYwZ5PVWj19Y4mKAjkQeQHCT3E0=",
+        "lastModified": 1785224333,
+        "narHash": "sha256-8DNJUVM10ktK02V9ZIV064CH+fuPF272VCAZBn6arig=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "7202b917826e2e335d9935c3a943ae18681056b1",
+        "rev": "5f1a4be4d280e1ae06d61a75775a234b1714da3f",
         "type": "github"
       },
       "original": {
