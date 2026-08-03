@@ -112,19 +112,48 @@
 
         # Starship doubles as the Claude Code statusline via
         # `starship statusline claude-code`, which reads the same JSON blob
-        # Claude hands its statusline command. It covers model, directory,
-        # branch, context gauge and cost out of the box; the one thing it has
-        # no module for is rate limits, hence the custom quota segment.
+        # Claude hands its statusline command. It covers context, model and
+        # directory out of the box; the one thing it has no module for is rate
+        # limits, hence the custom quota segment.
         settings = {
-          # Braces are required around a custom module: a bare "$custom.quota"
-          # parses as $custom followed by the literal ".quota".
-          profiles.claude = "$claude_model$directory$git_branch$claude_context\${custom.quota}$claude_cost";
+          # tokens (ctx%) · model · dir+branch · 5h% weekly% · cost. Colour
+          # separates the segments instead of divider characters. Braces are
+          # required around a custom module: a bare "$custom.quota" parses as
+          # $custom followed by the literal ".quota".
+          profiles.claude = "$claude_context$claude_model$directory$git_branch\${custom.quota}";
 
           custom.quota = {
             command = "$HOME/.claude/hooks/claude-quota.sh";
-            format = "[$output]($style) ";
+            # No wrapping style: the script emits its own SGR codes so the cost
+            # can be red or green independently of the percentages.
+            format = "[$output]($style)";
             style = "bold purple";
             when = true;
+          };
+
+          claude_context = {
+            # Absolute token count, not just a gauge. Parens must be escaped;
+            # bare ones read as a format group.
+            format = "[$input_tokens \\($percentage\\)]($style) ";
+            symbol = "";
+          };
+
+          claude_model = {
+            # No robot icon, and the technical name rather than the marketing
+            # one. $model is the display_name, so the aliases below rewrite it —
+            # there is no $id variable to use instead.
+            format = "[$model]($style) ";
+            symbol = "";
+            style = "bold blue";
+            model_aliases = {
+              "Opus 5 (1M context)" = "opus-5[1m]";
+              "Opus 5" = "opus-5";
+              "Fable 5 (1M context)" = "fable-5[1m]";
+              "Fable 5" = "fable-5";
+              "Sonnet 5 (1M context)" = "sonnet-5[1m]";
+              "Sonnet 5" = "sonnet-5";
+              "Haiku 4.5" = "haiku-4.5";
+            };
           };
 
           # The prompt's default "$all" includes $custom, which would run the
@@ -134,27 +163,24 @@
           # is true in a live session for both. So spell out $all minus $custom.
           format = "$username$hostname$localip$shlvl$singularity$kubernetes$nats$directory$vcsh$fossil_branch$fossil_metrics$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$hg_state$pijul_channel$docker_context$package$bun$c$cmake$cobol$cpp$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$fortran$gleam$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$maven$mojo$nim$nodejs$ocaml$odin$opa$perl$php$pulumi$purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$xmake$zig$buf$guix_shell$nix_shell$conda$pixi$meson$spack$memory_usage$aws$gcloud$openstack$azure$direnv$env_var$mise$crystal$sudo$cmd_duration$line_break$jobs$battery$time$status$container$netns$os$shell$character";
 
-          # Default truncation shows "development/agents/_shared", which loses
-          # which repo you are in. Anchor on the repo root instead.
-          directory = {
-            truncation_length = 3;
-            truncate_to_repo = true;
-            truncation_symbol = "…/";
-          };
-
-          # The context gauge is the reason to look at this at all, so show it
-          # from the start rather than hiding it until 30%.
+          # Visible from the start rather than hidden until 30%, and the colour
+          # is what marks the segment as context.
+          #
+          # Thresholds are PERCENTAGES, not token counts — a threshold of 100000
+          # silently never matches. These are 100k yellow and 400k red on the 1M
+          # window; on a 200k model the same percentages land at 20k/80k, which
+          # is proportionally the same warning and about right either way.
           claude_context.display = [
             {
               threshold = 0.0;
               style = "bold green";
             }
             {
-              threshold = 60.0;
+              threshold = 10.0;
               style = "bold yellow";
             }
             {
-              threshold = 80.0;
+              threshold = 40.0;
               style = "bold red";
             }
           ];

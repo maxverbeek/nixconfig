@@ -50,4 +50,26 @@ fi
 
 f="?%"
 [ -n "$five" ] && f="$(awk -v v="$five" 'BEGIN{printf "%d", v}')%"
-printf '%s %s' "$f" "${weekly:-?}"
+
+# Cost, coloured by whether the subscription still covers it. Starship's own
+# claude_cost module can only threshold on the dollar amount, which says nothing
+# about overage — $9 inside the subscription costs nothing extra, $9 past a
+# spent weekly bucket does. That judgement needs the limit buckets, which are
+# already open here, so the cost segment is emitted here too.
+#
+# ponytail: "exhausted" = any bucket at 100%. The API reports no explicit
+# overage flag; if one appears, key off that instead.
+cost=$(jq -r '.cost.total_cost_usd // empty' "$dump" 2>/dev/null)
+cost_seg=""
+if [ -n "$cost" ]; then
+    over=0
+    if [ -n "$cache" ] && [ -s "$cache" ]; then
+        jq -e '[.limits[]? | select(.percent >= 100)] | length > 0' "$cache" >/dev/null 2>&1 && over=1
+    fi
+    # 31=red, 32=green. Starship passes a custom module's stdout through
+    # untouched, so the colour has to be inline rather than via `style`.
+    c=32; [ "$over" = 1 ] && c=31
+    cost_seg=$(printf ' \033[1;%dm💰 $%.2f\033[0m' "$c" "$cost")
+fi
+
+printf '%s %s%s' "$f" "${weekly:-?}" "$cost_seg"
