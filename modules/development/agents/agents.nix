@@ -69,6 +69,7 @@
         pkgs.libnotify
         pkgs.self.opencode-sessions
         pkgs.self.claude-sessions
+        pkgs.unstable.herdr
       ];
     };
 }

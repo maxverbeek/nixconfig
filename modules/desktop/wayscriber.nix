@@ -468,7 +468,7 @@
         };
         Service = {
           Type = "simple";
-          ExecStart = "${pkgs.unstable.wayscriber}/bin/wayscriber --daemon";
+          ExecStart = "${pkgs.unstable.wayscriber}/bin/wayscriber --daemon --no-tray";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 5;
