@@ -95,7 +95,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "$HOME/.claude/hooks/usage-dump.sh 'input=$(cat); cwd=$(echo \"$input\" | jq -r '\\''.workspace.current_dir'\\''); git_branch=\"\"; if [ -d \"$cwd/.git\" ] || git -C \"$cwd\" rev-parse --git-dir > /dev/null 2>&1; then git_branch=$(git -C \"$cwd\" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null); [ -n \"$git_branch\" ] && git_branch=\" ($git_branch)\"; fi; remaining=$(echo \"$input\" | jq -r '\\''.context_window.remaining_percentage // empty'\\''); context_info=\"\"; if [ -n \"$remaining\" ]; then remaining_int=$(printf \"%.0f\" \"$remaining\"); context_info=\" | ctx: ${remaining_int}%\"; fi; echo \"${cwd}${git_branch}${context_info}\"'"
+    "command": "$HOME/.claude/hooks/usage-dump.sh 'starship statusline claude-code --profile claude'"
   },
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
