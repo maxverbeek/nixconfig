@@ -28,17 +28,6 @@
             package = pkgs.papirus-icon-theme;
           };
 
-          theme = {
-            name = "Catppuccin-Mocha-Compact-Mauve-Dark";
-            package = (
-              pkgs.catppuccin-gtk.override {
-                accents = [ "mauve" ];
-                size = "compact";
-                variant = "mocha";
-              }
-            );
-          };
-
           commands = {
             reboot = [ "reboot" ];
             poweroff = [
@@ -52,11 +41,6 @@
       environment.systemPackages = with pkgs; [
         glib
         custom.mcmojave-cursors
-        (catppuccin-gtk.override {
-          accents = [ "mauve" ];
-          size = "compact";
-          variant = "mocha";
-        })
         bibata-cursors
         papirus-icon-theme
       ];

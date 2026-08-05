@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "adw-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769040396,
+        "narHash": "sha256-sujinj/+nZdcKwa4d941aZHWLc+DKtg4kifEjxGswHY=",
+        "owner": "claymorwan",
+        "repo": "catppuccin",
+        "rev": "54f7393990e672d3648c1bc8c4cc6d26e6bde852",
+        "type": "github"
+      },
+      "original": {
+        "owner": "claymorwan",
+        "repo": "catppuccin",
+        "type": "github"
+      }
+    },
     "ags": {
       "inputs": {
         "ags": "ags_2",
@@ -74,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785747222,
-        "narHash": "sha256-f2LBSln1dsHBy+BXQ85tXwqhrqxt38B9S1ikwhquMOM=",
+        "lastModified": 1785931542,
+        "narHash": "sha256-xgIittWSIsl6GGjOhIeyXFX1P2Jx3qqCPE6ljXCNVsI=",
         "ref": "refs/heads/master",
-        "rev": "5b55af06b2414d3c784b9041ffbb48c31b38980c",
-        "revCount": 71,
+        "rev": "5d803244ce591a1a8761b32400ff67d8e3bf86f3",
+        "revCount": 77,
         "type": "git",
         "url": "file:///home/max/Personal/barbell"
       },
@@ -669,6 +685,7 @@
     },
     "root": {
       "inputs": {
+        "adw-catppuccin": "adw-catppuccin",
         "ags": "ags",
         "barbell": "barbell",
         "breadhero": "breadhero",
@@ -770,11 +787,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785402454,
-        "narHash": "sha256-JnDJZPasD9WArQYh72M6RUCULBeD2wNqiORRgY+pVDg=",
+        "lastModified": 1785880125,
+        "narHash": "sha256-brfpsnlhmA7InlR3vOgr/PNAKFZ1oI14QnsEDlZ/0qg=",
         "ref": "refs/heads/main",
-        "rev": "0970e92aa3991948408b32bc909a10bd27735e4a",
-        "revCount": 456,
+        "rev": "7107815b27f121d6b6565d121d02170d6fb9234b",
+        "revCount": 471,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/stalker"
       },

@@ -6,9 +6,8 @@
   #
   #   colors.*  -- raw hex, for apps that only understand colours
   #                (rofi, wayscriber, barbell, foot, alacritty)
-  #   nvim/gtk  -- *identity*: a colorscheme name, a theme package. Apps that
-  #                ship their own theming can't be fed hex; they need to be
-  #                told which theme to load.
+  #   nvim/gtk  -- *identity*: colorscheme and palette names. Consumers map
+  #                these to their own theme mechanism.
   #
   # Consumers read `flake.lib.theme` and nothing else, so every themed line in
   # this repo contains the string `theme.` -- grep for it to find them all.
@@ -91,8 +90,8 @@
           nvim.colorscheme = "kanagawa";
 
           gtk = {
-            variant = "mocha";
-            name = "catppuccin-mocha-mauve-compact";
+            palette = "kanagawa";
+            themeName = "adw-gtk3-dark";
           };
         };
 
@@ -100,12 +99,9 @@
           scheme = "prefer-light";
           nvim.colorscheme = "catppuccin-latte";
 
-          # Kanagawa has no light GTK theme (kanagawa-gtk-theme ships four
-          # variants, all dark), so light is Catppuccin Latte throughout
-          # (nvim, foot, GTK) -- matching the greeter.
           gtk = {
-            variant = "latte";
-            name = "catppuccin-latte-mauve-compact";
+            palette = "latte";
+            themeName = "adw-gtk3";
           };
         };
       };

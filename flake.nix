@@ -14,6 +14,11 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    adw-catppuccin = {
+      url = "github:claymorwan/catppuccin";
+      flake = false;
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 

@@ -31,9 +31,10 @@ if [ -n "$cache" ] && [ -s "$cache" ]; then
     # plan's premium-model weekly and Opus draws it too. Trust is_active, not the
     # model string.
     #
-    # A premium model burns the general weekly ~2x as fast, so compare that
-    # bucket's used% DOUBLED against the scoped one. The doubling only picks
-    # which bucket to show; the winner prints its own real used%, tagged W or F.
+    # Show whichever weekly bucket is closest to exhausting — that's the one
+    # that will actually stop you. Comparing raw used% is the whole rule; an
+    # earlier version doubled $all first, which meant the scoped bucket could
+    # only win when $all < $scoped/2 and so never won in practice.
     weekly=$(jq -r '
         (.limits // []) as $l
         | (($l[] | select(.kind == "weekly_all") | .percent) // empty) as $all
@@ -41,7 +42,7 @@ if [ -n "$cache" ] && [ -s "$cache" ]; then
             | first) as $scoped
         | if $all == null then empty else
             if $scoped == null then "\($all | floor)%W"
-            elif ($all * 2) >= $scoped then "\($all | floor)%W"
+            elif $all >= $scoped then "\($all | floor)%W"
             else "\($scoped | floor)%F"
             end
           end

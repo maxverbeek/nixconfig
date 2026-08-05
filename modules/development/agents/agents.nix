@@ -11,15 +11,20 @@
   flake.modules.homeManager.development =
     { pkgs, ... }:
     let
-      codex = pkgs.writeShellScriptBin "codex" ''
-        if [[ $PWD =~ "Researchable/legal-mike" ]]; then
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
-        else
-          export OPENAI_API_KEY=$(<"$HOME/.openai_key")
-        fi
+      mkCodex =
+        name: profileArgs:
+        pkgs.writeShellScriptBin name ''
+          if [[ $PWD =~ "Researchable/legal-mike" ]]; then
+            export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
+          else
+            export OPENAI_API_KEY=$(<"$HOME/.openai_key")
+          fi
 
-        exec ${pkgs.unstable.codex}/bin/codex "$@"
-      '';
+          exec ${pkgs.unstable.codex}/bin/codex ${profileArgs} "$@"
+        '';
+
+      codex = mkCodex "codex" "";
+      codexh = mkCodex "codexh" "--profile hours";
 
       gemini = pkgs.writeShellScriptBin "gemini" ''
         export GEMINI_API_KEY=$(<"$HOME/.gemini_key")
@@ -61,6 +66,7 @@
 
       home.packages = [
         codex
+        codexh
         llm
         gemini
 

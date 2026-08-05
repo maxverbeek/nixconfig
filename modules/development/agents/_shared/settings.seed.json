@@ -108,17 +108,5 @@
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "gitlab@researchable-tools": true,
-    "k8s@researchable-tools": true,
-    "workflow@researchable-tools": true,
-    "freedcamp@researchable-tools": false,
-    "caveman@caveman": false,
-    "ponytail@ponytail": true,
-    "superpowers@claude-plugins-official": false
-  }
+  "voiceEnabled": true
 }
