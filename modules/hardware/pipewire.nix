@@ -18,19 +18,10 @@
               "bluez5.enable-sbc-xq" = true;
               "bluez5.enable-msbc" = true;
               "bluez5.enable-hw-volume" = true;
-              # Only the roles where this laptop drives a headset or speaker.
-              # The *_ag / a2dp_source roles are the other direction — laptop
-              # acting as the phone-side gateway, so a handset routes its call
-              # audio through here. Never used, and dropping them narrows what
-              # can be negotiated on connect.
-              #
-              # hfp_hf and hsp_hs are what give you the headset microphone;
-              # removing those would cost the mic entirely.
-              "bluez5.roles" = [
-                "a2dp_sink"
-                "hfp_hf"
-                "hsp_hs"
-              ];
+              # Don't set bluez5.roles. Narrowing it to [ a2dp_sink hfp_hf
+              # hsp_hs ] broke profile selection — devices bond, then drop with
+              # "a2dp-sink profile connect failed: Protocol not available".
+              # Default is wider, so nothing loses a capability. (2026-08-05)
             };
           };
 

@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785931542,
-        "narHash": "sha256-xgIittWSIsl6GGjOhIeyXFX1P2Jx3qqCPE6ljXCNVsI=",
+        "lastModified": 1785938655,
+        "narHash": "sha256-gzbYZn9lR6wegV8pEws5pEhkhpN3UNzkP1baifDU0gA=",
         "ref": "refs/heads/master",
-        "rev": "5d803244ce591a1a8761b32400ff67d8e3bf86f3",
-        "revCount": 77,
+        "rev": "38dbb7f7e7b4c2475bf9274ce83f27fcea8e3fef",
+        "revCount": 78,
         "type": "git",
         "url": "file:///home/max/Personal/barbell"
       },
@@ -787,11 +787,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785880125,
-        "narHash": "sha256-brfpsnlhmA7InlR3vOgr/PNAKFZ1oI14QnsEDlZ/0qg=",
+        "lastModified": 1785941192,
+        "narHash": "sha256-bOj9MxtOYgOtVkhp6AdgzoKaFwo7F+Bpd+FYR6pRe1s=",
         "ref": "refs/heads/main",
-        "rev": "7107815b27f121d6b6565d121d02170d6fb9234b",
-        "revCount": 471,
+        "rev": "a8f0f66a646509f28dbabc849bc0b8cb6ef1af05",
+        "revCount": 472,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/stalker"
       },
