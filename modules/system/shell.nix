@@ -66,12 +66,73 @@
         autocd = true;
 
         initContent = ''
-          autoload -U edit-command-line
-
           alias ls="ls --color=auto"
 
+          # Pass bare [] ^ ~ through like bash instead of aborting the command
+          # with "no matches found" (jq '.a[]' etc).
+          unsetopt nomatch
+
+          # Paste highlight: the default standout renders red in Kanagawa and
+          # reads like an error; dim grey just marks "from the clipboard".
+          zle_highlight=(paste:fg=8)
+
+          # Esc latency: zsh's 400ms default plus the plugin's own timeout.
+          KEYTIMEOUT=1
+          ZVM_KEYTIMEOUT=0.05
+
+          ZVM_SYSTEM_CLIPBOARD_ENABLED=true  # y/p hit the Wayland clipboard
+          ZVM_LINE_INIT_MODE=i  # every prompt starts in insert mode (literal
+                                # 'i': the plugin isn't sourced yet here)
+
+          autoload -U edit-command-line up-line-or-beginning-search down-line-or-beginning-search
           zle -N edit-command-line
-          bindkey -M vicmd v edit-command-line
+          zle -N up-line-or-beginning-search
+          zle -N down-line-or-beginning-search
+
+          # zsh-vi-mode overwrites bindings made before it initialises, so all
+          # vi-mode keys must live in this hook or they silently vanish.
+          function zvm_after_init() {
+            # `v` from normal mode, ^X^E (the bash chord) straight from insert
+            # mode; ^V keeps its stock quoted-insert.
+            bindkey -M vicmd v edit-command-line
+            bindkey -M viins '^X^E' edit-command-line
+
+            # History, three ways:
+            #  - j/k and arrows walk it filtered by the typed prefix (the
+            #    default is a move-within-line/history hybrid that behaves
+            #    differently on wrapped vs single-line commands)
+            #  - ^R / normal-mode `/` open the fzf picker (the vi search jumps
+            #    blind to one match with no preview; `?` too -- forward search
+            #    from the newest entry has nothing to find)
+            bindkey -M vicmd k up-line-or-beginning-search
+            bindkey -M vicmd j down-line-or-beginning-search
+            bindkey -M vicmd '/' fzf-history-widget
+            bindkey -M vicmd '?' fzf-history-widget
+            for m in viins vicmd; do
+              bindkey -M $m '^[[A' up-line-or-beginning-search
+              bindkey -M $m '^[[B' down-line-or-beginning-search
+              bindkey -M $m '^[OA' up-line-or-beginning-search
+              bindkey -M $m '^[OB' down-line-or-beginning-search
+              # fzf's own bindings are among what the plugin clobbers
+              bindkey -M $m '^R' fzf-history-widget
+              bindkey -M $m '^T' fzf-file-widget
+            done
+
+            # Accept the autosuggestion without reaching for the arrow key.
+            bindkey -M viins '^ ' autosuggest-accept
+            bindkey -M viins '^F' autosuggest-accept
+
+            # Ctrl+/ (arrives as ^_): undo without leaving insert mode -- e.g.
+            # a tab-expanded !$ back to literal. Esc-u does the same, vim-style.
+            bindkey -M viins '^_' undo
+
+            # Vim treats one insert session as one undo unit, so undo after
+            # tabbing wipes the whole line, expansion and all. Breaking the
+            # chain at each tab makes undo revert just the expansion.
+            tab-split-undo() { zle split-undo; zle fzf-completion }
+            zle -N tab-split-undo
+            bindkey -M viins '^I' tab-split-undo
+          }
         '';
 
         shellAliases = {
@@ -90,14 +151,9 @@
           dc = "docker compose";
           ":q" = "exit";
           ":wq" = "exit";
-          git = "noglob git";
         };
 
         plugins = [
-          {
-            name = "zsh-z";
-            src = "${pkgs.zsh-z}/share/zsh-z";
-          }
           {
             name = "vi-mode";
             src = pkgs.unstable.zsh-vi-mode;
@@ -185,6 +241,14 @@
             }
           ];
         };
+      };
+
+      # Replaces zsh-z: same frecency jumping, but moved/deleted directories are
+      # pruned on first failed jump instead of lingering until their score
+      # decays. --cmd z keeps the muscle memory (and adds `zi` = fzf picker).
+      programs.zoxide = {
+        enable = true;
+        options = [ "--cmd" "z" ];
       };
 
       programs.dircolors.enable = true;
