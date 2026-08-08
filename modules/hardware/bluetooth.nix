@@ -29,12 +29,10 @@
         # instead of an overlay, so pipewire & friends don't rebuild.
         #
         # https://github.com/bluez/bluez/issues/1898
+        # vendored: github .patch URLs are not byte-stable, fetchpatch broke once
         package = pkgs.bluez.overrideAttrs (old: {
           patches = (old.patches or [ ]) ++ [
-            (pkgs.fetchpatch {
-              url = "https://github.com/bluez/bluez/commit/066a164a524e4983b850f5659b921cb42f84a0e0.patch";
-              hash = "sha256-iitdib8VxPWaBUXrxAJ4/YHdBUDMGiDDSEBK+c4aPoE=";
-            })
+            ./bluez-066a164-sink-after-source.patch
           ];
         });
         # `Enable = "Source,Sink,Media,Socket"` used to live here. That's a
