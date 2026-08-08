@@ -13,6 +13,12 @@
       # Servers can be more aggressive than the 30d base default
       nix.gc.options = "--delete-older-than 14d";
 
+      # Small VPS: one build at a time, and compressed swap so a big Rust
+      # dependency compile degrades instead of OOM-locking the machine
+      nix.settings.max-jobs = 1;
+      zramSwap.enable = true;
+      zramSwap.memoryPercent = 100;
+
       # Pull master and rebuild nightly; nixos-rebuild appends #$(hostname)
       system.autoUpgrade = {
         enable = true;

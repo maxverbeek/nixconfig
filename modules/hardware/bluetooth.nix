@@ -1,5 +1,22 @@
 { ... }:
+let
+  # vendored: github .patch URLs are not byte-stable, fetchpatch broke once
+  bluezPatched =
+    pkgs:
+    pkgs.bluez.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [
+        ./bluez-066a164-sink-after-source.patch
+      ];
+    });
+in
 {
+  # Pre-build it: a bluez rebuild is expensive and every headful host needs it.
+  perSystem =
+    { pkgs, ... }:
+    {
+      cachePackages.bluez = bluezPatched pkgs;
+    };
+
   flake.modules.nixos.multimedia =
     { pkgs, ... }:
     {
@@ -29,12 +46,7 @@
         # instead of an overlay, so pipewire & friends don't rebuild.
         #
         # https://github.com/bluez/bluez/issues/1898
-        # vendored: github .patch URLs are not byte-stable, fetchpatch broke once
-        package = pkgs.bluez.overrideAttrs (old: {
-          patches = (old.patches or [ ]) ++ [
-            ./bluez-066a164-sink-after-source.patch
-          ];
-        });
+        package = bluezPatched pkgs;
         # `Enable = "Source,Sink,Media,Socket"` used to live here. That's a
         # BlueZ *4* audio.conf key — BlueZ 5 dropped the socket audio interface
         # in 2013 and logs `Unknown key Enable for group General` on every boot.

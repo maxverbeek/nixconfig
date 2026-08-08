@@ -1,5 +1,11 @@
 { inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.barbell = inputs.barbell.packages.${system}.default;
+    };
+
   # The battery widget reads UPower over D-Bus.
   flake.modules.nixos.headful = {
     services.upower.enable = true;

@@ -1,5 +1,11 @@
 { inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.elephant-gitlab = inputs.elephant-gitlab.packages.${system}.default;
+    };
+
   flake.modules.nixos.headful = {
     nix.settings = {
       substituters = [

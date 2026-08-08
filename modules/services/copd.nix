@@ -1,4 +1,11 @@
+{ inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.copd = inputs.copd.packages.${system}.default;
+    };
+
   flake.modules.nixos.copd =
     { inputs, ... }:
     {

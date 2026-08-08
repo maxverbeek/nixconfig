@@ -1,4 +1,11 @@
+{ inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.feedbackers = inputs.feedbackers.packages.${system}.default;
+    };
+
   flake.modules.nixos.feedbackers =
     { inputs, ... }:
     let

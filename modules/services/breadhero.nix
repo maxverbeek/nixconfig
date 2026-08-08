@@ -1,4 +1,11 @@
+{ inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.breadhero = inputs.breadhero.packages.${system}.default;
+    };
+
   flake.modules.nixos.breadhero =
     { inputs, ... }:
     let

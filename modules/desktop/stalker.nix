@@ -1,5 +1,11 @@
 { inputs, ... }:
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages.stalker = inputs.stalker.packages.${system}.default;
+    };
+
   # stalker activity collector: daemon (systemd user service), the `emit`
   # CLI, the global git post-commit hook, and the xtee/Claude hook scripts.
   # The `git mp`/`mpr` aliases in development/git.nix reference

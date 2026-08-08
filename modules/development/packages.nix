@@ -45,7 +45,9 @@
         kdePackages.kolourpaint
         librsvg
         minikube
-        mongodb-compass
+        # stable's build hits a wrap-gapps-hook bug; drop the unstable pin
+        # once nixos-26.05 builds it again
+        unstable.mongodb-compass
         mr
         nautilus
         fastfetch

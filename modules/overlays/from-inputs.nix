@@ -15,6 +15,16 @@ let
   );
 in
 {
+  perSystem =
+    { system, ... }:
+    {
+      cachePackages = {
+        gitlab-reviewer = inputs.gitlab-reviewer.packages.${system}.default;
+        astalconfig = inputs.ags.packages.${system}.default;
+        xtee = inputs.xtee.packages.${system}.default;
+      };
+    };
+
   nixpkgs.overlays = [
     (final: prev: {
       unstable = import inputs.unstable {

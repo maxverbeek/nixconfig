@@ -1,5 +1,5 @@
 switch *ARGS:
-    git pull --rebase
+    git pull --rebase --autostash
     nixos-rebuild switch --sudo --flake . {{ARGS}}
 
 apply host:
@@ -21,7 +21,7 @@ update:
 # CI owns the server/shared inputs; update laptop-only inputs here,
 # e.g. `just lockfile barbell`. No args = full update (rarely needed).
 lockfile *INPUTS:
-    git pull --rebase
+    git pull --rebase --autostash
     nix flake update {{INPUTS}}
 
 
