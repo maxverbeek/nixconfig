@@ -17,6 +17,7 @@
         brightnessctl
         swappy
         wayshot
+        wl-clipboard
       ];
     };
 }

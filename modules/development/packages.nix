@@ -25,6 +25,7 @@
         file
         (wrapFirefox (firefox-unwrapped.override { pipewireSupport = true; }) { })
         gcc
+        gh
         gitlab-reviewer
         glab
         gimp
