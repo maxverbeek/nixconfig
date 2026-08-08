@@ -41,6 +41,9 @@ in
 
       boot.loader.grub.efiSupport = true;
       boot.loader.grub.efiInstallAsRemovable = true;
+      # 256M ESP fits ~6 generations of kernel+initrd; cap well under that so a
+      # rebuild can never fill /boot and lock itself out of fixing it.
+      boot.loader.grub.configurationLimit = 3;
 
       networking.hostName = "scopecreep";
 
