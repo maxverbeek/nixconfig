@@ -5,7 +5,7 @@
       # Binary cache for the other hosts, reachable over tailscale only
       # (port 5000; tailscale0 is a trusted interface, public firewall stays closed).
       # Key uploaded by secrets/harmonia-signing-key.sh
-      services.harmonia = {
+      services.harmonia.cache = {
         enable = true;
         signKeyPaths = [ "/var/secrets/harmonia-signing-key" ];
       };
