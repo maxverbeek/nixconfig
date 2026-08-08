@@ -15,6 +15,7 @@ in
         modules.webdav
         modules.feedbackers
         modules.breadhero
+        modules.copd
 
         # User "max" (home-manager + base HM role: zsh, starship, fzf)
         modules.max
