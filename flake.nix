@@ -22,7 +22,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    opencode.url = "github:anomalyco/opencode/v1.15.0";
+    opencode.url = "github:anomalyco/opencode/v1.18.15";
     opencode.inputs.nixpkgs.follows = "unstable";
 
     # don't follow nixpkgs here, to keep the cachix binary cache usable
