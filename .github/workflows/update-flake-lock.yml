@@ -30,6 +30,12 @@ jobs:
           copd feedbackers breadhero
           claude-code opencode
 
+      # eval-only gate: catches insecure/broken/removed packages without building
+      - run: |
+          for host in scopecreep thinkpad desknix; do
+            nix eval ".#nixosConfigurations.$host.config.system.build.toplevel.drvPath"
+          done
+
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
