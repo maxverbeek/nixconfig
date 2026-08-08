@@ -1,5 +1,5 @@
 switch *ARGS:
-    sudo nixos-rebuild switch --flake . {{ARGS}}
+    nixos-rebuild switch --sudo --flake . {{ARGS}}
 
 apply host:
   #!/usr/bin/env bash
@@ -9,7 +9,7 @@ apply host:
   ssh root@{{host}} "nixos-rebuild switch --flake ${store_path}#{{host}}"
 
 test:
-    sudo nixos-rebuild test --flake .
+    nixos-rebuild test --sudo --flake .
 
 deploy host ip:
     nix run github:nix-community/nixos-anywhere -- --flake .#{{host}} --target-host root@{{ip}}

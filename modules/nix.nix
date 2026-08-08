@@ -9,6 +9,7 @@
           experimental-features = nix-command flakes
         '';
         settings.trusted-users = [ "@wheel" ];
+        settings.auto-optimise-store = true;
       };
 
       programs.nix-ld.enable = true;

@@ -72,6 +72,15 @@
           # with "no matches found" (jq '.a[]' etc).
           unsetopt nomatch
 
+          # Tab on a word that is a GLOBAL alias (-oenv etc) expands it in the
+          # buffer, like !$ already does, before falling back to normal
+          # completion. `regular false` keeps ordinary aliases (ll, dc, ...)
+          # completing normally instead of exploding into their definitions --
+          # note it gates ^Xa identically (same expand-alias-word context), so
+          # nothing expands regular aliases any more.
+          zstyle ':completion:*' completer _expand_alias _complete _ignored
+          zstyle ':completion:expand-alias-word:*' regular false
+
           # Paste highlight: the default standout renders red in Kanagawa and
           # reads like an error; dim grey just marks "from the clipboard".
           zle_highlight=(paste:fg=8)

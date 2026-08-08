@@ -20,16 +20,10 @@
         source <(helm completion zsh)
         source <(helm diff completion zsh)
 
-        # Typing -oenv<space> expands to a kubectl -o go-template flag that
-        # renders a secret's .data as sourceable dotenv export lines.
-        expand-oenv() {
-          if [[ $LBUFFER == *-oenv ]]; then
-            LBUFFER="''${LBUFFER%-oenv}-o go-template='{{range \$k,\$v := .data}}export {{\$k}}={{\$v | base64decode}}{{\"\n\"}}{{end}}'"
-          fi
-          zle self-insert
-        }
-        zle -N expand-oenv
-        bindkey ' ' expand-oenv
+        # Global alias: -oenv anywhere in a command becomes a kubectl
+        # go-template flag rendering a secret's .data as sourceable dotenv
+        # export lines. The -- is required for an alias name starting with -.
+        alias -g -- -oenv="-o go-template='{{range \$k,\$v := .data}}export {{\$k}}={{\$v | base64decode}}{{\"\n\"}}{{end}}'"
       '';
     };
 }
