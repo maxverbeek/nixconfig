@@ -1,0 +1,40 @@
+name: update-flake-lock
+
+on:
+  schedule:
+    - cron: "0 2 * * 1" # weekly, monday 02:00 UTC — before the VPS's 04:00 rebuild
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      # read access to private git+ssh inputs (feedbackers, breadhero)
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.FLAKE_SSH_KEY }}
+
+      # Server + shared inputs only. Laptop-only inputs (barbell, walker,
+      # ags, elephant*, ...) are updated locally, so the two sides never
+      # race on the same flake.lock nodes.
+      - run: >
+          nix flake update
+          nixpkgs unstable home-manager disko
+          copd feedbackers breadhero
+          claude-code opencode
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet flake.lock || {
+            git add flake.lock
+            git commit -m "chore(flake.lock): update server inputs"
+            git push
+          }

@@ -1,0 +1,4 @@
+# flake.lock is generated; on conflict keep the current side (upstream during
+# rebase) and re-run the targeted `nix flake update <input>` afterwards.
+# Requires once per clone: git config merge.flakelock.driver true
+flake.lock merge=flakelock

@@ -96,11 +96,11 @@
         "rev": "38dbb7f7e7b4c2475bf9274ce83f27fcea8e3fef",
         "revCount": 78,
         "type": "git",
-        "url": "file:///home/max/Personal/barbell"
+        "url": "ssh://git@github.com/maxverbeek/barbell"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/max/Personal/barbell"
+        "url": "ssh://git@github.com/maxverbeek/barbell"
       }
     },
     "breadhero": {

@@ -1,4 +1,5 @@
 switch *ARGS:
+    git pull --rebase
     nixos-rebuild switch --sudo --flake . {{ARGS}}
 
 apply host:
@@ -17,9 +18,11 @@ deploy host ip:
 update:
     just lockfile && just commit && just
 
-lockfile:
+# CI owns the server/shared inputs; update laptop-only inputs here,
+# e.g. `just lockfile barbell`. No args = full update (rarely needed).
+lockfile *INPUTS:
     git pull --rebase
-    nix flake update
+    nix flake update {{INPUTS}}
 
 
 changes := `git diff-index HEAD flake.lock`

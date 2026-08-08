@@ -10,6 +10,17 @@
 
       environment.systemPackages = [ pkgs.git ];
 
+      # Servers can be more aggressive than the 30d base default
+      nix.gc.options = "--delete-older-than 14d";
+
+      # Pull master and rebuild nightly; nixos-rebuild appends #$(hostname)
+      system.autoUpgrade = {
+        enable = true;
+        flake = "github:maxverbeek/nixconfig";
+        dates = "04:00";
+        allowReboot = true;
+      };
+
       # Serial console for Hetzner web console
       boot.kernelParams = [ "console=ttyS0" ];
 

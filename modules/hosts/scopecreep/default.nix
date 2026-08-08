@@ -16,6 +16,7 @@ in
         modules.feedbackers
         modules.breadhero
         modules.copd
+        modules.harmonia
 
         # User "max" (home-manager + base HM role: zsh, starship, fzf)
         modules.max
