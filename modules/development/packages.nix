@@ -1,5 +1,28 @@
 { ... }:
+let
+  texliveCombined =
+    pkgs:
+    pkgs.texlive.combine {
+      inherit (pkgs.texlive)
+        scheme-tetex
+        latexmk
+        biblatex
+        tcolorbox
+        pdfcol
+        upquote
+        grffile
+        adjustbox
+        ;
+    };
+in
 {
+  # texlive.combine is a slow local rebuild on every host; pre-build it.
+  perSystem =
+    { pkgs, ... }:
+    {
+      cachePackages.texlive = texliveCombined pkgs;
+    };
+
   flake.modules.homeManager.development =
     { pkgs, ... }:
     {
@@ -79,19 +102,8 @@
         zathura
         zoom-us
 
-        # latex
-        (texlive.combine {
-          inherit (texlive)
-            scheme-tetex
-            latexmk
-            biblatex
-            tcolorbox
-            pdfcol
-            upquote
-            grffile
-            adjustbox
-            ;
-        })
+        # latex (definition shared with cachePackages above)
+        (texliveCombined pkgs)
         biber
         pandoc
 
