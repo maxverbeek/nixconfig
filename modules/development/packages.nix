@@ -93,7 +93,6 @@
         biber
         pandoc
 
-        jetbrains.idea-oss
         openjdk17
         maven
 
