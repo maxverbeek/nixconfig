@@ -13,6 +13,10 @@
       # Servers can be more aggressive than the 30d base default
       nix.gc.options = "--delete-older-than 14d";
 
+      # GC mid-build instead of dying with ENOSPC: under 5G free, collect to 20G
+      nix.settings.min-free = 5 * 1024 * 1024 * 1024;
+      nix.settings.max-free = 20 * 1024 * 1024 * 1024;
+
       # Small VPS: one build at a time, and compressed swap so a big Rust
       # dependency compile degrades instead of OOM-locking the machine
       nix.settings.max-jobs = 1;

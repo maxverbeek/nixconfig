@@ -10,11 +10,12 @@
         signKeyPaths = [ "/var/secrets/harmonia-signing-key" ];
       };
 
-      # Pre-build the desktop closures after each nightly upgrade so laptops
-      # can substitute instead of compiling. Out-links keep them GC-rooted.
+      # Pre-build the shared packages after each nightly upgrade so laptops can
+      # substitute instead of compiling. Not the desktop toplevels: two full
+      # closures a night is ~30G on a 75G disk, which filled it to 100%.
       systemd.services.nixos-upgrade.onSuccess = [ "prebuild-hosts.service" ];
       systemd.services.prebuild-hosts = {
-        description = "Pre-build desktop host closures for the binary cache";
+        description = "Pre-build shared packages for the binary cache";
         path = [
           pkgs.nix
           pkgs.git
@@ -22,12 +23,7 @@
         ];
         serviceConfig.Type = "oneshot";
         script = ''
-          for host in desknix thinkpad; do
-            nix build --refresh --out-link "/var/lib/prebuilt-$host" \
-              "github:maxverbeek/nixconfig#nixosConfigurations.$host.config.system.build.toplevel"
-          done
-
-          # extra packages listed in modules/server/cache-contents.nix
+          # packages listed in modules/server/cache-contents.nix
           nix build --refresh --out-link /var/lib/prebuilt-cache \
             "github:maxverbeek/nixconfig#cache"
         '';
