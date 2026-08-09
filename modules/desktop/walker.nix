@@ -3,6 +3,8 @@
   perSystem =
     { system, ... }:
     {
+      # elephant follows our nixpkgs, so walker.cachix.org can't serve it
+      cachePackages.elephant = inputs.elephant.packages.${system}.default;
       cachePackages.elephant-gitlab = inputs.elephant-gitlab.packages.${system}.default;
     };
 
