@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786265970,
-        "narHash": "sha256-ulmxeVKrRFl22qrE6NgazMpAQ1Y8nzNhrr+KSOkfbH0=",
+        "lastModified": 1786367080,
+        "narHash": "sha256-Wcg9MzvBg3mRzVQdy8K9vVeZzIquSJMe7/GIrIR3H2I=",
         "ref": "refs/heads/master",
-        "rev": "ecf93ea338689cde19e3b42d5eafd682fe90d7c5",
-        "revCount": 82,
+        "rev": "ef408055d6fc46adaee16619248268d3e648e0f6",
+        "revCount": 83,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/barbell"
       },
