@@ -22,6 +22,7 @@
         not = ./_definitions/not;
         opencode-sessions = ./_definitions/opencode-sessions;
         claude-sessions = ./_definitions/claude-sessions;
+        claude-statusline = ./_definitions/claude-statusline;
       };
 
       vimPlugins = builtins.mapAttrs (_: fn: callPackage fn { }) (import ./_definitions/vimPlugins);

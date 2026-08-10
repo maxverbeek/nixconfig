@@ -64,6 +64,7 @@ in
         claude
         claudeh
         claudes
+        pkgs.self.claude-statusline
       ];
 
       # Live symlinks into the repo: edit the source, no rebuild needed.

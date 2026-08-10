@@ -95,7 +95,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "$HOME/.claude/hooks/usage-dump.sh 'starship statusline claude-code --profile claude'"
+    "command": "claude-statusline"
   },
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
