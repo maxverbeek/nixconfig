@@ -15,7 +15,6 @@ input {
             // For example:
             // layout "us,ru"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-            options "caps:menu"
         }
     }
 
@@ -448,7 +447,7 @@ binds {
     Mod+Space { spawn "walker"; }
     Super+Alt+L { spawn "lock"; }
     Mod+M { spawn "wlr-which-key"; }
-    Menu repeat=false hotkey-overlay-title="Toggle voice dictation" { spawn "clankertyper-toggle"; }
+    Super+Shift+Space repeat=false hotkey-overlay-title="Toggle voice dictation" { spawn "clankertyper-toggle"; }
 
     // Vim-mode for the laptop: ; is how vim enters command mode. Opens on
     // audio; s/w/b/p/c switch tabs from there, Esc leaves.
