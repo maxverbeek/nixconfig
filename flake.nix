@@ -9,6 +9,9 @@
     # xtee try out thingy
     xtee.url = "github:maxverbeek/xtee";
 
+    clankertyper.url = "git+ssh://git@github.com/maxverbeek/clankertyper";
+    clankertyper.inputs.nixpkgs.follows = "unstable";
+
     gitlab-reviewer.url = "github:maxverbeek/gitlab-reviewer";
 
     home-manager.url = "github:nix-community/home-manager/release-26.05";

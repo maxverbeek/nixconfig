@@ -125,6 +125,26 @@
         "url": "ssh://git@github.com/maxverbeek/breadhero"
       }
     },
+    "clankertyper": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786481219,
+        "narHash": "sha256-WqaRovp0zBUUt+XIEMV77T4ZJVlAgprEFd8uJ4apk5s=",
+        "ref": "refs/heads/master",
+        "rev": "0752ce20a959854bb3a71cb53774a0c0bb011205",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/clankertyper"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/clankertyper"
+      }
+    },
     "claude-code": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -727,6 +747,7 @@
         "ags": "ags",
         "barbell": "barbell",
         "breadhero": "breadhero",
+        "clankertyper": "clankertyper",
         "claude-code": "claude-code",
         "copd": "copd",
         "disko": "disko",
