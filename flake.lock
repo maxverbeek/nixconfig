@@ -132,11 +132,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786481219,
-        "narHash": "sha256-WqaRovp0zBUUt+XIEMV77T4ZJVlAgprEFd8uJ4apk5s=",
+        "lastModified": 1786482483,
+        "narHash": "sha256-qj6BXGDxiftgRaJkuVkJQ3Rjg5NhKlTnq5qwf3x35RI=",
         "ref": "refs/heads/master",
-        "rev": "0752ce20a959854bb3a71cb53774a0c0bb011205",
-        "revCount": 5,
+        "rev": "151637d5f863b547ba96cd7992fcd3bd60973918",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/clankertyper"
       },
