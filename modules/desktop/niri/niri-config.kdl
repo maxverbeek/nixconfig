@@ -447,7 +447,7 @@ binds {
     Mod+Space { spawn "walker"; }
     Super+Alt+L { spawn "lock"; }
     Mod+M { spawn "wlr-which-key"; }
-    Super+Shift+Space repeat=false hotkey-overlay-title="Toggle voice dictation" { spawn "clankertyper-toggle"; }
+    Super+Alt+Space repeat=false hotkey-overlay-title="Toggle voice dictation" { spawn "clankertyper-toggle"; }
 
     // Vim-mode for the laptop: ; is how vim enters command mode. Opens on
     // audio; s/w/b/p/c switch tabs from there, Esc leaves.
