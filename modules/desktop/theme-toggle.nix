@@ -23,6 +23,12 @@ in
       # Apps register how they follow a theme switch instead of this file
       # knowing about every app. nvim is the deliberate exception: it re-themes
       # itself from the terminal (mode 2031) and needs no entry here.
+      #
+      # KNOWN-BROKEN, not fixable here: Electron 39+ (Chromium 142) mishandles
+      # runtime color-scheme changes on Linux/Wayland, so Slack and Obsidian get
+      # the theme right at startup but wrong on live toggle (flash-then-revert).
+      # The portal/dconf side is correct; the bug is inside Electron. Only a
+      # restart re-detects. Upstream: electron/electron#48736.
       options.theme.onSwitch = lib.mkOption {
         type = lib.types.attrsOf (lib.types.functionTo lib.types.lines);
         default = { };
