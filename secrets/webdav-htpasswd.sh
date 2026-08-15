@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p apacheHttpd
+#!nix-shell -i bash -p apacheHttpd secretspec
 
 set -euo pipefail
 
@@ -16,4 +16,4 @@ generate() {
 }
 
 export -f generate
-bws run -- bash -c generate
+secretspec run -P webdav -- bash -c generate

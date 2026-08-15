@@ -8,7 +8,7 @@ so edits here take effect immediately — no rebuild.
 
 - NixOS (flake at `~/nixconfig`, flake-parts + import-tree). Home Manager
   for user config. Niri on Wayland.
-- Shell: zsh. Editor: Neovim. Terminal: alacritty.
+- Shell: zsh. Editor: Neovim. Terminal: foot.
 - There is no `/etc/nixos`. Everything lives in `~/nixconfig`.
 - Rebuild with `just` targets in `~/nixconfig/Justfile`.
 
@@ -17,7 +17,6 @@ so edits here take effect immediately — no rebuild.
 - Nix first. Do not suggest `apt`, `brew`, `pacman`, or global `npm -g`.
   A missing tool means adding it to a module or using `nix shell nixpkgs#x`.
 - Python: `uv` for venvs/lockfiles, `ruff` for lint+format.
-- Version manager: `mise` for language runtimes when a project needs one.
 - Lint: `shellcheck` for shell, `pymarkdown` for markdown.
 - `llm` (simonw's CLI) is a separate tool from Claude Code — its templates
   are not Claude skills, don't conflate them.
@@ -31,6 +30,17 @@ so edits here take effect immediately — no rebuild.
 - No backwards-compat shims, no defensive validation past system
   boundaries, no half-finished implementations.
 - Never leave a task partially done and report it as complete.
+
+## Plane tickets
+
+- Always use the `work ticket` CLI (manage-tickets skill). Never curl
+  api.plane.so — raw curl caused duplicate issues and PAT misuse before.
+- A ticket's "header" is the human zone of the description: the text above
+  the `---` separator. Human-only — one short sentence in the user's own
+  words, nothing agent-added. Agent content goes below, under
+  **Context added by Claude**.
+- Retrospective tickets (work already done) land in the current sprint with
+  the project's completed state (in ABL that state is named "Merged").
 
 ## Nix specifics
 

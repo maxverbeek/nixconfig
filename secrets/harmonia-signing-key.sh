@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash
+#!nix-shell -i bash -p bash secretspec
 
 set -euo pipefail
 
@@ -12,4 +12,4 @@ generate() {
 }
 
 export -f generate
-bws run -- bash -c generate
+secretspec run -P harmonia -- bash -c generate

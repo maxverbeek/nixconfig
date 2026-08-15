@@ -2,6 +2,9 @@
   flake.modules.nixos.base =
     { pkgs, ... }:
     {
-      environment.systemPackages = [ pkgs.bws ];
+      environment.systemPackages = [
+        pkgs.bws
+        pkgs.secretspec
+      ];
     };
 }

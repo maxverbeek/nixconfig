@@ -19,4 +19,4 @@ EOF
 }
 
 export -f deploy
-bws run -- bash -c deploy
+secretspec run -P feedbackers -- bash -c deploy
