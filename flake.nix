@@ -61,6 +61,9 @@
     breadhero.url = "git+ssh://git@github.com/maxverbeek/breadhero";
     breadhero.inputs.nixpkgs.follows = "nixpkgs";
 
+    huurhunter.url = "git+ssh://git@github.com/maxverbeek/huurhunter";
+    huurhunter.inputs.nixpkgs.follows = "nixpkgs";
+
     stalker.url = "git+ssh://git@github.com/maxverbeek/stalker";
     stalker.inputs.nixpkgs.follows = "unstable";
 

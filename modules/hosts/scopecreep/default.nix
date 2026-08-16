@@ -15,6 +15,7 @@ in
         modules.webdav
         modules.feedbackers
         modules.breadhero
+        modules.huurhunter
         modules.copd
         modules.harmonia
 
