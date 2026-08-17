@@ -19,25 +19,25 @@
       # longer share a StateDirectory inside one namespace, so the DB lives here.
       dbDir = "/var/lib/huurhunter";
 
-      # ── FLOATING IP EGRESS POOL ──────────────────────────────────────────────
-      # Each entry gives the monitor one outbound identity: the Go monitor binds
-      # source `srcIP`; the host SNATs that source to `fip`. The list is NOT in the
-      # repo (these IPs shouldn't be public) — it's generated on the box from
-      # `hcloud floating-ip list` by secrets/huurhunter-fips.sh, written to
-      # /etc/huurhunter-fips.nix. Empty fallback so the repo builds without it and
-      # the pool is simply off until FIPs are provisioned.
+      # ── FLOATING IP EGRESS ───────────────────────────────────────────────────
+      # ALL traffic from the monitor container (${monitorIP}) is SNATed to the FIP
+      # — HTTP, headless-Chromium, DNS, uniformly. No app cooperation needed, so it
+      # covers the browser (pandomo) path too, which app-side source-binding can't.
+      #
+      # The FIP list is NOT in the repo (these IPs shouldn't be public) — it's
+      # generated on the box from `hcloud floating-ip list` by
+      # secrets/huurhunter-fips.sh, written to /etc/huurhunter-fips.nix as a plain
+      # list of IP strings. Empty fallback so the repo builds without it and egress
+      # falls back to plain NAT (main IP) until a FIP is provisioned.
+      #
+      # ponytail: pathExists is evaluated on the BUILD host, so this picks up the
+      # file only when the box builds itself (autoUpgrade), not laptop `just apply`.
+      # Fix before relying on it off-box: build on the box, or thread it as a flake
+      # input. With ONE FIP we SNAT the whole container to it; host-side rotation
+      # across multiple FIPs (statistic/nth) is a later concern.
       fipsPath = "/etc/huurhunter-fips.nix";
-      # ponytail: pathExists is evaluated on the BUILD host. This only picks up the
-      # pool when the box builds itself (autoUpgrade), NOT for laptop `just apply`
-      # (where the file is absent -> empty pool -> FIP dormant). Acceptable while
-      # the Go monitor doesn't yet bind HUURHUNTER_EGRESS_IPS. Fix before relying on
-      # FIP egress: build on the box, or thread the pool in as a real flake input.
       fips = if builtins.pathExists fipsPath then import fipsPath else [ ];
-
-      secondaryAddrs = map (f: {
-        address = f.srcIP;
-        prefixLength = 24;
-      }) fips;
+      egressFip = if fips == [ ] then null else builtins.head fips;
     in
     {
       # ── DB dir on the host, owned so both containers' huurhunter user can use it.
@@ -56,7 +56,7 @@
       users.groups.huurhunter.gid = 1500;
 
       # ── WEB CONTAINER: unchanged identity, behind Caddy on the main IP. ─────────
-      containers.huurhunter-web = {
+      containers.hh-web = {
         autoStart = true;
         privateNetwork = true;
         hostAddress = hostIP;
@@ -97,7 +97,7 @@
       };
 
       # ── MONITOR CONTAINER: egress-only, gets the FIP source addresses. ─────────
-      containers.huurhunter-monitor = {
+      containers.hh-mon = {
         autoStart = true;
         privateNetwork = true;
         hostAddress = hostIP;
@@ -119,21 +119,11 @@
           users.users.huurhunter.uid = 1500;
           users.groups.huurhunter.gid = 1500;
 
-          # Secondary source IPs the Go monitor binds, one per FIP identity. Added
-          # on the container's own veth (eth0) so bind(10.100.0.1z) succeeds.
-          networking.interfaces.eth0.ipv4.addresses = secondaryAddrs;
-
           services.huurhunter.stateDir = dbDir;
           services.huurhunter-monitor = {
             enable = true;
             browser = true;
           };
-
-          # Hand the monitor its egress source-IP pool. The Go monitor binds these
-          # per-request (round-robin) as the local source; the host SNATs each to
-          # its FIP. Empty pool -> unset -> monitor egresses via the primary IP.
-          systemd.services.huurhunter-monitor.environment.HUURHUNTER_EGRESS_IPS =
-            lib.mkIf (fips != [ ]) (lib.concatMapStringsSep "," (f: f.srcIP) fips);
         };
       };
 
@@ -141,24 +131,24 @@
       # NAT so both containers reach the internet.
       networking.nat = {
         enable = true;
-        internalInterfaces = [ "ve-huurhunter-web" "ve-huurhunter-monitor" ];
+        internalInterfaces = [ "ve-hh-web" "ve-hh-mon" ];
         externalInterface = "enp1s0";
       };
 
-      # Put each Floating IP on the host NIC (Hetzner Cloud delivers FIPs to the
-      # server; they must be configured on the main interface). /32 each.
+      # Put the Floating IP on the host NIC (Hetzner Cloud delivers FIPs to the
+      # server; they must be configured on the main interface). /32.
       networking.interfaces.enp1s0.ipv4.addresses =
-        map (f: { address = f.fip; prefixLength = 32; }) fips;
+        lib.optional (egressFip != null) { address = egressFip; prefixLength = 32; };
 
-      # Per-FIP SNAT: monitor binds source 10.100.0.1z -> leaves as FIPz.
-      # The Go app chooses its identity by which source it binds; the host maps it.
-      # Placed in the nat table POSTROUTING via firewall extraCommands.
-      networking.firewall.extraCommands = lib.concatMapStrings (f: ''
-        iptables -t nat -A POSTROUTING -s ${f.srcIP} -o enp1s0 -j SNAT --to-source ${f.fip}
-      '') fips;
-      networking.firewall.extraStopCommands = lib.concatMapStrings (f: ''
-        iptables -t nat -D POSTROUTING -s ${f.srcIP} -o enp1s0 -j SNAT --to-source ${f.fip} || true
-      '') fips;
+      # SNAT the ENTIRE monitor container to the FIP: every packet sourced from
+      # ${monitorIP} leaves as the FIP, regardless of protocol (HTTP + Chromium +
+      # DNS). Matched BEFORE the generic MASQUERADE from networking.nat, so it wins.
+      networking.firewall.extraCommands = lib.optionalString (egressFip != null) ''
+        iptables -t nat -A POSTROUTING -s ${monitorIP} -o enp1s0 -j SNAT --to-source ${egressFip}
+      '';
+      networking.firewall.extraStopCommands = lib.optionalString (egressFip != null) ''
+        iptables -t nat -D POSTROUTING -s ${monitorIP} -o enp1s0 -j SNAT --to-source ${egressFip} || true
+      '';
 
       # Caddy reverse proxy -> web container only. The FIPs have nothing listening
       # (web is pinned to webIP:webPort, reachable only via this proxy on the main
