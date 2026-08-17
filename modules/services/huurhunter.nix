@@ -27,6 +27,11 @@
       # /etc/huurhunter-fips.nix. Empty fallback so the repo builds without it and
       # the pool is simply off until FIPs are provisioned.
       fipsPath = "/etc/huurhunter-fips.nix";
+      # ponytail: pathExists is evaluated on the BUILD host. This only picks up the
+      # pool when the box builds itself (autoUpgrade), NOT for laptop `just apply`
+      # (where the file is absent -> empty pool -> FIP dormant). Acceptable while
+      # the Go monitor doesn't yet bind HUURHUNTER_EGRESS_IPS. Fix before relying on
+      # FIP egress: build on the box, or thread the pool in as a real flake input.
       fips = if builtins.pathExists fipsPath then import fipsPath else [ ];
 
       secondaryAddrs = map (f: {
