@@ -7,7 +7,7 @@
     };
 
   flake.modules.nixos.huurhunter =
-    { lib, ... }:
+    { lib, inputs, ... }:
     let
       hostIP = "10.100.0.1";
       webIP = "10.100.0.4"; # web container: behind Caddy, main ingress identity
@@ -24,19 +24,13 @@
       # — HTTP, headless-Chromium, DNS, uniformly. No app cooperation needed, so it
       # covers the browser (pandomo) path too, which app-side source-binding can't.
       #
-      # The FIP list is NOT in the repo (these IPs shouldn't be public) — it's
-      # generated on the box from `hcloud floating-ip list` by
-      # secrets/huurhunter-fips.sh, written to /etc/huurhunter-fips.nix as a plain
-      # list of IP strings. Empty fallback so the repo builds without it and egress
-      # falls back to plain NAT (main IP) until a FIP is provisioned.
-      #
-      # ponytail: pathExists is evaluated on the BUILD host, so this picks up the
-      # file only when the box builds itself (autoUpgrade), not laptop `just apply`.
-      # Fix before relying on it off-box: build on the box, or thread it as a flake
-      # input. With ONE FIP we SNAT the whole container to it; host-side rotation
-      # across multiple FIPs (statistic/nth) is a later concern.
-      fipsPath = "/etc/huurhunter-fips.nix";
-      fips = if builtins.pathExists fipsPath then import fipsPath else [ ];
+      # The FIP list is tracked in the PRIVATE huurhunter repo (nix/egress-fips.nix,
+      # exposed as the `egressFips` flake output) — not here, since nixconfig is
+      # public. Pure, flows through the flake lock, no impure /etc reads. Empty
+      # fallback -> plain NAT (main IP) until a FIP is provisioned. With ONE FIP we
+      # SNAT the whole container to it; host-side rotation across multiple FIPs
+      # (statistic/nth) is a later concern.
+      fips = inputs.huurhunter.egressFips or [ ];
       egressFip = if fips == [ ] then null else builtins.head fips;
     in
     {
