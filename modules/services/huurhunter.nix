@@ -7,7 +7,7 @@
     };
 
   flake.modules.nixos.huurhunter =
-    { lib, inputs, ... }:
+    { lib, pkgs, inputs, ... }:
     let
       hostIP = "10.100.0.1";
       webIP = "10.100.0.4"; # web container: behind Caddy, main ingress identity
@@ -129,10 +129,26 @@
         externalInterface = "enp1s0";
       };
 
-      # Put the Floating IP on the host NIC (Hetzner Cloud delivers FIPs to the
-      # server; they must be configured on the main interface). /32.
-      networking.interfaces.enp1s0.ipv4.addresses =
-        lib.optional (egressFip != null) { address = egressFip; prefixLength = 32; };
+      # Add the Floating IP as a SECONDARY alias on enp1s0 via `ip addr add`, NOT
+      # via networking.interfaces.*.ipv4.addresses. The box gets its primary IP
+      # over DHCP; declaring an explicit address there switches the interface to
+      # static management and drops the DHCP lease — which took the whole box off
+      # the network once. This oneshot is purely additive: it never touches the
+      # primary. The FIP must be on the NIC so conntrack accepts SNAT reply packets
+      # (Hetzner requires FIPs configured in the OS). `|| true` so a re-run (address
+      # already present) doesn't fail the unit.
+      systemd.services.huurhunter-fip-addr = lib.mkIf (egressFip != null) {
+        description = "Add huurhunter Floating IP as secondary address on enp1s0";
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${pkgs.iproute2}/bin/ip addr replace ${egressFip}/32 dev enp1s0";
+          ExecStop = "${pkgs.iproute2}/bin/ip addr del ${egressFip}/32 dev enp1s0";
+        };
+      };
 
       # SNAT the ENTIRE monitor container to the FIP: every packet sourced from
       # ${monitorIP} leaves as the FIP, regardless of protocol (HTTP + Chromium +
