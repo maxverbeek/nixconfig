@@ -113,6 +113,7 @@ in
         nodejs
         yarn
 
+        custom.gog
         custom.pngcrop
         custom.neovim-opener-desktop
 

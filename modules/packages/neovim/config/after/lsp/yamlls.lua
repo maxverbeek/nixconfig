@@ -116,7 +116,7 @@ return {
 
         -- app-chart values: researchable.yaml in app repos, plus the chart's
         -- own default values and test inputs.
-        [researchable .. "general/devops/app-chart/values.schema.json"] = {
+        [researchable .. "general/devops/app-chart/schema/researchable.schema.json"] = {
           "researchable.yaml",
           "**/.researchable/*.yaml",
         },

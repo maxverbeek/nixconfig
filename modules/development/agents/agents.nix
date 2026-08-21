@@ -26,12 +26,6 @@
       codex = mkCodex "codex" "";
       codexh = mkCodex "codexh" "--profile hours";
 
-      gemini = pkgs.writeShellScriptBin "gemini" ''
-        export GEMINI_API_KEY=$(<"$HOME/.gemini_key")
-
-        exec ${pkgs.unstable.gemini-cli}/bin/gemini
-      '';
-
       llm = pkgs.writeShellScriptBin "llm" ''
         if [[ $PWD =~ "Researchable/legal-mike" ]]; then
           export OPENAI_API_KEY=$(<"$HOME/.openai_key_legalmike")
@@ -68,7 +62,6 @@
         codex
         codexh
         llm
-        gemini
 
         pkgs.opencode
         pkgs.mcp-grafana
