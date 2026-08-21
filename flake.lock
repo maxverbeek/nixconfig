@@ -537,11 +537,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786962527,
-        "narHash": "sha256-fEtFbh9ZoZnR7xkYdKZ0sqHk5Gdz4dlyH23RiVRO8Zk=",
+        "lastModified": 1786969823,
+        "narHash": "sha256-5PC7830UFSeYSqHAsz4NmjbHH9pbSYcWbT+0iYzL7qg=",
         "ref": "refs/heads/master",
-        "rev": "f4867c2695d05cfcebb3aa9f40a4c75f32aa7231",
-        "revCount": 8,
+        "rev": "6a1940b96cd0fbaeeaed863c14944792b2f1c5e9",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/huurhunter"
       },
@@ -613,6 +613,22 @@
       "original": {
         "owner": "bobvanderlinden",
         "repo": "nixpkgs-ruby",
+        "type": "github"
+      }
+    },
+    "nixpkgs_10": {
+      "locked": {
+        "lastModified": 1786862985,
+        "narHash": "sha256-FBJRXmbGXiSUDvYEbfLYRkckayyZ6SK1UEqhCrIZ2Cs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e5bdc4a41d4c072fe1e3787eaa0320a384741d44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1068,9 +1084,7 @@
     "zen-browser": {
       "inputs": {
         "home-manager": "home-manager_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1786290296,

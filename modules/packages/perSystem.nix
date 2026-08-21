@@ -6,6 +6,7 @@
       callPackage = pkgs.callPackage;
 
       packages = builtins.mapAttrs (_: path: callPackage path { }) {
+        gog = ./_definitions/gog;
         nordvpn = ./_definitions/nordvpn;
         pngcrop = ./_definitions/pngcrop;
         fa-custom = ./_definitions/fontawesome-custom;

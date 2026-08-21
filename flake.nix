@@ -53,7 +53,7 @@
     elephant-gitlab.inputs.nixpkgs.follows = "unstable";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    # don't follow nixpkgs: upstream needs ffmpeg_9, absent in our nixos-26.05 pin
 
     feedbackers.url = "git+ssh://git@github.com/maxverbeek/feedbackers";
     feedbackers.inputs.nixpkgs.follows = "nixpkgs";
