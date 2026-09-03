@@ -117,6 +117,7 @@
           services.huurhunter-monitor = {
             enable = true;
             browser = true;
+            impersonate = true;
           };
         };
       };
@@ -154,6 +155,11 @@
       # ${monitorIP} leaves as the FIP, regardless of protocol (HTTP + Chromium +
       # DNS). Matched BEFORE the generic MASQUERADE from networking.nat, so it wins.
       networking.firewall.extraCommands = lib.optionalString (egressFip != null) ''
+        # purge SNAT rules for the monitor IP from PREVIOUS generations first:
+        # a rotated FIP otherwise leaves a stale rule that wins on first-match
+        # and blackholes the container (its old FIP no longer routes)
+        iptables -t nat -S POSTROUTING | grep -- "-s ${monitorIP}/32 -o enp1s0 -j SNAT" \
+          | sed 's/^-A/-D/' | while read -r rule; do iptables -t nat $rule; done
         iptables -t nat -A POSTROUTING -s ${monitorIP} -o enp1s0 -j SNAT --to-source ${egressFip}
       '';
       networking.firewall.extraStopCommands = lib.optionalString (egressFip != null) ''
