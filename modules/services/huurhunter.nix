@@ -98,6 +98,10 @@
         localAddress = monitorIP;
 
         bindMounts = {
+          "/var/secrets/huurhunter-monitor.env" = {
+            hostPath = "/var/secrets/huurhunter-monitor.env";
+            isReadOnly = true;
+          };
           "${dbDir}" = {
             hostPath = dbDir;
             isReadOnly = false;
@@ -118,6 +122,7 @@
             enable = true;
             browser = true;
             impersonate = true;
+            environmentFile = "/var/secrets/huurhunter-monitor.env";
           };
         };
       };
