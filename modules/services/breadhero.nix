@@ -7,13 +7,33 @@
     };
 
   flake.modules.nixos.breadhero =
-    { inputs, ... }:
+    { config, inputs, ... }:
     let
       containerIP = "10.100.0.3";
       hostIP = "10.100.0.1";
       port = 3002;
     in
     {
+      # symlink = false + explicit path: bind-mounted into the container, see
+      # the comment in huurhunter.nix
+      age.secrets = {
+        breadhero-slack-bot-token = {
+          file = ../../secrets/breadhero-slack-bot-token.age;
+          symlink = false;
+          path = "/run/container-secrets/breadhero-slack-bot-token";
+        };
+        breadhero-slack-signing-secret = {
+          file = ../../secrets/breadhero-slack-signing-secret.age;
+          symlink = false;
+          path = "/run/container-secrets/breadhero-slack-signing-secret";
+        };
+        breadhero-leaderboard-api-key = {
+          file = ../../secrets/breadhero-leaderboard-api-key.age;
+          symlink = false;
+          path = "/run/container-secrets/breadhero-leaderboard-api-key";
+        };
+      };
+
       containers.breadhero = {
         autoStart = true;
         privateNetwork = true;
@@ -22,15 +42,15 @@
 
         bindMounts = {
           "/var/secrets/breadhero-slack-bot-token" = {
-            hostPath = "/var/secrets/breadhero-slack-bot-token";
+            hostPath = config.age.secrets.breadhero-slack-bot-token.path;
             isReadOnly = true;
           };
           "/var/secrets/breadhero-slack-signing-secret" = {
-            hostPath = "/var/secrets/breadhero-slack-signing-secret";
+            hostPath = config.age.secrets.breadhero-slack-signing-secret.path;
             isReadOnly = true;
           };
           "/var/secrets/breadhero-leaderboard-api-key" = {
-            hostPath = "/var/secrets/breadhero-leaderboard-api-key";
+            hostPath = config.age.secrets.breadhero-leaderboard-api-key.path;
             isReadOnly = true;
           };
         };

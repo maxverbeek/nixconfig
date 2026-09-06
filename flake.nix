@@ -73,6 +73,11 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.home-manager.follows = "home-manager";
+    agenix.inputs.darwin.follows = "";
+
     import-tree.url = "github:vic/import-tree";
   };
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);

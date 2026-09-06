@@ -25,6 +25,10 @@ in
         inputs.disko.nixosModules.disko
         config.flake.diskoConfigurations.scopecreep
 
+        # Decrypts secrets/*.age to /run/agenix at activation, using the host's
+        # ssh key. Recipients are managed in /secrets.nix + /publickeys.nix.
+        inputs.agenix.nixosModules.default
+
         (modulesPath + "/profiles/qemu-guest.nix")
       ];
 
@@ -33,7 +37,7 @@ in
       ];
 
       users.users.max.openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBmyftE9tuFUn/8m03M6aS0okxA7B1QFBxZNhP4CZ8F"
+        (import ../../../publickeys.nix).max
       ];
 
       users.users.max.extraGroups = [ "podman" ];

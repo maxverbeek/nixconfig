@@ -1,13 +1,14 @@
 {
   flake.modules.nixos.harmonia =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
+      age.secrets.harmonia-signing-key.file = ../../secrets/harmonia-signing-key.age;
+
       # Binary cache for the other hosts, reachable over tailscale only
       # (port 5000; tailscale0 is a trusted interface, public firewall stays closed).
-      # Key uploaded by secrets/harmonia-signing-key.sh
       services.harmonia.cache = {
         enable = true;
-        signKeyPaths = [ "/var/secrets/harmonia-signing-key" ];
+        signKeyPaths = [ config.age.secrets.harmonia-signing-key.path ];
       };
 
       # Pre-build the shared packages after each nightly upgrade so laptops can

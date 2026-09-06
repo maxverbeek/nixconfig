@@ -7,7 +7,7 @@
     };
 
   flake.modules.nixos.huurhunter =
-    { lib, pkgs, inputs, ... }:
+    { config, lib, pkgs, inputs, ... }:
     let
       hostIP = "10.100.0.1";
       webIP = "10.100.0.4"; # web container: behind Caddy, main ingress identity
@@ -34,6 +34,23 @@
       egressFip = if fips == [ ] then null else builtins.head fips;
     in
     {
+      # symlink = false: these are bind-mounted into nspawn containers, and a
+      # /run/agenix symlink would dangle across agenix generations inside the
+      # mount; a regular file is mounted by inode and stays valid. The explicit
+      # path is required with symlink = false: copying into the default
+      # /run/agenix/<name> makes it a real directory and breaks the generation
+      # symlink agenix wants to place there. /run is tmpfs, nothing hits disk.
+      age.secrets.huurhunter-env = {
+        file = ../../secrets/huurhunter.env.age;
+        symlink = false;
+        path = "/run/container-secrets/huurhunter.env";
+      };
+      age.secrets.huurhunter-monitor-env = {
+        file = ../../secrets/huurhunter-monitor.env.age;
+        symlink = false;
+        path = "/run/container-secrets/huurhunter-monitor.env";
+      };
+
       # ── DB dir on the host, owned so both containers' huurhunter user can use it.
       # The huurhunter module inside each container runs services as uid/gid for the
       # static `huurhunter` user; the bind-mount exposes this host dir at the same
@@ -58,7 +75,7 @@
 
         bindMounts = {
           "/var/secrets/huurhunter.env" = {
-            hostPath = "/var/secrets/huurhunter.env";
+            hostPath = config.age.secrets.huurhunter-env.path;
             isReadOnly = true;
           };
           "${dbDir}" = {
@@ -99,7 +116,7 @@
 
         bindMounts = {
           "/var/secrets/huurhunter-monitor.env" = {
-            hostPath = "/var/secrets/huurhunter-monitor.env";
+            hostPath = config.age.secrets.huurhunter-monitor-env.path;
             isReadOnly = true;
           };
           "${dbDir}" = {

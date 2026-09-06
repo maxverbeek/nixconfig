@@ -1,12 +1,18 @@
 {
   flake.modules.nixos.webdav =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     let
       port = 8543;
-      htpasswdFile = "/var/secrets/webdav.htpasswd";
+      htpasswdFile = config.age.secrets.webdav-htpasswd.path;
       serveDirectory = "/srv/data/webdav";
     in
     {
+      age.secrets.webdav-htpasswd = {
+        file = ../../secrets/webdav.htpasswd.age;
+        owner = "webdav";
+        group = "webdav";
+      };
+
       systemd.tmpfiles.rules = [
         "d ${serveDirectory} 0750 webdav webdav -"
       ];

@@ -16,6 +16,31 @@
         "type": "github"
       }
     },
+    "agenix": {
+      "inputs": {
+        "darwin": [],
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1770165109,
+        "narHash": "sha256-9VnK6Oqai65puVJ4WYtCTvlJeXxMzAp/69HhQuTdl/I=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "ags": {
       "inputs": {
         "ags": "ags_2",
@@ -148,7 +173,7 @@
     "claude-code": {
       "inputs": {
         "nixpkgs": "nixpkgs_2",
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1788663725,
@@ -255,7 +280,7 @@
         "nixpkgs": [
           "unstable"
         ],
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1784365424,
@@ -418,7 +443,7 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -436,7 +461,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -762,6 +787,7 @@
     "root": {
       "inputs": {
         "adw-catppuccin": "adw-catppuccin",
+        "agenix": "agenix",
         "ags": "ags",
         "barbell": "barbell",
         "breadhero": "breadhero",
@@ -914,21 +940,6 @@
     },
     "systems_2": {
       "locked": {
-        "lastModified": 1689347949,
-        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
-        "owner": "nix-systems",
-        "repo": "default-linux",
-        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default-linux",
-        "type": "github"
-      }
-    },
-    "systems_3": {
-      "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
         "owner": "nix-systems",
@@ -939,6 +950,21 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1689347949,
+        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default-linux",
         "type": "github"
       }
     },
@@ -959,6 +985,21 @@
     },
     "systems_5": {
       "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_6": {
+      "locked": {
         "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
         "owner": "nix-systems",
@@ -972,7 +1013,7 @@
         "type": "github"
       }
     },
-    "systems_6": {
+    "systems_7": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1005,7 +1046,7 @@
     },
     "utils": {
       "inputs": {
-        "systems": "systems_6"
+        "systems": "systems_7"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -1027,7 +1068,7 @@
           "elephant"
         ],
         "nixpkgs": "nixpkgs_7",
-        "systems": "systems_5"
+        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1784217994,

@@ -7,13 +7,21 @@
     };
 
   flake.modules.nixos.feedbackers =
-    { inputs, ... }:
+    { config, inputs, ... }:
     let
       containerIP = "10.100.0.2";
       hostIP = "10.100.0.1";
       port = 3001;
     in
     {
+      # symlink = false + explicit path: bind-mounted into the container, see
+      # the comment in huurhunter.nix
+      age.secrets.feedbackers-env = {
+        file = ../../secrets/feedbackers.env.age;
+        symlink = false;
+        path = "/run/container-secrets/feedbackers.env";
+      };
+
       containers.feedbackers = {
         autoStart = true;
         privateNetwork = true;
@@ -22,7 +30,7 @@
 
         bindMounts = {
           "/var/secrets/feedbackers.env" = {
-            hostPath = "/var/secrets/feedbackers.env";
+            hostPath = config.age.secrets.feedbackers-env.path;
             isReadOnly = true;
           };
         };
