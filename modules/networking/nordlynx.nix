@@ -61,21 +61,14 @@
           description = "Tunnel address. Nord hands every NordLynx client 10.5.0.2.";
         };
         privateKeyFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
-          description = "bind mode: file holding the NordLynx private key.";
-        };
-        environmentFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
-          description = "networkmanager mode: env file defining NORDLYNX_PRIVATE_KEY.";
+          type = lib.types.str;
+          description = "File holding the bare NordLynx private key (agenix path). Serves both modes.";
         };
       };
 
       config = lib.mkIf cfg.enable (lib.mkMerge [
         (lib.mkIf (cfg.mode == "bind") {
           assertions = [
-            { assertion = cfg.privateKeyFile != null; message = "services.nordlynx.privateKeyFile is required in bind mode"; }
             { assertion = cfg.servers ? ${cfg.server}; message = "services.nordlynx.server '${cfg.server}' is not in services.nordlynx.servers"; }
           ];
           networking.wg-quick.interfaces.nordlynx = {
@@ -96,9 +89,13 @@
           };
         })
         (lib.mkIf (cfg.mode == "networkmanager") {
-          assertions = [ { assertion = cfg.environmentFile != null; message = "services.nordlynx.environmentFile is required in networkmanager mode"; } ];
+          # ensure-profiles runs envsubst over the keyfiles; feed it the key from
+          # the file instead of an EnvironmentFile so one bare-key secret serves
+          # both modes.
+          systemd.services.NetworkManager-ensure-profiles.script = lib.mkBefore ''
+            export NORDLYNX_PRIVATE_KEY="$(cat ${cfg.privateKeyFile})"
+          '';
           networking.networkmanager.ensureProfiles = {
-            environmentFiles = [ cfg.environmentFile ];
             profiles = lib.mapAttrs' (name: s: lib.nameValuePair "nordlynx-${lib.toLower (lib.replaceStrings [ " " ] [ "-" ] name)}" {
               connection = {
                 id = "NordLynx ${name}";

@@ -53,8 +53,8 @@ in
         symlink = false;
         path = "/run/container-secrets/huurhunter-monitor.env";
       };
-      age.secrets.huurhunter-nordlynx-key = {
-        file = ../../secrets/huurhunter-nordlynx.key.age;
+      age.secrets.nordlynx-key = {
+        file = ../../secrets/nordlynx.key.age;
         symlink = false;
         path = "/run/container-secrets/nordlynx.key";
       };
@@ -130,7 +130,7 @@ in
             isReadOnly = true;
           };
           "/var/secrets/nordlynx.key" = {
-            hostPath = config.age.secrets.huurhunter-nordlynx-key.path;
+            hostPath = config.age.secrets.nordlynx-key.path;
             isReadOnly = true;
           };
           "${dbDir}" = {

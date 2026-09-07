@@ -62,12 +62,12 @@ in
       networking.hostName = "thinkpad";
       # No sshd here, so agenix decrypts with max's own key instead of a host key.
       age.identityPaths = [ "/home/max/.ssh/id_ed25519" ];
-      age.secrets.nordlynx-env.file = ../../../secrets/nordlynx.env.age;
+      age.secrets.nordlynx-key.file = ../../../secrets/nordlynx.key.age;
       # NordLynx as NM profiles, all off by default.
       services.nordlynx = {
         enable = true;
         mode = "networkmanager";
-        environmentFile = config.age.secrets.nordlynx-env.path;
+        privateKeyFile = config.age.secrets.nordlynx-key.path;
       };
       networking.firewall.allowedTCPPorts = [
         3000
