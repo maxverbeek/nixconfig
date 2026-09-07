@@ -17,4 +17,6 @@ in
   "secrets/huurhunter-nordlynx.key.age".publicKeys = scopecreep;
   "secrets/webdav.htpasswd.age".publicKeys = scopecreep;
   "secrets/harmonia-signing-key.age".publicKeys = scopecreep;
+  # thinkpad has no sshd host key; it decrypts with max's own key (age.identityPaths)
+  "secrets/nordlynx.env.age".publicKeys = [ keys.max ];
 }

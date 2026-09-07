@@ -1,37 +1,43 @@
 {
   config,
+  inputs,
   ...
 }:
+let
+  modules = config.flake.modules.nixos;
+  hmModules = config.flake.modules.homeManager;
+in
 {
   configurations.hosts.thinkpad.module =
-    { pkgs, lib, ... }:
+    { config, pkgs, lib, ... }:
     {
       imports = [
+        inputs.agenix.nixosModules.default
         # User "max" (includes home-manager wiring)
-        config.flake.modules.nixos.max
+        modules.max
 
         # Roles
-        config.flake.modules.nixos.base
-        config.flake.modules.nixos.multimedia
-        config.flake.modules.nixos.personal
-        config.flake.modules.nixos.headful
-        config.flake.modules.nixos.development
-        config.flake.modules.nixos.docker
-        config.flake.modules.nixos.portable
-        config.flake.modules.nixos.gaming
+        modules.base
+        modules.multimedia
+        modules.personal
+        modules.headful
+        modules.development
+        modules.docker
+        modules.portable
+        modules.gaming
 
         # Host-specific modules
-        config.flake.modules.nixos.clamav
-        config.flake.modules.nixos.keyboards
-        config.flake.modules.nixos.fingerprint
-        config.flake.modules.nixos.nordlynx
+        modules.clamav
+        modules.keyboards
+        modules.fingerprint
+        modules.nordlynx
 
         # Hardware
         ./_hardware-configuration.nix
       ];
 
       # Desktop home-manager roles for max (on top of base from max.nix)
-      home-manager.users.max.imports = with config.flake.modules.homeManager; [
+      home-manager.users.max.imports = with hmModules; [
         headful
         personal
         development
@@ -54,12 +60,14 @@
 
       # Networking
       networking.hostName = "thinkpad";
-      # NordLynx as an NM profile (off by default). Key lives outside the repo:
-      #   echo NORDLYNX_PRIVATE_KEY=... | sudo install -m600 /dev/stdin /etc/nordlynx.env
+      # No sshd here, so agenix decrypts with max's own key instead of a host key.
+      age.identityPaths = [ "/home/max/.ssh/id_ed25519" ];
+      age.secrets.nordlynx-env.file = ../../../secrets/nordlynx.env.age;
+      # NordLynx as NM profiles, all off by default.
       services.nordlynx = {
         enable = true;
         mode = "networkmanager";
-        environmentFile = "/etc/nordlynx.env";
+        environmentFile = config.age.secrets.nordlynx-env.path;
       };
       networking.firewall.allowedTCPPorts = [
         3000
