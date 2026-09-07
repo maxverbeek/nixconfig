@@ -24,6 +24,7 @@
         config.flake.modules.nixos.clamav
         config.flake.modules.nixos.keyboards
         config.flake.modules.nixos.fingerprint
+        config.flake.modules.nixos.nordlynx
 
         # Hardware
         ./_hardware-configuration.nix
@@ -53,6 +54,13 @@
 
       # Networking
       networking.hostName = "thinkpad";
+      # NordLynx as an NM profile (off by default). Key lives outside the repo:
+      #   echo NORDLYNX_PRIVATE_KEY=... | sudo install -m600 /dev/stdin /etc/nordlynx.env
+      services.nordlynx = {
+        enable = true;
+        mode = "networkmanager";
+        environmentFile = "/etc/nordlynx.env";
+      };
       networking.firewall.allowedTCPPorts = [
         3000
         3100

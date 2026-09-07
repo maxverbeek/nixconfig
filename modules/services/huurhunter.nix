@@ -1,4 +1,7 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
+let
+  nordlynxModule = config.flake.modules.nixos.nordlynx;
+in
 {
   perSystem =
     { system, ... }:
@@ -50,6 +53,13 @@
         symlink = false;
         path = "/run/container-secrets/huurhunter-monitor.env";
       };
+      age.secrets.huurhunter-nordlynx-key = {
+        file = ../../secrets/huurhunter-nordlynx.key.age;
+        symlink = false;
+        path = "/run/container-secrets/nordlynx.key";
+      };
+      # the monitor container brings up a WireGuard interface; it cannot modprobe
+      boot.kernelModules = [ "wireguard" ];
 
       # ── DB dir on the host, owned so both containers' huurhunter user can use it.
       # The huurhunter module inside each container runs services as uid/gid for the
@@ -119,6 +129,10 @@
             hostPath = config.age.secrets.huurhunter-monitor-env.path;
             isReadOnly = true;
           };
+          "/var/secrets/nordlynx.key" = {
+            hostPath = config.age.secrets.huurhunter-nordlynx-key.path;
+            isReadOnly = true;
+          };
           "${dbDir}" = {
             hostPath = dbDir;
             isReadOnly = false;
@@ -126,7 +140,7 @@
         };
 
         config = { ... }: {
-          imports = [ inputs.huurhunter.nixosModules.monitor ];
+          imports = [ inputs.huurhunter.nixosModules.monitor nordlynxModule ];
           system.stateVersion = "25.11";
           networking.useHostResolvConf = false;
           networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
@@ -140,6 +154,20 @@
             browser = true;
             impersonate = true;
             environmentFile = "/var/secrets/huurhunter-monitor.env";
+          };
+
+          # Cloudflare serves the whole Hetzner ASN a managed challenge on some
+          # sources; a commercial VPN exit passes clean. Only the curl-impersonate
+          # lane is bound to the tunnel address, so Chromium, the Go lane and DNS
+          # keep leaving via the FIP.
+          services.nordlynx = {
+            enable = true;
+            mode = "bind";
+            privateKeyFile = "/var/secrets/nordlynx.key";
+          };
+          systemd.services.huurhunter-monitor = {
+            after = [ "wg-quick-nordlynx.service" ];
+            environment.CURL_IMPERSONATE_BIND = "10.5.0.2";
           };
         };
       };

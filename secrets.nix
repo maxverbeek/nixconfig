@@ -14,6 +14,7 @@ in
   "secrets/feedbackers.env.age".publicKeys = scopecreep;
   "secrets/huurhunter.env.age".publicKeys = scopecreep;
   "secrets/huurhunter-monitor.env.age".publicKeys = scopecreep;
+  "secrets/huurhunter-nordlynx.key.age".publicKeys = scopecreep;
   "secrets/webdav.htpasswd.age".publicKeys = scopecreep;
   "secrets/harmonia-signing-key.age".publicKeys = scopecreep;
 }
