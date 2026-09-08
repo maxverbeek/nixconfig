@@ -810,6 +810,7 @@
         "stalker": "stalker",
         "unstable": "unstable",
         "walker": "walker",
+        "wrappers": "wrappers",
         "xtee": "xtee",
         "zen-browser": "zen-browser"
       }
@@ -1081,6 +1082,26 @@
       "original": {
         "owner": "abenz1267",
         "repo": "walker",
+        "type": "github"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788744583,
+        "narHash": "sha256-oNMrijfyaoRjjWhxHNFSBYyEB4u/zb/AxoKewC56LvE=",
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
+        "rev": "e88c449105c6aafa460196d3cbd16718655aee0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     },

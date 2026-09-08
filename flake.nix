@@ -79,6 +79,10 @@
     agenix.inputs.darwin.follows = "";
 
     import-tree.url = "github:vic/import-tree";
+
+    # wrapper modules: programs configured as portable derivations (flake.wrappers.*)
+    wrappers.url = "github:nix-community/nix-wrapper-modules";
+    wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }

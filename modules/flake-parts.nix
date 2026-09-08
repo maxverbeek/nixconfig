@@ -9,6 +9,8 @@
   imports = [
     inputs.flake-parts.flakeModules.modules
     inputs.disko.flakeModules.disko
+    # flake.wrappers.<name> -> packages.<system>.<name> (and pkgs.self.<name> via the overlay)
+    inputs.wrappers.flakeModules.wrappers
   ];
 
   systems = [ "x86_64-linux" ];
