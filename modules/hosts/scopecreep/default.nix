@@ -34,9 +34,10 @@ in
 
       home-manager.users.max.home.packages = [
         pkgs.self.nvim
-        # Bare package, not the development HM role: that role's live symlinks
+        # Bare packages, not the development HM role: that role's live symlinks
         # point at the nixconfig repo root, which is not checked out on this host.
         pkgs.claude-code
+        pkgs.self.herdr
       ];
 
       users.users.max.openssh.authorizedKeys.keys = [
