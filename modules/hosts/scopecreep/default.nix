@@ -40,6 +40,31 @@ in
         pkgs.self.herdr
       ];
 
+      # Weekday 08:00 claude run. Runs as max so it picks up the OAuth session
+      # in ~/.claude; a system unit would have no credentials.
+      home-manager.users.max.systemd.user = {
+        timers.claude-daily = {
+          Unit.Description = "Weekday claude prompt";
+          Timer = {
+            OnCalendar = "Mon..Fri *-*-* 08:00:00";
+            Persistent = true;
+          };
+          Install.WantedBy = [ "timers.target" ];
+        };
+        services.claude-daily = {
+          Unit.Description = "Weekday claude prompt";
+          Service = {
+            Type = "oneshot";
+            WorkingDirectory = "%h";
+            ExecStart = "${pkgs.claude-code}/bin/claude -p 'Say good morning.'";
+          };
+        };
+      };
+
+      # User units need a login-less session to survive; without this the timer
+      # only exists while max is logged in over ssh.
+      users.users.max.linger = true;
+
       users.users.max.openssh.authorizedKeys.keys = [
         (import ../../../publickeys.nix).max
       ];
