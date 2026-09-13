@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.headful =
-    { pkgs, ... }:
-    {
-      services.playerctld.enable = true;
-      home.packages = [ pkgs.playerctl ];
-    };
+  flake.modules.nixos.headful = {
+    services.playerctld.enable = true;
+  };
 }

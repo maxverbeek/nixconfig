@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.development =
+  flake.modules.nixos.development =
     { pkgs, ... }:
     let
       python = pkgs.python3.withPackages (ps: [
@@ -13,12 +13,12 @@
       ]);
     in
     {
-      home.sessionVariables = {
+      environment.variables = {
         UV_PYTHON = "${python}/bin/python3";
         UV_PYTHON_DOWNLOADS = "never";
       };
 
-      home.packages = with pkgs; [
+      environment.systemPackages = with pkgs; [
         uv
         python
         quarto

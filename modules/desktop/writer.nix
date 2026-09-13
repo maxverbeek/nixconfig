@@ -1,8 +1,8 @@
 {
-  flake.modules.homeManager.headful =
+  flake.modules.nixos.headful =
     { pkgs, ... }:
     {
-      home.packages = with pkgs; [
+      environment.systemPackages = with pkgs; [
         abiword
         libreoffice
       ];

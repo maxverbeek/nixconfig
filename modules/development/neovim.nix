@@ -1,8 +1,8 @@
 {
-  flake.modules.homeManager.development =
+  flake.modules.nixos.development =
     { pkgs, ... }:
     {
-      home.packages = [
+      environment.systemPackages = [
         pkgs.self.nvim-mutable
         pkgs.self.nvim
       ];
