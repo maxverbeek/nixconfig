@@ -101,6 +101,19 @@
         imports = [ ((inputs.import-tree.matchNot "/wrappers/.*") ./modules) ];
 
         # Wrapped programs reachable without a host: `nix build .#wrapped.git`.
-        perSystem = { ... }: { legacyPackages.wrapped = my.pkgs.wrapped; };
+        # The rest re-exports my.pkgs into the flake outputs the overlays and
+        # `nix build .#<name>` already depend on (modules/overlays/custom.nix).
+        perSystem =
+          { lib, ... }:
+          let
+            definitions = lib.filterAttrs (_: lib.isDerivation) my.pkgs;
+          in
+          {
+            legacyPackages.wrapped = my.pkgs.wrapped;
+            legacyPackages.custom = definitions;
+            packages = definitions // {
+              inherit (my.pkgs.wrapped) nvim nvim-mutable;
+            };
+          };
       };
 }

@@ -30,6 +30,34 @@ rec {
     ) (lib.concatMap expand (lib.lists.toList dir));
 
   /**
+    Import the entries of a directory by name.
+
+    A subdirectory `X` maps to `X` -> `dir/X`, a file `X.nix` to `X` ->
+    `dir/X.nix`. Anything else is skipped. The paths are returned unimported,
+    so the caller decides how to turn them into values.
+
+    # Type
+
+    ```
+    importDir :: Path -> AttrsOf Path
+    ```
+  */
+  importDir =
+    dir:
+    lib.pipe (builtins.readDir dir) [
+      (lib.mapAttrsToList (
+        name: type:
+        if type == "directory" then
+          { ${name} = dir + "/${name}"; }
+        else if type == "regular" && lib.hasSuffix ".nix" name then
+          { ${lib.removeSuffix ".nix" name} = dir + "/${name}"; }
+        else
+          { }
+      ))
+      lib.mergeAttrsList
+    ];
+
+  /**
     Turn the collected values at a namespace path into a Nix module.
 
     Lists are flattened into the module's imports. An attrset is split into
@@ -115,10 +143,7 @@ rec {
   */
   mapLeaves =
     depth: f: value:
-    if depth == 0 then
-      f value
-    else
-      builtins.mapAttrs (_: mapLeaves (depth - 1) f) value;
+    if depth == 0 then f value else builtins.mapAttrs (_: mapLeaves (depth - 1) f) value;
 
   /**
     Import sharded attrsets and expose a virtual module at every leaf.
