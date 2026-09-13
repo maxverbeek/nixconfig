@@ -1,13 +1,12 @@
 { config, ... }:
 {
   perSystem =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, ... }:
     let
-      mkNeovim = pkgs.unstable.callPackage ./_mkNeovim.nix { };
+      mkNeovim = pkgs.unstable.callPackage ../../../packages/neovim/mk-neovim.nix { };
+      mkConfigSource = pkgs.callPackage ../../../packages/mk-config-source.nix { };
+
+      configDir = ../../../packages/neovim/config;
 
       plugins = with pkgs.unstable.vimPlugins; [
         # lazy-load plugins https://github.com/BirdeeHub/lze
@@ -94,35 +93,37 @@
           magick
         ];
 
-      immutableConfig = ./config;
-
-      outOfStoreConfig = "${config.flake.lib.repoRoot}/modules/packages/neovim/config";
+      # Everything both variants share. Only `config` and `appName` differ.
+      common = {
+        inherit
+          plugins
+          extraPackages
+          extraPython3Packages
+          extraLuaPackages
+          ;
+      };
     in
     {
       packages = {
-        nvim-mutable = mkNeovim {
-          inherit
-            plugins
-            extraPackages
-            extraPython3Packages
-            extraLuaPackages
-            outOfStoreConfig
-            ;
+        # Config from the store: reproducible, works without the repo checked out.
+        nvim = mkNeovim (
+          common
+          // {
+            config = mkConfigSource { pure = configDir; };
+          }
+        );
 
-          appName = "nv";
-        };
-
-        nvim = mkNeovim {
-          inherit
-            plugins
-            extraPackages
-            extraPython3Packages
-            extraLuaPackages
-            immutableConfig
-            ;
-
-          appName = "nvim"; # nv IM-mutable
-        };
+        # Config read from the working tree: edit lua without a rebuild.
+        nvim-mutable = mkNeovim (
+          common
+          // {
+            config = mkConfigSource {
+              pure = configDir;
+              impure = "${config.flake.lib.repoRoot}/packages/neovim/config";
+            };
+            appName = "nv"; # nv IM-mutable
+          }
+        );
       };
     };
 }
