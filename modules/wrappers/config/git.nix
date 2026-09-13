@@ -1,14 +1,63 @@
 # Shard: imported with no arguments, so the outer structure is a plain attrset
 # and only the leaf is a module function (docs/wiring.md §4).
-#
-# Deliberate stub proving ROUTE 1; Phase 4 ports the real config from
-# modules/development/git.nix into it.
 {
   wrappers.config.git =
-    { wlib, ... }:
+    { pkgs, wlib, ... }:
     {
       imports = [ wlib.wrapperModules.git ];
 
-      settings.user.name = "Max Verbeek";
+      settings = {
+        user.email = "m4xv3rb33k@gmail.com";
+        user.name = "Max Verbeek";
+
+        pull.rebase = "false";
+        push.default = "current";
+        push.autoSetupRemote = "true";
+        init.defaultBranch = "master";
+
+        commit.gpgsign = true;
+        gpg.format = "ssh";
+        user.signingkey = "~/.ssh/id_ed25519.pub";
+        submodule.recurse = "true";
+        url."git@github.com:rug-ds-lab".insteadOf = "https://github.com/rug-ds-lab";
+        url."git@github.com:ecida".insteadOf = "https://github.com/ecida";
+        url."git@gitlab.com:researchable".insteadOf = "https://gitlab.com/researchable";
+        url."git@gitlab.com:axtion".insteadOf = "https://gitlab.com/axtion";
+
+        alias = {
+          s = "status";
+          cm = "commit -m";
+          co = "checkout";
+          l = "pull --rebase";
+          lm = "pull";
+          a = "add";
+          brd = "!git fetch -p && git branch -vv | awk '!/*/ && /: gone]/ {print $1}' | xargs git branch -d";
+          difflast = "diff HEAD^";
+          mp = ''!git push -o merge_request.create 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e stalker-report-mr >&2'';
+          mpr = ''!f() { git push -o merge_request.create -o "merge_request.description=/assign_reviewer @$1" 2>&1 | xtee -p "https://\\S+" -e wl-copy -e xdg-open -e stalker-report-mr >&2; }; f'';
+          mprf = ''!f() { reviewer=$(gitlab-reviewer | fzf --with-nth=1 --delimiter=$'\t' | cut -f2) || return; [ -n "$reviewer" ] && git mpr "$reviewer"; }; f'';
+          gfp = "push --force-with-lease --force-if-includes";
+          sm = "!git switch master || git switch main";
+          sd = "!git switch develop || git switch development || git switch beta";
+        };
+
+        # was programs.git.lfs.enable
+        filter.lfs = {
+          clean = "${pkgs.git-lfs}/bin/git-lfs clean -- %f";
+          smudge = "${pkgs.git-lfs}/bin/git-lfs smudge -- %f";
+          process = "${pkgs.git-lfs}/bin/git-lfs filter-process";
+          required = true;
+        };
+
+        # was programs.difftastic.git.enable
+        diff.external = "${pkgs.difftastic}/bin/difft";
+
+        # was programs.git.ignores; ~/.config/git/ignore is only read when
+        # core.excludesFile is unset, and our config lives in the store.
+        core.excludesFile = pkgs.writeText "gitignore" ''
+          **/.claude/settings.local.json
+          .direnv
+        '';
+      };
     };
 }
