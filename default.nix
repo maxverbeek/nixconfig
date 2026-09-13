@@ -5,6 +5,7 @@ args@{ ... }:
 let
   my = {
     sources = args;
+    meta = import ./meta.nix { inherit my; };
     lib = import ./lib.nix { inherit my; };
     modules = import ./modules.nix { inherit my; };
     pkgs = import ./packages.nix { inherit my; };

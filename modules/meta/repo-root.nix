@@ -1,4 +1,4 @@
-{ ... }:
+{ my, ... }:
 {
-  flake.lib.repoRoot = "/home/max/nixconfig";
+  flake.lib.repoRoot = my.meta.repoRoot;
 }
