@@ -6,7 +6,7 @@
       cachePackages.clankertyper = inputs.clankertyper.packages.${system}.default;
     };
 
-  flake.modules.homeManager.headful =
+  flake.modules.nixos.headful =
     { pkgs, ... }:
     let
       package = inputs.clankertyper.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -23,17 +23,16 @@
       };
     in
     {
-      home.packages = [
+      environment.systemPackages = [
         package
         toggle
       ];
 
+      # No wantedBy: the unit is started on demand by clankertyper-toggle.
       systemd.user.services.clankertyper = {
-        Unit = {
-          Description = "Wayland voice dictation";
-          After = [ "niri.service" ];
-        };
-        Service = {
+        description = "Wayland voice dictation";
+        after = [ "niri.service" ];
+        serviceConfig = {
           ExecStart = "${package}/bin/clankertyper";
           TimeoutStopSec = "2s";
         };

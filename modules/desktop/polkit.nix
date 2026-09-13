@@ -1,18 +1,14 @@
 { ... }:
 {
-  flake.modules.homeManager.headful =
+  flake.modules.nixos.headful =
     { pkgs, ... }:
     {
       systemd.user.services.polkit-gnome-authentication-agent-1 = {
-        Unit = {
-          Description = "polkit-gnome-authentication-agent-1";
-          Wants = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-        };
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
-        Service = {
+        description = "polkit-gnome-authentication-agent-1";
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        wantedBy = [ "graphical-session.target" ];
+        serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           Restart = "on-failure";
