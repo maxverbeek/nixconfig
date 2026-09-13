@@ -3,8 +3,13 @@ let
   theme = config.flake.lib.theme;
 in
 {
-  flake.modules.homeManager.headful =
-    { pkgs, lib, config, ... }:
+  flake.modules.nixos.headful =
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     let
       # Where the active variant is recorded. Runtime state, not store state:
       # apps that can't be signalled (barbell) watch this file instead.
@@ -18,6 +23,40 @@ in
         lib.concatStrings (
           lib.mapAttrsToList (_: f: f (theme.variants.${name} // { inherit name; })) config.theme.onSwitch
         );
+
+      theme-toggle = pkgs.writeShellScriptBin "theme-toggle" ''
+        set -eu
+
+        case "''${1:-toggle}" in
+          dark)  want=dark  ;;
+          light) want=light ;;
+          toggle)
+            # An unset key reads as empty, which is neither variant. Treat
+            # that as dark so the first toggle goes somewhere visible.
+            if [ "$(${pkgs.dconf}/bin/dconf read ${key})" = "'${theme.variants.light.scheme}'" ]; then
+              want=dark
+            else
+              want=light
+            fi
+            ;;
+          current)
+            # Re-apply what dconf already records, without toggling. Same
+            # unset-reads-as-dark rule as above.
+            if [ "$(${pkgs.dconf}/bin/dconf read ${key})" = "'${theme.variants.light.scheme}'" ]; then
+              want=light
+            else
+              want=dark
+            fi
+            ;;
+          *) echo "usage: theme-toggle [toggle|dark|light|current]" >&2; exit 2 ;;
+        esac
+
+        if [ "$want" = dark ]; then
+          ${variantScript "dark"}
+        else
+          ${variantScript "light"}
+        fi
+      '';
     in
     {
       # Apps register how they follow a theme switch instead of this file
@@ -53,32 +92,23 @@ in
             printf '{"variant":"%s"}\n' ${name} > "${state}"
           '';
 
-        home.packages = [
-          (pkgs.writeShellScriptBin "theme-toggle" ''
-            set -eu
+        environment.systemPackages = [ theme-toggle ];
 
-            case "''${1:-toggle}" in
-              dark)  want=dark  ;;
-              light) want=light ;;
-              toggle)
-                # An unset key reads as empty, which is neither variant. Treat
-                # that as dark so the first toggle goes somewhere visible.
-                if [ "$(${pkgs.dconf}/bin/dconf read ${key})" = "'${theme.variants.light.scheme}'" ]; then
-                  want=dark
-                else
-                  want=light
-                fi
-                ;;
-              *) echo "usage: theme-toggle [toggle|dark|light]" >&2; exit 2 ;;
-            esac
-
-            if [ "$want" = dark ]; then
-              ${variantScript "dark"}
-            else
-              ${variantScript "light"}
-            fi
-          '')
-        ];
+        # On login, re-apply the recorded variant: this re-points the gtk
+        # theme.css symlinks and rewrites foot's theme.ini for that variant,
+        # replacing HM's activation-time linkGtkColorTheme. It also seeds the
+        # runtime state file barbell watches, which lives in XDG_RUNTIME_DIR
+        # and so is empty after every boot. dconf needs the session bus, which
+        # user services have.
+        systemd.user.services.theme-restore = {
+          description = "Re-apply the recorded light/dark theme variant";
+          wantedBy = [ "graphical-session.target" ];
+          after = [ "graphical-session.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${theme-toggle}/bin/theme-toggle current";
+          };
+        };
       };
     };
 }

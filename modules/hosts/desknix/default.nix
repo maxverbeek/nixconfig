@@ -25,7 +25,6 @@
       # Desktop home-manager roles for max (on top of base from max.nix)
       home-manager.users.max.imports = with config.flake.modules.homeManager; [
         headful
-        personal
         development
       ];
 
