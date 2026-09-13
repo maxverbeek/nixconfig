@@ -394,11 +394,11 @@
         "rust-analyzer-src": "rust-analyzer-src_3"
       },
       "locked": {
-        "lastModified": 1788603547,
-        "narHash": "sha256-/ioB+JvyRtHtQOpgZYC95KiD6Gw76ZDdSbkiItR4FG4=",
+        "lastModified": 1789208700,
+        "narHash": "sha256-bWOgADrzv4cPoKhdHZxxjEHxNWfdNJOKLy9DuMYDaUQ=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "03864c059200a8a96f2ee6bb050c69eae96f57ca",
+        "rev": "17757a67ed6621e70efc4271258825f34ee8409e",
         "type": "github"
       },
       "original": {
@@ -852,11 +852,11 @@
     "rust-analyzer-src_3": {
       "flake": false,
       "locked": {
-        "lastModified": 1788445421,
-        "narHash": "sha256-sKEuAgygSpMZFvrj7IcCPm+3al2bQWukulM6pMEpCcc=",
+        "lastModified": 1789128286,
+        "narHash": "sha256-KRxxgHiKIBp7R2n41IJuE5K4IUiLOpg47EEi3AxuSp8=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "e8f7e90aa3e7b26aa9a000200f606c1078da99ec",
+        "rev": "6aeeb8cf02741e5da07a1615a05faa506cecb21a",
         "type": "github"
       },
       "original": {
@@ -911,11 +911,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788810095,
-        "narHash": "sha256-9q6aJuW5bK3CVCR9dYS82RvLrSZC9d+19Kz+A3vfu4w=",
+        "lastModified": 1789340160,
+        "narHash": "sha256-A5xbiqR/pUpoy7KSCBCRAsks0JUezkvoaOJGX4LZsdU=",
         "ref": "refs/heads/main",
-        "rev": "dba48b222b9513bd34ac160592138aa1e859abc9",
-        "revCount": 491,
+        "rev": "ff93b40f2d2eb075b8d8a3a00a22e03130ebaf14",
+        "revCount": 496,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/stalker"
       },
