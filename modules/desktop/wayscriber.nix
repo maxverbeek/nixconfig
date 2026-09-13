@@ -1,13 +1,14 @@
 {
-  flake.modules.homeManager.headful =
-    { pkgs, ... }:
+  flake.modules.nixos.headful =
     {
-      home.packages = [ pkgs.unstable.wayscriber ];
-
-      # Kanagawa-themed wayscriber config (immutable via xdg.configFile)
-      xdg.configFile."wayscriber/config.toml".text =
+      pkgs,
+      my,
+      ...
+    }:
+    let
+      configToml =
         let
-          kanagawa = pkgs.custom.kanagawa-nvim.colors.term;
+          kanagawa = my.pkgs.kanagawa-nvim.colors.term;
 
           # Hex "#RRGGBB" -> { r, g, b } in 0-255
           hexToRgb =
@@ -43,9 +44,7 @@
                   };
                 in
                 digits.${c};
-              byte =
-                hi: lo:
-                (hexDigit hi) * 16 + (hexDigit lo);
+              byte = hi: lo: (hexDigit hi) * 16 + (hexDigit lo);
             in
             {
               r = byte (builtins.substring 0 1 h) (builtins.substring 1 1 h);
@@ -68,7 +67,12 @@
               c = hexToRgb hex;
               # Nix doesn't have float division, so we use string formatting
               # We pre-compute to 3 decimal places
-              fmtF = n: let i = n * 1000 / 255; in "${toString (i / 1000)}.${toString (i - (i / 1000) * 1000)}";
+              fmtF =
+                n:
+                let
+                  i = n * 1000 / 255;
+                in
+                "${toString (i / 1000)}.${toString (i - (i / 1000) * 1000)}";
             in
             "[${fmtF c.r}, ${fmtF c.g}, ${fmtF c.b}, ${alpha}]";
 
@@ -77,7 +81,12 @@
             hex:
             let
               c = hexToRgb hex;
-              fmtF = n: let i = n * 1000 / 255; in "${toString (i / 1000)}.${toString (i - (i / 1000) * 1000)}";
+              fmtF =
+                n:
+                let
+                  i = n * 1000 / 255;
+                in
+                "${toString (i / 1000)}.${toString (i - (i / 1000) * 1000)}";
             in
             "[${fmtF c.r}, ${fmtF c.g}, ${fmtF c.b}]";
 
@@ -88,8 +97,10 @@
           fg = kanagawa.bright.white;
           bg = kanagawa.extended.background;
         in
+        # Kanagawa-themed wayscriber config; wayscriber has no --config flag,
+        # so tmpfiles symlinks it to ~/.config/wayscriber/config.toml below.
         # All color values use kanagawa theme
-        ''
+        pkgs.writeText "wayscriber-config.toml" ''
           [drawing]
           default_color = ${rgbInt blue}
           default_thickness = 12.0
@@ -457,16 +468,24 @@
           per_output = true
         '';
 
+    in
+    {
+      environment.systemPackages = [ pkgs.unstable.wayscriber ];
+
+      # L+ replaces an existing symlink, so a rebuilt config takes effect at
+      # next login, when systemd-tmpfiles-setup.service applies the rule.
+      systemd.user.tmpfiles.users.max.rules = [
+        "L+ %h/.config/wayscriber/config.toml - - - - ${configToml}"
+      ];
+
       systemd.user.services.wayscriber = {
-        Unit = {
-          Description = "Wayscriber";
-          Wants = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-        };
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
-        Service = {
+        description = "Wayscriber";
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        wantedBy = [ "graphical-session.target" ];
+        # stands in for HM's X-Restart-Triggers: restart the daemon on config change
+        restartTriggers = [ configToml ];
+        serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.unstable.wayscriber}/bin/wayscriber --daemon --no-tray";
           Restart = "on-failure";
