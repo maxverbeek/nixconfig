@@ -43,12 +43,20 @@ let
     my.lib.modules.importDir ./packages/definitions
   );
 
+  # Packages that come from flake inputs rather than nixpkgs or packages/.
+  # Only the root may read my.sources (docs/wiring.md §1); shards take these
+  # from my.pkgs instead.
+  fromInputs = {
+    stalker = my.sources.stalker.packages.${system}.default;
+    gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
+  };
+
   # ROUTE 2: the nvim special case (docs/wiring.md §8).
   nvim = import ./packages/neovim {
     inherit pkgs unstable;
     repoRoot = my.meta.repoRoot;
-    gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
+    inherit (fromInputs) gitlab-reviewer;
     inherit (definitions) NotebookNavigator-nvim;
   };
 in
-definitions // { wrapped = wrapped // nvim; }
+definitions // fromInputs // { wrapped = wrapped // nvim; }

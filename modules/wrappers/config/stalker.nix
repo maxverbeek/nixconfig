@@ -5,7 +5,7 @@
   wrappers.config.zsh =
     { my, lib, ... }:
     let
-      stalker = my.sources.stalker.packages.x86_64-linux.default;
+      stalker = my.pkgs.stalker;
     in
     {
       # Dynamic completion for the `work` CLI. This is `COMPLETE=zsh work`'s
@@ -98,7 +98,7 @@
   wrappers.config.git =
     { my, pkgs, ... }:
     let
-      stalker = my.sources.stalker.packages.x86_64-linux.default;
+      stalker = my.pkgs.stalker;
 
       # Global post-commit hook: report the authored commit, then chain to the
       # repo's own hook (core.hooksPath OVERRIDES per-repo hooks, so repos using
