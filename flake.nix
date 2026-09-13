@@ -84,5 +84,23 @@
     wrappers.url = "github:nix-community/nix-wrapper-modules";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+  outputs =
+    inputs:
+    let
+      my = import ./. inputs;
+    in
+    inputs.flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        specialArgs = { inherit my; };
+      }
+      {
+        # modules/wrappers/ is in the new shard shape and is loaded by modules.nix,
+        # not flake-parts. import-tree matches the path *relative to* ./modules,
+        # so the regex is anchored at /wrappers/, not at /modules/wrappers/.
+        imports = [ ((inputs.import-tree.matchNot "/wrappers/.*") ./modules) ];
+
+        # Wrapped programs reachable without a host: `nix build .#wrapped.git`.
+        perSystem = { ... }: { legacyPackages.wrapped = my.pkgs.wrapped; };
+      };
 }

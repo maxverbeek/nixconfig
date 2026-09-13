@@ -1,5 +1,6 @@
 {
   inputs,
+  my,
   lib,
   config,
   ...
@@ -24,7 +25,7 @@
           module
           { nixpkgs = config.nixpkgs; }
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs my; };
       }
     );
 
