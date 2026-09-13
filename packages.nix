@@ -48,6 +48,7 @@ let
   # from my.pkgs instead.
   fromInputs = {
     stalker = my.sources.stalker.packages.${system}.default;
+    stalker-git-hooks = my.sources.stalker.packages.${system}.git-hooks;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
   };
 
