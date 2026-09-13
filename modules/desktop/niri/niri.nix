@@ -1,14 +1,13 @@
-{ config, ... }:
-let
-  repoRoot = config.flake.lib.repoRoot;
-in
 {
   flake.modules.nixos.headful =
-    { pkgs, ... }:
+    { my, pkgs, ... }:
     {
-      # Niri
+      # The mutable variant is the installed compositor: its NIRI_CONFIG points
+      # at the working-tree kdl, so editing it hot-reloads without a rebuild.
+      # The pure `niri` wrapper exists to stay buildable and validated
+      # (`nix build .#wrapped.niri`); only one of the two can own niri.desktop.
       environment.systemPackages = [
-        pkgs.niri
+        my.pkgs.wrapped.niri-mutable
         pkgs.xwayland-satellite
       ];
 
@@ -18,20 +17,11 @@ in
           pkgs.xdg-desktop-portal-gnome
           pkgs.xdg-desktop-portal-gtk
         ];
-        configPackages = [ pkgs.niri ];
+        configPackages = [ my.pkgs.wrapped.niri-mutable ];
       };
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-      services.displayManager.sessionPackages = [ pkgs.niri ];
-    };
-
-  # Home-manager: niri config symlink — contributes to headful
-  flake.modules.homeManager.headful =
-    { config, ... }:
-    {
-      # Symlink niri config from the repo (mutable)
-      home.file.".config/niri/config.kdl".source =
-        config.lib.file.mkOutOfStoreSymlink "${repoRoot}/modules/desktop/niri/niri-config.kdl";
+      services.displayManager.sessionPackages = [ my.pkgs.wrapped.niri-mutable ];
     };
 }
