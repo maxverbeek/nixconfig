@@ -1,13 +1,15 @@
 { ... }:
 {
-  flake.modules.homeManager.development = {
+  flake.modules.nixos.development = {
     programs.direnv = {
       enable = true;
-      enableZshIntegration = true;
-
       nix-direnv.enable = true;
 
-      stdlib = ''
+      # The zsh hook lives in the zsh wrapper (modules/wrappers/config/zsh.nix),
+      # not /etc/zshrc.
+      enableZshIntegration = false;
+
+      direnvrcExtra = ''
         layout_poetry() {
             PYPROJECT_TOML="''${PYPROJECT_TOML:-pyproject.toml}"
             if [[ ! -f "$PYPROJECT_TOML" ]]; then

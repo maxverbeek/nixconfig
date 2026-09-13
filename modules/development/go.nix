@@ -1,14 +1,8 @@
 { ... }:
 {
-  flake.modules.homeManager.development =
-    { config, ... }:
+  flake.modules.nixos.development =
+    { pkgs, ... }:
     {
-      programs.go = {
-        enable = true;
-        env = {
-          GOPATH = "${config.home.homeDirectory}/go";
-          GOBIN = "${config.home.homeDirectory}/go/bin";
-        };
-      };
+      environment.systemPackages = [ pkgs.go ];
     };
 }

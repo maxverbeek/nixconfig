@@ -1,11 +1,10 @@
 { ... }:
 {
-  flake.modules.homeManager.development =
+  flake.modules.nixos.development =
     { pkgs, ... }:
     {
-      programs.vscode = {
-        enable = true;
-        package = pkgs.vscode.fhsWithPackages (
+      environment.systemPackages = [
+        (pkgs.vscode.fhsWithPackages (
           ps: with ps.vscode-extensions; [
             dbaeumer.vscode-eslint
             eamodio.gitlens
@@ -13,7 +12,7 @@
             ms-vsliveshare.vsliveshare
             vscodevim.vim
           ]
-        );
-      };
+        ))
+      ];
     };
 }
