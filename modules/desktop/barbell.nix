@@ -6,14 +6,12 @@
       cachePackages.barbell = inputs.barbell.packages.${system}.default;
     };
 
-  # The battery widget reads UPower over D-Bus.
-  flake.modules.nixos.headful = {
-    services.upower.enable = true;
-  };
-
-  flake.modules.homeManager.headful =
+  flake.modules.nixos.headful =
     { pkgs, ... }:
     {
+      # The battery widget reads UPower over D-Bus.
+      services.upower.enable = true;
+
       # The wrapper is on PATH so niri binds can say `barbell ipc call menu
       # open` without knowing any store path.
       #
@@ -21,7 +19,7 @@
       # out to both to fetch rate-limit data. Its other externals need no
       # entry here — nmcli rides in with networking.networkmanager.enable and
       # `niri msg` with the compositor itself.
-      home.packages = [
+      environment.systemPackages = [
         inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.jq
         pkgs.curl
@@ -29,23 +27,20 @@
 
       # barbell has its own bluetooth UI. services.blueman.enable (bluetooth.nix)
       # ships a system-wide autostart for the tray applet alongside the
-      # blueman-manager we do want; this user-level override hides just the
-      # applet.
-      xdg.configFile."autostart/blueman.desktop".text = ''
+      # blueman-manager we do want; this /etc/xdg override hides just the
+      # applet. /etc/xdg precedes /run/current-system/sw/etc/xdg in
+      # XDG_CONFIG_DIRS, and the first hit wins.
+      environment.etc."xdg/autostart/blueman.desktop".text = ''
         [Desktop Entry]
         Hidden=true
       '';
 
       systemd.user.services.barbell = {
-        Unit = {
-          Description = "barbell (quickshell) bar";
-          Wants = [ "niri.service" ];
-          After = [ "niri.service" ];
-        };
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
-        Service = {
+        description = "barbell (quickshell) bar";
+        wants = [ "niri.service" ];
+        after = [ "niri.service" ];
+        wantedBy = [ "graphical-session.target" ];
+        serviceConfig = {
           ExecStart = "${inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/barbell";
           Restart = "always";
           RestartSec = "1s";

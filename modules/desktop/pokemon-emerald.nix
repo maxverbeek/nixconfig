@@ -1,16 +1,18 @@
 { ... }:
 {
-  flake.modules.homeManager.personal =
+  flake.modules.nixos.personal =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.mgba ];
-
-      xdg.desktopEntries.pokemon-emerald = {
-        name = "Pokémon Emerald";
-        comment = "Launch Pokémon Emerald";
-        exec = "/home/max/Personal/emerald-max/play.sh";
-        terminal = false;
-        categories = [ "Game" ];
-      };
+      environment.systemPackages = [
+        pkgs.mgba
+        (pkgs.makeDesktopItem {
+          name = "pokemon-emerald";
+          desktopName = "Pokémon Emerald";
+          comment = "Launch Pokémon Emerald";
+          exec = "/home/max/Personal/emerald-max/play.sh";
+          terminal = false;
+          categories = [ "Game" ];
+        })
+      ];
     };
 }

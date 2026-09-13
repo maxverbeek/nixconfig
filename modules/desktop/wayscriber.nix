@@ -474,13 +474,5 @@
           TimeoutStopSec = 5;
         };
       };
-
-      programs.wlr-which-key.config.menu = [
-        {
-          key = "a";
-          desc = "Annotate screen";
-          cmd = "pkill -SIGUSR1 wayscriber";
-        }
-      ];
     };
 }
