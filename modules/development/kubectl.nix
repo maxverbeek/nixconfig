@@ -1,9 +1,9 @@
 { ... }:
 {
-  flake.modules.homeManager.development =
+  flake.modules.nixos.development =
     { pkgs, ... }:
     {
-      home.packages = [
+      environment.systemPackages = [
         pkgs.kubectl
         pkgs.kubectl-cnpg
         pkgs.cmctl
@@ -14,16 +14,5 @@
         })
         pkgs.dyff
       ];
-
-      programs.zsh.initContent = ''
-        source <(kubectl completion zsh)
-        source <(helm completion zsh)
-        source <(helm diff completion zsh)
-
-        # Global alias: -oenv anywhere in a command becomes a kubectl
-        # go-template flag rendering a secret's .data as sourceable dotenv
-        # export lines. The -- is required for an alias name starting with -.
-        alias -g -- -oenv="-o go-template='{{range \$k,\$v := .data}}export {{\$k}}={{\$v | base64decode}}{{\"\n\"}}{{end}}'"
-      '';
     };
 }
