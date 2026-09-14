@@ -18,7 +18,7 @@
         wantedBy = [ "multi-user.target" ];
 
         # First boot only: the auth key is single-use, so a re-run can only
-        # fail. Must live in unitConfig — ConditionPathExists is a [Unit]
+        # fail. Must live in unitConfig: ConditionPathExists is a [Unit]
         # directive and is silently ignored in serviceConfig.
         unitConfig.ConditionPathExists = "!/var/lib/tailscale/hetzner-autoconnect-done";
 

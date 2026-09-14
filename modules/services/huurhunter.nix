@@ -31,7 +31,7 @@
       # symlink = false: bind-mounted into nspawn containers, and a /run/agenix
       # symlink would dangle across agenix generations inside the mount; a plain
       # file is mounted by inode and stays valid. The explicit path is then
-      # required — the default /run/agenix/<name> would become a real directory
+      # required: the default /run/agenix/<name> would become a real directory
       # and break the generation symlink agenix places there.
       age.secrets.huurhunter-env = {
         file = ../../secrets/huurhunter.env.age;
@@ -179,7 +179,7 @@
       # Add the Floating IP as a SECONDARY alias, never via
       # networking.interfaces.*.ipv4.addresses: the primary IP comes over DHCP,
       # and declaring an address there switches the interface to static and drops
-      # the lease — it took the whole box off the network once. This oneshot is
+      # the lease; it took the whole box off the network once. This oneshot is
       # purely additive. The FIP must be on the NIC for conntrack to accept the
       # SNAT reply packets.
       systemd.services.huurhunter-fip-addr = lib.mkIf (egressFip != null) {

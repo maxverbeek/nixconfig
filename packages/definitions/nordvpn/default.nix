@@ -17,8 +17,8 @@
   # runtime tools the daemon shells out to (routing + killswitch)
   iproute2,
   iptables,
-  nftables, # `nft` — firewall/killswitch rules
-  libxslt, # `xsltproc` — generates the per-server OpenVPN config from a template
+  nftables, # `nft`: firewall/killswitch rules
+  libxslt, # `xsltproc`: generates the per-server OpenVPN config from a template
   procps,
 }:
 
