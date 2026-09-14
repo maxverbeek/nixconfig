@@ -1,21 +1,21 @@
 { ... }:
 {
-  # gog CLI. Merges into the `development` HM role.
+  # gog CLI. Merges into the `development` nixos role.
   #
   # Tokens live in the OS keyring (Secret Service, from gnome-keyring in the
   # headful role) rather than gog's encrypted-file backend, so there is no
   # GOG_KEYRING_PASSWORD to store. Upstream's own advice: the file backend and
   # its password are for headless boxes only.
-  flake.modules.homeManager.development =
-    { pkgs, ... }:
+  flake.modules.nixos.development =
+    { my, ... }:
     {
-      home.packages = [ pkgs.custom.gog ];
+      environment.systemPackages = [ my.pkgs.gog ];
 
-      home.sessionVariables = {
+      environment.variables = {
         # `keychain` is the macOS backend and never resolves on Linux; `auto`
         # is what picks the Secret Service here. (`auto` would fall back to the
         # file backend if the Secret Service were missing, but the headful role
-        # guarantees it: see services.gnome-keyring in modules/desktop/greeter.nix.)
+        # guarantees it: see services.gnome.gnome-keyring in modules/desktop/greeter.nix.)
         GOG_KEYRING_BACKEND = "auto";
 
         # Default is a private `gogcli` collection, which PAM does not unlock,

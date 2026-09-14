@@ -23,10 +23,10 @@ in
       cachePackages.texlive = texliveCombined pkgs;
     };
 
-  flake.modules.homeManager.development =
-    { pkgs, ... }:
+  flake.modules.nixos.development =
+    { my, pkgs, ... }:
     {
-      home.packages = with pkgs; [
+      environment.systemPackages = with pkgs; [
         air
         alsa-utils
         amazon-q-cli
@@ -113,16 +113,26 @@ in
         nodejs
         yarn
 
-        custom.pngcrop
-        custom.neovim-opener-desktop
+        my.pkgs.pngcrop
+        my.pkgs.neovim-opener-desktop
 
         unstable.nurl
-        custom.samdump2
+        my.pkgs.samdump2
 
         xtee
         zen-browser
       ];
 
-      home.file.".jdk/openjdk17".source = pkgs.openjdk17;
+      # was home.file.".jdk/openjdk17".source; ours, so L+ keeps it current
+      systemd.user.tmpfiles.users.max.rules = [
+        "L+ %h/.jdk/openjdk17 - - - - ${pkgs.openjdk17}"
+      ];
+
+      # moved here from the desknix and thinkpad host files, where both set
+      # these identically as home.sessionVariables
+      environment.variables = {
+        JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
+        _JAVA_AWT_WM_NONREPARENTING = "1";
+      };
     };
 }

@@ -47,21 +47,20 @@
 
       services.greetd.enable = config.programs.regreet.enable;
       services.dbus.packages = [ pkgs.gcr ];
+      # PAM's enableGnomeKeyring only runs the daemon as `--login`: it unlocks
+      # the login keyring with the greetd password but serves nothing on the
+      # bus. The secrets component is what actually backs
+      # org.freedesktop.secrets, and any Secret Service consumer (gog, see
+      # modules/development/gog.nix) fails with "keyring backend not
+      # available" without it. This needs no unit of our own: the enable below
+      # puts pkgs.gnome-keyring on services.dbus.packages, and the package's
+      # own org.freedesktop.secrets.service activates
+      # `gnome-keyring-daemon --start --foreground --components=secrets` on
+      # first bus request. Was flake.modules.homeManager.headful's
+      # services.gnome-keyring with components = [ "secrets" ].
       services.gnome.gnome-keyring.enable = true;
 
       security.pam.services.greetd.enableGnomeKeyring = true;
       security.rtkit.enable = true;
     };
-
-  # PAM's enableGnomeKeyring only runs the daemon as `--login`: it unlocks the
-  # login keyring with the greetd password but serves nothing on the bus. The
-  # secrets component is what actually backs org.freedesktop.secrets, so
-  # without this any Secret Service consumer (gog, see modules/development/gog.nix)
-  # fails with "keyring backend not available".
-  flake.modules.homeManager.headful = {
-    services.gnome-keyring = {
-      enable = true;
-      components = [ "secrets" ];
-    };
-  };
 }
