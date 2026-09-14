@@ -8,8 +8,8 @@
     inputs.claude-code.overlays.default
   ];
 
-  flake.modules.homeManager.development =
-    { pkgs, ... }:
+  flake.modules.nixos.development =
+    { my, pkgs, ... }:
     let
       mkCodex =
         name: profileArgs:
@@ -54,11 +54,11 @@
       '';
     in
     {
-      xdg.configFile."opencode/plugins/opencode-notify.ts" = {
-        source = "${pkgs.custom.opencode-notify}/opencode-notify.ts";
-      };
+      systemd.user.tmpfiles.users.max.rules = [
+        "L+ %h/.config/opencode/plugins/opencode-notify.ts - - - - ${my.pkgs.opencode-notify}/opencode-notify.ts"
+      ];
 
-      home.packages = [
+      environment.systemPackages = [
         codex
         codexh
         llm
@@ -66,8 +66,8 @@
         pkgs.opencode
         pkgs.mcp-grafana
         pkgs.libnotify
-        pkgs.self.opencode-sessions
-        pkgs.self.claude-sessions
+        my.pkgs.opencode-sessions
+        my.pkgs.claude-sessions
         pkgs.self.herdr
       ];
     };
