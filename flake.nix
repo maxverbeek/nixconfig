@@ -76,18 +76,15 @@
     wrappers.url = "github:nix-community/nix-wrapper-modules";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
-  # A shim, not the config. It feeds the inputs to default.nix and re-exports
-  # what machines and tooling name by string: `nixosConfigurations.<host>` for
-  # system.autoUpgrade and nixos-rebuild, `packages.cache` for harmonia's
-  # prebuild, `checks` for CI, `devShells.default` for `.envrc`'s `use flake`.
+  # A shim: feeds the inputs to default.nix and re-exports what is named by
+  # string elsewhere (autoUpgrade, harmonia's prebuild, CI, .envrc).
   outputs =
     inputs:
     let
       my = import ./. inputs;
       system = "x86_64-linux";
       inherit (inputs.nixpkgs) lib;
-      # Derivations only: `wrapped`, `unstable`, `devShells` and the
-      # adw-catppuccin source tree live in my.pkgs but are not packages.
+      # wrapped, unstable, devShells and the adw-catppuccin tree are not packages
       derivations = lib.filterAttrs (_: lib.isDerivation) my.pkgs;
     in
     {

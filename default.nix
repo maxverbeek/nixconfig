@@ -1,7 +1,5 @@
-# The knot: the one file that sees every truth (docs/wiring.md §3).
-# `sources` is the flake's inputs when flake.nix calls `import ./. inputs`, and
-# falls back to flake.lock so `nix build -f . pkgs.wrapped.git` works without
-# it. Only the plain source trees resolve that way; see lib/sources.nix.
+# `sources` is the flake's inputs, or the plain source trees from flake.lock
+# when imported bare (`nix build -f .`); see lib/sources.nix.
 args@{ ... }:
 let
   my = {

@@ -1,12 +1,7 @@
-# Wires modules/ (docs/wiring.md §2, §4). Every file below modules/ is a shard:
-# an attrset keyed by module class, three levels deep
-# (`nixos.<namespace>.<name>`), aggregated per leaf into one virtual module.
 { my }:
 my.lib.modules.importSharded 3 ./modules
 // {
-  # Third-party NixOS modules are wired once, here (docs/structure.md rule 6).
-  # A leaf writes `imports = [ my.modules.external.walker ]` and never reads
-  # my.sources itself.
+  # Third-party NixOS modules; a leaf imports my.modules.external.<name>.
   external = {
     walker = my.sources.walker.nixosModules.default;
     stalker = my.sources.stalker.nixosModules.default;

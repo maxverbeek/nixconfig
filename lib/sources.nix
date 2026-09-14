@@ -1,15 +1,8 @@
-# Resolves the plain source trees packages.nix needs straight from flake.lock,
-# so `nix build -f . pkgs.wrapped.git` works without the flake.
-#
-# Only the four github-type inputs that are plain trees, never flakes: their
-# outputs are never read, so fetching the tarball is enough. The narHash in the
-# lock is the hash of the unpacked tree, which is exactly what fetchTarball
-# checks, so these land on the same store paths the flake inputs do.
-#
-# Flake-shaped inputs (modules and packages from other flakes) exist only
-# through flake.nix, deliberately: resolving those means implementing flakes.
-# When flake.nix calls `import ./. inputs` its inputs shadow these per
-# attribute; a bare `import ./. { }` gets them from the lock.
+# The plain source trees from flake.lock, for evaluating without the flake.
+# fetchTarball checks the narHash of the unpacked tree, which is what the lock
+# records, so these are the store paths the flake inputs resolve to as well.
+# Flake-shaped inputs are not resolved here: that would mean implementing
+# flakes, and flake.nix already exists for them.
 { lockFile }:
 let
   lock = builtins.fromJSON (builtins.readFile lockFile);

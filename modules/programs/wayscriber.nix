@@ -10,47 +10,7 @@
         let
           kanagawa = my.pkgs.kanagawa-nvim.colors.term;
 
-          # Hex "#RRGGBB" -> { r, g, b } in 0-255
-          hexToRgb =
-            hex:
-            let
-              h = builtins.substring 1 6 hex; # strip leading #
-              hexDigit =
-                c:
-                let
-                  digits = {
-                    "0" = 0;
-                    "1" = 1;
-                    "2" = 2;
-                    "3" = 3;
-                    "4" = 4;
-                    "5" = 5;
-                    "6" = 6;
-                    "7" = 7;
-                    "8" = 8;
-                    "9" = 9;
-                    "a" = 10;
-                    "b" = 11;
-                    "c" = 12;
-                    "d" = 13;
-                    "e" = 14;
-                    "f" = 15;
-                    "A" = 10;
-                    "B" = 11;
-                    "C" = 12;
-                    "D" = 13;
-                    "E" = 14;
-                    "F" = 15;
-                  };
-                in
-                digits.${c};
-              byte = hi: lo: (hexDigit hi) * 16 + (hexDigit lo);
-            in
-            {
-              r = byte (builtins.substring 0 1 h) (builtins.substring 1 1 h);
-              g = byte (builtins.substring 2 1 h) (builtins.substring 3 1 h);
-              b = byte (builtins.substring 4 1 h) (builtins.substring 5 1 h);
-            };
+          inherit (my.lib.colors) hexToRgb;
 
           # Format as TOML integer array [R, G, B]
           rgbInt =
