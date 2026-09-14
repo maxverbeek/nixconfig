@@ -69,8 +69,6 @@
         autoRepeatInterval = 50;
       };
 
-      services.gnome.gnome-keyring.enable = true;
-
       # Docker
       virtualisation.docker.storageDriver = "overlay2";
 
