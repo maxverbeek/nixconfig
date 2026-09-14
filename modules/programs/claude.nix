@@ -7,10 +7,9 @@
       ...
     }:
     let
-      # Still modules/development/agents/: _shared/ and _plugins/ are impure
-      # sources the running system symlinks into ~/.claude by absolute path
-      # (docs/wiring.md §6c). Moving them dangles those links until the next
-      # rebuild, so the directory moves in a dedicated step after this one.
+      # Impure sources: the running system symlinks these into ~/.claude by
+      # absolute path, so moving the directory dangles the links until the
+      # next rebuild.
       agentsDir = "${my.meta.repoRoot}/modules/development/agents";
       pluginsDir = "${agentsDir}/_plugins";
       sharedDir = "${agentsDir}/_shared";
@@ -77,15 +76,13 @@
         # Live symlinks into the repo: edit the source, no rebuild needed.
         # L+ replaces whatever is there at every login, so these stay ours.
         #
-        # settings.json is deliberately absent here. Claude Code writes to it at
-        # runtime (/config, theme, plugin toggles) and a read-only /nix/store
-        # symlink breaks that — and breaks the bwrap sandbox outright
-        # (anthropics/claude-code#52525). It is seeded once by the C rule below
-        # and then owned by Claude.
+        # settings.json is deliberately absent: Claude Code writes to it at
+        # runtime, and a read-only store symlink breaks that and the bwrap
+        # sandbox outright (anthropics/claude-code#52525). The C rule below
+        # seeds it once and Claude owns it after.
 
-        # AGENTS.md is the cross-agent source of truth. CLAUDE.md just imports
-        # it, since Claude Code still does not read AGENTS.md natively
-        # (anthropics/claude-code#6235).
+        # CLAUDE.md only imports AGENTS.md: Claude Code still does not read
+        # AGENTS.md natively (anthropics/claude-code#6235).
         "L+ %h/.claude/AGENTS.md - - - - ${sharedDir}/AGENTS.md"
         "L+ %h/.claude/CLAUDE.md - - - - ${pkgs.writeText "CLAUDE.md" "@AGENTS.md\n"}"
         "L+ %h/.claude/hooks - - - - ${sharedDir}/hooks"
@@ -102,8 +99,7 @@
         "C %h/.claude/settings.json 0644 - - - ${sharedDir}/settings.seed.json"
       ];
 
-      # tmpfiles cannot express "normalise an existing file", so this stays a
-      # script, now a login-time user oneshot instead of an HM activation step.
+      # tmpfiles cannot express "normalise an existing file", hence a oneshot.
       systemd.user.services.codex-hours-config = {
         description = "Normalise ~/.codex/hours.config.toml";
         wantedBy = [ "default.target" ];

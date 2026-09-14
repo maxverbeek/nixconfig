@@ -12,7 +12,6 @@
 
           inherit (my.lib.colors) hexToRgb;
 
-          # Format as TOML integer array [R, G, B]
           rgbInt =
             hex:
             let
@@ -20,13 +19,11 @@
             in
             "[${toString c.r}, ${toString c.g}, ${toString c.b}]";
 
-          # Format as TOML float array [R, G, B, A] (0.0-1.0)
+          # Nix has no float division, so scale to 1/1000 and split by hand.
           rgbFloat =
             hex: alpha:
             let
               c = hexToRgb hex;
-              # Nix doesn't have float division, so we use string formatting
-              # We pre-compute to 3 decimal places
               fmtF =
                 n:
                 let
@@ -36,7 +33,6 @@
             in
             "[${fmtF c.r}, ${fmtF c.g}, ${fmtF c.b}, ${alpha}]";
 
-          # Format as TOML float array [R, G, B] (0.0-1.0) without alpha
           rgbFloat3 =
             hex:
             let
@@ -57,9 +53,8 @@
           fg = kanagawa.bright.white;
           bg = kanagawa.extended.background;
         in
-        # Kanagawa-themed wayscriber config; wayscriber has no --config flag,
-        # so tmpfiles symlinks it to ~/.config/wayscriber/config.toml below.
-        # All color values use kanagawa theme
+        # wayscriber has no --config flag, so tmpfiles symlinks this to
+        # ~/.config/wayscriber/config.toml below.
         pkgs.writeText "wayscriber-config.toml" ''
           [drawing]
           default_color = ${rgbInt blue}
@@ -443,7 +438,7 @@
         wants = [ "graphical-session.target" ];
         after = [ "graphical-session.target" ];
         wantedBy = [ "graphical-session.target" ];
-        # stands in for HM's X-Restart-Triggers: restart the daemon on config change
+        # Restart the daemon when the config changes.
         restartTriggers = [ configToml ];
         serviceConfig = {
           Type = "simple";

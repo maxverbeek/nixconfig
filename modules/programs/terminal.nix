@@ -12,7 +12,7 @@
       ];
 
       # Live foots switch palette on the signal (and notify apps via mode 2031,
-      # which is how nvim re-themes). Future foots read the rewritten include.
+      # which is how nvim re-themes); future foots read the rewritten include.
       theme.onSwitch.foot =
         { name, ... }:
         ''

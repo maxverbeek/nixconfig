@@ -42,9 +42,8 @@
       cachePackages.elephant = my.pkgs.elephant;
       cachePackages.elephant-gitlab = my.pkgs.elephant-gitlab;
 
-      # walker's nixos module imports elephant's, so services.elephant comes along.
-      # nixpkgs ships its own, much thinner services.elephant (no providers, no
-      # settings, no .so delivery); drop it so the flake's module owns the option.
+      # walker's module brings its own services.elephant; nixpkgs ships a much
+      # thinner one that would collide, so drop nixpkgs'.
       disabledModules = [ "services/misc/elephant.nix" ];
       imports = [ my.modules.external.walker ];
 
@@ -60,10 +59,9 @@
         ];
       };
 
-      # services.elephant.providers is an enum of upstream's built-in providers,
-      # so the out-of-tree gitlab provider can't go through it. Its .so is linked
-      # into /etc/xdg/elephant/providers the same way the module links the rest;
-      # elephant scans every <xdg config dir>/elephant for *.so, so it gets loaded.
+      # services.elephant.providers is an enum of upstream's built-ins, so the
+      # out-of-tree gitlab provider can't go through it. elephant scans every
+      # <xdg config dir>/elephant for *.so, so linking it here loads it.
       environment.etc."xdg/elephant/providers/gitlab.so".source =
         "${elephantpkg}/lib/elephant/providers/gitlab.so";
 
@@ -157,7 +155,7 @@
       };
 
       # Both modules refuse to install the daemons (walker's runAsService is
-      # unsupported, and it sets services.elephant.installService = false), so
+      # unsupported and it forces services.elephant.installService = false), so
       # the two user units are written out by hand.
       systemd.user.services.elephant = {
         description = "Elephant launcher backend";

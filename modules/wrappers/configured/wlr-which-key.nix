@@ -4,10 +4,9 @@
     {
       imports = [ wlib.wrapperModules.wlr-which-key ];
 
-      # Only the settings that differ from wlr-which-key's own defaults
-      # (src/config.rs): upstream ships "monospace 10", an opaque #282828ff
-      # background, border_width 4 and corner_r 20. Everything else the old
-      # home-manager module emitted matched upstream already.
+      # Only the settings that differ from upstream's defaults (src/config.rs):
+      # "monospace 10", an opaque #282828ff background, border_width 4,
+      # corner_r 20.
       settings = {
         font = "JetBrainsMono Nerd Font 12";
         background = "#282828d0";

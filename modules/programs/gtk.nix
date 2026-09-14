@@ -21,15 +21,13 @@
       colorCss = palette: if palette == "kanagawa" then kanagawaCss else catppuccinCss palette;
       darkCss = colorCss theme.variants.dark.gtk.palette;
 
-      # was gtk.gtk{3,4}.extraCss. The palette is a sibling symlink rather than
-      # an import of a store path, so a toggle re-points it without a rebuild.
+      # The palette is a sibling symlink rather than an import of a store path,
+      # so a toggle re-points it without a rebuild.
       gtkCss = pkgs.writeText "gtk.css" ''
         @import url("theme.css");
       '';
     in
     {
-      # was gtk.iconTheme (package + name + the dconf key HM's gtk module set).
-      # GTK reads settings.ini from XDG_CONFIG_DIRS, and /etc/xdg is first.
       environment.systemPackages = [
         pkgs.papirus-icon-theme
         pkgs.adw-gtk3
@@ -54,8 +52,7 @@
         "L+ %h/.config/gtk-4.0/gtk.css - - - - ${gtkCss}"
         # theme.css is theme-toggle's to own, so seed it only when missing (L,
         # not L+) -- otherwise every login would stomp a toggle back to dark.
-        # theme-restore re-points it for the recorded variant at login, which
-        # also covers the css store path changing under a rebuild.
+        # theme-restore re-points it for the recorded variant at login.
         "L %h/.config/gtk-3.0/theme.css - - - - ${darkCss}"
         "L %h/.config/gtk-4.0/theme.css - - - - ${darkCss}"
       ];

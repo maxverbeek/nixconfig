@@ -123,7 +123,6 @@
         zathura
         zoom-us
 
-        # latex (definition shared with cachePackages above)
         (texliveCombined pkgs)
         biber
         pandoc
@@ -143,25 +142,20 @@
         my.pkgs.xtee
         my.pkgs.zen-browser
 
-        # small dev scripts, were in programs.zsh
         secrand
         gitlabcivars
         jqd
       ];
 
-      # was home.file.".jdk/openjdk17".source; ours, so L+ keeps it current
       systemd.user.tmpfiles.users.max.rules = [
         "L+ %h/.jdk/openjdk17 - - - - ${pkgs.openjdk17}"
       ];
 
-      # moved here from the desknix and thinkpad host files, where both set
-      # these identically as home.sessionVariables
       environment.variables = {
         JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 
-      # was modules/roles/development.nix, which held nothing else
       users.users.max.extraGroups = [
         "plugdev"
         "dialout"

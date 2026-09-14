@@ -1,6 +1,5 @@
 {
-  # No NixOS counterpart to home-manager's services.swayidle, so the user unit
-  # is written out by hand here.
+  # No NixOS services.swayidle exists, so the user unit is written out by hand.
   nixos.programs.lock =
     { lib, pkgs, ... }:
     let

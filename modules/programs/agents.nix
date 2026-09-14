@@ -1,6 +1,4 @@
 {
-  # opencode and claude-code used to arrive here via nixpkgs.overlays; they are
-  # wired once in packages.nix's fromInputs now (docs/structure.md rule 6).
   nixos.programs.agents =
     { my, pkgs, ... }:
     let

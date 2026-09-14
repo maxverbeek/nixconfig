@@ -1,11 +1,6 @@
-# Shard: imported with no arguments, so the outer structure is a plain attrset
-# and only the leaf is a module function (docs/wiring.md §4).
-#
 # This wrapper is max's login shell, so it reads $ZDOTDIR/.zshrc from the store
-# and IGNORES ~/.zshrc -- every `programs.zsh.initContent` anywhere in
-# home-manager stops taking effect once it is installed. Everything that used to
-# arrive that way (fzf, zoxide, starship, dircolors, kubectl/op completions,
-# osc7) therefore lives here instead.
+# and IGNORES ~/.zshrc. Everything the shell needs (fzf, zoxide, starship,
+# dircolors, kubectl/op completions, osc7) therefore lives here.
 {
   wrappers.configured.zsh =
     {
@@ -56,8 +51,8 @@
         ":wq" = "exit";
       };
 
-      # compinit must run before any shard's `compdef`, hence mkBefore. The rest
-      # of the order here is ours to choose; other shards append with mkAfter.
+      # compinit must run before any `compdef`, hence mkBefore; other shards
+      # append with mkAfter.
       zshrc.content = lib.mkBefore ''
         eval "$(${pkgs.coreutils}/bin/dircolors -b)"
 

@@ -1,5 +1,4 @@
 {
-  # My instance of it: becomes my.pkgs.wrapped.herdr (ROUTE 1).
   wrappers.configured.herdr =
     { my, pkgs, ... }:
     {

@@ -1,5 +1,3 @@
-# Shard: imported with no arguments, so the outer structure is a plain attrset
-# and only the leaf is a module function (docs/wiring.md §4).
 {
   wrappers.configured.git =
     { pkgs, wlib, ... }:
@@ -41,7 +39,6 @@
           sd = "!git switch develop || git switch development || git switch beta";
         };
 
-        # was programs.git.lfs.enable
         filter.lfs = {
           clean = "${pkgs.git-lfs}/bin/git-lfs clean -- %f";
           smudge = "${pkgs.git-lfs}/bin/git-lfs smudge -- %f";
@@ -49,11 +46,10 @@
           required = true;
         };
 
-        # was programs.difftastic.git.enable
         diff.external = "${pkgs.difftastic}/bin/difft";
 
-        # was programs.git.ignores; ~/.config/git/ignore is only read when
-        # core.excludesFile is unset, and our config lives in the store.
+        # ~/.config/git/ignore is only read when core.excludesFile is unset,
+        # and our config lives in the store.
         core.excludesFile = pkgs.writeText "gitignore" ''
           **/.claude/settings.local.json
           .direnv

@@ -7,13 +7,12 @@
     {
       imports = [ wlib.wrapperModules.foot ];
 
-      # Both palettes live in the config at once; foot switches between them
-      # on SIGUSR1 (dark) / SIGUSR2 (light) with no restart and no rewrite.
-      # Switching also makes foot notify subscribed apps (private mode 2031),
-      # which is how nvim re-themes itself -- see modules/desktop/theme.nix.
+      # Both palettes live in the config at once; foot switches between them on
+      # SIGUSR1 (dark) / SIGUSR2 (light) with no restart and no rewrite, and
+      # notifies subscribed apps (mode 2031), which is how nvim re-themes.
       settings.colors-dark = my.pkgs.kanagawa-nvim.colors.foot;
       # Catppuccin Latte, transcribed from catppuccin/foot
-      # themes/static/catppuccin-latte.ini. Same shape as the kanagawa sets.
+      # themes/static/catppuccin-latte.ini.
       settings.colors-light = {
         foreground = "4c4f69";
         background = "eff1f5";
@@ -44,7 +43,7 @@
       };
       settings.main.font = "JetBrainsMono Nerd Font:size=${toString fontsize}";
       # Mutable, theme-toggle-owned: carries initial-color-theme so new
-      # terminals start on the active variant. See modules/desktop/theme.nix.
+      # terminals start on the active variant.
       settings.main.include = "~/${my.meta.theme.footThemeIni}";
     };
 }

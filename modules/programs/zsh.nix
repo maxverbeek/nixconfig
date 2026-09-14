@@ -10,9 +10,8 @@
 
       environment.pathsToLink = [ "/share/zsh" ];
 
-      # chsh and anything that validates a login shell read /etc/shells. Listed
-      # as a path for the same reason max's shell is: a package would be
-      # rewritten to /run/current-system/sw/bin/zsh (the plain pkgs.zsh).
+      # A path string, not a package: a package is rewritten to
+      # /run/current-system/sw/bin/zsh, which is the plain unwrapped pkgs.zsh.
       environment.shells = [ "${my.pkgs.wrapped.zsh}/bin/zsh" ];
 
       # fzf, zoxide and starship must be on PATH: their init scripts (baked into

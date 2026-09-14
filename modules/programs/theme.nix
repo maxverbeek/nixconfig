@@ -10,8 +10,8 @@
     let
       theme = my.meta.theme;
 
-      # Where the active variant is recorded. Runtime state, not store state:
-      # apps that can't be signalled (barbell) watch this file instead.
+      # Runtime state, not store state: apps that can't be signalled (barbell)
+      # watch this file instead.
       state = "\${XDG_RUNTIME_DIR:-/tmp}/${theme.statePath}";
 
       key = "/org/gnome/desktop/interface/color-scheme";
@@ -58,15 +58,13 @@
       '';
     in
     {
-      # Apps register how they follow a theme switch instead of this file
-      # knowing about every app. nvim is the deliberate exception: it re-themes
-      # itself from the terminal (mode 2031) and needs no entry here.
+      # Apps register how they follow a theme switch, so this file knows about
+      # none of them. nvim is the exception: it re-themes itself from the
+      # terminal (mode 2031) and needs no entry.
       #
-      # KNOWN-BROKEN, not fixable here: Electron 39+ (Chromium 142) mishandles
-      # runtime color-scheme changes on Linux/Wayland, so Slack and Obsidian get
-      # the theme right at startup but wrong on live toggle (flash-then-revert).
-      # The portal/dconf side is correct; the bug is inside Electron. Only a
-      # restart re-detects. Upstream: electron/electron#48736.
+      # KNOWN-BROKEN, not fixable here: Electron 39+ mishandles runtime
+      # color-scheme changes on Wayland, so Slack and Obsidian only get the
+      # theme right at startup. Upstream: electron/electron#48736.
       options.theme.onSwitch = lib.mkOption {
         type = lib.types.attrsOf (lib.types.functionTo lib.types.lines);
         default = { };
@@ -93,12 +91,9 @@
 
         environment.systemPackages = [ theme-toggle ];
 
-        # On login, re-apply the recorded variant: this re-points the gtk
-        # theme.css symlinks and rewrites foot's theme.ini for that variant,
-        # replacing HM's activation-time linkGtkColorTheme. It also seeds the
-        # runtime state file barbell watches, which lives in XDG_RUNTIME_DIR
-        # and so is empty after every boot. dconf needs the session bus, which
-        # user services have.
+        # On login, re-apply the recorded variant: re-points the gtk theme.css
+        # symlinks, rewrites foot's theme.ini, and seeds the state file barbell
+        # watches, which lives in XDG_RUNTIME_DIR and so is empty after boot.
         systemd.user.services.theme-restore = {
           description = "Re-apply the recorded light/dark theme variant";
           wantedBy = [ "graphical-session.target" ];

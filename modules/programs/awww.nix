@@ -1,6 +1,5 @@
 {
-  # No NixOS counterpart to home-manager's services.awww, so the user unit is
-  # written out by hand here.
+  # No NixOS services.awww exists, so the user unit is written out by hand.
   nixos.programs.awww =
     { lib, pkgs, ... }:
     {

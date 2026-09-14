@@ -1,27 +1,13 @@
-# nixconfig's own integration of stalker's `work` CLI with fzf-tab completion,
-# plus pointing the wrapped git at stalker's post-commit hook directory. Nothing
-# here is copied from stalker any more: the hooks dir is a package it exports,
-# and the plain `work` completer ships inside the stalker package itself
-# (share/zsh/site-functions/_work), which compinit autoloads off fpath.
 {
   wrappers.configured.zsh =
     { lib, ... }:
     {
-      # `work ... **<Tab>` runs the CLI's own completion candidates through fzf,
-      # for when the list is a few hundred tickets and the plain menu is a wall
-      # to page through. Bare <Tab> is untouched and still shows the normal menu
-      # from the package's _work completer.
+      # `work ... **<Tab>` runs the CLI's own candidates through fzf; bare <Tab>
+      # still uses the package's _work completer.
       #
-      # fzf-completion dispatches on _fzf_complete_<cmd> (its fallback is path
-      # completion, useless for `work`), and hands the function the line as a
-      # STRING -- no $words/$CURRENT like a compdef completer gets, hence the
-      # re-split and index arithmetic below.
-      #
-      # One call, whatever the binary returns for that position. Note refs
-      # complete in two stages, so `show **<Tab>` offers project prefixes and
-      # `show ABL-**<Tab>` offers that project's ~280 tickets -- pick the
-      # project first, then search. Flattening those stages for fzf meant
-      # re-deriving the CLI's own logic in zsh, so it isn't done here.
+      # fzf-completion dispatches on _fzf_complete_<cmd> and hands the function
+      # the line as a STRING -- no $words/$CURRENT like a compdef completer
+      # gets, hence the re-split and index arithmetic below.
       zshrc.content = lib.mkAfter ''
         _fzf_complete_work() {
           # $1 is the line with the trigger AND the word being completed
@@ -54,8 +40,8 @@
     { my, ... }:
     {
       # The global post-commit hook that reports authored commits to the daemon.
-      # stalker's NixOS module deliberately installs no git config, because this
-      # wrapper's config never reaches /etc for it to merge with.
+      # stalker's NixOS module installs no git config of its own: this wrapper's
+      # config never reaches /etc for it to merge with.
       settings.core.hooksPath = toString my.pkgs.stalker-git-hooks;
     };
 }

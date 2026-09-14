@@ -1,6 +1,5 @@
 {
-  # wayscriber's entry in the which-key menu; the rest of wayscriber is still a
-  # home-manager module and is ported later.
+  # wayscriber's entry in the which-key menu.
   wrappers.configured.wlr-which-key = _: {
     settings.menu = [
       {
