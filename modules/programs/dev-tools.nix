@@ -2,6 +2,30 @@
   nixos.programs.dev-tools =
     { my, pkgs, ... }:
     let
+      secrand = pkgs.writeScriptBin "secrand" ''
+        #!${pkgs.ruby}/bin/ruby
+        require 'securerandom'
+
+        puts SecureRandom.hex(if ARGV[0].nil? then 64 else ARGV[0].to_i end)
+      '';
+
+      gitlabcivars = pkgs.writeScriptBin "gitlabcivars" ''
+        #!${pkgs.bash}/bin/bash
+
+        if [ ! -f ~/.gitlab_pat ]; then
+          echo "File ~/.gitlab_pat not found"
+          exit 1
+        fi
+
+        GITLAB_TOKEN=$(cat ~/.gitlab_pat) ${pkgs.glab}/bin/glab variable export | ${pkgs.jq}/bin/jq -r ".[] | (.key + \"=\" + .value)"
+      '';
+
+      jqd = pkgs.writeScriptBin "jqd" ''
+        #!${pkgs.bash}/bin/bash
+
+        exec jq 'map_values(.| @base64d)'
+      '';
+
       texliveCombined =
         pkgs:
         pkgs.texlive.combine {
@@ -118,6 +142,11 @@
 
         my.pkgs.xtee
         my.pkgs.zen-browser
+
+        # small dev scripts, were in programs.zsh
+        secrand
+        gitlabcivars
+        jqd
       ];
 
       # was home.file.".jdk/openjdk17".source; ours, so L+ keeps it current
