@@ -5,7 +5,6 @@
 }:
 let
   modules = config.flake.modules.nixos;
-  hmModules = config.flake.modules.homeManager;
 in
 {
   configurations.hosts.thinkpad.module =
@@ -13,7 +12,7 @@ in
     {
       imports = [
         inputs.agenix.nixosModules.default
-        # User "max" (includes home-manager wiring)
+        # User "max"
         modules.max
 
         # Roles
@@ -35,16 +34,6 @@ in
         # Hardware
         ./_hardware-configuration.nix
       ];
-
-      # Desktop home-manager roles for max (on top of base from max.nix)
-      home-manager.users.max.imports = with hmModules; [
-        development
-      ];
-
-      home-manager.users.max.home.sessionVariables = {
-        JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
-        _JAVA_AWT_WM_NONREPARENTING = "1";
-      };
 
       # Boot
       boot.loader.systemd-boot.enable = true;

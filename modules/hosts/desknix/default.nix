@@ -1,10 +1,10 @@
 { config, ... }:
 {
   configurations.hosts.desknix.module =
-    { pkgs, ... }:
+    { ... }:
     {
       imports = [
-        # User "max" (includes home-manager wiring)
+        # User "max"
         config.flake.modules.nixos.max
 
         # Roles
@@ -21,16 +21,6 @@
         # Hardware
         ./_hardware-configuration.nix
       ];
-
-      # Desktop home-manager roles for max (on top of base from max.nix)
-      home-manager.users.max.imports = with config.flake.modules.homeManager; [
-        development
-      ];
-
-      home-manager.users.max.home.sessionVariables = {
-        JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
-        _JAVA_AWT_WM_NONREPARENTING = "1";
-      };
 
       # Boot
       boot.loader.systemd-boot.enable = true;

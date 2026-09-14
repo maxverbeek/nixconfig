@@ -19,7 +19,7 @@ in
         modules.copd
         modules.harmonia
 
-        # User "max" (home-manager + base HM role: zsh, starship, fzf)
+        # User "max"
         modules.max
 
         inputs.disko.nixosModules.disko
@@ -32,9 +32,9 @@ in
         (modulesPath + "/profiles/qemu-guest.nix")
       ];
 
-      home-manager.users.max.home.packages = [
+      environment.systemPackages = [
         pkgs.self.nvim
-        # Bare packages, not the development HM role: that role's live symlinks
+        # Bare packages, not the development role: that role's live symlinks
         # point at the nixconfig repo root, which is not checked out on this host.
         pkgs.claude-code
         pkgs.self.herdr
@@ -42,22 +42,21 @@ in
 
       # Weekday 08:00 claude run. Runs as max so it picks up the OAuth session
       # in ~/.claude; a system unit would have no credentials.
-      home-manager.users.max.systemd.user = {
-        timers.claude-daily = {
-          Unit.Description = "Weekday claude prompt";
-          Timer = {
-            OnCalendar = "Mon..Fri *-*-* 08:00:00";
-            Persistent = true;
-          };
-          Install.WantedBy = [ "timers.target" ];
+      systemd.user.timers.claude-daily = {
+        description = "Weekday claude prompt";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "Mon..Fri *-*-* 08:00:00";
+          Persistent = true;
         };
-        services.claude-daily = {
-          Unit.Description = "Weekday claude prompt";
-          Service = {
-            Type = "oneshot";
-            WorkingDirectory = "%h";
-            ExecStart = "${pkgs.claude-code}/bin/claude -p 'Say good morning.'";
-          };
+      };
+
+      systemd.user.services.claude-daily = {
+        description = "Weekday claude prompt";
+        serviceConfig = {
+          Type = "oneshot";
+          WorkingDirectory = "%h";
+          ExecStart = "${pkgs.claude-code}/bin/claude -p 'Say good morning.'";
         };
       };
 

@@ -34,11 +34,7 @@
 
       package = pkgs.zsh;
 
-      # Transitional: the home-manager `home.sessionVariables` that have not been
-      # ported yet (EDITOR, JAVA_HOME, ...) still arrive through this file. The
-      # generated .zshenv only sources it if it exists, so hosts without
-      # home-manager (or after its removal) are unaffected.
-      hmSessionVariables = "/etc/profiles/per-user/max/etc/profile.d/hm-session-vars.sh";
+      hmSessionVariables = null;
 
       env.FZF_DEFAULT_COMMAND = ''ag --ignore .git --hidden -g ""'';
 

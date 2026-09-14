@@ -14,9 +14,6 @@
 
     gitlab-reviewer.url = "github:maxverbeek/gitlab-reviewer";
 
-    home-manager.url = "github:nix-community/home-manager/release-26.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     adw-catppuccin = {
       url = "github:claymorwan/catppuccin";
       flake = false;
@@ -75,7 +72,6 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.darwin.follows = "";
 
     import-tree.url = "github:vic/import-tree";

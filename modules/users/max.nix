@@ -1,33 +1,13 @@
 {
-  inputs,
-  config,
   my,
   ...
 }:
 {
-  # Minimal NixOS module for user "max"
-  # Provides user creation and the home-manager wiring.
-  # Desktop hosts should add extra HM role imports (headful, personal, development) directly.
+  # User "max": account, login shell, EDITOR.
   flake.modules.nixos.max =
-    { pkgs, ... }:
+    { ... }:
     {
-      imports = [
-        inputs.home-manager.nixosModules.home-manager
-      ];
-
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
-      home-manager.users.max =
-        { ... }:
-        {
-
-          home.stateVersion = "20.09";
-
-          home.sessionVariables = {
-            EDITOR = "nvim";
-          };
-        };
+      environment.variables.EDITOR = "nvim";
 
       users.users.max = {
         isNormalUser = true;
