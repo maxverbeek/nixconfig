@@ -92,10 +92,13 @@
         specialArgs = { inherit my; };
       }
       {
-        # modules/wrappers/ is in the new shard shape and is loaded by modules.nix,
-        # not flake-parts. import-tree matches the path *relative to* ./modules,
-        # so the regex is anchored at /wrappers/, not at /modules/wrappers/.
-        imports = [ ((inputs.import-tree.matchNot "/wrappers/.*") ./modules) ];
+        # The two loaders share modules/ and split it by file shape: shards go
+        # to modules.nix, flake-parts files come here. import-tree hands the
+        # predicate a path *relative to* ./modules ("/desktop/walker.nix"),
+        # hence the concatenation.
+        imports = [
+          ((inputs.import-tree.filter (p: !my.lib.modules.isShard (./modules + p))) ./modules)
+        ];
 
         # Wrapped programs reachable without a host: `nix build .#wrapped.git`.
         # The rest re-exports my.pkgs into the flake outputs the overlays and

@@ -1,8 +1,21 @@
 # Wires modules/ (docs/wiring.md §2, §4).
 #
-# During the migration only `modules/wrappers/` is in the shard shape; the rest
-# of `modules/` is still flake-parts shaped and is walked by import-tree from
-# flake.nix (which excludes modules/wrappers/ so the two loaders do not collide).
-# When flake-parts goes, this walks all of `modules/`.
+# During the migration the two loaders share `modules/` and split it by file
+# shape: this one takes the shards, import-tree (from flake.nix) takes the
+# flake-parts files. That lets a directory be converted one stage at a time.
+# When flake-parts goes, the filter is removed and this walks all of `modules/`.
 { my }:
-my.lib.modules.importSharded 3 ./modules/wrappers
+my.lib.modules.importSharded 3 (
+  builtins.filter my.lib.modules.isShard (my.lib.modules.listFiles ./modules)
+)
+// {
+  # Third-party NixOS modules are wired once, here (docs/structure.md rule 6).
+  # A leaf writes `imports = [ my.modules.external.walker ]` and never reads
+  # my.sources itself.
+  external = {
+    walker = my.sources.walker.nixosModules.default;
+    stalker = my.sources.stalker.nixosModules.default;
+    disko = my.sources.disko.nixosModules.disko;
+    agenix = my.sources.agenix.nixosModules.default;
+  };
+}
