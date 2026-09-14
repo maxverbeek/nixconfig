@@ -1,7 +1,4 @@
 {
-  # A machine with a screen and a human: the compositor, its bar and launcher,
-  # sound, bluetooth, fonts and the desktop programs. Today's headful +
-  # personal + multimedia.
   nixos.collections.workstation =
     { my, ... }:
     {

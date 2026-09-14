@@ -14,14 +14,11 @@
         collections.development
         collections.laptop
 
-        # Host-specific modules
         programs.steam
         services.clamav
         hardware.keyboards
         hardware.fingerprint
         network.nordlynx
-
-        # Hardware
         ./_hardware.nix
       ];
 
@@ -35,11 +32,9 @@
       };
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
-      # Networking
       # No sshd here, so agenix decrypts with max's own key instead of a host key.
       age.identityPaths = [ "/home/max/.ssh/id_ed25519" ];
       age.secrets.nordlynx-key.file = ../../../secrets/nordlynx.key.age;
-      # NordLynx as NM profiles, all off by default.
       services.nordlynx = {
         enable = true;
         mode = "networkmanager";
@@ -55,10 +50,9 @@
         49.12.21.124 retriever.dev.legalmike.ai
         127.0.0.1 keycloak
       '';
-      # Tailscale: allow acting as both subnet router and exit node
+      # Subnet router and exit node.
       services.tailscale.useRoutingFeatures = "both";
 
-      # Hardware
       hardware.graphics.enable = true;
       hardware.graphics.extraPackages = [ pkgs.intel-media-driver ];
       hardware.enableAllFirmware = true;
@@ -68,7 +62,7 @@
         my.pkgs.unstable.sof-firmware
       ];
 
-      # Pipewire (unstable for better hardware support)
+      # unstable: this laptop's audio hardware needs a newer pipewire.
       services.pipewire.package = my.pkgs.unstable.pipewire;
 
       system.stateVersion = "24.11";

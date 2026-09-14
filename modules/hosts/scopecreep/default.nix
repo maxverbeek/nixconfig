@@ -22,8 +22,6 @@
         my.modules.external.disko
         ./_disko.nix
 
-        # Decrypts secrets/*.age to /run/agenix at activation, using the host's
-        # ssh key. Recipients are managed in /secrets.nix + /publickeys.nix.
         my.modules.external.agenix
 
         (modulesPath + "/profiles/qemu-guest.nix")
@@ -31,14 +29,14 @@
 
       environment.systemPackages = [
         my.pkgs.wrapped.nvim
-        # Bare packages, not the development collection: its live symlinks
-        # point at the nixconfig repo root, which is not checked out on this host.
+        # Bare packages, not the development collection: its live symlinks point
+        # at the nixconfig repo root, which is not checked out on this host.
         my.pkgs.claude-code
         my.pkgs.wrapped.herdr
       ];
 
-      # Weekday 08:00 claude run. Runs as max so it picks up the OAuth session
-      # in ~/.claude; a system unit would have no credentials.
+      # A user unit so it picks up max's OAuth session in ~/.claude; a system
+      # unit would have no credentials.
       systemd.user.timers.claude-daily = {
         description = "Weekday claude prompt";
         wantedBy = [ "timers.target" ];
@@ -75,7 +73,6 @@
       # rebuild can never fill /boot and lock itself out of fixing it.
       boot.loader.grub.configurationLimit = 3;
 
-      # Allow all traffic on tailscale, deny everything on public interfaces
       networking.firewall.trustedInterfaces = [ "tailscale0" ];
       services.openssh.openFirewall = false;
 

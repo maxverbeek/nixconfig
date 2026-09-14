@@ -2,10 +2,8 @@
   nixos.system.cache =
     { lib, ... }:
     {
-      # Contributions from shards land here: a leaf writes
-      # `cachePackages.<name> = my.pkgs.<name>` next to where it uses the
-      # package. ROUTE 4 in packages.nix collects them across all hosts into
-      # `my.pkgs.cache`, which the VPS realises as `nix build .#cache`.
+      # Leaves write `cachePackages.<name>` next to where they use the package;
+      # packages.nix unions them across hosts into `nix build .#cache`.
       options.cachePackages = lib.mkOption {
         type = lib.types.lazyAttrsOf lib.types.package;
         default = { };

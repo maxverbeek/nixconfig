@@ -2,20 +2,17 @@
   nixos.hardware.laptop =
     { pkgs, ... }:
     {
-      # Battery monitoring
       services.upower.enable = true;
 
-      # Brightness control
       environment.systemPackages = [ pkgs.brightnessctl ];
       services.udev.packages = [ pkgs.brightnessctl ];
 
-      # Input device access (and brightnessctl backlight writes via video group)
+      # video: brightnessctl writes the backlight through that group.
       users.users.max.extraGroups = [
         "input"
         "video"
       ];
 
-      # Touchpad support
       services.libinput = {
         enable = true;
         touchpad.naturalScrolling = true;

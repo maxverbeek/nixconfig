@@ -1,16 +1,14 @@
 # NordVPN over plain WireGuard ("NordLynx") without the proprietary daemon.
 #
-# Two consumers, two shapes:
-#  - networkmanager: one NetworkManager profile per server, all off by default;
-#    toggle in the applet or `nmcli con up "NordLynx NL Amsterdam"`. Full
-#    tunnel with Nord DNS. Laptops.
-#  - bind: a wg-quick interface to ONE server whose routes live in a private
-#    table; only traffic SOURCED from the tunnel address uses it
-#    (`curl --interface <addr>`). Everything else keeps its normal egress. Servers.
+#  - networkmanager: one NM profile per server, all off by default; full tunnel
+#    with Nord DNS. `nmcli con up "NordLynx NL Amsterdam"`.
+#  - bind: a wg-quick interface to ONE server in a private routing table, so
+#    only traffic SOURCED from the tunnel address uses it (`curl --interface
+#    <addr>`); everything else keeps its normal egress.
 #
-# Getting the key: generate an access token in Nord Account > Manual setup, then
+# The key: make an access token in Nord Account > Manual setup, then
 #   curl -s -u token:$TOKEN https://api.nordvpn.com/v1/users/services/credentials | jq -r .nordlynx_private_key
-# Picking servers (one public key per country, only endpoints differ):
+# Servers (one public key per country, only endpoints differ):
 #   curl -sg 'https://api.nordvpn.com/v1/servers/recommendations?filters[country_id]=153&filters[servers_technologies][identifier]=wireguard_udp&limit=4'
 {
   nixos.network.nordlynx =

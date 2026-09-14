@@ -1,12 +1,8 @@
 { pkgs, ... }:
 pkgs.vimPlugins.kanagawa-nvim.overrideAttrs (old: {
-  # see file in repo: $out/extras/alacritty_kanagawa.yml
-  # dont know how to convert yml to nix, so i did it manually
-  #
-  # `colors.*` is Wave (dark). The Lotus (light) twin lives in
-  # `colors.lotus.*` with identical shape, transcribed from the same
-  # $out/extras/{foot,alacritty} files. Kept side by side so a light/dark
-  # pair is one attrset lookup apart -- see modules/desktop/theme.nix.
+  # Transcribed by hand from $out/extras/{foot,alacritty}. `colors.*` is Wave
+  # (dark), `colors.lotus.*` its light twin with identical shape, so a light/dark
+  # pair is one attrset lookup apart.
   passthru.colors.foot = {
     foreground = "dcd7ba";
     background = "1f1f28";
@@ -117,8 +113,6 @@ pkgs.vimPlugins.kanagawa-nvim.overrideAttrs (old: {
     };
   };
 
-  # Lotus: the light half of Kanagawa. Same shape as the Wave sets above so
-  # the two can be swapped by attribute path alone.
   # From $out/extras/foot/kanagawa-lotus.ini.
   passthru.colors.lotus.foot = {
     foreground = "545464";
@@ -195,8 +189,7 @@ pkgs.vimPlugins.kanagawa-nvim.overrideAttrs (old: {
     ];
   };
 
-  # Same random-name treatment as colors.term above, so the two are
-  # interchangeable wherever `term` is consumed.
+  # Same naming as colors.term above, so the two are interchangeable.
   passthru.colors.lotus.term = {
     normal = {
       black = "#1F1F28";

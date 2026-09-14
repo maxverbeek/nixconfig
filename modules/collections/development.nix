@@ -1,6 +1,4 @@
 {
-  # Dev tooling: editors, languages, CLIs, the coding agents, and the two
-  # virtualisation daemons a dev box needs. Today's development + docker.
   nixos.collections.development =
     { my, ... }:
     {

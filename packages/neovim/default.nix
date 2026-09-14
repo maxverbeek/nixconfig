@@ -1,8 +1,3 @@
-# ROUTE 2 (docs/wiring.md §6, §8): the two neovim variants.
-#
-# `repoRoot` is `my.meta.repoRoot`; the rest are passed in by packages.nix
-# rather than read from `my` here, because reading `my.sources` below the root
-# is wiring.
 {
   pkgs,
   unstable,
@@ -107,7 +102,6 @@ let
       magick
     ];
 
-  # Everything both variants share. Only `config` and `appName` differ.
   common = {
     inherit
       plugins
@@ -118,7 +112,7 @@ let
   };
 in
 {
-  # Config from the store: reproducible, works without the repo checked out.
+  # Config from the store: works without the repo checked out.
   nvim = mkNeovim (
     common
     // {

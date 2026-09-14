@@ -17,23 +17,16 @@
               "bluez5.enable-sbc-xq" = true;
               "bluez5.enable-msbc" = true;
               "bluez5.enable-hw-volume" = true;
-              # Don't set bluez5.roles. Narrowing it to [ a2dp_sink hfp_hf
-              # hsp_hs ] broke profile selection — devices bond, then drop with
-              # "a2dp-sink profile connect failed: Protocol not available".
-              # Default is wider, so nothing loses a capability. (2026-08-05)
+              # Don't set bluez5.roles. Narrowing it broke profile selection:
+              # devices bond, then drop with "a2dp-sink profile connect failed:
+              # Protocol not available". The default is wider anyway.
             };
           };
 
-          # Switch a headset to HFP when an app opens its mic, then back to
-          # A2DP afterwards. The radio can't carry high-quality stereo and a
-          # mic channel at once — that's Bluetooth, not a bug — so this trades
-          # audio quality for the duration of a call. mSBC above makes that
-          # fallback 16 kHz wideband rather than 8 kHz telephone.
-          #
-          # Both of these are already wireplumber's defaults; they're written
-          # out so the behaviour is visible here rather than implied, since
-          # this is exactly the pair that gets blamed when a headset mic goes
-          # missing.
+          # Already wireplumber's defaults, spelled out because this is the
+          # pair that gets blamed when a headset mic goes missing: opening the
+          # mic drops the headset to HFP (Bluetooth can't do stereo + mic at
+          # once), and mSBC above makes that fallback wideband.
           extraConfig.autoswitchToHeadset = {
             "wireplumber.settings" = {
               "bluetooth.autoswitch-to-headset-profile" = true;

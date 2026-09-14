@@ -1,8 +1,6 @@
 {
-  # NixOS module that reads a Tailscale auth key from Hetzner Cloud
-  # user-data and automatically joins the tailnet on first boot.
-  #
-  # User-data should be the raw auth key string (tskey-auth-...).
+  # Joins the tailnet on first boot from a Hetzner Cloud user-data auth key
+  # (user-data is the raw tskey-auth-... string).
   nixos.network.hetzner-cloudinit =
     { pkgs, ... }:
     {
@@ -19,10 +17,9 @@
         ];
         wantedBy = [ "multi-user.target" ];
 
-        # First boot only. Once the node has joined, the sentinel makes systemd
-        # skip the unit outright — the auth key is single-use and Hetzner stops
-        # serving user-data, so re-running can only fail. Must live in unitConfig:
-        # ConditionPathExists is a [Unit] directive and is ignored in serviceConfig.
+        # First boot only: the auth key is single-use, so a re-run can only
+        # fail. Must live in unitConfig — ConditionPathExists is a [Unit]
+        # directive and is silently ignored in serviceConfig.
         unitConfig.ConditionPathExists = "!/var/lib/tailscale/hetzner-autoconnect-done";
 
         serviceConfig = {

@@ -1,5 +1,4 @@
 {
-  # A machine on a battery. Today's portable role.
   nixos.collections.laptop =
     { my, ... }:
     {

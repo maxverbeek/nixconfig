@@ -2,7 +2,6 @@
   nixos.network.dns =
     { lib, ... }:
     {
-      # DNS resolution with Cloudflare fallback
       services.resolved = {
         enable = true;
         settings.Resolve.FallbackDNS = [
@@ -13,7 +12,6 @@
         ];
       };
 
-      # can override with mkForce
       networking.firewall.enable = lib.mkDefault true;
     };
 }

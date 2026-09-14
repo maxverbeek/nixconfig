@@ -1,11 +1,8 @@
-# Build a configured neovim.
+# Build a configured neovim. `config` is a store path containing init.lua (and
+# optionally after/), produced by mkConfigSource; this builder neither knows nor
+# cares whether it is a store copy or a working-tree symlink.
 #
-# Credit: https://github.com/shofel/nvim-on-nix, plus the pure/impure config
-# split borrowed from https://github.com/Gerg-L/mnw.
-#
-# `config` is a store path containing init.lua (and optionally after/). Produce
-# it with mkConfigSource: pass `impure` for a working-tree symlink, omit it for
-# a store copy. This builder neither knows nor cares which it was given.
+# Credit: https://github.com/shofel/nvim-on-nix and https://github.com/Gerg-L/mnw.
 {
   lib,
   sqlite,
@@ -87,8 +84,7 @@ let
     ]
   );
 
-  # wrapNeovimUnstable takes plugins/luaRcContent/wrapperArgs natively;
-  # neovimUtils.makeNeovimConfig was the old shim and is deprecated.
+  # Not neovimUtils.makeNeovimConfig: that shim is deprecated.
   neovim = wrapNeovimUnstable neovim-unwrapped {
     inherit
       plugins

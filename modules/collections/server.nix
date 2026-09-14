@@ -1,5 +1,4 @@
 {
-  # The VPS.
   nixos.collections.server =
     { my, ... }:
     {

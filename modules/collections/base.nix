@@ -1,6 +1,6 @@
 {
-  # Every machine. The nix registry is deliberately absent: it needs flake
-  # refs, and only the root has those, so hosts.nix sets it instead.
+  # The nix registry is deliberately absent here: it needs flake refs, and only
+  # the root has those, so hosts.nix sets it instead.
   nixos.collections.base =
     { my, ... }:
     {

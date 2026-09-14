@@ -11,38 +11,28 @@
       nordlynxModule = my.modules.nixos.network.nordlynx;
 
       hostIP = "10.100.0.1";
-      webIP = "10.100.0.4"; # web container: behind Caddy, main ingress identity
-      monitorIP = "10.100.0.5"; # monitor container primary veth address
+      webIP = "10.100.0.4";
+      monitorIP = "10.100.0.5";
       webPort = 3010;
 
-      # Shared SQLite dir on the HOST, bind-mounted RW into both containers.
-      # Splitting the two services into separate containers means they can no
-      # longer share a StateDirectory inside one namespace, so the DB lives here.
+      # Shared SQLite dir on the HOST, bind-mounted RW into both containers:
+      # split across two containers they can no longer share a StateDirectory.
       dbDir = "/var/lib/huurhunter";
 
-      # ── FLOATING IP EGRESS ───────────────────────────────────────────────────
-      # ALL traffic from the monitor container (${monitorIP}) is SNATed to the FIP
-      # — HTTP, headless-Chromium, DNS, uniformly. No app cooperation needed, so it
-      # covers the browser (pandomo) path too, which app-side source-binding can't.
-      #
-      # The FIP list is tracked in the PRIVATE huurhunter repo (nix/egress-fips.nix,
-      # exposed as the `egressFips` flake output) — not here, since nixconfig is
-      # public. Pure, flows through the flake lock, no impure /etc reads. Empty
-      # fallback -> plain NAT (main IP) until a FIP is provisioned. With ONE FIP we
-      # SNAT the whole container to it; host-side rotation across multiple FIPs
-      # (statistic/nth) is a later concern.
+      # The FIP list lives in the PRIVATE huurhunter repo (`egressFips` flake
+      # output), not here: nixconfig is public. Empty list -> plain NAT on the
+      # main IP until a FIP is provisioned.
       fips = my.meta.huurhunter.egressFips;
       egressFip = if fips == [ ] then null else builtins.head fips;
     in
     {
       cachePackages.huurhunter = my.pkgs.huurhunter;
 
-      # symlink = false: these are bind-mounted into nspawn containers, and a
-      # /run/agenix symlink would dangle across agenix generations inside the
-      # mount; a regular file is mounted by inode and stays valid. The explicit
-      # path is required with symlink = false: copying into the default
-      # /run/agenix/<name> makes it a real directory and breaks the generation
-      # symlink agenix wants to place there. /run is tmpfs, nothing hits disk.
+      # symlink = false: bind-mounted into nspawn containers, and a /run/agenix
+      # symlink would dangle across agenix generations inside the mount; a plain
+      # file is mounted by inode and stays valid. The explicit path is then
+      # required — the default /run/agenix/<name> would become a real directory
+      # and break the generation symlink agenix places there.
       age.secrets.huurhunter-env = {
         file = ../../secrets/huurhunter.env.age;
         symlink = false;
@@ -58,25 +48,23 @@
         symlink = false;
         path = "/run/container-secrets/nordlynx.key";
       };
-      # the monitor container brings up a WireGuard interface; it cannot modprobe
+      # The monitor container brings up a WireGuard interface; it cannot modprobe.
       boot.kernelModules = [ "wireguard" ];
 
-      # ── DB dir on the host, owned so both containers' huurhunter user can use it.
-      # The huurhunter module inside each container runs services as uid/gid for the
-      # static `huurhunter` user; the bind-mount exposes this host dir at the same
-      # path. 2770 + shared gid keeps the file writable by both. The uid/gid must
-      # line up across host and containers — see NOTE below.
+      # 2770 + a shared gid keeps the DB writable by both containers. The uid/gid
+      # must be pinned identically on the host and in both containers, or the
+      # bind-mounted DB is owned by the wrong user across the namespace boundary.
       systemd.tmpfiles.rules = [
         "d ${dbDir} 2770 huurhunter huurhunter -"
       ];
       users.users.huurhunter = {
         isSystemUser = true;
         group = "huurhunter";
-        uid = 1500; # pinned so the same uid exists in both containers (see NOTE)
+        uid = 1500;
       };
       users.groups.huurhunter.gid = 1500;
 
-      # ── WEB CONTAINER: unchanged identity, behind Caddy on the main IP. ─────────
+      # Web container: behind Caddy on the main IP.
       containers.hh-web = {
         autoStart = true;
         privateNetwork = true;
@@ -103,8 +91,6 @@
             "8.8.8.8"
           ];
 
-          # Pin the shared user's uid/gid to match the host so the bind-mounted DB
-          # is owned correctly across the namespace boundary.
           users.users.huurhunter.uid = 1500;
           users.groups.huurhunter.gid = 1500;
 
@@ -120,7 +106,7 @@
         };
       };
 
-      # ── MONITOR CONTAINER: egress-only, gets the FIP source addresses. ─────────
+      # Monitor container: egress-only, SNATed to the FIP below.
       containers.hh-mon = {
         autoStart = true;
         privateNetwork = true;
@@ -181,8 +167,6 @@
         };
       };
 
-      # ── HOST NETWORKING ────────────────────────────────────────────────────────
-      # NAT so both containers reach the internet.
       networking.nat = {
         enable = true;
         internalInterfaces = [
@@ -192,14 +176,12 @@
         externalInterface = "enp1s0";
       };
 
-      # Add the Floating IP as a SECONDARY alias on enp1s0 via `ip addr add`, NOT
-      # via networking.interfaces.*.ipv4.addresses. The box gets its primary IP
-      # over DHCP; declaring an explicit address there switches the interface to
-      # static management and drops the DHCP lease — which took the whole box off
-      # the network once. This oneshot is purely additive: it never touches the
-      # primary. The FIP must be on the NIC so conntrack accepts SNAT reply packets
-      # (Hetzner requires FIPs configured in the OS). `|| true` so a re-run (address
-      # already present) doesn't fail the unit.
+      # Add the Floating IP as a SECONDARY alias, never via
+      # networking.interfaces.*.ipv4.addresses: the primary IP comes over DHCP,
+      # and declaring an address there switches the interface to static and drops
+      # the lease — it took the whole box off the network once. This oneshot is
+      # purely additive. The FIP must be on the NIC for conntrack to accept the
+      # SNAT reply packets.
       systemd.services.huurhunter-fip-addr = lib.mkIf (egressFip != null) {
         description = "Add huurhunter Floating IP as secondary address on enp1s0";
         after = [ "network-online.target" ];
@@ -213,9 +195,9 @@
         };
       };
 
-      # SNAT the ENTIRE monitor container to the FIP: every packet sourced from
-      # ${monitorIP} leaves as the FIP, regardless of protocol (HTTP + Chromium +
-      # DNS). Matched BEFORE the generic MASQUERADE from networking.nat, so it wins.
+      # SNAT the whole monitor container to the FIP, matched before the generic
+      # MASQUERADE from networking.nat so it wins. Covers every protocol, so the
+      # headless-Chromium path is included without app cooperation.
       networking.firewall.extraCommands = lib.optionalString (egressFip != null) ''
         # purge SNAT rules for the monitor IP from PREVIOUS generations first:
         # a rotated FIP otherwise leaves a stale rule that wins on first-match
@@ -228,9 +210,8 @@
         iptables -t nat -D POSTROUTING -s ${monitorIP} -o enp1s0 -j SNAT --to-source ${egressFip} || true
       '';
 
-      # Caddy reverse proxy -> web container only. The FIPs have nothing listening
-      # (web is pinned to webIP:webPort, reachable only via this proxy on the main
-      # IP), so a target probing a FIP finds a closed port.
+      # Web container only: nothing listens on the FIPs, so a target probing one
+      # finds a closed port.
       services.caddy.enable = true;
       services.caddy.virtualHosts."huur.maxverbeek.dev".extraConfig = ''
         reverse_proxy ${webIP}:${toString webPort}

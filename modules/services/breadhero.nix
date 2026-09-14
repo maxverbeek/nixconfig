@@ -75,14 +75,12 @@
           };
       };
 
-      # NAT for container outbound access
       networking.nat = {
         enable = true;
         internalInterfaces = [ "ve-breadhero" ];
         externalInterface = "enp1s0";
       };
 
-      # Caddy reverse proxy on host
       services.caddy.enable = true;
       services.caddy.virtualHosts."breadhero.maxverbeek.dev".extraConfig = ''
         reverse_proxy ${containerIP}:${toString port}

@@ -22,10 +22,9 @@
         extraPackages = [ pkgs.nvidia-vaapi-driver ];
       };
 
-      # The driver is unfree-redistributable, so Hydra never caches it: every host
-      # otherwise refetches the blob and recompiles the kernel modules against its
-      # own kernel. Taken from this host's own evaluated config rather than a bare
-      # pkgs, because the module build is kernel-specific.
+      # Hydra never caches the unfree-redistributable driver, so pre-build it.
+      # Read from this host's own evaluated config, not a bare pkgs: the kernel
+      # module build is specific to this host's kernel.
       cachePackages.nvidia-x11 = config.hardware.nvidia.package;
       cachePackages.nvidia-kernel-modules = builtins.head (
         builtins.filter (

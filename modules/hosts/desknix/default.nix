@@ -7,10 +7,7 @@
         collections.workstation
         collections.development
 
-        # Host-specific modules
         hardware.nvidia
-
-        # Hardware
         ./_hardware.nix
       ];
 
@@ -23,7 +20,6 @@
       };
       boot.supportedFilesystems = [ "ntfs" ];
 
-      # Networking
       networking.hostId = "aa111111";
       networking.extraHosts = ''
         127.0.0.1 keycloak
@@ -32,14 +28,12 @@
       networking.useDHCP = false;
       networking.interfaces.enp0s31f6.useDHCP = true;
 
-      # Time (dual-boot with Windows)
+      # Windows on the other partition keeps the RTC in local time.
       time.hardwareClockInLocalTime = true;
 
-      # Hardware
       hardware.cpu.intel.updateMicrocode = true;
       hardware.graphics.enable = true;
 
-      # X server (keyboard config)
       services.xserver = {
         enable = true;
         xkb = {
@@ -50,7 +44,6 @@
         autoRepeatInterval = 50;
       };
 
-      # Docker
       virtualisation.docker.storageDriver = "overlay2";
 
       system.stateVersion = "21.05";

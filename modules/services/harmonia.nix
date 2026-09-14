@@ -4,8 +4,8 @@
     {
       age.secrets.harmonia-signing-key.file = ../../secrets/harmonia-signing-key.age;
 
-      # Binary cache for the other hosts, reachable over tailscale only
-      # (port 5000; tailscale0 is a trusted interface, public firewall stays closed).
+      # Reachable over tailscale only: port 5000 is never opened publicly,
+      # tailscale0 is a trusted interface.
       services.harmonia.cache = {
         enable = true;
         signKeyPaths = [ config.age.secrets.harmonia-signing-key.path ];

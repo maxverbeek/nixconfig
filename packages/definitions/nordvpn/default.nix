@@ -1,8 +1,6 @@
-# NordVPN is not in nixpkgs (unfree binary, unstable download URLs). We vendor
-# the official Debian package and autoPatchelf it onto NixOS.
-#
-# When 5.2.0 ages out of NordVPN's repo the fetchurl will 404 -> bump `version`
-# and refresh `hash`. Available versions:
+# Not in nixpkgs (unfree binary), so vendor the official .deb and autoPatchelf
+# it. When this version ages out of Nord's repo the fetchurl 404s -> bump
+# `version` and `hash` from
 #   https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/
 {
   lib,

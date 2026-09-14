@@ -10,7 +10,7 @@
         "scopecreep-1:jnrTBDq0e8LRrfiEdWPnAPdyA16FjVQgPzhg4QjebfY="
       ];
 
-      # dont force using cache, fall back to rebuilds if cache is down
+      # Fall back to rebuilding rather than hanging when the cache is down.
       connect-timeout = 3;
       download-attempts = 1;
       stalled-download-timeout = 15; # seconds

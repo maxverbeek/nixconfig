@@ -1,9 +1,6 @@
-# NordVPN service. Replicates what the upstream .deb's systemd units + postinst
-# do: a socket-activated daemon running as group `nordvpn`, a writable state dir
-# seeded with the shipped data files, and the CLI on PATH.
-#
-# Usage after rebuild:  nordvpn login  ->  nordvpn connect
-# The user must be in the `nordvpn` group to talk to the daemon socket.
+# Replicates the upstream .deb's systemd units + postinst: socket-activated
+# daemon in group `nordvpn`, a writable state dir seeded with the shipped data
+# files, and the CLI on PATH. Then: `nordvpn login` -> `nordvpn connect`.
 {
   nixos.network.nordvpn =
     { my, pkgs, ... }:
@@ -16,17 +13,11 @@
 
       environment.systemPackages = [ nordvpn ];
 
-      # /run/nordvpn is created by the socket unit; /var/lib/nordvpn holds the
-      # daemon's mutable state and must be seeded with the shipped data files
-      # (servers.dat, countries.dat, ovpn templates) since the store is read-only.
-      #
-      # The daemon forks helper binaries (norduserd, nordfileshare, openvpn) by
-      # their hardcoded FHS path /usr/lib/nordvpn/<helper> — the proprietary
-      # binary can't be told about the Nix store location. Without this the
-      # browser reports "logged in" but the daemon never receives the token
-      # (norduserd never starts), so `nordvpn account` keeps saying "not logged
-      # in". Symlink the whole store lib dir onto the FHS path so every helper
-      # (login handoff, fileshare, OpenVPN fallback) resolves.
+      # The daemon forks its helpers (norduserd, nordfileshare, openvpn) by the
+      # hardcoded FHS path /usr/lib/nordvpn/<helper> and cannot be told about the
+      # store, hence the symlink. Without it the browser says "logged in" but
+      # norduserd never starts, so `nordvpn account` stays "not logged in".
+      # /var/lib/nordvpn is the mutable state dir, seeded below.
       systemd.tmpfiles.rules = [
         "d /var/lib/nordvpn      0750 root nordvpn - -"
         "d /var/lib/nordvpn/data 0750 root nordvpn - -"
