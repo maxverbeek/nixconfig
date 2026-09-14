@@ -20,7 +20,6 @@
         services.harmonia
 
         my.modules.external.disko
-        ./_disko.nix
 
         my.modules.external.agenix
 

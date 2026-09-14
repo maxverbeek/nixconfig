@@ -19,7 +19,6 @@
         hardware.keyboards
         hardware.fingerprint
         network.nordlynx
-        ./_hardware.nix
       ];
 
       boot.loader.systemd-boot.enable = true;

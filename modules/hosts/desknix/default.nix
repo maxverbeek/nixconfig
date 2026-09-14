@@ -8,7 +8,6 @@
         collections.development
 
         hardware.nvidia
-        ./_hardware.nix
       ];
 
       boot.loader.systemd-boot.enable = true;
