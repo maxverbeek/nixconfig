@@ -10,7 +10,6 @@
         system.cache
         programs.zsh
         programs.ssh
-        programs.bitwarden
         network.dns
         network.tailscale
         users.max

@@ -16,6 +16,7 @@
         programs.dev-tools
         programs.claude
         programs.agents
+        programs.bitwarden
         services.docker
         services.libvirt
       ];
