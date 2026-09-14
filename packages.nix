@@ -54,6 +54,14 @@ let
     stalker = my.sources.stalker.packages.${system}.default;
     stalker-git-hooks = my.sources.stalker.packages.${system}.git-hooks;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
+    opencode = my.sources.opencode.packages.${system}.default;
+
+    # claude-code comes from the input's *overlay*, not its `packages`, and the
+    # difference is real: the overlay builds against our nixpkgs, `packages`
+    # against the input's own (which is what its cachix cache serves). Taking
+    # the overlay keeps the derivation we build today; see flake.nix's
+    # now-stale comment on the claude-code input.
+    claude-code = (my.sources.claude-code.overlays.default pkgs pkgs).claude-code;
 
     # A plain source tree, not a flake package: gtk.nix reads css files out of
     # it. `lib.isDerivation` in flake.nix keeps a path out of the `packages`

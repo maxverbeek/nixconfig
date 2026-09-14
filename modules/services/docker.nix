@@ -1,10 +1,10 @@
 {
-  flake.modules.nixos.docker =
-    { pkgs, ... }:
+  nixos.services.docker =
+    { my, pkgs, ... }:
     {
       virtualisation.docker = {
         enable = true;
-        package = pkgs.unstable.docker.override { buildxSupport = true; };
+        package = my.pkgs.unstable.docker.override { buildxSupport = true; };
       };
 
       users.users.max.extraGroups = [ "docker" ];

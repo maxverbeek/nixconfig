@@ -1,31 +1,26 @@
-{ ... }:
-let
-  texliveCombined =
-    pkgs:
-    pkgs.texlive.combine {
-      inherit (pkgs.texlive)
-        scheme-tetex
-        latexmk
-        biblatex
-        tcolorbox
-        pdfcol
-        upquote
-        grffile
-        adjustbox
-        ;
-    };
-in
 {
-  # texlive.combine is a slow local rebuild on every host; pre-build it.
-  perSystem =
-    { pkgs, ... }:
-    {
-      cachePackages.texlive = texliveCombined pkgs;
-    };
-
-  flake.modules.nixos.development =
+  nixos.programs.dev-tools =
     { my, pkgs, ... }:
+    let
+      texliveCombined =
+        pkgs:
+        pkgs.texlive.combine {
+          inherit (pkgs.texlive)
+            scheme-tetex
+            latexmk
+            biblatex
+            tcolorbox
+            pdfcol
+            upquote
+            grffile
+            adjustbox
+            ;
+        };
+    in
     {
+      # texlive.combine is a slow local rebuild on every host; pre-build it.
+      cachePackages.texlive = texliveCombined pkgs;
+
       environment.systemPackages = with pkgs; [
         air
         alsa-utils
@@ -70,7 +65,7 @@ in
         minikube
         # stable's build hits a wrap-gapps-hook bug; drop the unstable pin
         # once nixos-26.05 builds it again
-        unstable.mongodb-compass
+        my.pkgs.unstable.mongodb-compass
         mr
         nautilus
         fastfetch
@@ -93,9 +88,9 @@ in
         sshfs
         tldr
         unp
-        unstable.teleport
-        unstable.terraform
-        unstable.opentofu
+        my.pkgs.unstable.teleport
+        my.pkgs.unstable.terraform
+        my.pkgs.unstable.opentofu
         unzip
         vlc
         wget
@@ -116,7 +111,7 @@ in
         my.pkgs.pngcrop
         my.pkgs.neovim-opener-desktop
 
-        unstable.nurl
+        my.pkgs.unstable.nurl
         my.pkgs.samdump2
 
         xtee
@@ -134,5 +129,12 @@ in
         JAVA_HOME = "${pkgs.openjdk17}/lib/openjdk";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
+
+      # was modules/roles/development.nix, which held nothing else
+      users.users.max.extraGroups = [
+        "plugdev"
+        "dialout"
+        "adbusers"
+      ];
     };
 }

@@ -6,11 +6,10 @@
       imports = [
         my.modules.nixos.collections.base
         my.modules.nixos.collections.workstation
+        my.modules.nixos.collections.development
 
         # Roles
         config.flake.modules.nixos.base
-        config.flake.modules.nixos.development
-        config.flake.modules.nixos.docker
 
         # Host-specific modules
         config.flake.modules.nixos.nvidia

@@ -20,11 +20,10 @@ in
         inputs.agenix.nixosModules.default
         my.modules.nixos.collections.base
         my.modules.nixos.collections.workstation
+        my.modules.nixos.collections.development
 
         # Roles
         modules.base
-        modules.development
-        modules.docker
         modules.portable
         modules.gaming
 

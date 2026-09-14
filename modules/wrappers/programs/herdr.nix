@@ -1,8 +1,7 @@
-{ config, ... }:
 {
   # Reusable wrapper module in upstream shape (nix-wrapper-modules wrapperModules/h/herdr/module.nix).
-  # Exported as outputs.modules.wrapper.herdr; consumers import it into their own flake.wrappers.herdr.
-  flake.modules.wrapper.herdr =
+  # Unopinionated: wrappers/config/herdr.nix imports it and supplies our settings.
+  wrappers.programs.herdr =
     {
       config,
       lib,
@@ -64,14 +63,5 @@
           '';
         };
       };
-    };
-
-  # My instance of it: becomes packages.<system>.herdr and pkgs.self.herdr.
-  flake.wrappers.herdr =
-    { pkgs, ... }:
-    {
-      imports = [ config.flake.modules.wrapper.herdr ];
-      package = pkgs.unstable.herdr;
-      settings.ui.agent_panel_sort = "spaces";
     };
 }

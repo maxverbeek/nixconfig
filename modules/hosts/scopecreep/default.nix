@@ -9,7 +9,12 @@ let
 in
 {
   configurations.hosts.scopecreep.module =
-    { modulesPath, pkgs, ... }:
+    {
+      modulesPath,
+      my,
+      pkgs,
+      ...
+    }:
     {
       imports = [
         my.modules.nixos.collections.base
@@ -36,11 +41,11 @@ in
       ];
 
       environment.systemPackages = [
-        pkgs.self.nvim
-        # Bare packages, not the development role: that role's live symlinks
+        my.pkgs.wrapped.nvim
+        # Bare packages, not the development collection: its live symlinks
         # point at the nixconfig repo root, which is not checked out on this host.
-        pkgs.claude-code
-        pkgs.self.herdr
+        my.pkgs.claude-code
+        my.pkgs.wrapped.herdr
       ];
 
       # Weekday 08:00 claude run. Runs as max so it picks up the OAuth session
@@ -59,7 +64,7 @@ in
         serviceConfig = {
           Type = "oneshot";
           WorkingDirectory = "%h";
-          ExecStart = "${pkgs.claude-code}/bin/claude -p 'Say good morning.'";
+          ExecStart = "${my.pkgs.claude-code}/bin/claude -p 'Say good morning.'";
         };
       };
 

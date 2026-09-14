@@ -77,7 +77,7 @@
 
     import-tree.url = "github:vic/import-tree";
 
-    # wrapper modules: programs configured as portable derivations (flake.wrappers.*)
+    # wrapper modules: programs configured as portable derivations (my.pkgs.wrapped.*)
     wrappers.url = "github:nix-community/nix-wrapper-modules";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -112,7 +112,7 @@
             legacyPackages.wrapped = my.pkgs.wrapped;
             legacyPackages.custom = definitions;
             packages = definitions // {
-              inherit (my.pkgs.wrapped) nvim nvim-mutable;
+              inherit (my.pkgs.wrapped) nvim nvim-mutable herdr;
             };
           };
       };

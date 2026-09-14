@@ -1,11 +1,5 @@
-{ config, ... }:
-let
-  agentsDir = "${config.flake.lib.repoRoot}/modules/development/agents";
-  pluginsDir = "${agentsDir}/_plugins";
-  sharedDir = "${agentsDir}/_shared";
-in
 {
-  flake.modules.nixos.development =
+  nixos.programs.claude =
     {
       my,
       pkgs,
@@ -13,13 +7,21 @@ in
       ...
     }:
     let
+      # Still modules/development/agents/: _shared/ and _plugins/ are impure
+      # sources the running system symlinks into ~/.claude by absolute path
+      # (docs/wiring.md §6c). Moving them dangles those links until the next
+      # rebuild, so the directory moves in a dedicated step after this one.
+      agentsDir = "${my.meta.repoRoot}/modules/development/agents";
+      pluginsDir = "${agentsDir}/_plugins";
+      sharedDir = "${agentsDir}/_shared";
+
       mkClaude =
         name: plugins:
         let
           pluginFlags = lib.concatMapStringsSep " " (p: "--plugin-dir ${pluginsDir}/${p}") plugins;
         in
         pkgs.writeShellScriptBin name ''
-          exec ${pkgs.claude-code}/bin/claude \
+          exec ${my.pkgs.claude-code}/bin/claude \
             ${pluginFlags} \
             "$@"
         '';
@@ -48,7 +50,7 @@ in
             > "$overlay"
         fi
 
-        ${pkgs.claude-code}/bin/claude \
+        ${my.pkgs.claude-code}/bin/claude \
           --settings "$overlay" \
           --plugin-dir ${pluginsDir}/normal \
           "$@"

@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.development =
+  nixos.programs.git =
     { my, pkgs, ... }:
     {
       environment.systemPackages = [

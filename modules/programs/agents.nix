@@ -1,14 +1,7 @@
-{ inputs, ... }:
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
-    })
-
-    inputs.claude-code.overlays.default
-  ];
-
-  flake.modules.nixos.development =
+  # opencode and claude-code used to arrive here via nixpkgs.overlays; they are
+  # wired once in packages.nix's fromInputs now (docs/structure.md rule 6).
+  nixos.programs.agents =
     { my, pkgs, ... }:
     let
       mkCodex =
@@ -20,7 +13,7 @@
             export OPENAI_API_KEY=$(<"$HOME/.openai_key")
           fi
 
-          exec ${pkgs.unstable.codex}/bin/codex ${profileArgs} "$@"
+          exec ${my.pkgs.unstable.codex}/bin/codex ${profileArgs} "$@"
         '';
 
       codex = mkCodex "codex" "";
@@ -63,12 +56,12 @@
         codexh
         llm
 
-        pkgs.opencode
+        my.pkgs.opencode
         pkgs.mcp-grafana
         pkgs.libnotify
         my.pkgs.opencode-sessions
         my.pkgs.claude-sessions
-        pkgs.self.herdr
+        my.pkgs.wrapped.herdr
       ];
     };
 }

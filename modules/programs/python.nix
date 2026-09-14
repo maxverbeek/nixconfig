@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.development =
+  nixos.programs.python =
     { pkgs, ... }:
     let
       python = pkgs.python3.withPackages (ps: [
