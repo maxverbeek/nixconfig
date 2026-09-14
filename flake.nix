@@ -72,6 +72,7 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.home-manager.follows = "";
     agenix.inputs.darwin.follows = "";
 
     import-tree.url = "github:vic/import-tree";
