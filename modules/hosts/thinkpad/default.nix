@@ -1,15 +1,9 @@
-{ config, my, ... }:
-let
-  # The inner module binds its own `config` (the NixOS one), which shadows the
-  # flake-parts `config` this reference needs.
-  registryModule = config.flake.modules.nixos.base;
-in
 {
-  configurations.hosts.thinkpad.module =
+  nixos.hosts.thinkpad =
     {
+      my,
       config,
       pkgs,
-      lib,
       ...
     }:
     {
@@ -20,9 +14,6 @@ in
         collections.development
         collections.laptop
 
-        # Roles
-        registryModule
-
         # Host-specific modules
         programs.steam
         services.clamav
@@ -31,7 +22,7 @@ in
         network.nordlynx
 
         # Hardware
-        ./_hardware-configuration.nix
+        ./_hardware.nix
       ];
 
       # Boot
@@ -45,7 +36,6 @@ in
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # Networking
-      networking.hostName = "thinkpad";
       # No sshd here, so agenix decrypts with max's own key instead of a host key.
       age.identityPaths = [ "/home/max/.ssh/id_ed25519" ];
       age.secrets.nordlynx-key.file = ../../../secrets/nordlynx.key.age;
@@ -73,11 +63,11 @@ in
       hardware.enableRedistributableFirmware = true;
       hardware.firmware = with pkgs; [
         linux-firmware
-        unstable.sof-firmware
+        my.pkgs.unstable.sof-firmware
       ];
 
       # Pipewire (unstable for better hardware support)
-      services.pipewire.package = pkgs.unstable.pipewire;
+      services.pipewire.package = my.pkgs.unstable.pipewire;
 
       system.stateVersion = "24.11";
     };

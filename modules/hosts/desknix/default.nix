@@ -1,21 +1,17 @@
-{ config, my, ... }:
 {
-  configurations.hosts.desknix.module =
-    { ... }:
+  nixos.hosts.desknix =
+    { my, ... }:
     {
-      imports = [
-        my.modules.nixos.collections.base
-        my.modules.nixos.collections.workstation
-        my.modules.nixos.collections.development
-
-        # Roles
-        config.flake.modules.nixos.base
+      imports = with my.modules.nixos; [
+        collections.base
+        collections.workstation
+        collections.development
 
         # Host-specific modules
-        my.modules.nixos.hardware.nvidia
+        hardware.nvidia
 
         # Hardware
-        ./_hardware-configuration.nix
+        ./_hardware.nix
       ];
 
       # Boot
@@ -28,7 +24,6 @@
       boot.supportedFilesystems = [ "ntfs" ];
 
       # Networking
-      networking.hostName = "desknix";
       networking.hostId = "aa111111";
       networking.extraHosts = ''
         127.0.0.1 keycloak

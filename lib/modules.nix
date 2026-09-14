@@ -30,27 +30,6 @@ rec {
     ) (lib.concatMap expand (lib.lists.toList dir));
 
   /**
-    Whether a file is a shard rather than a flake-parts module.
-
-    A shard is a plain attrset whose top-level keys are module classes; a
-    flake-parts module is a function, or an attrset keyed `flake` / `perSystem`
-    / ... . Nix caches imports, so importing here costs nothing extra: the
-    loader that takes the file imports it again for free.
-
-    # Type
-
-    ```
-    isShard :: Path -> Bool
-    ```
-  */
-  isShard =
-    path:
-    let
-      v = import path;
-    in
-    builtins.isAttrs v && (v ? nixos || v ? wrappers);
-
-  /**
     Import the entries of a directory by name.
 
     A subdirectory `X` maps to `X` -> `dir/X`, a file `X.nix` to `X` ->

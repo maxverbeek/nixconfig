@@ -4,9 +4,8 @@
     {
       # Contributions from shards land here: a leaf writes
       # `cachePackages.<name> = my.pkgs.<name>` next to where it uses the
-      # package. ROUTE 4 in packages.nix collects them when flake-parts goes;
-      # until then `nix build .#cache` only sees the perSystem contributions
-      # from the still-unconverted files (modules/server/cache-contents.nix).
+      # package. ROUTE 4 in packages.nix collects them across all hosts into
+      # `my.pkgs.cache`, which the VPS realises as `nix build .#cache`.
       options.cachePackages = lib.mkOption {
         type = lib.types.lazyAttrsOf lib.types.package;
         default = { };

@@ -20,6 +20,8 @@
     {
       # texlive.combine is a slow local rebuild on every host; pre-build it.
       cachePackages.texlive = texliveCombined pkgs;
+      cachePackages.gitlab-reviewer = my.pkgs.gitlab-reviewer;
+      cachePackages.xtee = my.pkgs.xtee;
 
       environment.systemPackages = with pkgs; [
         air

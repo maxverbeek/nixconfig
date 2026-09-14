@@ -1,16 +1,13 @@
-{ config, my, ... }:
 {
-  configurations.hosts.scopecreep.module =
+  nixos.hosts.scopecreep =
     {
       modulesPath,
       my,
-      pkgs,
       ...
     }:
     {
       imports = with my.modules.nixos; [
         collections.base
-        config.flake.modules.nixos.base
 
         collections.server
         network.hetzner-cloudinit
@@ -23,7 +20,7 @@
         services.harmonia
 
         my.modules.external.disko
-        config.flake.diskoConfigurations.scopecreep
+        ./_disko.nix
 
         # Decrypts secrets/*.age to /run/agenix at activation, using the host's
         # ssh key. Recipients are managed in /secrets.nix + /publickeys.nix.
@@ -77,8 +74,6 @@
       # 256M ESP fits ~6 generations of kernel+initrd; cap well under that so a
       # rebuild can never fill /boot and lock itself out of fixing it.
       boot.loader.grub.configurationLimit = 3;
-
-      networking.hostName = "scopecreep";
 
       # Allow all traffic on tailscale, deny everything on public interfaces
       networking.firewall.trustedInterfaces = [ "tailscale0" ];

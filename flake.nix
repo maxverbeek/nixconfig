@@ -20,7 +20,6 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-    flake-parts.url = "github:hercules-ci/flake-parts";
 
     opencode.url = "github:anomalyco/opencode/v1.18.15";
     opencode.inputs.nixpkgs.follows = "unstable";
@@ -30,8 +29,6 @@
 
     # hyprland.url = "github:hyprwm/Hyprland?ref=refs/tags/v0.40.0";
     # text2url.url = "github:maxverbeek/text2url";
-    # ags.url = "github:Aylur/ags?ref=refs/tags/v2.3.0";
-    ags.url = "github:maxverbeek/astalconfig";
 
     # the quickshell bar. Push to github, then `nix flake update barbell`.
     # Follows unstable so quickshell stays current.
@@ -75,45 +72,33 @@
     agenix.inputs.home-manager.follows = "";
     agenix.inputs.darwin.follows = "";
 
-    import-tree.url = "github:vic/import-tree";
-
     # wrapper modules: programs configured as portable derivations (my.pkgs.wrapped.*)
     wrappers.url = "github:nix-community/nix-wrapper-modules";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
+  # A shim, not the config. It feeds the inputs to default.nix and re-exports
+  # what machines and tooling name by string: `nixosConfigurations.<host>` for
+  # system.autoUpgrade and nixos-rebuild, `packages.cache` for harmonia's
+  # prebuild, `checks` for CI, `devShells.default` for `.envrc`'s `use flake`.
   outputs =
     inputs:
     let
       my = import ./. inputs;
+      system = "x86_64-linux";
+      inherit (inputs.nixpkgs) lib;
+      # Derivations only: `wrapped`, `unstable`, `devShells` and the
+      # adw-catppuccin source tree live in my.pkgs but are not packages.
+      derivations = lib.filterAttrs (_: lib.isDerivation) my.pkgs;
     in
-    inputs.flake-parts.lib.mkFlake
-      {
-        inherit inputs;
-        specialArgs = { inherit my; };
-      }
-      {
-        # The two loaders share modules/ and split it by file shape: shards go
-        # to modules.nix, flake-parts files come here. import-tree hands the
-        # predicate a path *relative to* ./modules ("/desktop/walker.nix"),
-        # hence the concatenation.
-        imports = [
-          ((inputs.import-tree.filter (p: !my.lib.modules.isShard (./modules + p))) ./modules)
-        ];
-
-        # Wrapped programs reachable without a host: `nix build .#wrapped.git`.
-        # The rest re-exports my.pkgs into the flake outputs the overlays and
-        # `nix build .#<name>` already depend on (modules/overlays/custom.nix).
-        perSystem =
-          { lib, ... }:
-          let
-            definitions = lib.filterAttrs (_: lib.isDerivation) my.pkgs;
-          in
-          {
-            legacyPackages.wrapped = my.pkgs.wrapped;
-            legacyPackages.custom = definitions;
-            packages = definitions // {
-              inherit (my.pkgs.wrapped) nvim nvim-mutable herdr;
-            };
-          };
+    {
+      nixosConfigurations = my.hosts;
+      packages.${system} = derivations // {
+        inherit (my.pkgs.wrapped) nvim nvim-mutable herdr;
       };
+      legacyPackages.${system}.wrapped = my.pkgs.wrapped;
+      devShells.${system} = my.pkgs.devShells;
+      checks.${system} = lib.mapAttrs' (
+        name: host: lib.nameValuePair "configurations/hosts/${name}" host.config.system.build.toplevel
+      ) my.hosts;
+    };
 }

@@ -10,8 +10,8 @@ documents live in `docs/` at the repository root, which is gitignored
 - `desired-state.md`: worked examples for each pattern.
 - `migration-handoff.md`: status and open decisions.
 
-During the restructure this directory holds two file shapes side by side,
-split by shape between two loaders (`flake.nix` for flake-parts modules,
-`modules.nix` for shards). Home-manager is gone and `roles/` is going: do not
-add either. This file becomes the tracked summary of the new layout once the
-restructure lands.
+Every file here is a shard: an attrset keyed by module class, three levels
+deep (`nixos.<namespace>.<name>`), loaded by `modules.nix` alone. A shard
+never reads `my.sources` or flake inputs; wiring lives at the repository root.
+Home-manager, flake-parts and `roles/` are gone: do not add any of them. This
+file becomes the tracked summary of the new layout once the restructure lands.

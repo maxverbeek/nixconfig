@@ -2,8 +2,8 @@
 # modules into derivations.
 #
 # Implemented here: ROUTE 1 (`wrappers.config.*` -> `my.pkgs.wrapped.*`),
-# ROUTE 2 (the nvim builder) and ROUTE 3 (`packages/definitions/*` via
-# callPackage). ROUTE 4 (the binary cache) arrives later.
+# ROUTE 2 (the nvim builder), ROUTE 3 (`packages/definitions/*` via
+# callPackage) and ROUTE 4 (the binary cache).
 { my }:
 let
   # This is a wiring file, so it owns its nixpkgs imports rather than borrowing
@@ -23,6 +23,8 @@ let
     # way the rest of the repo does; keep that spelling working here.
     overlays = [ (_: _: { inherit unstable; }) ];
   };
+
+  inherit (pkgs) lib;
 
   wlib = (import my.sources.wrappers { inherit pkgs; }).lib;
 
@@ -72,7 +74,7 @@ let
 
     # A plain source tree, not a flake package: gtk.nix reads css files out of
     # it. `lib.isDerivation` in flake.nix keeps a path out of the `packages`
-    # and `custom` outputs.
+    # output.
     adw-catppuccin = my.sources.adw-catppuccin;
   };
 
@@ -83,13 +85,34 @@ let
     inherit (fromInputs) gitlab-reviewer;
     inherit (definitions) NotebookNavigator-nvim;
   };
+
+  # ROUTE 4: the hosts' cachePackages -> my.pkgs.cache (docs/wiring.md §6b).
+  # Each leaf declares `cachePackages.<name>` next to where it uses the package
+  # (option: modules/system/cache.nix); this is the one place that collects
+  # them. `cache` is named by string from harmonia's prebuild unit and
+  # re-exported by flake.nix as `packages.cache`: renaming it breaks the VPS
+  # nightly silently.
+  cache = pkgs.linkFarm "binary-cache-contents" (
+    lib.foldl' (acc: host: acc // host.config.cachePackages) { } (builtins.attrValues my.hosts)
+  );
+
+  # Was modules/devshell.nix. The CLIs come straight from the inputs, so this
+  # is a root file.
+  devShells.default = pkgs.mkShell {
+    packages = [
+      my.sources.agenix.packages.${system}.default
+      my.sources.disko.packages.${system}.default
+      pkgs.nixos-anywhere
+      pkgs.git
+    ];
+  };
 in
 definitions
 // fromInputs
 // {
   # The second nixpkgs, as `my.pkgs.unstable.<x>` (docs/structure.md rule 7).
   # Not a derivation, so flake.nix's isDerivation filter drops it from the
-  # `custom` / `packages` outputs, same as `wrapped`.
-  inherit unstable;
+  # `packages` output, same as `wrapped` and `devShells`.
+  inherit unstable cache devShells;
   wrapped = wrapped // nvim;
 }

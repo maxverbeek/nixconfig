@@ -1,7 +1,6 @@
 {
-  # Every machine. `system.registry` joins this list when hosts move to
-  # hosts.nix -- it still needs flake refs, so it stays flake-parts shaped and
-  # reaches hosts through the surviving `flake.modules.nixos.base` namespace.
+  # Every machine. The nix registry is deliberately absent: it needs flake
+  # refs, and only the root has those, so hosts.nix sets it instead.
   nixos.collections.base =
     { my, ... }:
     {
