@@ -1,11 +1,7 @@
 {
-  my,
-  ...
-}:
-{
   # User "max": account, login shell, EDITOR.
-  flake.modules.nixos.max =
-    { ... }:
+  nixos.users.max =
+    { my, ... }:
     {
       environment.variables.EDITOR = "nvim";
 

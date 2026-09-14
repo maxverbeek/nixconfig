@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.base =
+  nixos.network.cloudflared =
     { pkgs, ... }:
     {
       services.cloudflared.enable = true;

@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.base =
+  nixos.programs.zsh =
     { pkgs, my, ... }:
     let
       secrand = pkgs.writeScriptBin "secrand" ''

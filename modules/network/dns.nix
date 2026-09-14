@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base =
+  nixos.network.dns =
     { lib, ... }:
     {
       # DNS resolution with Cloudflare fallback

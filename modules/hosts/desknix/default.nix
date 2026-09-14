@@ -1,11 +1,10 @@
-{ config, ... }:
+{ config, my, ... }:
 {
   configurations.hosts.desknix.module =
     { ... }:
     {
       imports = [
-        # User "max"
-        config.flake.modules.nixos.max
+        my.modules.nixos.collections.base
 
         # Roles
         config.flake.modules.nixos.base

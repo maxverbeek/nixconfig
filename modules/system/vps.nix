@@ -1,13 +1,7 @@
-{ config, ... }:
 {
-  flake.modules.nixos.server =
+  nixos.system.vps =
     { pkgs, ... }:
     {
-      imports = with config.flake.modules.nixos; [
-        sshd
-        fail2ban
-      ];
-
       environment.systemPackages = [ pkgs.git ];
 
       # Servers can be more aggressive than the 30d base default

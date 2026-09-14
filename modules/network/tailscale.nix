@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.base =
+  nixos.network.tailscale =
     { ... }:
     {
       services.tailscale.enable = true;

@@ -1,4 +1,9 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  my,
+  ...
+}:
 let
   modules = config.flake.modules.nixos;
 in
@@ -7,9 +12,10 @@ in
     { modulesPath, pkgs, ... }:
     {
       imports = [
+        my.modules.nixos.collections.base
         modules.base
 
-        modules.server
+        my.modules.nixos.collections.server
         modules.hetzner-tailscale-cloudinit
         modules.n8n
         modules.webdav
@@ -18,9 +24,6 @@ in
         modules.huurhunter
         modules.copd
         modules.harmonia
-
-        # User "max"
-        modules.max
 
         inputs.disko.nixosModules.disko
         config.flake.diskoConfigurations.scopecreep

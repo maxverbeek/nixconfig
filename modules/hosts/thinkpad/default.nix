@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  my,
   ...
 }:
 let
@@ -8,12 +9,16 @@ let
 in
 {
   configurations.hosts.thinkpad.module =
-    { config, pkgs, lib, ... }:
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       imports = [
         inputs.agenix.nixosModules.default
-        # User "max"
-        modules.max
+        my.modules.nixos.collections.base
 
         # Roles
         modules.base

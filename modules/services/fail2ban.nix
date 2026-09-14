@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.fail2ban =
+  nixos.services.fail2ban =
     { ... }:
     {
       services.fail2ban = {

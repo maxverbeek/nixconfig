@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.base =
+  nixos.network.mullvad =
     { ... }:
     {
       services.mullvad-vpn.enable = true;

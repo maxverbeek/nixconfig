@@ -60,4 +60,12 @@ let
     inherit (definitions) NotebookNavigator-nvim;
   };
 in
-definitions // fromInputs // { wrapped = wrapped // nvim; }
+definitions
+// fromInputs
+// {
+  # The second nixpkgs, as `my.pkgs.unstable.<x>` (docs/structure.md rule 7).
+  # Not a derivation, so flake.nix's isDerivation filter drops it from the
+  # `custom` / `packages` outputs, same as `wrapped`.
+  inherit unstable;
+  wrapped = wrapped // nvim;
+}

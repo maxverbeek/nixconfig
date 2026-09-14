@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.base = {
+  nixos.programs.ssh = {
     # System-wide /etc/ssh/ssh_config: also applies to root. The
     # IdentityFile paths are max's; single-user machines, fine.
     programs.ssh.extraConfig = ''

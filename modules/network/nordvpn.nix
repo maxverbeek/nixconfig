@@ -4,12 +4,11 @@
 #
 # Usage after rebuild:  nordvpn login  ->  nordvpn connect
 # The user must be in the `nordvpn` group to talk to the daemon socket.
-{ ... }:
 {
-  flake.modules.nixos.base =
-    { pkgs, ... }:
+  nixos.network.nordvpn =
+    { my, pkgs, ... }:
     let
-      nordvpn = pkgs.custom.nordvpn;
+      nordvpn = my.pkgs.nordvpn;
     in
     {
       users.groups.nordvpn = { };
