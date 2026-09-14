@@ -55,6 +55,8 @@
         49.12.21.124 retriever.dev.legalmike.ai
         127.0.0.1 keycloak
       '';
+      # Tailscale: allow acting as both subnet router and exit node
+      services.tailscale.useRoutingFeatures = "both";
 
       # Hardware
       hardware.graphics.enable = true;

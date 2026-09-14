@@ -21,8 +21,5 @@
         touchpad.naturalScrolling = true;
         touchpad.disableWhileTyping = true;
       };
-
-      # Tailscale: allow acting as both subnet router and exit node
-      services.tailscale.useRoutingFeatures = "both";
     };
 }
