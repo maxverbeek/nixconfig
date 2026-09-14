@@ -1,19 +1,14 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
-    {
-      cachePackages.breadhero = inputs.breadhero.packages.${system}.default;
-    };
-
-  flake.modules.nixos.breadhero =
-    { config, inputs, ... }:
+  nixos.services.breadhero =
+    { config, my, ... }:
     let
       containerIP = "10.100.0.3";
       hostIP = "10.100.0.1";
       port = 3002;
     in
     {
+      cachePackages.breadhero = my.pkgs.breadhero;
+
       # symlink = false + explicit path: bind-mounted into the container, see
       # the comment in huurhunter.nix
       age.secrets = {
@@ -58,12 +53,15 @@
         config =
           { ... }:
           {
-            imports = [ inputs.breadhero.nixosModules.default ];
+            imports = [ my.modules.external.breadhero ];
 
             system.stateVersion = "25.11";
 
             networking.useHostResolvConf = false;
-            networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+            networking.nameservers = [
+              "1.1.1.1"
+              "8.8.8.8"
+            ];
 
             services.breadhero = {
               enable = true;

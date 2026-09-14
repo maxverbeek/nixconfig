@@ -1,19 +1,14 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
-    {
-      cachePackages.feedbackers = inputs.feedbackers.packages.${system}.default;
-    };
-
-  flake.modules.nixos.feedbackers =
-    { config, inputs, ... }:
+  nixos.services.feedbackers =
+    { config, my, ... }:
     let
       containerIP = "10.100.0.2";
       hostIP = "10.100.0.1";
       port = 3001;
     in
     {
+      cachePackages.feedbackers = my.pkgs.feedbackers;
+
       # symlink = false + explicit path: bind-mounted into the container, see
       # the comment in huurhunter.nix
       age.secrets.feedbackers-env = {
@@ -38,12 +33,15 @@
         config =
           { ... }:
           {
-            imports = [ inputs.feedbackers.nixosModules.default ];
+            imports = [ my.modules.external.feedbackers ];
 
             system.stateVersion = "25.11";
 
             networking.useHostResolvConf = false;
-            networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+            networking.nameservers = [
+              "1.1.1.1"
+              "8.8.8.8"
+            ];
 
             services.feedbackers = {
               enable = true;

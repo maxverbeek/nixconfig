@@ -1,11 +1,8 @@
-{
-  config,
-  inputs,
-  my,
-  ...
-}:
+{ config, my, ... }:
 let
-  modules = config.flake.modules.nixos;
+  # The inner module binds its own `config` (the NixOS one), which shadows the
+  # flake-parts `config` this reference needs.
+  registryModule = config.flake.modules.nixos.base;
 in
 {
   configurations.hosts.thinkpad.module =
@@ -16,22 +13,22 @@ in
       ...
     }:
     {
-      imports = [
-        inputs.agenix.nixosModules.default
-        my.modules.nixos.collections.base
-        my.modules.nixos.collections.workstation
-        my.modules.nixos.collections.development
+      imports = with my.modules.nixos; [
+        my.modules.external.agenix
+        collections.base
+        collections.workstation
+        collections.development
+        collections.laptop
 
         # Roles
-        modules.base
-        modules.portable
-        modules.gaming
+        registryModule
 
         # Host-specific modules
-        modules.clamav
-        modules.keyboards
-        modules.fingerprint
-        modules.nordlynx
+        programs.steam
+        services.clamav
+        hardware.keyboards
+        hardware.fingerprint
+        network.nordlynx
 
         # Hardware
         ./_hardware-configuration.nix

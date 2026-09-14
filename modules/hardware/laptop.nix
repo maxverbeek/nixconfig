@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.portable =
+  nixos.hardware.laptop =
     { pkgs, ... }:
     {
       # Battery monitoring
@@ -11,7 +10,10 @@
       services.udev.packages = [ pkgs.brightnessctl ];
 
       # Input device access (and brightnessctl backlight writes via video group)
-      users.users.max.extraGroups = [ "input" "video" ];
+      users.users.max.extraGroups = [
+        "input"
+        "video"
+      ];
 
       # Touchpad support
       services.libinput = {

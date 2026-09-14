@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.portable = {
+  nixos.hardware.tlp = {
     services.tlp = {
       enable = true;
       settings = {

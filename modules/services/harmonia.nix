@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.harmonia =
+  nixos.services.harmonia =
     { config, pkgs, ... }:
     {
       age.secrets.harmonia-signing-key.file = ../../secrets/harmonia-signing-key.age;
@@ -24,7 +24,7 @@
         ];
         serviceConfig.Type = "oneshot";
         script = ''
-          # packages listed in modules/server/cache-contents.nix
+          # the union of the hosts' cachePackages (modules/system/cache.nix)
           nix build --refresh --out-link /var/lib/prebuilt-cache \
             "github:maxverbeek/nixconfig#cache"
         '';

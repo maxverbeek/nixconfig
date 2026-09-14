@@ -1,17 +1,15 @@
-{ inputs, config, ... }:
-let
-  nordlynxModule = config.flake.modules.nixos.nordlynx;
-in
 {
-  perSystem =
-    { system, ... }:
+  nixos.services.huurhunter =
     {
-      cachePackages.huurhunter = inputs.huurhunter.packages.${system}.default;
-    };
-
-  flake.modules.nixos.huurhunter =
-    { config, lib, pkgs, inputs, ... }:
+      config,
+      lib,
+      pkgs,
+      my,
+      ...
+    }:
     let
+      nordlynxModule = my.modules.nixos.network.nordlynx;
+
       hostIP = "10.100.0.1";
       webIP = "10.100.0.4"; # web container: behind Caddy, main ingress identity
       monitorIP = "10.100.0.5"; # monitor container primary veth address
@@ -33,10 +31,12 @@ in
       # fallback -> plain NAT (main IP) until a FIP is provisioned. With ONE FIP we
       # SNAT the whole container to it; host-side rotation across multiple FIPs
       # (statistic/nth) is a later concern.
-      fips = inputs.huurhunter.egressFips or [ ];
+      fips = my.meta.huurhunter.egressFips;
       egressFip = if fips == [ ] then null else builtins.head fips;
     in
     {
+      cachePackages.huurhunter = my.pkgs.huurhunter;
+
       # symlink = false: these are bind-mounted into nspawn containers, and a
       # /run/agenix symlink would dangle across agenix generations inside the
       # mount; a regular file is mounted by inode and stays valid. The explicit
@@ -95,10 +95,13 @@ in
         };
 
         config = { ... }: {
-          imports = [ inputs.huurhunter.nixosModules.web ];
+          imports = [ my.modules.external.huurhunter-web ];
           system.stateVersion = "25.11";
           networking.useHostResolvConf = false;
-          networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+          networking.nameservers = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
 
           # Pin the shared user's uid/gid to match the host so the bind-mounted DB
           # is owned correctly across the namespace boundary.
@@ -140,10 +143,16 @@ in
         };
 
         config = { ... }: {
-          imports = [ inputs.huurhunter.nixosModules.monitor nordlynxModule ];
+          imports = [
+            my.modules.external.huurhunter-monitor
+            nordlynxModule
+          ];
           system.stateVersion = "25.11";
           networking.useHostResolvConf = false;
-          networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+          networking.nameservers = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
 
           users.users.huurhunter.uid = 1500;
           users.groups.huurhunter.gid = 1500;
@@ -176,7 +185,10 @@ in
       # NAT so both containers reach the internet.
       networking.nat = {
         enable = true;
-        internalInterfaces = [ "ve-hh-web" "ve-hh-mon" ];
+        internalInterfaces = [
+          "ve-hh-web"
+          "ve-hh-mon"
+        ];
         externalInterface = "enp1s0";
       };
 

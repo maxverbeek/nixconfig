@@ -12,9 +12,8 @@
 #   curl -s -u token:$TOKEN https://api.nordvpn.com/v1/users/services/credentials | jq -r .nordlynx_private_key
 # Picking servers (one public key per country, only endpoints differ):
 #   curl -sg 'https://api.nordvpn.com/v1/servers/recommendations?filters[country_id]=153&filters[servers_technologies][identifier]=wireguard_udp&limit=4'
-{ ... }:
 {
-  flake.modules.nixos.nordlynx =
+  nixos.network.nordlynx =
     { config, lib, ... }:
     let
       cfg = config.services.nordlynx;

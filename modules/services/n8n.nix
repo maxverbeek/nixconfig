@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.n8n =
+  nixos.services.n8n =
     { ... }:
     {
       virtualisation.oci-containers.backend = "podman";

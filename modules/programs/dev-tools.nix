@@ -44,7 +44,7 @@
         (wrapFirefox (firefox-unwrapped.override { pipewireSupport = true; }) { })
         gcc
         gh
-        gitlab-reviewer
+        my.pkgs.gitlab-reviewer
         glab
         gimp
         gnumake
@@ -114,8 +114,8 @@
         my.pkgs.unstable.nurl
         my.pkgs.samdump2
 
-        xtee
-        zen-browser
+        my.pkgs.xtee
+        my.pkgs.zen-browser
       ];
 
       # was home.file.".jdk/openjdk17".source; ours, so L+ keeps it current

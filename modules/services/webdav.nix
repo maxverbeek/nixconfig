@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.webdav =
+  nixos.services.webdav =
     { config, pkgs, ... }:
     let
       port = 8543;

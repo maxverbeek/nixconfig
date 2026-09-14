@@ -12,7 +12,7 @@
         config.flake.modules.nixos.base
 
         # Host-specific modules
-        config.flake.modules.nixos.nvidia
+        my.modules.nixos.hardware.nvidia
 
         # Hardware
         ./_hardware-configuration.nix

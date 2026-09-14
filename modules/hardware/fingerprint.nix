@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.fingerprint =
+  nixos.hardware.fingerprint =
     {
       pkgs,
       lib,

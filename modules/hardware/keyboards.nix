@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.keyboards =
+  nixos.hardware.keyboards =
     { pkgs, ... }:
     {
       services.udev.packages = [

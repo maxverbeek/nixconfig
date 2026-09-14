@@ -55,6 +55,13 @@ let
     stalker-git-hooks = my.sources.stalker.packages.${system}.git-hooks;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
     opencode = my.sources.opencode.packages.${system}.default;
+    xtee = my.sources.xtee.packages.${system}.default;
+    zen-browser = my.sources.zen-browser.packages.${system}.default;
+
+    breadhero = my.sources.breadhero.packages.${system}.default;
+    copd = my.sources.copd.packages.${system}.default;
+    feedbackers = my.sources.feedbackers.packages.${system}.default;
+    huurhunter = my.sources.huurhunter.packages.${system}.default;
 
     # claude-code comes from the input's *overlay*, not its `packages`, and the
     # difference is real: the overlay builds against our nixpkgs, `packages`

@@ -1,12 +1,4 @@
-{
-  config,
-  inputs,
-  my,
-  ...
-}:
-let
-  modules = config.flake.modules.nixos;
-in
+{ config, my, ... }:
 {
   configurations.hosts.scopecreep.module =
     {
@@ -16,26 +8,26 @@ in
       ...
     }:
     {
-      imports = [
-        my.modules.nixos.collections.base
-        modules.base
+      imports = with my.modules.nixos; [
+        collections.base
+        config.flake.modules.nixos.base
 
-        my.modules.nixos.collections.server
-        modules.hetzner-tailscale-cloudinit
-        modules.n8n
-        modules.webdav
-        modules.feedbackers
-        modules.breadhero
-        modules.huurhunter
-        modules.copd
-        modules.harmonia
+        collections.server
+        network.hetzner-cloudinit
+        services.n8n
+        services.webdav
+        services.feedbackers
+        services.breadhero
+        services.huurhunter
+        services.copd
+        services.harmonia
 
-        inputs.disko.nixosModules.disko
+        my.modules.external.disko
         config.flake.diskoConfigurations.scopecreep
 
         # Decrypts secrets/*.age to /run/agenix at activation, using the host's
         # ssh key. Recipients are managed in /secrets.nix + /publickeys.nix.
-        inputs.agenix.nixosModules.default
+        my.modules.external.agenix
 
         (modulesPath + "/profiles/qemu-guest.nix")
       ];

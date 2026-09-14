@@ -1,15 +1,10 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
+  nixos.services.copd =
+    { my, ... }:
     {
-      cachePackages.copd = inputs.copd.packages.${system}.default;
-    };
+      imports = [ my.modules.external.copd ];
 
-  flake.modules.nixos.copd =
-    { inputs, ... }:
-    {
-      imports = [ inputs.copd.nixosModules.default ];
+      cachePackages.copd = my.pkgs.copd;
 
       services.copd = {
         enable = true;

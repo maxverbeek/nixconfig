@@ -4,6 +4,10 @@
 {
   repoRoot = "/home/max/nixconfig";
 
+  # The monitor container's egress Floating IPs. The list itself lives in the
+  # private huurhunter repo; empty means plain NAT out of the VPS's main IP.
+  huurhunter.egressFips = my.sources.huurhunter.egressFips or [ ];
+
   # Single source of truth for the light/dark theme.
   #
   # Two kinds of thing live here, because apps come in two kinds:

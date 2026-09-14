@@ -1,10 +1,9 @@
-{ ... }:
 {
   # NixOS module that reads a Tailscale auth key from Hetzner Cloud
   # user-data and automatically joins the tailnet on first boot.
   #
   # User-data should be the raw auth key string (tskey-auth-...).
-  flake.modules.nixos.hetzner-tailscale-cloudinit =
+  nixos.network.hetzner-cloudinit =
     { pkgs, ... }:
     {
       systemd.services.tailscale-autoconnect = {
