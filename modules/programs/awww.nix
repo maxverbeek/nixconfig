@@ -1,8 +1,7 @@
-{ ... }:
 {
   # No NixOS counterpart to home-manager's services.awww, so the user unit is
   # written out by hand here.
-  flake.modules.nixos.headful =
+  nixos.programs.awww =
     { lib, pkgs, ... }:
     {
       environment.systemPackages = [ pkgs.awww ];

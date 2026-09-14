@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.headful = {
+  nixos.programs.playerctld = {
     services.playerctld.enable = true;
   };
 }

@@ -47,9 +47,18 @@ let
   # Only the root may read my.sources (docs/wiring.md §1); shards take these
   # from my.pkgs instead.
   fromInputs = {
+    barbell = my.sources.barbell.packages.${system}.default;
+    clankertyper = my.sources.clankertyper.packages.${system}.default;
+    elephant = my.sources.elephant.packages.${system}.default;
+    elephant-gitlab = my.sources.elephant-gitlab.packages.${system}.default;
     stalker = my.sources.stalker.packages.${system}.default;
     stalker-git-hooks = my.sources.stalker.packages.${system}.git-hooks;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
+
+    # A plain source tree, not a flake package: gtk.nix reads css files out of
+    # it. `lib.isDerivation` in flake.nix keeps a path out of the `packages`
+    # and `custom` outputs.
+    adw-catppuccin = my.sources.adw-catppuccin;
   };
 
   # ROUTE 2: the nvim special case (docs/wiring.md §8).

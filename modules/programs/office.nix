@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.headful =
+  nixos.programs.office =
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [

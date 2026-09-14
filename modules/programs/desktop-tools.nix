@@ -1,9 +1,8 @@
-{ ... }:
 {
   # Desktop CLI tools that predate the retired ags bar and outlive it.
   # (The bar itself is barbell.nix; nmcli comes with
   # networking.networkmanager.enable, upower moved to barbell.nix.)
-  flake.modules.nixos.headful =
+  nixos.programs.desktop-tools =
     { pkgs, ... }:
     {
       services.gvfs.enable = true;

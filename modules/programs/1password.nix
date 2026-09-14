@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.personal =
+  nixos.programs."1password" =
     { pkgs, ... }:
     {
       programs._1password.enable = true;

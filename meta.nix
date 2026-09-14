@@ -13,9 +13,8 @@
   #   nvim/gtk  -- *identity*: colorscheme and palette names. Consumers map
   #                these to their own theme mechanism.
   #
-  # Consumers read `my.meta.theme` (shards) or `flake.lib.theme` (flake-parts
-  # modules, re-exported by modules/desktop/theme.nix) and nothing else, so
-  # every themed line in this repo contains the string `theme.` -- grep for it.
+  # Consumers read `my.meta.theme` and nothing else, so every themed line in
+  # this repo contains the string `theme.` -- grep for it.
   #
   # CAVEAT: `colors` and `nvim`/`gtk` are two representations of the same
   # theme that nothing forces to agree. A Lua colorscheme isn't derivable from

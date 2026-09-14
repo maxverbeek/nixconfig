@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.personal = {
+  nixos.system.cachix = {
     nix.settings = {
       substituters = [
         # harmonia on the VPS, over tailscale; pre-builds land there nightly

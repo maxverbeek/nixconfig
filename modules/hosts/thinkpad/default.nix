@@ -19,12 +19,10 @@ in
       imports = [
         inputs.agenix.nixosModules.default
         my.modules.nixos.collections.base
+        my.modules.nixos.collections.workstation
 
         # Roles
         modules.base
-        modules.multimedia
-        modules.personal
-        modules.headful
         modules.development
         modules.docker
         modules.portable

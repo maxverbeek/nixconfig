@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.headful =
+  nixos.programs.niri =
     { my, pkgs, ... }:
     {
       # The mutable variant is the installed compositor: its NIRI_CONFIG points
@@ -23,5 +23,9 @@
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
       services.displayManager.sessionPackages = [ my.pkgs.wrapped.niri-mutable ];
+
+      # was roles/headful.nix: the compositor needs max in `video` for
+      # brightness/backlight control.
+      users.users.max.extraGroups = [ "video" ];
     };
 }

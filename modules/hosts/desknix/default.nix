@@ -5,12 +5,10 @@
     {
       imports = [
         my.modules.nixos.collections.base
+        my.modules.nixos.collections.workstation
 
         # Roles
         config.flake.modules.nixos.base
-        config.flake.modules.nixos.multimedia
-        config.flake.modules.nixos.personal
-        config.flake.modules.nixos.headful
         config.flake.modules.nixos.development
         config.flake.modules.nixos.docker
 

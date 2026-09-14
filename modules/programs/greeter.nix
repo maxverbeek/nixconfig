@@ -1,7 +1,11 @@
-{ ... }:
 {
-  flake.modules.nixos.headful =
-    { pkgs, config, ... }:
+  nixos.programs.greeter =
+    {
+      my,
+      pkgs,
+      config,
+      ...
+    }:
     {
       programs.regreet = {
         enable = true;
@@ -12,7 +16,7 @@
         ];
         settings = {
           background = {
-            path = ./wallpapers/windows.png;
+            path = ../desktop/wallpapers/windows.png;
             fit = "Cover";
           };
 
@@ -20,7 +24,7 @@
 
           cursorTheme = {
             name = "McMojave-cursors";
-            package = pkgs.custom.mcmojave-cursors;
+            package = my.pkgs.mcmojave-cursors;
           };
 
           iconTheme = {
@@ -38,11 +42,11 @@
         };
       };
 
-      environment.systemPackages = with pkgs; [
-        glib
-        custom.mcmojave-cursors
-        bibata-cursors
-        papirus-icon-theme
+      environment.systemPackages = [
+        pkgs.glib
+        my.pkgs.mcmojave-cursors
+        pkgs.bibata-cursors
+        pkgs.papirus-icon-theme
       ];
 
       services.greetd.enable = config.programs.regreet.enable;

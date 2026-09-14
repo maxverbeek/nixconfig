@@ -1,8 +1,7 @@
-{ ... }:
 {
   # No NixOS counterpart to home-manager's services.swayidle, so the user unit
   # is written out by hand here.
-  flake.modules.nixos.headful =
+  nixos.programs.lock =
     { lib, pkgs, ... }:
     let
       lock = pkgs.writeScriptBin "lock" ''

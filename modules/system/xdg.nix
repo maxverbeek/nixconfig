@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.headful =
+  nixos.system.xdg =
     { pkgs, ... }:
     {
       programs.dconf.enable = true;

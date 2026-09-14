@@ -1,21 +1,17 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
+  nixos.programs.walker =
     {
-      # elephant follows our nixpkgs, so walker.cachix.org can't serve it
-      cachePackages.elephant = inputs.elephant.packages.${system}.default;
-      cachePackages.elephant-gitlab = inputs.elephant-gitlab.packages.${system}.default;
-    };
-
-  flake.modules.nixos.headful =
-    { pkgs, config, ... }:
+      my,
+      pkgs,
+      config,
+      ...
+    }:
     let
       elephantpkg = pkgs.symlinkJoin {
         name = "elephant";
         paths = [
-          inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
-          inputs.elephant-gitlab.packages.${pkgs.stdenv.hostPlatform.system}.default
+          my.pkgs.elephant
+          my.pkgs.elephant-gitlab
         ];
       };
 
@@ -42,11 +38,15 @@
       ];
     in
     {
+      # elephant follows our nixpkgs, so walker.cachix.org can't serve it
+      cachePackages.elephant = my.pkgs.elephant;
+      cachePackages.elephant-gitlab = my.pkgs.elephant-gitlab;
+
       # walker's nixos module imports elephant's, so services.elephant comes along.
       # nixpkgs ships its own, much thinner services.elephant (no providers, no
       # settings, no .so delivery); drop it so the flake's module owns the option.
       disabledModules = [ "services/misc/elephant.nix" ];
-      imports = [ inputs.walker.nixosModules.default ];
+      imports = [ my.modules.external.walker ];
 
       nix.settings = {
         substituters = [

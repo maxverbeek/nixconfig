@@ -1,15 +1,8 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
-    {
-      cachePackages.clankertyper = inputs.clankertyper.packages.${system}.default;
-    };
-
-  flake.modules.nixos.headful =
-    { pkgs, ... }:
+  nixos.programs.clankertyper =
+    { my, pkgs, ... }:
     let
-      package = inputs.clankertyper.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      package = my.pkgs.clankertyper;
       toggle = pkgs.writeShellApplication {
         name = "clankertyper-toggle";
         runtimeInputs = [ pkgs.systemd ];
@@ -23,6 +16,8 @@
       };
     in
     {
+      cachePackages.clankertyper = package;
+
       environment.systemPackages = [
         package
         toggle

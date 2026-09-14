@@ -1,10 +1,9 @@
-{ config, ... }:
-let
-  theme = config.flake.lib.theme;
-in
 {
-  flake.modules.nixos.headful =
+  nixos.programs.terminal =
     { my, pkgs, ... }:
+    let
+      theme = my.meta.theme;
+    in
     {
       environment.systemPackages = [
         my.pkgs.wrapped.foot

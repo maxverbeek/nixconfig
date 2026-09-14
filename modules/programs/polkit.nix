@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.headful =
+  nixos.programs.polkit =
     { pkgs, ... }:
     {
       systemd.user.services.polkit-gnome-authentication-agent-1 = {

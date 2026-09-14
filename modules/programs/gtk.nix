@@ -1,13 +1,10 @@
-{ config, inputs, ... }:
-let
-  theme = config.flake.lib.theme;
-  catppuccinCss =
-    flavor: "${inputs.adw-catppuccin}/adw/themes/${flavor}/catppuccin-${flavor}-mauve.css";
-in
 {
-  flake.modules.nixos.personal =
+  nixos.programs.gtk =
     { my, pkgs, ... }:
     let
+      theme = my.meta.theme;
+      catppuccinCss =
+        flavor: "${my.pkgs.adw-catppuccin}/adw/themes/${flavor}/catppuccin-${flavor}-mauve.css";
       kanagawa = my.pkgs.kanagawa-nvim.colors.term;
       kanagawaCss = pkgs.runCommand "adw-kanagawa-wave.css" { } ''
         cp ${catppuccinCss "mocha"} "$out"

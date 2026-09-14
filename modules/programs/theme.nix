@@ -1,16 +1,15 @@
-{ config, ... }:
-let
-  theme = config.flake.lib.theme;
-in
 {
-  flake.modules.nixos.headful =
+  nixos.programs.theme =
     {
+      my,
       pkgs,
       lib,
       config,
       ...
     }:
     let
+      theme = my.meta.theme;
+
       # Where the active variant is recorded. Runtime state, not store state:
       # apps that can't be signalled (barbell) watch this file instead.
       state = "\${XDG_RUNTIME_DIR:-/tmp}/${theme.statePath}";
@@ -73,7 +72,7 @@ in
         default = { };
         description = ''
           Shell snippets run by theme-toggle when the theme changes. Each
-          function receives the chosen variant from flake.lib.theme.variants,
+          function receives the chosen variant from my.meta.theme.variants,
           plus `name` ("dark" | "light").
         '';
       };

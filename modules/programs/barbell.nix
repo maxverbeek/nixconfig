@@ -1,14 +1,9 @@
-{ inputs, ... }:
 {
-  perSystem =
-    { system, ... }:
+  nixos.programs.barbell =
+    { my, pkgs, ... }:
     {
-      cachePackages.barbell = inputs.barbell.packages.${system}.default;
-    };
+      cachePackages.barbell = my.pkgs.barbell;
 
-  flake.modules.nixos.headful =
-    { pkgs, ... }:
-    {
       # The battery widget reads UPower over D-Bus.
       services.upower.enable = true;
 
@@ -20,7 +15,7 @@
       # entry here — nmcli rides in with networking.networkmanager.enable and
       # `niri msg` with the compositor itself.
       environment.systemPackages = [
-        inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default
+        my.pkgs.barbell
         pkgs.jq
         pkgs.curl
       ];
@@ -41,7 +36,7 @@
         after = [ "niri.service" ];
         wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
-          ExecStart = "${inputs.barbell.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/barbell";
+          ExecStart = "${my.pkgs.barbell}/bin/barbell";
           Restart = "always";
           RestartSec = "1s";
         };

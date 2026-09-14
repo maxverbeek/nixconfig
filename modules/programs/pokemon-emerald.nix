@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.personal =
+  nixos.programs.pokemon-emerald =
     { pkgs, ... }:
     {
       environment.systemPackages = [

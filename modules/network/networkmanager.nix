@@ -1,6 +1,5 @@
-{ ... }:
 {
-  flake.modules.nixos.headful =
+  nixos.network.networkmanager =
     { pkgs, ... }:
     {
       networking.networkmanager.enable = true;

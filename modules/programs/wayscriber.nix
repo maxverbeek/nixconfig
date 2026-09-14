@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.headful =
+  nixos.programs.wayscriber =
     {
       pkgs,
       my,
@@ -470,7 +470,7 @@
 
     in
     {
-      environment.systemPackages = [ pkgs.unstable.wayscriber ];
+      environment.systemPackages = [ my.pkgs.unstable.wayscriber ];
 
       # L+ replaces an existing symlink, so a rebuilt config takes effect at
       # next login, when systemd-tmpfiles-setup.service applies the rule.
@@ -487,7 +487,7 @@
         restartTriggers = [ configToml ];
         serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.unstable.wayscriber}/bin/wayscriber --daemon --no-tray";
+          ExecStart = "${my.pkgs.unstable.wayscriber}/bin/wayscriber --daemon --no-tray";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 5;
