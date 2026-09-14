@@ -31,7 +31,7 @@
 
       hmSessionVariables = null;
 
-      env.FZF_DEFAULT_COMMAND = ''ag --ignore .git --hidden -g ""'';
+      env.FZF_DEFAULT_COMMAND = ''${lib.getExe pkgs.silver-searcher-ng} --ignore .git --hidden -g ""'';
 
       zshAliases = {
         zathura = "zathura --fork";

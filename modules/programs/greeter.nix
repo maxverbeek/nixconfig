@@ -50,7 +50,7 @@
       ];
 
       services.greetd.enable = config.programs.regreet.enable;
-      services.dbus.packages = [ pkgs.gcr ];
+      services.dbus.packages = [ pkgs.gcr_4 ];
       # PAM's enableGnomeKeyring only runs the daemon as `--login`: it unlocks
       # the login keyring but serves nothing on the bus, so Secret Service
       # consumers fail with "keyring backend not available". This enable is

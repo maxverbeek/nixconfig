@@ -67,7 +67,7 @@
         docker-compose
         envsubst
         file
-        (wrapFirefox (firefox-unwrapped.override { pipewireSupport = true; }) { })
+        (wrapFirefox firefox-unwrapped { })
         gcc
         gh
         my.pkgs.gitlab-reviewer
@@ -108,7 +108,7 @@
         ripgrep
         rsync
         rtorrent
-        silver-searcher
+        silver-searcher-ng
         slack
         spotify
         sshfs
