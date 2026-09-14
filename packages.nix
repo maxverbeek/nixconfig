@@ -79,7 +79,6 @@ let
       my.sources.agenix.packages.${system}.default
       my.sources.disko.packages.${system}.default
       pkgs.nixos-anywhere
-      pkgs.git
     ];
   };
 in

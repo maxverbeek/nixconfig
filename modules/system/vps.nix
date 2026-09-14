@@ -2,6 +2,8 @@
   nixos.system.vps =
     { pkgs, ... }:
     {
+      # Plain git: nix shells out to it for the private git+ssh inputs. The
+      # wrapped git carries max's config and hooks, which root has no use for.
       environment.systemPackages = [ pkgs.git ];
 
       nix.gc.options = "--delete-older-than 14d";

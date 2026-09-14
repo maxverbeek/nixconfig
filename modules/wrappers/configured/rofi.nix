@@ -131,7 +131,7 @@
 
       settings = {
         font = "JetBrainsMono Nerd Font 12";
-        terminal = "${pkgs.alacritty}/bin/alacritty";
+        terminal = "${my.pkgs.wrapped.alacritty}/bin/alacritty";
         modi = "drun,run,window";
         separator-style = "solid";
         show-match = false;

@@ -134,7 +134,6 @@
         yarn
 
         my.pkgs.pngcrop
-        my.pkgs.neovim-opener-desktop
 
         my.pkgs.unstable.nurl
         my.pkgs.samdump2
