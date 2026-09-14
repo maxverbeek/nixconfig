@@ -6,7 +6,7 @@
         "http://scopecreep:5000"
       ];
       trusted-public-keys = [
-        # printed by secrets/harmonia-signing-key.sh
+        # printed from secrets/harmonia-signing-key.age
         "scopecreep-1:jnrTBDq0e8LRrfiEdWPnAPdyA16FjVQgPzhg4QjebfY="
       ];
 

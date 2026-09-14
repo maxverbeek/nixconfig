@@ -13,7 +13,11 @@
       checkdocker = pkgs.writeScript "checkdocker" ''
         #!${pkgs.bash}/bin/bash
 
-        if [ "$(${pkgs.docker}/bin/docker ps -q | wc -l)" -gt 0 ]; then
+        # `command -v`, not a store path: hardcoding the docker package pulls
+        # moby (787 MiB) into every host's closure, including the podman-only VPS.
+        command -v docker >/dev/null || exit 0
+
+        if [ "$(docker ps -q | wc -l)" -gt 0 ]; then
           read -p "There are containers running, shutdown anyway? y/n: " -n 1 -r
           echo
           if [[ ! $REPLY =~ [Yy]$ ]]; then
