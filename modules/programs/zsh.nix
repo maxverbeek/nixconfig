@@ -20,6 +20,8 @@
         pkgs.fzf
         pkgs.zoxide
         pkgs.starship
+        # nix-build, nix-shell, nix-env ...; the nix package only completes `nix`
+        pkgs.nix-zsh-completions
       ];
     };
 }
