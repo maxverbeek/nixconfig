@@ -13,9 +13,6 @@
         programs.bitwarden
         network.dns
         network.tailscale
-        network.mullvad
-        network.nordvpn
-        network.cloudflared
         users.max
       ];
     };

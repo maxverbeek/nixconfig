@@ -13,10 +13,7 @@
         # wrapper would never actually be the login shell. A path is passed
         # through unchanged.
         shell = "${my.pkgs.wrapped.zsh}/bin/zsh";
-        extraGroups = [
-          "wheel"
-          "nordvpn"
-        ];
+        extraGroups = [ "wheel" ];
       };
     };
 }

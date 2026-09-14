@@ -12,6 +12,7 @@
     in
     {
       users.groups.nordvpn = { };
+      users.users.max.extraGroups = [ "nordvpn" ];
 
       environment.systemPackages = [ nordvpn ];
 

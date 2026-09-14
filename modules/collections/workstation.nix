@@ -12,6 +12,9 @@
         hardware.bluetooth
         hardware.pipewire
         network.networkmanager
+        network.mullvad
+        network.nordvpn
+        network.cloudflared
         programs.niri
         programs.greeter
         programs.theme
