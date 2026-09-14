@@ -4,8 +4,10 @@ Every file below this directory is a **shard**: a plain attrset, three levels
 deep, `<class>.<namespace>.<name>`, whose leaf is an ordinary module function.
 `modules.nix` at the repository root walks the tree with `importSharded 3` and
 aggregates every leaf into one virtual module at `my.modules.<class>.<ns>.<name>`.
-Files starting with `_` are skipped and imported by path where they are used
-(`hosts/*/_hardware.nix`, `hosts/scopecreep/_disko.nix`).
+Several files may declare the same leaf and are merged: a host's generated
+`hardware.nix` and its `disko.nix` sit next to `default.nix` and declare
+`nixos.hosts.<name>` themselves. There are no underscore files and no path
+imports.
 
 ```nix
 # modules/services/docker.nix declares exactly nixos.services.docker
@@ -82,8 +84,9 @@ Rules of thumb:
   `wrappers.configured.<name>` (import an upstream `wlib.wrapperModules.<name>`
   or a local definition from `wrappers/modules/<name>.nix`); it appears as
   `my.pkgs.wrapped.<name>` and `nix build .#wrapped.<name>`.
-- **New host**: `hosts/<name>/default.nix` declaring `nixos.hosts.<name>` with
-  its `_hardware.nix` next to it; it appears as `nixosConfigurations.<name>`.
+- **New host**: `hosts/<name>/default.nix` declaring `nixos.hosts.<name>`, with
+  the generated hardware config next to it as `hardware.nix` declaring the same
+  leaf; it appears as `nixosConfigurations.<name>`.
 - **Restructuring** (moving a leaf between files or collections) must not change
   what a host gets: evaluate each host with `nix.registry = lib.mkForce { }` and
   compare `toplevel.drvPath`; if a hash moves, the derivation graphs may differ
