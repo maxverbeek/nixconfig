@@ -4,7 +4,7 @@
 # and the plain `work` completer ships inside the stalker package itself
 # (share/zsh/site-functions/_work), which compinit autoloads off fpath.
 {
-  wrappers.config.zsh =
+  wrappers.configured.zsh =
     { lib, ... }:
     {
       # `work ... **<Tab>` runs the CLI's own completion candidates through fzf,
@@ -50,7 +50,7 @@
       '';
     };
 
-  wrappers.config.git =
+  wrappers.configured.git =
     { my, ... }:
     {
       # The global post-commit hook that reports authored commits to the daemon.

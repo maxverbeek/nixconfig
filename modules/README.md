@@ -41,7 +41,7 @@ knows which hosts import it.
 | `users/` | accounts | `max` |
 | `collections/` | named import lists | `base`, `workstation`, `development`, `laptop`, `server` |
 | `hosts/` | one machine each | `desknix`, `thinkpad`, `scopecreep` |
-| `wrappers/` | the `wrappers` class: programs built with their config | `config/*` become `my.pkgs.wrapped.*`; `programs/*` are reusable wrapper modules |
+| `wrappers/` | the `wrappers` class: programs built with their config | `modules/*` are wrapper module definitions; `configured/*` are instances and become `my.pkgs.wrapped.*` |
 
 Rules of thumb:
 
@@ -78,10 +78,10 @@ Rules of thumb:
 - **New program**: `programs/<name>.nix` declaring `nixos.programs.<name>`, then
   add it to the collection that wants it, or to one host's list. Enabling
   claude on the VPS is one line in `hosts/scopecreep/default.nix`.
-- **New wrapped program**: `wrappers/config/<name>.nix` declaring
-  `wrappers.config.<name>` (import an upstream `wlib.wrapperModules.<name>` or
-  a local `wrappers/programs/<name>.nix`); it appears as `my.pkgs.wrapped.<name>`
-  and `nix build .#wrapped.<name>`.
+- **New wrapped program**: `wrappers/configured/<name>.nix` declaring
+  `wrappers.configured.<name>` (import an upstream `wlib.wrapperModules.<name>`
+  or a local definition from `wrappers/modules/<name>.nix`); it appears as
+  `my.pkgs.wrapped.<name>` and `nix build .#wrapped.<name>`.
 - **New host**: `hosts/<name>/default.nix` declaring `nixos.hosts.<name>` with
   its `_hardware.nix` next to it; it appears as `nixosConfigurations.<name>`.
 - **Restructuring** (moving a leaf between files or collections) must not change

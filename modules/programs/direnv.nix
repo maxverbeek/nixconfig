@@ -4,7 +4,7 @@
       enable = true;
       nix-direnv.enable = true;
 
-      # The zsh hook lives in the zsh wrapper (modules/wrappers/config/zsh.nix),
+      # The zsh hook lives in the zsh wrapper (modules/wrappers/configured/zsh.nix),
       # not /etc/zshrc.
       enableZshIntegration = false;
 

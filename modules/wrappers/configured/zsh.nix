@@ -7,7 +7,7 @@
 # arrive that way (fzf, zoxide, starship, dircolors, kubectl/op completions,
 # osc7) therefore lives here instead.
 {
-  wrappers.config.zsh =
+  wrappers.configured.zsh =
     {
       pkgs,
       lib,

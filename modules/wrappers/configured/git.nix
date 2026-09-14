@@ -1,7 +1,7 @@
 # Shard: imported with no arguments, so the outer structure is a plain attrset
 # and only the leaf is a module function (docs/wiring.md §4).
 {
-  wrappers.config.git =
+  wrappers.configured.git =
     { pkgs, wlib, ... }:
     {
       imports = [ wlib.wrapperModules.git ];

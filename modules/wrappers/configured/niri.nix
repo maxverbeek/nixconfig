@@ -1,5 +1,5 @@
 {
-  wrappers.config.niri =
+  wrappers.configured.niri =
     { wlib, ... }:
     {
       imports = [ wlib.wrapperModules.niri ];

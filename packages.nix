@@ -19,7 +19,7 @@ let
 
   wlib = (import my.sources.wrappers { inherit pkgs; }).lib;
 
-  # wrappers.config.* -> my.pkgs.wrapped.*
+  # wrappers.configured.* -> my.pkgs.wrapped.*
   wrapped = builtins.mapAttrs (
     _: module:
     (wlib.evalModules {
@@ -29,7 +29,7 @@ let
         module
       ];
     }).config.wrapper
-  ) my.modules.wrappers.config;
+  ) my.modules.wrappers.configured;
 
   # packages/definitions/* -> callPackage
   definitions = builtins.mapAttrs (_: p: pkgs.callPackage p { }) (

@@ -1,5 +1,5 @@
 {
-  wrappers.config.rofi =
+  wrappers.configured.rofi =
     {
       my,
       pkgs,

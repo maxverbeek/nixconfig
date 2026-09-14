@@ -1,5 +1,5 @@
 {
-  wrappers.config.foot =
+  wrappers.configured.foot =
     { my, wlib, ... }:
     let
       fontsize = 12;

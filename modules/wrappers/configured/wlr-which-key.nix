@@ -1,5 +1,5 @@
 {
-  wrappers.config.wlr-which-key =
+  wrappers.configured.wlr-which-key =
     { wlib, ... }:
     {
       imports = [ wlib.wrapperModules.wlr-which-key ];

@@ -1,5 +1,5 @@
 {
-  wrappers.config.alacritty =
+  wrappers.configured.alacritty =
     { my, wlib, ... }:
     {
       imports = [ wlib.wrapperModules.alacritty ];

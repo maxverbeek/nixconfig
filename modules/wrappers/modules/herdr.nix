@@ -1,7 +1,7 @@
 {
   # Reusable wrapper module in upstream shape (nix-wrapper-modules wrapperModules/h/herdr/module.nix).
-  # Unopinionated: wrappers/config/herdr.nix imports it and supplies our settings.
-  wrappers.programs.herdr =
+  # Unopinionated: wrappers/configured/herdr.nix imports it and supplies our settings.
+  wrappers.modules.herdr =
     {
       config,
       lib,
