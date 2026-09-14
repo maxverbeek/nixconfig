@@ -2,12 +2,14 @@
 
 Source of truth: `~/nixconfig/modules/development/agents/_shared/AGENTS.md`.
 Symlinked live into `~/.claude/AGENTS.md` and `~/.config/opencode/AGENTS.md`,
-so edits here take effect immediately — no rebuild.
+so edits here take effect immediately, no rebuild.
 
 ## Environment
 
-- NixOS (flake at `~/nixconfig`, flake-parts + import-tree). Home Manager
-  for user config. Niri on Wayland.
+- NixOS (`~/nixconfig`: a plain `default.nix` knot with a thin flake shim;
+  sharded modules under `modules/<namespace>/<name>.nix`, see
+  `modules/README.md`). No Home Manager: programs are nix-wrapper-modules
+  wrappers (`my.pkgs.wrapped.*`) or plain NixOS options. Niri on Wayland.
 - Shell: zsh. Editor: Neovim. Terminal: foot.
 - There is no `/etc/nixos`. Everything lives in `~/nixconfig`.
 - Rebuild with `just` targets in `~/nixconfig/Justfile`.

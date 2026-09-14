@@ -6,9 +6,9 @@
 # callPackage) and ROUTE 4 (the binary cache).
 { my }:
 let
-  # This is a wiring file, so it owns its nixpkgs imports rather than borrowing
-  # flake-parts'. `system` must be explicit: `builtins.currentSystem` is
-  # unavailable under pure flake evaluation, and this repo is x86_64-linux only.
+  # This is a wiring file, so it owns its nixpkgs imports. `system` must be
+  # explicit: `builtins.currentSystem` is unavailable under pure flake
+  # evaluation, and this repo is x86_64-linux only.
   system = "x86_64-linux";
 
   unstable = import my.sources.unstable {

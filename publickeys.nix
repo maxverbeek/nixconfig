@@ -1,5 +1,5 @@
-# SSH public keys, single source of truth. Not a module (root dir is outside
-# import-tree); consumers do `import ./publickeys.nix` relative to themselves.
+# SSH public keys, single source of truth. Not a module (the loader only walks
+# modules/); consumers do `import ./publickeys.nix` relative to themselves.
 # Used by secrets.nix (agenix recipients) and available for authorized_keys /
 # known_hosts config. Host keys come from /etc/ssh/ssh_host_ed25519_key.pub.
 {
