@@ -34,17 +34,17 @@
       # required: the default /run/agenix/<name> would become a real directory
       # and break the generation symlink agenix places there.
       age.secrets.huurhunter-env = {
-        file = ../../secrets/huurhunter.env.age;
+        file = my.secrets.huurhunter-env.file;
         symlink = false;
         path = "/run/container-secrets/huurhunter.env";
       };
       age.secrets.huurhunter-monitor-env = {
-        file = ../../secrets/huurhunter-monitor.env.age;
+        file = my.secrets.huurhunter-monitor-env.file;
         symlink = false;
         path = "/run/container-secrets/huurhunter-monitor.env";
       };
       age.secrets.nordlynx-key = {
-        file = ../../secrets/nordlynx.key.age;
+        file = my.secrets.nordlynx-key.file;
         symlink = false;
         path = "/run/container-secrets/nordlynx.key";
       };

@@ -5,6 +5,7 @@ let
   my = {
     sources = import ./lib/sources.nix { lockFile = ./flake.lock; } // args;
     meta = import ./meta.nix { inherit my; };
+    secrets = import ./secrets;
     lib = import ./lib.nix { inherit my; };
     modules = import ./modules.nix { inherit my; };
     pkgs = import ./packages.nix { inherit my; };

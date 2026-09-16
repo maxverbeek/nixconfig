@@ -12,7 +12,7 @@
       # symlink = false + explicit path: bind-mounted into the container, see
       # the comment in huurhunter.nix
       age.secrets.feedbackers-env = {
-        file = ../../secrets/feedbackers.env.age;
+        file = my.secrets.feedbackers-env.file;
         symlink = false;
         path = "/run/container-secrets/feedbackers.env";
       };

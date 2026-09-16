@@ -1,21 +1,14 @@
-# agenix recipient manifest. Only read by the `agenix` CLI (edit/rekey time),
-# never by the flake. Run agenix from the repo root: `agenix -e secrets/<file>.age`.
+# agenix recipient manifest, derived from secrets/default.nix. Only read by the
+# `agenix` CLI (edit/rekey time), never by the flake. Run agenix from the repo
+# root: `agenix -e secrets/<name>.age`.
 let
   keys = import ./publickeys.nix;
-  scopecreep = [
-    keys.max
-    keys.scopecreep
-  ];
+  secrets = import ./secrets;
+  recipients = secret: [ keys.max ] ++ map (host: keys.${host}) (secret.hosts or [ "scopecreep" ]);
 in
-{
-  "secrets/breadhero-slack-bot-token.age".publicKeys = scopecreep;
-  "secrets/breadhero-slack-signing-secret.age".publicKeys = scopecreep;
-  "secrets/breadhero-leaderboard-api-key.age".publicKeys = scopecreep;
-  "secrets/feedbackers.env.age".publicKeys = scopecreep;
-  "secrets/huurhunter.env.age".publicKeys = scopecreep;
-  "secrets/huurhunter-monitor.env.age".publicKeys = scopecreep;
-  "secrets/webdav.htpasswd.age".publicKeys = scopecreep;
-  "secrets/harmonia-signing-key.age".publicKeys = scopecreep;
-  # shared by thinkpad (decrypts with max's key, no sshd there) and scopecreep
-  "secrets/nordlynx.key.age".publicKeys = scopecreep;
-}
+builtins.listToAttrs (
+  map (name: {
+    name = "secrets/${baseNameOf secrets.${name}.file}";
+    value.publicKeys = recipients secrets.${name};
+  }) (builtins.attrNames secrets)
+)

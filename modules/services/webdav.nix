@@ -1,6 +1,6 @@
 {
   nixos.services.webdav =
-    { config, pkgs, ... }:
+    { config, pkgs, my, ... }:
     let
       port = 8543;
       htpasswdFile = config.age.secrets.webdav-htpasswd.path;
@@ -8,7 +8,7 @@
     in
     {
       age.secrets.webdav-htpasswd = {
-        file = ../../secrets/webdav.htpasswd.age;
+        file = my.secrets.webdav-htpasswd.file;
         owner = "webdav";
         group = "webdav";
       };

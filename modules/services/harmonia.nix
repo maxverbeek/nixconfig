@@ -1,8 +1,8 @@
 {
   nixos.services.harmonia =
-    { config, pkgs, ... }:
+    { config, pkgs, my, ... }:
     {
-      age.secrets.harmonia-signing-key.file = ../../secrets/harmonia-signing-key.age;
+      age.secrets.harmonia-signing-key.file = my.secrets.harmonia-signing-key.file;
 
       # Reachable over tailscale only: port 5000 is never opened publicly,
       # tailscale0 is a trusted interface.

@@ -13,17 +13,17 @@
       # the comment in huurhunter.nix
       age.secrets = {
         breadhero-slack-bot-token = {
-          file = ../../secrets/breadhero-slack-bot-token.age;
+          file = my.secrets.breadhero-slack-bot-token.file;
           symlink = false;
           path = "/run/container-secrets/breadhero-slack-bot-token";
         };
         breadhero-slack-signing-secret = {
-          file = ../../secrets/breadhero-slack-signing-secret.age;
+          file = my.secrets.breadhero-slack-signing-secret.file;
           symlink = false;
           path = "/run/container-secrets/breadhero-slack-signing-secret";
         };
         breadhero-leaderboard-api-key = {
-          file = ../../secrets/breadhero-leaderboard-api-key.age;
+          file = my.secrets.breadhero-leaderboard-api-key.file;
           symlink = false;
           path = "/run/container-secrets/breadhero-leaderboard-api-key";
         };
