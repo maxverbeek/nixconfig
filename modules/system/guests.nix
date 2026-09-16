@@ -48,11 +48,7 @@
               modules = lib.mkOption {
                 type = lib.types.listOf lib.types.deferredModule;
                 default = [ ];
-              };
-              config = lib.mkOption {
-                type = lib.types.deferredModule;
-                default = { };
-                description = "The guest's NixOS config; receives `my` and `secrets` as arguments.";
+                description = "The guest's NixOS modules; they receive `my` and `secrets` as arguments.";
               };
             };
           }
@@ -84,7 +80,7 @@
             }
           ) guest.secrets;
           config = {
-            imports = guest.modules ++ [ guest.config ];
+            imports = guest.modules;
             system.stateVersion = "25.11";
             networking.useHostResolvConf = false;
             networking.nameservers = [

@@ -10,15 +10,18 @@
         ip = 2;
         secrets.env = my.secrets.feedbackers-env.file;
         proxy."feedbackframework.maxverbeek.dev" = 3001;
-        modules = [ my.modules.external.feedbackers ];
-        config =
-          { secrets, ... }:
-          {
-            services.feedbackers = {
-              enable = true;
-              environmentFile = secrets.env;
-            };
-          };
+        modules = [
+          my.modules.external.feedbackers
+          (
+            { secrets, ... }:
+            {
+              services.feedbackers = {
+                enable = true;
+                environmentFile = secrets.env;
+              };
+            }
+          )
+        ];
       };
     };
 }

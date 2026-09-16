@@ -17,18 +17,21 @@
           leaderboard-api-key = my.secrets.breadhero-leaderboard-api-key.file;
         };
         proxy."breadhero.maxverbeek.dev" = port;
-        modules = [ my.modules.external.breadhero ];
-        config =
-          { secrets, ... }:
-          {
-            services.breadhero = {
-              enable = true;
-              inherit port;
-              slackBotTokenFile = secrets.slack-bot-token;
-              slackSigningSecretFile = secrets.slack-signing-secret;
-              leaderboardApiKeyFile = secrets.leaderboard-api-key;
-            };
-          };
+        modules = [
+          my.modules.external.breadhero
+          (
+            { secrets, ... }:
+            {
+              services.breadhero = {
+                enable = true;
+                inherit port;
+                slackBotTokenFile = secrets.slack-bot-token;
+                slackSigningSecretFile = secrets.slack-signing-secret;
+                leaderboardApiKeyFile = secrets.leaderboard-api-key;
+              };
+            }
+          )
+        ];
       };
     };
 }

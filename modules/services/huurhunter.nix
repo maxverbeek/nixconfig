@@ -53,19 +53,22 @@
         ip = 4;
         secrets.env = my.secrets.huurhunter-env.file;
         proxy."huur.maxverbeek.dev" = webPort;
-        modules = [ my.modules.external.huurhunter-web ];
-        config =
-          { secrets, ... }:
-          {
-            inherit users;
-            services.huurhunter.stateDir = dbDir;
-            services.huurhunter-web = {
-              enable = true;
-              address = "0.0.0.0:${toString webPort}";
-              baseUrl = "https://huur.maxverbeek.dev";
-              environmentFile = secrets.env;
-            };
-          };
+        modules = [
+          my.modules.external.huurhunter-web
+          (
+            { secrets, ... }:
+            {
+              inherit users;
+              services.huurhunter.stateDir = dbDir;
+              services.huurhunter-web = {
+                enable = true;
+                address = "0.0.0.0:${toString webPort}";
+                baseUrl = "https://huur.maxverbeek.dev";
+                environmentFile = secrets.env;
+              };
+            }
+          )
+        ];
       };
       containers.hh-web.bindMounts.${dbDir} = {
         hostPath = dbDir;
@@ -82,33 +85,34 @@
         modules = [
           my.modules.external.huurhunter-monitor
           my.modules.nixos.network.nordlynx
-        ];
-        config =
-          { secrets, ... }:
-          {
-            inherit users;
-            services.huurhunter.stateDir = dbDir;
-            services.huurhunter-monitor = {
-              enable = true;
-              browser = true;
-              impersonate = true;
-              environmentFile = secrets.env;
-            };
+          (
+            { secrets, ... }:
+            {
+              inherit users;
+              services.huurhunter.stateDir = dbDir;
+              services.huurhunter-monitor = {
+                enable = true;
+                browser = true;
+                impersonate = true;
+                environmentFile = secrets.env;
+              };
 
-            # Cloudflare serves the whole Hetzner ASN a managed challenge on some
-            # sources; a commercial VPN exit passes clean. Only the curl-impersonate
-            # lane is bound to the tunnel address, so Chromium, the Go lane and DNS
-            # keep leaving via the FIP.
-            services.nordlynx = {
-              enable = true;
-              mode = "bind";
-              privateKeyFile = secrets.nordlynx-key;
-            };
-            systemd.services.huurhunter-monitor = {
-              after = [ "wg-quick-nordlynx.service" ];
-              environment.CURL_IMPERSONATE_BIND = "10.5.0.2";
-            };
-          };
+              # Cloudflare serves the whole Hetzner ASN a managed challenge on some
+              # sources; a commercial VPN exit passes clean. Only the curl-impersonate
+              # lane is bound to the tunnel address, so Chromium, the Go lane and DNS
+              # keep leaving via the FIP.
+              services.nordlynx = {
+                enable = true;
+                mode = "bind";
+                privateKeyFile = secrets.nordlynx-key;
+              };
+              systemd.services.huurhunter-monitor = {
+                after = [ "wg-quick-nordlynx.service" ];
+                environment.CURL_IMPERSONATE_BIND = "10.5.0.2";
+              };
+            }
+          )
+        ];
       };
       containers.hh-mon.bindMounts.${dbDir} = {
         hostPath = dbDir;
