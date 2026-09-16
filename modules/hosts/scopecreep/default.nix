@@ -73,6 +73,8 @@
       boot.loader.grub.configurationLimit = 3;
 
       networking.firewall.trustedInterfaces = [ "tailscale0" ];
+      # Guests NAT out of the primary NIC.
+      networking.nat.externalInterface = "enp1s0";
       services.openssh.openFirewall = false;
 
       system.stateVersion = "25.11";

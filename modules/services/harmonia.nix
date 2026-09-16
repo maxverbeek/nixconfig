@@ -1,6 +1,11 @@
 {
   nixos.services.harmonia =
-    { config, pkgs, my, ... }:
+    {
+      config,
+      pkgs,
+      my,
+      ...
+    }:
     {
       age.secrets.harmonia-signing-key.file = my.secrets.harmonia-signing-key.file;
 

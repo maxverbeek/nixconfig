@@ -1,6 +1,11 @@
 {
   nixos.services.webdav =
-    { config, pkgs, my, ... }:
+    {
+      config,
+      pkgs,
+      my,
+      ...
+    }:
     let
       port = 8543;
       htpasswdFile = config.age.secrets.webdav-htpasswd.path;
