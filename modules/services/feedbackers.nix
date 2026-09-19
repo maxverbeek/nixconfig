@@ -4,9 +4,9 @@
     {
       imports = [ my.modules.nixos.system.guests ];
 
-      cachePackages.feedbackers = my.pkgs.feedbackers;
+      my.cachePackages.feedbackers = my.pkgs.feedbackers;
 
-      guests.feedbackers = {
+      my.guests.feedbackers = {
         ip = 2;
         secrets.env = my.secrets.feedbackers-env.file;
         proxy."feedbackframework.maxverbeek.dev" = 3001;

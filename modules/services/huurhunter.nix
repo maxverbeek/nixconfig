@@ -37,7 +37,7 @@
     {
       imports = [ my.modules.nixos.system.guests ];
 
-      cachePackages.huurhunter = my.pkgs.huurhunter;
+      my.cachePackages.huurhunter = my.pkgs.huurhunter;
 
       # The monitor guest brings up a WireGuard interface; it cannot modprobe.
       boot.kernelModules = [ "wireguard" ];
@@ -49,7 +49,7 @@
 
       # Web guest: behind Caddy on the main IP. Nothing listens on the FIPs, so
       # a target probing one finds a closed port.
-      guests.hh-web = {
+      my.guests.hh-web = {
         ip = 4;
         secrets.env = my.secrets.huurhunter-env.file;
         proxy."huur.maxverbeek.dev" = webPort;
@@ -76,7 +76,7 @@
       };
 
       # Monitor guest: egress-only, SNATed to the FIP below.
-      guests.hh-mon = {
+      my.guests.hh-mon = {
         ip = 5;
         secrets = {
           env = my.secrets.huurhunter-monitor-env.file;
@@ -101,7 +101,7 @@
               # sources; a commercial VPN exit passes clean. Only the curl-impersonate
               # lane is bound to the tunnel address, so Chromium, the Go lane and DNS
               # keep leaving via the FIP.
-              services.nordlynx = {
+              my.nordlynx = {
                 enable = true;
                 mode = "bind";
                 privateKeyFile = secrets.nordlynx-key;

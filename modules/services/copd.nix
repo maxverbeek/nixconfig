@@ -4,7 +4,7 @@
     {
       imports = [ my.modules.external.copd ];
 
-      cachePackages.copd = my.pkgs.copd;
+      my.cachePackages.copd = my.pkgs.copd;
 
       services.copd = {
         enable = true;

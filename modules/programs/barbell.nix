@@ -2,7 +2,7 @@
   nixos.programs.barbell =
     { my, pkgs, ... }:
     {
-      cachePackages.barbell = my.pkgs.barbell;
+      my.cachePackages.barbell = my.pkgs.barbell;
 
       # The battery widget reads UPower over D-Bus.
       services.upower.enable = true;

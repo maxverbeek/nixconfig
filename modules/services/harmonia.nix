@@ -29,7 +29,7 @@
         ];
         serviceConfig.Type = "oneshot";
         script = ''
-          # the union of the hosts' cachePackages (modules/system/cache.nix)
+          # the union of the hosts' my.cachePackages (modules/system/cache.nix)
           nix build --refresh --out-link /var/lib/prebuilt-cache \
             "github:maxverbeek/nixconfig#cache"
         '';

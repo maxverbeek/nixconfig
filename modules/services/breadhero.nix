@@ -7,9 +7,9 @@
     {
       imports = [ my.modules.nixos.system.guests ];
 
-      cachePackages.breadhero = my.pkgs.breadhero;
+      my.cachePackages.breadhero = my.pkgs.breadhero;
 
-      guests.breadhero = {
+      my.guests.breadhero = {
         ip = 3;
         secrets = {
           slack-bot-token = my.secrets.breadhero-slack-bot-token.file;

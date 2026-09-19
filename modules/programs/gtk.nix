@@ -57,7 +57,7 @@
         "L %h/.config/gtk-4.0/theme.css - - - - ${darkCss}"
       ];
 
-      theme.onSwitch.gtk =
+      my.theme.onSwitch.gtk =
         { gtk, ... }:
         ''
           ${pkgs.coreutils}/bin/ln -sfn ${colorCss gtk.palette} "$HOME/.config/gtk-3.0/theme.css"

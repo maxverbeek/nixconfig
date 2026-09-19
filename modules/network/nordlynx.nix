@@ -14,7 +14,7 @@
   nixos.network.nordlynx =
     { config, lib, ... }:
     let
-      cfg = config.services.nordlynx;
+      cfg = config.my.nordlynx;
       nordDns = [
         "103.86.96.100"
         "103.86.99.100"
@@ -30,7 +30,7 @@
       nl = "5p4RkybdRU5uaDi90eu4KZPTFif0lKCg4Qp6t1c4F30=";
     in
     {
-      options.services.nordlynx = {
+      options.my.nordlynx = {
         enable = lib.mkEnableOption "NordLynx WireGuard tunnel";
         mode = lib.mkOption {
           type = lib.types.enum [
@@ -99,7 +99,7 @@
             assertions = [
               {
                 assertion = cfg.servers ? ${cfg.server};
-                message = "services.nordlynx.server '${cfg.server}' is not in services.nordlynx.servers";
+                message = "my.nordlynx.server '${cfg.server}' is not in my.nordlynx.servers";
               }
             ];
             networking.wg-quick.interfaces.nordlynx = {

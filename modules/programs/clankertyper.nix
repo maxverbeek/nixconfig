@@ -16,7 +16,7 @@
       };
     in
     {
-      cachePackages.clankertyper = package;
+      my.cachePackages.clankertyper = package;
 
       environment.systemPackages = [
         package

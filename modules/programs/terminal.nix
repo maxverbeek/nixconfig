@@ -13,7 +13,7 @@
 
       # Live foots switch palette on the signal (and notify apps via mode 2031,
       # which is how nvim re-themes); future foots read the rewritten include.
-      theme.onSwitch.foot =
+      my.theme.onSwitch.foot =
         { name, ... }:
         ''
           ${pkgs.procps}/bin/pkill -${if name == "dark" then "USR1" else "USR2"} foot || true

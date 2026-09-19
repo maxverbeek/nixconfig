@@ -1,5 +1,5 @@
 {
-  # `guests.<name>`: a NixOS system run by this host, today as an nspawn
+  # `my.guests.<name>`: a NixOS system run by this host, today as an nspawn
   # container. Anything the module does not cover is set on `containers.<name>`
   # directly and merges with what is generated here.
   nixos.system.guests =
@@ -10,7 +10,7 @@
       ...
     }:
     let
-      cfg = config.guests;
+      cfg = config.my.guests;
       subnet = "10.100.0";
       address = guest: "${subnet}.${toString guest.ip}";
 
@@ -21,7 +21,7 @@
       forSecrets = f: lib.concatMapAttrs (guest: g: lib.mapAttrs' (f guest) g.secrets) cfg;
     in
     {
-      options.guests = lib.mkOption {
+      options.my.guests = lib.mkOption {
         default = { };
         description = "Containers on the ${subnet}.0/24 subnet, NATed out of the host and proxied by Caddy.";
         type = lib.types.attrsOf (

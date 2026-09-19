@@ -35,7 +35,7 @@ knows which hosts import it.
 
 | Namespace | Holds | Examples |
 | --------- | ----- | -------- |
-| `system/` | the OS itself | `nix`, `locale`, `fonts`, `xdg`, `cache` (the `cachePackages` option), `vps` |
+| `system/` | the OS itself | `nix`, `locale`, `fonts`, `xdg`, `cache` (the `my.cachePackages` option), `vps` |
 | `hardware/` | drivers and device support | `pipewire`, `bluetooth`, `nvidia`, `fingerprint`, `tlp`, `laptop` |
 | `network/` | connectivity | `networkmanager`, `tailscale`, `dns`, `nordlynx`, `hetzner-cloudinit` |
 | `programs/` | things a person runs, incl. their user units | `zsh`, `git`, `niri`, `claude`, `steam`, `"1password"` |
@@ -68,8 +68,8 @@ Rules of thumb:
   once in `modules.nix` (walker, stalker, disko, agenix, breadhero, ...).
 - Plain data (repo root path, theme, the huurhunter FIP list): `my.meta.*`.
 - Something the VPS should pre-build for the other machines:
-  `cachePackages.<name> = my.pkgs.<name>;` in the leaf that uses it. ROUTE 4 in
-  `packages.nix` folds every host's `cachePackages` into `my.pkgs.cache`, which
+  `my.cachePackages.<name> = my.pkgs.<name>;` in the leaf that uses it. ROUTE 4 in
+  `packages.nix` folds every host's `my.cachePackages` into `my.pkgs.cache`, which
   harmonia's nightly names as `github:maxverbeek/nixconfig#cache`.
 - Impure, live-editable config (niri's kdl, the wallpapers, the agents' shared
   files) is read from the working tree at `my.meta.repoRoot`; moving such a

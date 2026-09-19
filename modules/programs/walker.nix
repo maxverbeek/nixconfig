@@ -39,8 +39,8 @@
     in
     {
       # elephant follows our nixpkgs, so walker.cachix.org can't serve it
-      cachePackages.elephant = my.pkgs.elephant;
-      cachePackages.elephant-gitlab = my.pkgs.elephant-gitlab;
+      my.cachePackages.elephant = my.pkgs.elephant;
+      my.cachePackages.elephant-gitlab = my.pkgs.elephant-gitlab;
 
       # walker's module brings its own services.elephant; nixpkgs ships a much
       # thinner one that would collide, so drop nixpkgs'.

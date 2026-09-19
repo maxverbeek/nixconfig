@@ -68,10 +68,10 @@ let
     inherit (definitions) NotebookNavigator-nvim;
   };
 
-  # Every host's cachePackages in one linkFarm. harmonia's prebuild unit names
+  # Every host's my.cachePackages in one linkFarm. harmonia's prebuild unit names
   # `cache` by string, so renaming it breaks the nightly silently.
   cache = pkgs.linkFarm "binary-cache-contents" (
-    lib.foldl' (acc: host: acc // host.config.cachePackages) { } (builtins.attrValues my.hosts)
+    lib.foldl' (acc: host: acc // host.config.my.cachePackages) { } (builtins.attrValues my.hosts)
   );
 
   devShells.default = pkgs.mkShell {

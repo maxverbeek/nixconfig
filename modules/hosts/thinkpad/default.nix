@@ -33,7 +33,7 @@
       # No sshd here, so agenix decrypts with max's own key instead of a host key.
       age.identityPaths = [ "/home/max/.ssh/id_ed25519" ];
       age.secrets.nordlynx-key.file = my.secrets.nordlynx-key.file;
-      services.nordlynx = {
+      my.nordlynx = {
         enable = true;
         mode = "networkmanager";
         privateKeyFile = config.age.secrets.nordlynx-key.path;

@@ -25,8 +25,8 @@
       # Hydra never caches the unfree-redistributable driver, so pre-build it.
       # Read from this host's own evaluated config, not a bare pkgs: the kernel
       # module build is specific to this host's kernel.
-      cachePackages.nvidia-x11 = config.hardware.nvidia.package;
-      cachePackages.nvidia-kernel-modules = builtins.head (
+      my.cachePackages.nvidia-x11 = config.hardware.nvidia.package;
+      my.cachePackages.nvidia-kernel-modules = builtins.head (
         builtins.filter (
           p: builtins.match ".*nvidia-kernel-modules.*" (p.name or "") != null
         ) config.boot.extraModulePackages
