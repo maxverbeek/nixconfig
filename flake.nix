@@ -40,7 +40,8 @@
     walker.inputs.elephant.follows = "elephant";
 
     elephant.url = "github:abenz1267/elephant";
-    elephant.inputs.nixpkgs.follows = "unstable";
+    # ponytail: stable until abenz1267/elephant#299 lands; unstable dropped buildGo125Module
+    elephant.inputs.nixpkgs.follows = "nixpkgs";
 
     elephant-gitlab.url = "github:maxverbeek/elephant-gitlab";
     elephant-gitlab.inputs.elephant.follows = "elephant";
