@@ -6,29 +6,24 @@
 
 buildGoModule rec {
   pname = "gog";
-  version = "0.37.0";
+  version = "0.41.0-unstable-2026-09-23";
 
+  # Fork with template-respecting --markdown fixes, pending upstream PR.
   src = fetchFromGitHub {
-    owner = "openclaw";
+    owner = "maxverbeek";
     repo = "gogcli";
-    rev = "v${version}";
-    hash = "sha256-UQa9Z7zv2IuH7GL1udNee2F+uB2BAZA5a0/2XtFcBWg=";
+    rev = "c6effb3e379d224f8a0aa2a525905a7e93f1f08a";
+    hash = "sha256-+xmSvFzVIKScc/lZ8jutBJDEO9vyp76uSPfWwvZuMAo=";
   };
 
-  # nixpkgs go is 1.26.5; go.mod asks for the 1.26.6 patch release.
-  # Patch-version bumps gate nothing in the language; relax it.
-  postPatch = ''
-    substituteInPlace go.mod --replace-fail "go 1.26.6" "go 1.26.5"
-  '';
-
-  vendorHash = "sha256-+Nbuwok3dY/82gUDKeGgrC0F1ZqXSW8IpV6Q1yzIPvo=";
+  vendorHash = "sha256-TgXyWIfWLAsl0GXaWHgMG+qJQIeTg324sHZrW56nRQA=";
 
   subPackages = [ "cmd/gog" ];
 
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=${version}"
+    "-X github.com/openclaw/gogcli/internal/cmd.version=${version}"
   ];
 
   # Tests hit the network / need credentials.
