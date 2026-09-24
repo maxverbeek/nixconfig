@@ -449,6 +449,26 @@
         "url": "ssh://git@github.com/maxverbeek/huurhunter"
       }
     },
+    "mictap": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790286266,
+        "narHash": "sha256-tV4fExrqZTWw40OyXschtNrW/9PycpdGjZpmzbcYS3c=",
+        "ref": "refs/heads/main",
+        "rev": "467bc9449ab1109f56519a323192f1db61d3b8f4",
+        "revCount": 9,
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/mictap"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/mictap"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1790055231,
@@ -646,6 +666,7 @@
         "flake-utils": "flake-utils",
         "gitlab-reviewer": "gitlab-reviewer",
         "huurhunter": "huurhunter",
+        "mictap": "mictap",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-ruby": "nixpkgs-ruby",
         "opencode": "opencode",

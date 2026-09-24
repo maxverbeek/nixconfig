@@ -28,6 +28,7 @@
         programs.wayscriber
         programs.clankertyper
         programs.stalker
+        programs.mictap
         programs.desktop-tools
         programs.office
         programs."1password"

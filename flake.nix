@@ -62,6 +62,9 @@
     stalker.url = "git+ssh://git@github.com/maxverbeek/stalker";
     stalker.inputs.nixpkgs.follows = "unstable";
 
+    mictap.url = "git+ssh://git@github.com/maxverbeek/mictap";
+    mictap.inputs.nixpkgs.follows = "unstable";
+
     copd.url = "github:maxverbeek/copd";
     copd.inputs.nixpkgs.follows = "unstable";
 
