@@ -28,21 +28,18 @@
 
       texliveCombined =
         pkgs:
-        pkgs.texlive.combine {
-          inherit (pkgs.texlive)
-            scheme-tetex
-            latexmk
-            biblatex
-            tcolorbox
-            pdfcol
-            upquote
-            grffile
-            adjustbox
-            ;
-        };
+        pkgs.texliveTeTeX.withPackages (ps: [
+          ps.latexmk
+          ps.biblatex
+          ps.tcolorbox
+          ps.pdfcol
+          ps.upquote
+          ps.grffile
+          ps.adjustbox
+        ]);
     in
     {
-      # texlive.combine is a slow local rebuild on every host; pre-build it.
+      # The texlive env is a slow local rebuild on every host; pre-build it.
       my.cachePackages.texlive = texliveCombined pkgs;
       my.cachePackages.gitlab-reviewer = my.pkgs.gitlab-reviewer;
       my.cachePackages.xtee = my.pkgs.xtee;
