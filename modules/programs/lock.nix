@@ -5,7 +5,8 @@
     let
       lock = pkgs.writeScriptBin "lock" ''
         #!${pkgs.bash}/bin/bash
-        exec ${pkgs.swaylock-effects}/bin/swaylock -S --effect-pixelate 50 $@
+        ${pkgs.procps}/bin/pgrep -xu "$UID" swaylock >/dev/null && exit 0
+        exec ${pkgs.swaylock-effects}/bin/swaylock -S --effect-pixelate 50 "$@"
       '';
       inactiveInterval = 5 * 60; # seconds, ISO27001 compliant
       args = [
