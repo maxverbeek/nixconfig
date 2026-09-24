@@ -3,11 +3,10 @@
     {
       my,
       pkgs,
-      config,
       ...
     }:
     {
-      programs.regreet = {
+      services.displayManager.regreet = {
         enable = true;
         cageArgs = [
           "-s"
@@ -49,7 +48,6 @@
         pkgs.papirus-icon-theme
       ];
 
-      services.greetd.enable = config.programs.regreet.enable;
       services.dbus.packages = [ pkgs.gcr_4 ];
       # PAM's enableGnomeKeyring only runs the daemon as `--login`: it unlocks
       # the login keyring but serves nothing on the bus, so Secret Service
