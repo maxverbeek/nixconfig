@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790335207,
-        "narHash": "sha256-768V8g9vbAejWyrsI7kXXBoW45jzuIWaB+EwE2PpXZQ=",
+        "lastModified": 1790352260,
+        "narHash": "sha256-p4OR3R1xr8Qlv+uTNpPW4xcFL8y92kCVF4d8lIc6a94=",
         "ref": "refs/heads/master",
-        "rev": "56786ec5f0392d8f37c94df0aabab782aea66f10",
-        "revCount": 95,
+        "rev": "8a0db0bd16cc4ef6b3a8668087faaf770fb05659",
+        "revCount": 97,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/barbell"
       },
@@ -456,11 +456,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790344102,
-        "narHash": "sha256-WLyHGyZrtyQzDYpqQlJQkRTJl59oGCldwYNHtB5u0zo=",
+        "lastModified": 1790352257,
+        "narHash": "sha256-RXsQt6L2jxzuBILa7YwIooIIJNVvev9vz2IGMJ7c3a8=",
         "ref": "refs/heads/main",
-        "rev": "7bfb8770bbdfc8b2232df3ac308993591494086f",
-        "revCount": 61,
+        "rev": "602bb20989ceaaa1dd203fa0faee77bd13090d07",
+        "revCount": 64,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/mictap"
       },
