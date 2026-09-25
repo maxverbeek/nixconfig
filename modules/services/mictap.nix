@@ -55,6 +55,8 @@
           User = "mictap";
           Group = "mictap";
           StateDirectory = "mictap";
+          # UMask 0002 is for the vault; transcripts, embeddings and audio stay private.
+          StateDirectoryMode = "0750";
           Restart = "on-failure";
           RestartSec = 5;
           ProtectSystem = "strict";
