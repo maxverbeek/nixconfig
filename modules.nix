@@ -5,6 +5,8 @@ my.lib.modules.importSharded 3 ./modules
   external = {
     walker = my.sources.walker.nixosModules.default;
     stalker = my.sources.stalker.nixosModules.default;
+    mictap-server = my.sources.mictap.nixosModules.server;
+    mictap-recorder = my.sources.mictap.nixosModules.recorder;
     disko = my.sources.disko.nixosModules.disko;
     agenix = my.sources.agenix.nixosModules.default;
     breadhero = my.sources.breadhero.nixosModules.default;

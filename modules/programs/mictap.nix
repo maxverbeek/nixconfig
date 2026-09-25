@@ -1,23 +1,12 @@
 {
   nixos.programs.mictap =
-    { my, pkgs, ... }:
+    { my, ... }:
     {
-      environment.systemPackages = [ my.pkgs.mictap ];
+      imports = [ my.modules.external.mictap-recorder ];
 
-      systemd.user.services.mictap = {
-        description = "mictap meeting recorder";
-        after = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-        wantedBy = [ "graphical-session.target" ];
-        path = [
-          pkgs.pipewire
-          pkgs.libnotify
-        ];
-        serviceConfig = {
-          ExecStart = "${my.pkgs.mictap}/bin/mictap daemon";
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
+      services.mictap.recorder = {
+        enable = true;
+        server = "http://scopecreep:8765";
       };
     };
 }

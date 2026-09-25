@@ -55,9 +55,7 @@
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
-          # --local-no-set-modtime: an upload over a file another user (mictap) owns
-          # otherwise fails, since only the owner may set explicit mtimes.
-          ExecStart = "${pkgs.rclone}/bin/rclone serve webdav --local-no-set-modtime --addr :${toString port} --htpasswd ${htpasswdFile} ${serveDirectory}";
+          ExecStart = "${pkgs.rclone}/bin/rclone serve webdav --addr :${toString port} --htpasswd ${htpasswdFile} ${serveDirectory}";
           Restart = "always";
           User = "webdav";
           Group = "webdav";

@@ -43,7 +43,6 @@ let
     elephant-gitlab = my.sources.elephant-gitlab.packages.${system}.default;
     stalker = my.sources.stalker.packages.${system}.default;
     stalker-git-hooks = my.sources.stalker.packages.${system}.git-hooks;
-    mictap = my.sources.mictap.packages.${system}.default;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
     opencode = my.sources.opencode.packages.${system}.default;
     xtee = my.sources.xtee.packages.${system}.default;
