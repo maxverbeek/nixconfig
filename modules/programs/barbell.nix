@@ -28,6 +28,9 @@
         wants = [ "niri.service" ];
         after = [ "niri.service" ];
         wantedBy = [ "graphical-session.target" ];
+        # It spawns whatever is installed (jq, curl, herdr, niri, mictap, ...);
+        # user units otherwise get only coreutils and friends.
+        path = [ "/run/current-system/sw" ];
         serviceConfig = {
           ExecStart = "${my.pkgs.barbell}/bin/barbell";
           Restart = "always";

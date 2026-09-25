@@ -40,6 +40,11 @@
             cmd = "nautilus";
           }
           {
+            key = "r";
+            desc = "Record meeting (start/stop)";
+            cmd = "mictap toggle";
+          }
+          {
             key = "t";
             desc = "Toggle theme (light/dark)";
             cmd = "theme-toggle";

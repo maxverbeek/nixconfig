@@ -163,6 +163,8 @@
         partOf = [ "graphical-session.target" ];
         wantedBy = [ "graphical-session.target" ];
         unitConfig.ConditionEnvironment = "WAYLAND_DISPLAY";
+        # Launched apps and runner commands resolve through this PATH.
+        path = [ "/run/current-system/sw" ];
         restartTriggers = map (p: config.environment.etc."xdg/elephant/providers/${p}.so".source) (
           defaultProviders ++ [ "gitlab" ]
         );
@@ -186,6 +188,7 @@
         partOf = [ "graphical-session.target" ];
         wantedBy = [ "graphical-session.target" ];
         unitConfig.ConditionEnvironment = "WAYLAND_DISPLAY";
+        path = [ "/run/current-system/sw" ];
         restartTriggers = [ config.environment.etc."xdg/walker/config.toml".source ];
         serviceConfig = {
           ExecStart = "${config.programs.walker.package}/bin/walker --gapplication-service";
