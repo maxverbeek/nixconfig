@@ -1,6 +1,6 @@
 {
   nixos.programs.dev-tools =
-    { my, pkgs, ... }:
+    { my, pkgs, lib, ... }:
     let
       secrand = pkgs.writeScriptBin "secrand" ''
         #!${pkgs.ruby}/bin/ruby
@@ -85,7 +85,7 @@
         kdePackages.okular
         kdePackages.kolourpaint
         librsvg
-        minikube
+        (lib.lowPrio minikube)
         # stable's build hits a wrap-gapps-hook bug; drop the unstable pin
         # once nixos-26.05 builds it again
         my.pkgs.unstable.mongodb-compass
