@@ -20,8 +20,8 @@
         }/model.onnx";
         # "recongition" is upstream's spelling of the release tag.
         MICTAP_EMB_MODEL = pkgs.fetchurl {
-          url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx";
-          hash = "sha256-GjMTRfBIBbrbtJXHdabd/83RpzJWfV7Is9V0njx6Xks=";
+          url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx";
+          hash = "sha256-qjz8FpY6EFhqk5P1A11ta1fpjTWLNH+AwqML9PAM66I=";
         };
       };
     in
