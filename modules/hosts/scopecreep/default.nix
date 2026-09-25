@@ -18,6 +18,7 @@
         services.huurhunter
         services.copd
         services.harmonia
+        services.mictap
 
         my.modules.external.disko
 
