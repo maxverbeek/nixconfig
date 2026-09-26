@@ -456,11 +456,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790456204,
-        "narHash": "sha256-EUk3C7PFQYu7itwlCQSyvLO9TCClNbWK2Q4vPY5zRU8=",
+        "lastModified": 1790457129,
+        "narHash": "sha256-dnouQle03belkAyq8svupAjjNgGB1rAk4Crf4xpsRXQ=",
         "ref": "refs/heads/main",
-        "rev": "7c272b3fd0a73cdf881aa5bfb0fc3bddbd5f0cfe",
-        "revCount": 76,
+        "rev": "16a82fa0a047e4786424a87bd20340ed97c408b5",
+        "revCount": 80,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/mictap"
       },
