@@ -234,11 +234,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790594084,
-        "narHash": "sha256-49ZSZoTiEWOB2fz+l0vZNvZDTOZnD8i+i8SkIId2LlQ=",
+        "lastModified": 1790619476,
+        "narHash": "sha256-Ej6xza/gRU/KRfIq7/k3fcaJ2pRsH0FQF5FQLxlqc40=",
         "owner": "maxverbeek",
         "repo": "elephant-gitlab",
-        "rev": "95ebbb6ce41cce0879e2f314a61cf054def08c51",
+        "rev": "7adee06083789e09be31b253213fcbbbba9b4df4",
         "type": "github"
       },
       "original": {
