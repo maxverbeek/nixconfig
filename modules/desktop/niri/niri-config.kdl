@@ -633,6 +633,7 @@ binds {
 
     Mod+Escape { reset-window-height; }
     Mod+F { maximize-column; }
+    Mod+G { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
     Mod+C { center-column; }
