@@ -76,10 +76,8 @@
         codexh
         llm
 
-        my.pkgs.opencode
         pkgs.mcp-grafana
         pkgs.libnotify
-        my.pkgs.opencode-sessions
         my.pkgs.claude-sessions
         my.pkgs.wrapped.herdr
       ];

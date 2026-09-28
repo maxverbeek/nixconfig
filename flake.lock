@@ -453,11 +453,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790596247,
-        "narHash": "sha256-A4AvSTHiIydRTbkKUkfLdKPuJgN+K4NiVBMB8BNbPCI=",
+        "lastModified": 1790603709,
+        "narHash": "sha256-Eqweq48qin3eEkbsGD2dowAmq0ZyrbzXyeifQVZk2CI=",
         "ref": "refs/heads/main",
-        "rev": "e831aedc80147926a80ef5a7a08f2d8aaa7ba296",
-        "revCount": 88,
+        "rev": "09daf1f543cde21423c2ac7b600bb563022b227d",
+        "revCount": 89,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/mictap"
       },
@@ -626,27 +626,6 @@
         "type": "github"
       }
     },
-    "opencode": {
-      "inputs": {
-        "nixpkgs": [
-          "unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1786085381,
-        "narHash": "sha256-yUPwXDv93O0Ub/giX78FJyFxZyaUzSguDoK2y/YIPBM=",
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "rev": "d7b115f623760e68a4749d16508a9eca350f246f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anomalyco",
-        "ref": "v1.18.15",
-        "repo": "opencode",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "adw-catppuccin": "adw-catppuccin",
@@ -666,7 +645,6 @@
         "mictap": "mictap",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-ruby": "nixpkgs-ruby",
-        "opencode": "opencode",
         "stalker": "stalker",
         "unstable": "unstable",
         "walker": "walker",
@@ -876,11 +854,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1790463110,
-        "narHash": "sha256-hKlVl12B1dF0Q5vd9dY3lIJM5mFGWYSlXwSLAqHZ1+s=",
+        "lastModified": 1790578696,
+        "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e158d9ed9b51c98974c5e66e1ba1c9e0255fecaa",
+        "rev": "7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f",
         "type": "github"
       },
       "original": {

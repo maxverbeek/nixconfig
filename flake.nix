@@ -21,9 +21,6 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    opencode.url = "github:anomalyco/opencode/v1.18.15";
-    opencode.inputs.nixpkgs.follows = "unstable";
-
     # don't follow nixpkgs here, to keep the cachix binary cache usable
     claude-code.url = "github:sadjow/claude-code-nix";
 
@@ -73,8 +70,6 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.home-manager.follows = "";
-    agenix.inputs.darwin.follows = "";
 
     # wrapper modules: programs configured as portable derivations (my.pkgs.wrapped.*)
     wrappers.url = "github:nix-community/nix-wrapper-modules";
