@@ -105,12 +105,12 @@
         ripgrep
         rsync
         rtorrent
-        silver-searcher-ng
         slack
         spotify
         sshfs
         tldr
         unp
+        my.pkgs.unstable.silver-searcher-ng
         my.pkgs.unstable.teleport
         my.pkgs.unstable.terraform
         my.pkgs.unstable.opentofu
