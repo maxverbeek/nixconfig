@@ -445,7 +445,7 @@ binds {
     Mod+Return { spawn "foot"; }
     // Mod+Space { spawn "ags" "-i" "ags-max" "toggle" "launcher"; }
     Mod+Space { spawn "walker"; }
-    Super+Alt+L { spawn "lock"; }
+    Super+Alt+L { spawn "lock" "-S" "--effect-pixelate" "50"; }
     Mod+M { spawn "wlr-which-key"; }
     Super+Alt+Space repeat=false hotkey-overlay-title="Toggle voice dictation" { spawn "clankertyper-toggle"; }
 
