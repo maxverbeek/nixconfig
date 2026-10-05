@@ -19,7 +19,12 @@
       # Pre-build the shared packages after each nightly upgrade so laptops can
       # substitute instead of compiling. Not the desktop toplevels: two full
       # closures a night is ~30G on a 75G disk, which filled it to 100%.
+      # Hourly too: CI lock bumps and pushes land whenever, and a no-op run is seconds.
       systemd.services.nixos-upgrade.onSuccess = [ "prebuild-hosts.service" ];
+      systemd.timers.prebuild-hosts = {
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = "hourly";
+      };
       systemd.services.prebuild-hosts = {
         description = "Pre-build shared packages for the binary cache";
         path = [
