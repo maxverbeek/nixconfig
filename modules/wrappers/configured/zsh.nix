@@ -17,12 +17,24 @@
         # moby (787 MiB) into every host's closure, including the podman-only VPS.
         command -v docker >/dev/null || exit 0
 
-        if [ "$(docker ps -q | wc -l)" -gt 0 ]; then
-          read -p "There are containers running, shutdown anyway? y/n: " -n 1 -r
+        running=$(docker ps -q)
+        if [ -n "$running" ]; then
+          read -p "There are containers running, shutdown anyway? y/n/s(top them first): " -n 1 -r
           echo
-          if [[ ! $REPLY =~ [Yy]$ ]]; then
-            exit 1
-          fi
+          case $REPLY in
+            [Yy]) ;;
+            [Ss])
+              # From / so a compose file in $PWD can't shadow the project
+              # being brought down.
+              cd /
+              for p in $(docker compose ls -q); do
+                docker compose -p "$p" down
+              done
+              running=$(docker ps -q)
+              [ -n "$running" ] && docker stop $running >/dev/null
+              ;;
+            *) exit 1 ;;
+          esac
         fi
 
         exit 0
