@@ -30,13 +30,18 @@
       tlogin = pkgs.writeScriptBin "tlogin" ''
         #!${pkgs.expect}/bin/expect -f
         set timeout 30
-        set pw [exec op item get Teleport --fields password --reveal]
-        spawn tsh login --proxy=teleport.researchable.dev --user=m.j.verbeek --mfa-mode=otp {*}$argv
-        expect "*assword*"
-        send -- "$pw\r"
-        expect "*OTP*"
-        send -- "[exec op item get Teleport --otp]\r"
-        expect eof
+        # else tsh queries the terminal and the reply is echoed as junk
+        set env(TERM) dumb
+        spawn -noecho tsh login --proxy=teleport.researchable.dev --user=m.j.verbeek --mfa-mode=otp {*}$argv
+        expect {
+          "*assword*" {
+            send -- "[exec op item get Teleport --fields password --reveal]\r"
+            expect "*OTP*"
+            send -- "[exec op item get Teleport --otp]\r"
+            expect eof
+          }
+          eof
+        }
         catch wait result
         exit [lindex $result 3]
       '';

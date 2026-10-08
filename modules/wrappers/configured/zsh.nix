@@ -112,7 +112,7 @@
         # Global alias: -oenv anywhere in a command becomes a kubectl
         # go-template flag rendering a secret's .data as sourceable dotenv
         # export lines. The -- is required for an alias name starting with -.
-        alias -g -- -oenv="-o go-template='{{range \$k,\$v := .data}}export {{\$k}}={{\$v | base64decode}}{{\"\n\"}}{{end}}'"
+        alias -g -- -oenv="-o go-template='{{range \$k,\$v := .data}}{{\$k}}={{\$v | base64decode}}{{\"\n\"}}{{end}}'"
 
         (( $+commands[op] )) && eval "$(op completion zsh)"
 
