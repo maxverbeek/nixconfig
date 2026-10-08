@@ -26,6 +26,21 @@
         exec jq 'map_values(.| @base64d)'
       '';
 
+      # tsh refuses a piped password, so expect provides the tty.
+      tlogin = pkgs.writeScriptBin "tlogin" ''
+        #!${pkgs.expect}/bin/expect -f
+        set timeout 30
+        set pw [exec op item get Teleport --fields password --reveal]
+        spawn tsh login --proxy=teleport.researchable.dev --user=m.j.verbeek --mfa-mode=otp {*}$argv
+        expect "*assword*"
+        send -- "$pw\r"
+        expect "*OTP*"
+        send -- "[exec op item get Teleport --otp]\r"
+        expect eof
+        catch wait result
+        exit [lindex $result 3]
+      '';
+
       texliveCombined =
         pkgs:
         pkgs.texliveTeTeX.withPackages (ps: [
@@ -141,6 +156,7 @@
         secrand
         gitlabcivars
         jqd
+        tlogin
       ];
 
       systemd.user.tmpfiles.users.max.rules = [
