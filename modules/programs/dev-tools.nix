@@ -9,16 +9,6 @@
         puts SecureRandom.hex(if ARGV[0].nil? then 64 else ARGV[0].to_i end)
       '';
 
-      gitlabcivars = pkgs.writeScriptBin "gitlabcivars" ''
-        #!${pkgs.bash}/bin/bash
-
-        if [ ! -f ~/.gitlab_pat ]; then
-          echo "File ~/.gitlab_pat not found"
-          exit 1
-        fi
-
-        GITLAB_TOKEN=$(cat ~/.gitlab_pat) ${pkgs.glab}/bin/glab variable export | ${pkgs.jq}/bin/jq -r ".[] | (.key + \"=\" + .value)"
-      '';
 
       jqd = pkgs.writeScriptBin "jqd" ''
         #!${pkgs.bash}/bin/bash
@@ -61,7 +51,6 @@
     {
       # The texlive env is a slow local rebuild on every host; pre-build it.
       my.cachePackages.texlive = texliveCombined pkgs;
-      my.cachePackages.gitlab-reviewer = my.pkgs.gitlab-reviewer;
       my.cachePackages.xtee = my.pkgs.xtee;
 
       environment.systemPackages = with pkgs; [
@@ -87,8 +76,6 @@
         (wrapFirefox firefox-unwrapped { })
         gcc
         gh
-        my.pkgs.gitlab-reviewer
-        glab
         gimp
         gnumake
         hcloud
@@ -159,7 +146,6 @@
         my.pkgs.zen-browser
 
         secrand
-        gitlabcivars
         jqd
         tlogin
       ];

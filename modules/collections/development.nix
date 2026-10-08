@@ -12,6 +12,7 @@
         programs.vscode
         programs.gog
         programs.dev-tools
+        programs.gitlab
         programs.claude
         programs.agents
         programs.bitwarden
