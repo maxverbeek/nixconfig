@@ -3,9 +3,9 @@
   # host=gitlab.com`) and rotated every other day with a 20-day lifetime, so a
   # token that leaks (a transcript, a paste) is dead within two days.
   #
-  # Bootstrap once, then delete the token line from glab's config.yml:
-  #   tr -d '\n' < ~/.gitlab_pat \
-  #     | secret-tool store --label='GitLab PAT (gitlab.com)' service gitlab host gitlab.com
+  # glab, stalker, gitlab-reviewer and elephant-gitlab all read that one item.
+  # Bootstrap a new machine with (prompts for the token):
+  #   secret-tool store --label='GitLab PAT (gitlab.com)' service gitlab host gitlab.com
   nixos.programs.gitlab =
     { my, pkgs, ... }:
     let
@@ -50,16 +50,11 @@
           printf %s "$token" \
             | secret-tool store --label='GitLab PAT (gitlab.com)' service gitlab host gitlab.com
 
-          # ponytail: plaintext mirror for stalker, gitlab-reviewer and
-          # elephant-gitlab, which only read ~/.gitlab_pat; drop it once they
-          # look the token up in the keyring.
-          printf %s "$token" > "$HOME/.gitlab_pat.new"
-          mv "$HOME/.gitlab_pat.new" "$HOME/.gitlab_pat"
-
           rm "$response"
 
-          # Both read the token once at startup.
-          systemctl --user try-restart stalker.service elephant.service
+          # stalker reads the token once at startup; elephant-gitlab looks it
+          # up every refresh and the CLIs on every run.
+          systemctl --user try-restart stalker.service
         '';
       };
 

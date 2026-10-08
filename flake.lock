@@ -234,11 +234,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791095907,
-        "narHash": "sha256-amF23fIBFbjk0SMCTtzPqLM0Aw3gp6l997s/objhDV4=",
+        "lastModified": 1791468114,
+        "narHash": "sha256-P6yw9CGyElWafmvib67+fBU1s+y9O97zyTgRVbjq7uA=",
         "owner": "maxverbeek",
         "repo": "elephant-gitlab",
-        "rev": "67bdfe2bfd813678b13aa8bfda8102fe7d31abbf",
+        "rev": "754c7f1b3f23aef6525255444a448ce50eb7c817",
         "type": "github"
       },
       "original": {
@@ -392,11 +392,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1791095280,
-        "narHash": "sha256-j2vv0ay0Et5YKb0hGCgoqPAHSTxK5wwe9UsRMks0We8=",
+        "lastModified": 1791468100,
+        "narHash": "sha256-QEcBC4rNfAQlK+GmaV0a+5RKP1j1LQAbiY/XcFaqp00=",
         "owner": "maxverbeek",
         "repo": "gitlab-reviewer",
-        "rev": "e59e9725a942c9bfc070274f253e4fa4b6d21ffe",
+        "rev": "9ac79a71617bac2dc2d6d95edd1f99a758761f97",
         "type": "github"
       },
       "original": {
