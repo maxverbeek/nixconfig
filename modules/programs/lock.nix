@@ -5,14 +5,14 @@
     let
       lock = pkgs.writeScriptBin "lock" ''
         #!${pkgs.bash}/bin/bash
-        exec ${pkgs.swaylock-effects}/bin/swaylock "$@"
+        exec ${pkgs.swaylock-effects}/bin/swaylock -f -S --effect-pixelate 50 "$@"
       '';
       inactiveInterval = 5 * 60; # seconds, ISO27001 compliant
       args = [
         "-w"
         "timeout"
         (toString (inactiveInterval - 10))
-        "${lock}/bin/lock -S --effect-pixelate 50 --grace 10"
+        "${lock}/bin/lock --grace 10"
         "before-sleep"
         "${lock}/bin/lock"
         "lock"
