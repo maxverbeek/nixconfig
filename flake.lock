@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791096222,
-        "narHash": "sha256-7sD7/ShJ/MAlpFGVMNfg9w0b8vewEFzJ4aPusC/ItEk=",
+        "lastModified": 1791643045,
+        "narHash": "sha256-KDbW6Sj065VOOWBzsGmf4bJUwhHf/gGRPHbxYW6JSd4=",
         "ref": "refs/heads/master",
-        "rev": "a99ebd3955ad5b6f0a67f3a5e5c6557daefd5027",
-        "revCount": 69,
+        "rev": "9ce455fa44a4164478be03b8f7a91f780993d77d",
+        "revCount": 70,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/huurhunter"
       },
