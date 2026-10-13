@@ -64,6 +64,7 @@ output "Philips Consumer Electronics Company 55BDL3511Q" {
 
 // stilteruimte 1, widescreen
 output "Samsung Electric Company S34J55x HTOM601054" {
+    mode "3440x1440@74.983"
     position x=1920 y=0
 }
 
