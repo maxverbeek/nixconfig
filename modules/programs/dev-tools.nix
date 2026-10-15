@@ -22,12 +22,21 @@
         set timeout 30
         # else tsh queries the terminal and the reply is echoed as junk
         set env(TERM) dumb
-        spawn -noecho tsh login --proxy=teleport.researchable.dev --user=m.j.verbeek --mfa-mode=otp {*}$argv
+        set item Teleport
+        if {[llength $argv] && [string index [lindex $argv 0] 0] ne "-"} {
+          set argv [lassign $argv cluster]
+          append item " " $cluster
+        }
+        lassign [exec op item get $item --format json | ${pkgs.jq}/bin/jq -r {
+          [(.urls[] | select(.primary).href | sub("^https?://"; "") | split("/")[0]),
+           (.fields[] | select(.id == "username").value)] | join(" ")
+        }] proxy user
+        spawn -noecho tsh login --proxy=$proxy --user=$user --mfa-mode=otp {*}$argv
         expect {
           "*assword*" {
-            send -- "[exec op item get Teleport --fields password --reveal]\r"
+            send -- "[exec op item get $item --fields password --reveal]\r"
             expect "*OTP*"
-            send -- "[exec op item get Teleport --otp]\r"
+            send -- "[exec op item get $item --otp]\r"
             expect eof
           }
           eof
