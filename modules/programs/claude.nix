@@ -20,7 +20,7 @@
           pluginFlags = lib.concatMapStringsSep " " (p: "--plugin-dir ${pluginsDir}/${p}") plugins;
         in
         pkgs.writeShellScriptBin name ''
-          exec ${my.pkgs.claude-code}/bin/claude \
+          exec ${my.pkgs.claude-code}/bin/claude --allow-dangerously-skip-permissions \
             ${pluginFlags} \
             "$@"
         '';
@@ -49,7 +49,7 @@
             > "$overlay"
         fi
 
-        ${my.pkgs.claude-code}/bin/claude \
+        ${my.pkgs.claude-code}/bin/claude --allow-dangerously-skip-permissions \
           --settings "$overlay" \
           --plugin-dir ${pluginsDir}/normal \
           "$@"
@@ -62,6 +62,7 @@
         claudeh
         claudes
         my.pkgs.claude-statusline
+        my.pkgs.secret-guard
       ];
 
       systemd.user.tmpfiles.users.max.rules = [

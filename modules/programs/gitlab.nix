@@ -32,6 +32,7 @@
           pkgs.jq
           pkgs.libsecret
           pkgs.coreutils
+          pkgs.curl
           pkgs.systemd
         ];
         text = ''
@@ -40,6 +41,9 @@
           # response is written to tmpfs before anything else can fail. A
           # failed run leaves it here: store the token by hand from this file.
           response="$XDG_RUNTIME_DIR/gitlab-token-rotate.json"
+
+          # Offline: nothing was sent, so exit 75 and let systemd retry.
+          curl -s -o /dev/null --max-time 15 https://gitlab.com || exit 75
 
           # self/rotate rotates whichever token authenticates the call: no
           # name or id to track, and both change on every rotation anyway.
@@ -59,7 +63,7 @@
       };
 
       notifyFailure = pkgs.writeShellScript "gitlab-token-rotate-notify" ''
-        [ "$SERVICE_RESULT" = success ] && exit 0
+        [ "$SERVICE_RESULT" = success ] || [ "$EXIT_STATUS" = 75 ] && exit 0
         ${pkgs.libnotify}/bin/notify-send -u critical "GitLab token rotation failed" \
           "journalctl --user -u gitlab-token-rotate"
       '';
@@ -80,9 +84,11 @@
           Type = "oneshot";
           ExecStart = "${rotate}/bin/gitlab-token-rotate";
           ExecStopPost = "${notifyFailure}";
-          # No Restart=: a retry after the rotate call went through would
-          # authenticate with the revoked token, which GitLab treats as reuse
-          # and answers by revoking the whole token family.
+          # Only retry the pre-flight offline exit: a retry after the rotate
+          # call went through would authenticate with the revoked token, which
+          # GitLab treats as reuse and answers by revoking the whole token family.
+          RestartForceExitStatus = 75;
+          RestartSec = "20min";
         };
       };
 

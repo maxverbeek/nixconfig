@@ -67,6 +67,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "secret-guard",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Notification": [
@@ -87,6 +97,28 @@
           {
             "type": "command",
             "command": "$HOME/.claude/hooks/block-store-glob.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "secret-guard",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "secret-guard",
             "timeout": 5
           }
         ]

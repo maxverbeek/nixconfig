@@ -1,6 +1,6 @@
 {
   wrappers.configured.wlr-which-key =
-    { wlib, ... }:
+    { wlib, pkgs, ... }:
     {
       imports = [ wlib.wrapperModules.wlr-which-key ];
 
@@ -31,8 +31,8 @@
           }
           {
             key = "b";
-            desc = "Browser (zen)";
-            cmd = "zen-beta";
+            desc = "Browser (default)";
+            cmd = "${pkgs.gtk3}/bin/gtk-launch $(xdg-settings get default-web-browser)";
           }
           {
             key = "f";
