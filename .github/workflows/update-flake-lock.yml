@@ -2,7 +2,7 @@ name: update-flake-lock
 
 on:
   schedule:
-    - cron: "0 2 * * 1" # weekly, monday 02:00 UTC — before the VPS's 04:00 rebuild
+    - cron: "37 1 * * 1" # monday 01:37 UTC, off the hour since GitHub delays :00 runs by hours; before the VPS 04:00 rebuild
   workflow_dispatch:
 
 permissions:
