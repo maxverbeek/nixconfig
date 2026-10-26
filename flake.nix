@@ -63,7 +63,6 @@
     mictap.inputs.nixpkgs.follows = "unstable";
 
     copd.url = "github:maxverbeek/copd";
-    copd.inputs.nixpkgs.follows = "unstable";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";

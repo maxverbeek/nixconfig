@@ -49,6 +49,7 @@ let
 
     breadhero = my.sources.breadhero.packages.${system}.default;
     copd = my.sources.copd.packages.${system}.default;
+    copd-deps = my.sources.copd.packages.${system}.deps;
     feedbackers = my.sources.feedbackers.packages.${system}.default;
     huurhunter = my.sources.huurhunter.packages.${system}.default;
 
