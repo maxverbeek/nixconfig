@@ -19,6 +19,7 @@
         services.copd
         services.harmonia
         services.mictap
+        services.maxtransfer
 
         my.modules.external.disko
 

@@ -69,6 +69,9 @@
         "L+ %h/.codex/AGENTS.md - - - - ${sharedDir}/AGENTS.md"
 
         "L+ %h/.agents/skills/register-hours - - - - ${pluginsDir}/hours/skills/register-hours"
+
+        "L+ %h/.agents/skills/herdr - - - - ${my.pkgs.wrapped.herdr}/share/skills/herdr/herdr"
+        "L+ %h/.claude/skills/herdr - - - - ${my.pkgs.wrapped.herdr}/share/skills/herdr/herdr"
       ];
 
       environment.systemPackages = [
