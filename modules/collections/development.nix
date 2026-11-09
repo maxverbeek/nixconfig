@@ -11,6 +11,7 @@
         programs.direnv
         programs.vscode
         programs.gog
+        programs.conflucloner
         programs.dev-tools
         programs.gitlab
         programs.claude

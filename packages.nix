@@ -39,6 +39,7 @@ let
   fromInputs = {
     barbell = my.sources.barbell.packages.${system}.default;
     clankertyper = my.sources.clankertyper.packages.${system}.default;
+    conflucloner = my.sources.conflucloner.packages.${system}.default;
     elephant = my.sources.elephant.packages.${system}.default;
     elephant-gitlab = my.sources.elephant-gitlab.packages.${system}.default;
     stalker = my.sources.stalker.packages.${system}.default;

@@ -59,6 +59,9 @@
     stalker.url = "git+ssh://git@github.com/maxverbeek/stalker";
     stalker.inputs.nixpkgs.follows = "unstable";
 
+    conflucloner.url = "git+ssh://git@github.com/maxverbeek/conflucloner";
+    conflucloner.inputs.nixpkgs.follows = "unstable";
+
     mictap.url = "git+ssh://git@github.com/maxverbeek/mictap";
     mictap.inputs.nixpkgs.follows = "unstable";
 

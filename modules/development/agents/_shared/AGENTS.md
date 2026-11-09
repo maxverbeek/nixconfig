@@ -14,6 +14,16 @@ so edits here take effect immediately, no rebuild.
 - There is no `/etc/nixos`. Everything lives in `~/nixconfig`.
 - Rebuild with `just` targets in `~/nixconfig/Justfile`.
 
+## Local checkouts
+
+`~/Researchable` holds a clone of every active (non-archived, non-empty)
+repo in the `researchable` GitLab group; look there before cloning.
+If the GitLab path is `researchable/sport-data-valley/{mvp,sdv}/<repo>` it
+lives at `~/Researchable/sdv/<repo>`, otherwise strip the leading
+`researchable/` and use the rest as the path under `~/Researchable`. Repos
+from other GitLab groups (e.g. `legal-mike/<repo>`) live at
+`~/Researchable/<group>/<repo>`.
+
 ## Tooling defaults
 
 - Nix first. Do not suggest `apt`, `brew`, `pacman`, or global `npm -g`.

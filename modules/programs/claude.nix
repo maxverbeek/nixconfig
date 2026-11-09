@@ -62,7 +62,6 @@
         claudeh
         claudes
         my.pkgs.claude-statusline
-        my.pkgs.secret-guard
       ];
 
       systemd.user.tmpfiles.users.max.rules = [

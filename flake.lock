@@ -117,6 +117,26 @@
         "type": "github"
       }
     },
+    "conflucloner": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794216926,
+        "narHash": "sha256-TQ3kZfcVib6N0uX6B9k8iFfjyqQg3ITIkMyUkHZQbBY=",
+        "ref": "refs/heads/main",
+        "rev": "4a9c674eafd79e7fd701f515ab53f4a994b44cfb",
+        "revCount": 59,
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/conflucloner"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/conflucloner"
+      }
+    },
     "copd": {
       "inputs": {
         "crane": "crane_2",
@@ -664,6 +684,7 @@
         "breadhero": "breadhero",
         "clankertyper": "clankertyper",
         "claude-code": "claude-code",
+        "conflucloner": "conflucloner",
         "copd": "copd",
         "disko": "disko",
         "elephant": "elephant",
