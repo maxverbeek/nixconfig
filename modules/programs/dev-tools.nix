@@ -127,7 +127,7 @@
         tldr
         unp
         my.pkgs.unstable.silver-searcher-ng
-        my.pkgs.unstable.teleport
+        teleport
         my.pkgs.unstable.terraform
         my.pkgs.unstable.opentofu
         unzip

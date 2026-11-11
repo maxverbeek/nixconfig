@@ -7,6 +7,19 @@
       pluginsDir = "${agentsDir}/_plugins";
       sharedDir = "${agentsDir}/_shared";
 
+      # nixpkgs' cargo hook now links system libs; master's codex has these
+      # buildInputs, nixos-unstable not yet. Drop once unstable has them.
+      codexPkg = my.pkgs.unstable.codex.overrideAttrs (o: {
+        buildInputs =
+          o.buildInputs
+          ++ (with my.pkgs.unstable; [
+            aws-lc
+            oniguruma
+            sqlite
+            zstd
+          ]);
+      });
+
       mkCodex =
         name: profileArgs:
         pkgs.writeShellScriptBin name ''
@@ -16,7 +29,7 @@
             export OPENAI_API_KEY=$(<"$HOME/.openai_key")
           fi
 
-          exec ${my.pkgs.unstable.codex}/bin/codex ${profileArgs} "$@"
+          exec ${codexPkg}/bin/codex ${profileArgs} "$@"
         '';
 
       codex = mkCodex "codex" "";
@@ -75,8 +88,8 @@
       ];
 
       environment.systemPackages = [
-        codex
-        codexh
+        # codex  # unstable 0.167 broken, source build; re-enable when cached
+        # codexh
         llm
 
         pkgs.mcp-grafana

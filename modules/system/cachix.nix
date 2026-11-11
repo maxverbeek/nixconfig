@@ -11,7 +11,8 @@
       ];
 
       # Fall back to rebuilding rather than hanging when the cache is down.
-      connect-timeout = 3;
+      # Bounds DNS too: MagicDNS can take several seconds on a flaky network.
+      connect-timeout = 10;
       download-attempts = 1;
       stalled-download-timeout = 15; # seconds
       fallback = true;

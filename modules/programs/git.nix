@@ -9,5 +9,8 @@
         pkgs.git-filter-repo
         pkgs.mr
       ];
+
+      # Tools that embed their own git (conflucloner, lazygit) bypass the wrapper.
+      environment.sessionVariables.GIT_CONFIG_GLOBAL = "${my.pkgs.wrapped.git}/gitconfig";
     };
 }

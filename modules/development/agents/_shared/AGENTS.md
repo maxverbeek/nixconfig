@@ -43,6 +43,32 @@ from other GitLab groups (e.g. `legal-mike/<repo>`) live at
   boundaries, no half-finished implementations.
 - Never leave a task partially done and report it as complete.
 
+## Waiting on things (listeners, polls, background builds)
+
+- Long work and waits belong in the background (`run_in_background`);
+  don't block the conversation on them. But first run the probe command
+  once, quickly, and look at its real output before wrapping it in a loop. Never assume a format (e.g.
+  `herdr pane read` is plain text, not JSON).
+- The loop must exit on probe failure, not only on success: a failing
+  `jq`/`grep` inside `until` spins forever silently.
+- Match only output produced after you started. Pane/scrollback waits
+  (`herdr pane wait-output`) match stale text from earlier runs; anchor
+  on a unique marker you echo first, or on the new command line, and
+  make sure the end condition can't match that command line itself.
+- Don't pipe into `tail`/`head` when the exit status matters; it masks
+  the real one.
+- Never `pkill -f <pattern>` where the pattern also appears in your own
+  command line; it kills your shell. Use the task ID or a PID.
+- MRs in the gitlab.com/researchable group get an automatic review from
+  `researchable-claude-reviewer`, which usually posts resolvable threads.
+  Unresolved threads block merging (`detailed_merge_status:
+  discussions_not_resolved`), even with auto-merge on and a green
+  pipeline. When waiting on an MR, end the wait on new review threads
+  too, not only on merge or pipeline status, and address them first.
+- A pipeline started with `glab ci run` has source `api`, not `web`. Jobs
+  gated on `web` or `schedule` can then land in `manual` instead. Treat
+  `manual` as an end state in pipeline waits, or the loop never exits.
+
 ## Plane tickets
 
 - Always use the `work ticket` CLI (manage-tickets skill). Never curl
