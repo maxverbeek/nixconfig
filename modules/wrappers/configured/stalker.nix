@@ -40,8 +40,13 @@
     { my, ... }:
     {
       # The global post-commit hook that reports authored commits to the daemon.
-      # stalker's NixOS module installs no git config of its own: this wrapper's
-      # config never reaches /etc for it to merge with.
-      settings.core.hooksPath = toString my.pkgs.stalker-git-hooks;
+      # A config hook rather than core.hooksPath, so it adds to each repo's own
+      # hooks instead of shadowing them. stalker's NixOS module installs no git
+      # config of its own: this wrapper's config never reaches /etc for it to
+      # merge with.
+      settings.hook.stalker = {
+        event = "post-commit";
+        command = toString my.pkgs.stalker-post-commit;
+      };
     };
 }
