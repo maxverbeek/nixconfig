@@ -46,7 +46,7 @@
       # merge with.
       settings.hook.stalker = {
         event = "post-commit";
-        command = toString my.pkgs.stalker-post-commit;
+        command = "${my.pkgs.stalker}/bin/stalker hook post-commit";
       };
     };
 }

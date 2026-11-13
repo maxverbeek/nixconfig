@@ -63,7 +63,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "command -v stalker-claude-prompt >/dev/null 2>&1 && exec stalker-claude-prompt; exit 0",
+            "command": "command -v stalker >/dev/null 2>&1 && stalker hook claude-prompt 2>/dev/null; exit 0",
             "timeout": 5
           }
         ]

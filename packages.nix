@@ -43,7 +43,6 @@ let
     elephant = my.sources.elephant.packages.${system}.default;
     elephant-gitlab = my.sources.elephant-gitlab.packages.${system}.default;
     stalker = my.sources.stalker.packages.${system}.default;
-    stalker-post-commit = my.sources.stalker.packages.${system}.git-post-commit;
     gitlab-reviewer = my.sources.gitlab-reviewer.packages.${system}.default;
     xtee = my.sources.xtee.packages.${system}.default;
     zen-browser = my.sources.zen-browser.packages.${system}.default;

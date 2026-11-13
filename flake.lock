@@ -800,11 +800,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794562379,
-        "narHash": "sha256-+48zIvIrB15KoAN/0GAAC52s6jSRbEPWVwmILlcp6Fc=",
+        "lastModified": 1794579823,
+        "narHash": "sha256-2AMmHeDkGnvkc6JPaj0SQ3ci/KNGS3w/mAZN2KIg5c4=",
         "ref": "refs/heads/main",
-        "rev": "d7ca503706b30859da52186f9db06287d80fb5f1",
-        "revCount": 538,
+        "rev": "3563318662672fe29108ad94fb930e0ee5cc7829",
+        "revCount": 539,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/stalker"
       },
