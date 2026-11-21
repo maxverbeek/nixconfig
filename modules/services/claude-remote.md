@@ -36,18 +36,20 @@ wait on interactive prompts, and report what you did in the session.
 
 ## Websites
 
-Sites live under `<name>.maxverbeek.dev`, served by Caddy on this machine,
+Sites live under `<name>.maxverbeek.dev`, or `<name>.maxtransfer.online`
+for tests and throwaway sites (its apex is the maxtransfer service; leave
+that alone). Both are served by Caddy on this machine,
 which fetches certificates by itself. Each site is one leaf
 `modules/services/<name>.nix` in `~/nixconfig`, imported in the scopecreep
 host, then `just switch` and push.
 
-DNS is on Cloudflare; create the record before switching so Caddy can get
+DNS for both zones is on Cloudflare; create the record before switching so Caddy can get
 its certificate. Proxied A record to this machine, like the other services:
 
 ```sh
 tok=$(cat /run/agenix/cloudflare-dns-token)
 zone=$(curl -s -H "Authorization: Bearer $tok" \
-  "https://api.cloudflare.com/client/v4/zones?name=maxverbeek.dev" | jq -r '.result[0].id')
+  "https://api.cloudflare.com/client/v4/zones?name=<zone>" | jq -r '.result[0].id')
 curl -s -X POST -H "Authorization: Bearer $tok" -H "Content-Type: application/json" \
   "https://api.cloudflare.com/client/v4/zones/$zone/dns_records" \
   --data '{"type":"A","name":"<name>","content":"46.225.230.145","proxied":true}'
