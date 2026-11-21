@@ -10,6 +10,7 @@
   huurhunter-monitor-env.file = ./huurhunter-monitor-env.age;
   webdav-htpasswd.file = ./webdav-htpasswd.age;
   harmonia-signing-key.file = ./harmonia-signing-key.age;
+  cloudflare-dns-token.file = ./cloudflare-dns-token.age;
   # thinkpad decrypts with max's key (no sshd there), so it needs no host entry.
   nordlynx-key.file = ./nordlynx-key.age;
 }

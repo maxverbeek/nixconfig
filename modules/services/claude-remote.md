@@ -34,6 +34,38 @@ wait on interactive prompts, and report what you did in the session.
   so anything not pushed to the remote disappears overnight.
 - Commits: one-line conventional commits, no Claude footer.
 
+## Websites
+
+Sites live under `<name>.maxverbeek.dev`, served by Caddy on this machine,
+which fetches certificates by itself. Each site is one leaf
+`modules/services/<name>.nix` in `~/nixconfig`, imported in the scopecreep
+host, then `just switch` and push.
+
+DNS is on Cloudflare; create the record before switching so Caddy can get
+its certificate. Proxied A record to this machine, like the other services:
+
+```sh
+tok=$(cat /run/agenix/cloudflare-dns-token)
+zone=$(curl -s -H "Authorization: Bearer $tok" \
+  "https://api.cloudflare.com/client/v4/zones?name=maxverbeek.dev" | jq -r '.result[0].id')
+curl -s -X POST -H "Authorization: Bearer $tok" -H "Content-Type: application/json" \
+  "https://api.cloudflare.com/client/v4/zones/$zone/dns_records" \
+  --data '{"type":"A","name":"<name>","content":"46.225.230.145","proxied":true}'
+```
+
+Never touch existing records unless asked.
+
+- Static site: build into `/srv/www/<name>` (writable by max; Caddy can't
+  read `~`), and serve it with
+  `services.caddy.virtualHosts."<name>.maxverbeek.dev".extraConfig = "root * /srv/www/<name>\nfile_server";`
+  plus `services.caddy.enable = true;`. Later content updates are just a
+  rebuild into that directory, no switch.
+- App with a backend: follow the existing services, e.g.
+  `modules/services/n8n.nix` (systemd service + `reverse_proxy`) or
+  `modules/services/breadhero.nix` (packaged flake input in a guest with
+  `proxy."<host>" = port`). Ports must not clash with other services.
+- Check with `curl -I https://<name>.maxverbeek.dev` before reporting done.
+
 ## GitHub
 
 - `gh` is authenticated as maxverbeek. New repo:

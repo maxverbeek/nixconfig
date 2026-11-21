@@ -12,11 +12,19 @@
         (lib.hiPrio my.pkgs.wrapped.git)
         pkgs.gh
         pkgs.just
+        pkgs.jq
       ];
 
       # Lets `just switch` deploy from a checkout here. This makes wheel (and so
       # any claude session max runs) root-equivalent.
       security.sudo.wheelNeedsPassword = false;
+
+      systemd.tmpfiles.rules = [ "d /srv/www 0755 max users -" ];
+
+      age.secrets.cloudflare-dns-token = {
+        file = my.secrets.cloudflare-dns-token.file;
+        owner = "max";
+      };
 
       # Live symlink into the checkout at repoRoot; dangles until it is cloned.
       systemd.user.tmpfiles.users.max.rules = [
