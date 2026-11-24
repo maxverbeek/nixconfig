@@ -16,6 +16,10 @@
       download-attempts = 1;
       stalled-download-timeout = 15; # seconds
       fallback = true;
+
+      # scopecreep GCs weekly; the 30-day default keeps serving narinfos for
+      # deleted paths, so clients 404 on the NAR instead of asking again.
+      narinfo-cache-positive-ttl = 3600;
     };
   };
 }
