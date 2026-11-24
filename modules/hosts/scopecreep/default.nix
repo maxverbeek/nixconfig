@@ -20,6 +20,7 @@
         services.harmonia
         services.mictap
         services.maxtransfer
+        services.verklaarbaas
         services.claude-remote
 
         my.modules.external.disko
