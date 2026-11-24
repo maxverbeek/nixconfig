@@ -698,6 +698,7 @@
         "nixpkgs-ruby": "nixpkgs-ruby",
         "stalker": "stalker",
         "unstable": "unstable",
+        "verklaarbaas": "verklaarbaas",
         "walker": "walker",
         "wrappers": "wrappers",
         "xtee": "xtee",
@@ -935,6 +936,26 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
+      }
+    },
+    "verklaarbaas": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795554644,
+        "narHash": "sha256-Msx+XlvCxora7wnbXINxroLduiCvIeMDQxisT1BFfcM=",
+        "ref": "refs/heads/master",
+        "rev": "0261fb685f72874409370c6d262fe5a39af3f4a3",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/verklaarbaas"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maxverbeek/verklaarbaas"
       }
     },
     "walker": {

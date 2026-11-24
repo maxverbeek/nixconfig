@@ -14,5 +14,6 @@ my.lib.modules.importSharded 3 ./modules
     feedbackers = my.sources.feedbackers.nixosModules.default;
     huurhunter-web = my.sources.huurhunter.nixosModules.web;
     huurhunter-monitor = my.sources.huurhunter.nixosModules.monitor;
+    verklaarbaas = my.sources.verklaarbaas.nixosModules.default;
   };
 }

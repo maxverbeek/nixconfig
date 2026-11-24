@@ -65,6 +65,9 @@
     mictap.url = "git+ssh://git@github.com/maxverbeek/mictap";
     mictap.inputs.nixpkgs.follows = "unstable";
 
+    verklaarbaas.url = "git+ssh://git@github.com/maxverbeek/verklaarbaas";
+    verklaarbaas.inputs.nixpkgs.follows = "nixpkgs";
+
     copd.url = "github:maxverbeek/copd";
 
     disko.url = "github:nix-community/disko";
