@@ -945,11 +945,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795554644,
-        "narHash": "sha256-Msx+XlvCxora7wnbXINxroLduiCvIeMDQxisT1BFfcM=",
+        "lastModified": 1795557661,
+        "narHash": "sha256-mVFs3oBCqPhrQweBDpBk2M23FFDIB6nhGyQB48AqTgU=",
         "ref": "refs/heads/master",
-        "rev": "0261fb685f72874409370c6d262fe5a39af3f4a3",
-        "revCount": 5,
+        "rev": "1c58861b6160e0c9c367d403f106fc66879c8042",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://git@github.com/maxverbeek/verklaarbaas"
       },
